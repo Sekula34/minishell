@@ -4,6 +4,13 @@
 
 
 
+typedef struct s_vars
+{
+	char *key;
+	char *value;
+	s_vars *next;
+} t_vars;
+
 typedef struct s_redirect
 {
 	char *redirect;
@@ -22,6 +29,9 @@ typedef struct s_cmd
 typedef struct s_shell
 {
 	t_cmd	cmd_lst;
+	int last_exit_code;
+	t_vars	vars;
+
 }	t_shell;
 
 #include <stdio.h>
