@@ -1,5 +1,5 @@
-#ifndef MINISHEL
-#define MINISHEL
+#ifndef MINISHEL_H
+#define MINISHEL_H
 #define NAME "minishel: "
 
 
@@ -38,5 +38,7 @@ typedef struct s_shell
 #include <readline/history.h>
 #include <stdlib.h>
 #include <unistd.h>
+
+void	ft_split(t_shell *shell, char *line);
 
 #endif
