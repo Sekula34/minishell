@@ -15,11 +15,16 @@
 int	main(int argc, char **argv, char **envp)
 {
 	int i = 0;
-
+	if(argc && argv)
+		printf("samo printaj");
 	while(envp[i] != NULL)
 	{
 		printf("%s\n", envp[i]);
 		i++;
 	}
 	ft_putstr_fd("a sad bus radio ha?", 2);
+	char *line;
+	line = readline("shell:");
+	printf("%s\n", line);
+	free(line);
 }
