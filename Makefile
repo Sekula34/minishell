@@ -1,5 +1,7 @@
 SOURCES = sources/main.c
 
+HEADERS = headers/minishel.h
+
 CC = cc 
 
 COMPILER_FLAGS = -Wall -Wextra -Werror -g
@@ -14,7 +16,7 @@ OBJS := $(SOURCES:%.c=%.o)
 	$(CC) $(COMPILER_FLAGS) -c $< -o $@
 
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJS) $(HEADERS)
 	cd libft && $(MAKE) && $(MAKE) bonus
 	$(CC) -o $(NAME) $(EXTRA_FLAGS)  $(OBJS) ./libft/libft.a
 
@@ -29,5 +31,4 @@ clean:
 fclean: clean
 	rm -f $(NAME)
 
-re: fclean
-	all
+re: fclean all
