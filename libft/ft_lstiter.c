@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstiter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fseles <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/27 16:44:01 by fseles            #+#    #+#             */
-/*   Updated: 2023/11/27 16:44:03 by fseles           ###   ########.fr       */
+/*   Created: 2023/09/13 20:07:55 by fseles            #+#    #+#             */
+/*   Updated: 2023/09/13 20:07:57 by fseles           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/minishel.h"
+#include "libft.h"
 
-int	main(int argc, char **argv, char **envp)
+void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
-	int i = 0;
-
-	while(envp[i] != NULL)
+	if (lst)
 	{
-		printf("%s\n", envp[i]);
-		i++;
+		while (lst != NULL)
+		{
+			(*f)(lst->content);
+			lst = lst->next;
+		}
 	}
-	ft_putstr_fd("a sad bus radio ha?", 2);
 }

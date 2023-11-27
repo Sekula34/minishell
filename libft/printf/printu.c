@@ -1,25 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   printu.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fseles <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/27 16:44:01 by fseles            #+#    #+#             */
-/*   Updated: 2023/11/27 16:44:03 by fseles           ###   ########.fr       */
+/*   Created: 2023/09/28 16:55:33 by fseles            #+#    #+#             */
+/*   Updated: 2023/09/28 16:55:34 by fseles           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/minishel.h"
+#include "ft_printf.h"
 
-int	main(int argc, char **argv, char **envp)
+static int	get_nod(unsigned int n)
 {
-	int i = 0;
+	long	n1;
+	int		digits;
 
-	while(envp[i] != NULL)
+	n1 = n;
+	if (n1 < 0)
+		n1 = n1 * (-1);
+	digits = 1;
+	while (n1 > 9)
 	{
-		printf("%s\n", envp[i]);
-		i++;
+		digits++;
+		n1 /= 10;
 	}
-	ft_putstr_fd("a sad bus radio ha?", 2);
+	return (digits);
+}
+
+int	printu(va_list lista)
+{
+	unsigned int	number;
+	int				value_to_return;
+
+	number = va_arg(lista, unsigned int);
+	putunbr_fd(number, 1);
+	value_to_return = get_nod(number);
+	return (value_to_return);
 }

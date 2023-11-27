@@ -1,25 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fseles <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/27 16:44:01 by fseles            #+#    #+#             */
-/*   Updated: 2023/11/27 16:44:03 by fseles           ###   ########.fr       */
+/*   Created: 2023/09/09 14:27:36 by fseles            #+#    #+#             */
+/*   Updated: 2023/09/09 14:27:38 by fseles           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/minishel.h"
+#include "libft.h"
 
-int	main(int argc, char **argv, char **envp)
+void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {
-	int i = 0;
+	int	i;
 
-	while(envp[i] != NULL)
+	i = 0;
+	while (s[i] != '\0')
 	{
-		printf("%s\n", envp[i]);
+		(*f)(i, &s[i]);
 		i++;
 	}
-	ft_putstr_fd("a sad bus radio ha?", 2);
 }
+// #include<stdio.h>
+// void my_function(unsigned int n, char* c)
+// {
+// 	printf("%d and %p \n", n, c);
+// 	//return ('a');
+// }
+
+// #include<stdlib.h>
+
+// int main()
+// {
+// 	ft_striteri("Vidi charactera", my_function);
+// 	return (0);
+// }

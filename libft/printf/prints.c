@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   prints.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fseles <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/27 16:44:01 by fseles            #+#    #+#             */
-/*   Updated: 2023/11/27 16:44:03 by fseles           ###   ########.fr       */
+/*   Created: 2023/09/28 15:09:30 by fseles            #+#    #+#             */
+/*   Updated: 2023/09/28 15:09:32 by fseles           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/minishel.h"
+#include "ft_printf.h"
 
-int	main(int argc, char **argv, char **envp)
+long	prints(va_list lista)
 {
-	int i = 0;
+	char	*string;
+	long	string_length;
 
-	while(envp[i] != NULL)
+	string = va_arg(lista, char *);
+	if (string == NULL)
 	{
-		printf("%s\n", envp[i]);
-		i++;
+		ft_putstr_fd("(null)", 1);
+		return (6);
 	}
-	ft_putstr_fd("a sad bus radio ha?", 2);
+	ft_putstr_fd(string, 1);
+	string_length = ft_strlen(string);
+	return (string_length);
 }

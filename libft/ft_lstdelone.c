@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fseles <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/27 16:44:01 by fseles            #+#    #+#             */
-/*   Updated: 2023/11/27 16:44:03 by fseles           ###   ########.fr       */
+/*   Created: 2023/09/13 19:03:29 by fseles            #+#    #+#             */
+/*   Updated: 2023/09/13 19:03:31 by fseles           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/minishel.h"
+#include "libft.h"
 
-int	main(int argc, char **argv, char **envp)
+void	ft_lstdelone(t_list *lst, void (*del)(void*))
 {
-	int i = 0;
-
-	while(envp[i] != NULL)
+	if (lst != NULL)
 	{
-		printf("%s\n", envp[i]);
-		i++;
+		del(lst->content);
+		free(lst);
 	}
-	ft_putstr_fd("a sad bus radio ha?", 2);
 }

@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fseles <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/27 16:44:01 by fseles            #+#    #+#             */
-/*   Updated: 2023/11/27 16:44:03 by fseles           ###   ########.fr       */
+/*   Created: 2023/09/09 15:17:44 by fseles            #+#    #+#             */
+/*   Updated: 2023/09/09 15:17:47 by fseles           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/minishel.h"
+#include "libft.h"
 
-int	main(int argc, char **argv, char **envp)
+void	ft_putendl_fd(char *s, int fd)
 {
-	int i = 0;
-
-	while(envp[i] != NULL)
-	{
-		printf("%s\n", envp[i]);
-		i++;
-	}
-	ft_putstr_fd("a sad bus radio ha?", 2);
+	ft_putstr_fd(s, fd);
+	ft_putchar_fd('\n', fd);
 }
+
+// int main()
+// {
+// 	char s[] = "Jel ovo radi pliz reci da da ";
+// 	ft_putendl_fd(s, 1);
+// 	ft_putendl_fd(s, 1);
+// 	return (0);
+// }

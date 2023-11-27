@@ -1,25 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fseles <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/27 16:44:01 by fseles            #+#    #+#             */
-/*   Updated: 2023/11/27 16:44:03 by fseles           ###   ########.fr       */
+/*   Created: 2023/09/09 15:09:39 by fseles            #+#    #+#             */
+/*   Updated: 2023/09/09 15:09:40 by fseles           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/minishel.h"
+#include "ft_printf.h"
 
-int	main(int argc, char **argv, char **envp)
+void	ft_putstr_fd(char *s, int fd)
 {
-	int i = 0;
+	int	i;
 
-	while(envp[i] != NULL)
+	i = 0;
+	while (s[i] != '\0')
 	{
-		printf("%s\n", envp[i]);
+		ft_putchar_fd(s[i], fd);
 		i++;
 	}
-	ft_putstr_fd("a sad bus radio ha?", 2);
 }
+
+// int main()
+// {
+// 	char s[] = "Jel ovo radi pliz reci da da ";
+// 	ft_putstr_fd(s, 0);
+// 	return (0);
+// }

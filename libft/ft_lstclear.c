@@ -1,25 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fseles <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/27 16:44:01 by fseles            #+#    #+#             */
-/*   Updated: 2023/11/27 16:44:03 by fseles           ###   ########.fr       */
+/*   Created: 2023/09/13 19:14:14 by fseles            #+#    #+#             */
+/*   Updated: 2023/09/13 19:14:19 by fseles           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/minishel.h"
+#include "libft.h"
 
-int	main(int argc, char **argv, char **envp)
+void	ft_lstclear(t_list **lst, void (*del)(void*))
 {
-	int i = 0;
+	t_list	*element;
+	t_list	*element_to_delete;
 
-	while(envp[i] != NULL)
+	if (lst != NULL)
 	{
-		printf("%s\n", envp[i]);
-		i++;
+		if (*lst)
+		{
+			element = *lst;
+			while (element != NULL)
+			{
+				element_to_delete = element;
+				element = element->next;
+				ft_lstdelone(element_to_delete, (*del));
+			}
+			*lst = NULL;
+		}
 	}
-	ft_putstr_fd("a sad bus radio ha?", 2);
 }

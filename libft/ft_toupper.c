@@ -1,25 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fseles <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/27 16:44:01 by fseles            #+#    #+#             */
-/*   Updated: 2023/11/27 16:44:03 by fseles           ###   ########.fr       */
+/*   Created: 2023/09/06 14:19:27 by fseles            #+#    #+#             */
+/*   Updated: 2023/09/06 14:19:29 by fseles           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/minishel.h"
+#include "libft.h"
 
-int	main(int argc, char **argv, char **envp)
+int	ft_toupper(int c)
 {
-	int i = 0;
-
-	while(envp[i] != NULL)
+	if (c >= 'a' && c <= 'z')
 	{
-		printf("%s\n", envp[i]);
-		i++;
+		return (c - 32);
 	}
-	ft_putstr_fd("a sad bus radio ha?", 2);
+	return (c);
 }
+// #include <stdio.h>
+// #include <ctype.h>
+// int main() {
+//     char c;
+
+//     c = 'm';
+//     printf("%c -> %c", c, ft_toupper(c));
+
+//     c = 'D';
+//     printf("\n%c -> %c", c, ft_toupper(c));
+
+//     c = '9';
+//     printf("\n%c -> %c", c, ft_toupper(c));
+//     return 0;
+// }

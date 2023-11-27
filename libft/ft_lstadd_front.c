@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fseles <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/27 16:44:01 by fseles            #+#    #+#             */
-/*   Updated: 2023/11/27 16:44:03 by fseles           ###   ########.fr       */
+/*   Created: 2023/09/13 17:37:48 by fseles            #+#    #+#             */
+/*   Updated: 2023/09/13 17:37:51 by fseles           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/minishel.h"
+#include "libft.h"
 
-int	main(int argc, char **argv, char **envp)
+void	ft_lstadd_front(t_list **lst, t_list *new)
 {
-	int i = 0;
-
-	while(envp[i] != NULL)
+	if (lst != NULL)
 	{
-		printf("%s\n", envp[i]);
-		i++;
+		new->next = *lst;
+		*lst = new;
 	}
-	ft_putstr_fd("a sad bus radio ha?", 2);
 }

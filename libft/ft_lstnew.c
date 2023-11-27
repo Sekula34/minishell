@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fseles <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/27 16:44:01 by fseles            #+#    #+#             */
-/*   Updated: 2023/11/27 16:44:03 by fseles           ###   ########.fr       */
+/*   Created: 2023/09/13 15:50:46 by fseles            #+#    #+#             */
+/*   Updated: 2023/09/13 15:50:51 by fseles           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/minishel.h"
+#include "libft.h"
 
-int	main(int argc, char **argv, char **envp)
+t_list	*ft_lstnew(void *content)
 {
-	int i = 0;
+	t_list	*novi_pointer;
 
-	while(envp[i] != NULL)
-	{
-		printf("%s\n", envp[i]);
-		i++;
-	}
-	ft_putstr_fd("a sad bus radio ha?", 2);
+	novi_pointer = malloc(sizeof(t_list));
+	if (novi_pointer == NULL)
+		return (NULL);
+	novi_pointer->content = content;
+	novi_pointer->next = NULL;
+	return (novi_pointer);
 }

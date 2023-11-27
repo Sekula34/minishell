@@ -1,25 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fseles <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/27 16:44:01 by fseles            #+#    #+#             */
-/*   Updated: 2023/11/27 16:44:03 by fseles           ###   ########.fr       */
+/*   Created: 2023/09/13 17:59:04 by fseles            #+#    #+#             */
+/*   Updated: 2023/09/13 17:59:07 by fseles           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/minishel.h"
+#include "libft.h"
 
-int	main(int argc, char **argv, char **envp)
+int	ft_lstsize(t_list *lst)
 {
-	int i = 0;
+	int	i;
 
-	while(envp[i] != NULL)
+	i = 0;
+	if (lst)
 	{
-		printf("%s\n", envp[i]);
+		while (lst->next != NULL)
+		{
+			i++;
+			lst = lst->next;
+		}
 		i++;
 	}
-	ft_putstr_fd("a sad bus radio ha?", 2);
+	return (i);
 }
