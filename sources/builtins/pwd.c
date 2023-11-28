@@ -48,6 +48,7 @@ int	pwd(void)
 {
 	char	*working_directory;
 	int		value;
+
 	working_directory = ft_calloc(2, sizeof(char));
 	if (working_directory == NULL)
 	{
