@@ -1,7 +1,8 @@
 SOURCES = sources/main.c \
 sources/builtins/echo.c
 
-HEADERS = headers/minishel.h
+HEADERS = headers/minishel.h \
+headers/builtin.h
 
 CC = cc 
 
