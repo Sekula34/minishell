@@ -41,12 +41,13 @@ static int	set_wdir(char **working_dir)
 }
 
 //allocates print and then frees working directory
+//return 0 if everything is ok
+//return errno if calloc fails either right away
+//or in helper function
 int	pwd(void)
 {
 	char	*working_directory;
-	size_t	i;
-
-	i = 3;
+	int		value;
 	working_directory = ft_calloc(2, sizeof(char));
 	if (working_directory == NULL)
 	{
@@ -54,7 +55,9 @@ int	pwd(void)
 		return (errno);
 	}
 	getcwd(working_directory, 2);
-	set_wdir(&working_directory);
+	value = set_wdir(&working_directory);
+	if (value != 0)
+		return (errno);
 	printf("%s\n", working_directory);
 	free(working_directory);
 	return (0);
