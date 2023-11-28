@@ -53,7 +53,7 @@ int	pwd(void)
 		perror("Calloc in pwd failed\n");
 		return (errno);
 	}
-	getcwd(working_directory, i);
+	getcwd(working_directory, 2);
 	set_wdir(&working_directory);
 	printf("%s\n", working_directory);
 	free(working_directory);
