@@ -1,4 +1,5 @@
-SOURCES = sources/main.c
+SOURCES = sources/main.c \
+sources/builtins/echo.c
 
 HEADERS = headers/minishel.h
 

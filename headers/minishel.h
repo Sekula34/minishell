@@ -13,6 +13,7 @@
 #ifndef MINISHEL_H
 # define MINISHEL_H
 # define NAME "minishel: "
+# include "builtin.h"
 # include "../libft/libft.h"
 # include <readline/history.h>
 # include <readline/readline.h>
