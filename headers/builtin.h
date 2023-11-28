@@ -14,5 +14,6 @@
 # define BUILTIN_H
 
 int	echo(char *string, int n_option);
+int	pwd(void);
 
 #endif

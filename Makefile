@@ -1,5 +1,6 @@
 SOURCES = sources/main.c \
-sources/builtins/echo.c
+sources/builtins/echo.c \
+sources/builtins/pwd.c
 
 HEADERS = headers/minishel.h \
 headers/builtin.h

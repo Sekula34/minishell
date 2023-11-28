@@ -15,6 +15,7 @@
 # define NAME "minishel: "
 # include "builtin.h"
 # include "../libft/libft.h"
+# include <errno.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <stdio.h>
