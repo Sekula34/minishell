@@ -39,6 +39,7 @@ typedef struct s_shell
 #include <stdlib.h>
 #include <unistd.h>
 
-void	ft_split(t_shell *shell, char *line);
+char	**ft_split(t_shell *shell, char *line);
+void	init_struct(t_shell *shell);
 
 #endif

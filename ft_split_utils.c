@@ -1,11 +1,33 @@
 #include "minishel.h"
 #include "ft_split.h"
 
+char	*sub_str(char *str, int start, int end)
+{
+	int		i;
+	int		len;
+	char	*res;
+
+	i = 0;
+	len = end - start + 1;
+	res = malloc(len + 1);
+	if (!res)
+		return (NULL);
+	while (start <= end)
+	{
+		res[i] = str[start];
+		i++;
+		start++;
+	}
+	res[i] = 0;
+	return (res);
+}
+
 void	init_split_struct(t_split *split)
 {
 	split->isq = 0;
 	split->idq = 0;
 	split->word_count = 0;
+	split->split = NULL;
 }
 
 void	set_quotation(t_split *split, char c)
@@ -38,7 +60,7 @@ void	set_quotation(t_split *split, char c)
 	}
 }
 
-void	word_count(t_split *split, char *line)
+void	ft_word_count(t_split *split, char *line)
 {
 	int i;
 
