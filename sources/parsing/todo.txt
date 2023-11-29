@@ -1,0 +1,6 @@
+1.	expan vars that are not in quotations and dont have redirections before them
+
+2. 	split
+		by space & redirections but not if in quotations
+
+3. 	expand vars in quotations

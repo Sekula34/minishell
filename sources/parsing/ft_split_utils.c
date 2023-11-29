@@ -1,5 +1,4 @@
-#include "minishel.h"
-#include "ft_split.h"
+#include "../../headers/minishel.h"
 
 char	*sub_str(char *str, int start, int end)
 {

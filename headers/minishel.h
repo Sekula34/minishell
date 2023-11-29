@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 16:43:41 by fseles            #+#    #+#             */
-/*   Updated: 2023/11/29 12:32:22 by wvan-der         ###   ########.fr       */
+/*   Updated: 2023/11/29 12:37:00 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHEL_H
 # define NAME "minishel: "
 # include "builtin.h"
+# include "ft_split.h"
 # include "../libft/libft.h"
 # include <errno.h>
 # include <readline/history.h>
@@ -51,7 +52,5 @@ typedef struct s_shell
 	t_vars	vars;
 }	t_shell;
 
-char	**ft_split(t_shell *shell, char *line);
-void	init_struct(t_shell *shell);
 
 #endif

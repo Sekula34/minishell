@@ -1,10 +1,18 @@
-#include "minishel.h"
-#include "ft_split.h"
+#include "../../headers/minishel.h"
 
-int	check_quote(char c)
+int	go_till_end_dq(char *line, int *start, int *end)
+{
+	*end = *start;
+	while (line[*end] && line[*end] != '"')
+	{
+		(*end)++;
+	}
+}
+
+int	check_quote(char c, char *line, int *start, int *end)
 {
 	if (c == '\"')
-		return (1);
+		return (go_till_end_dq(line, start, end), 1);
 	if (c == '"')
 		return (2);
 	else
@@ -17,6 +25,7 @@ char **token_split(t_split *split, char *line)
 	int start = 0;
 	int end = 0;
 	int	a = 0;
+	int checkres = 0;
 	char **res;
 	ft_word_count(split, line);
 
@@ -25,14 +34,21 @@ char **token_split(t_split *split, char *line)
 		return (NULL);
 	while (a < split->word_count)
 	{
-		while (line[start] && line[start] == ' ')
-			check_quote(line[start++]);
+		checkres = 0;
+		while (line[start] && line[start] == ' ' && checkres = 0)
+			checkres = check_quote(line[start++], line, &start, &end);
+		if (checkres)
+			continue ;
 		end = start;
 		while (line[end] && line[end] != ' ')
-			check_quote(line[end++]);
-
+			check_quote(line[end++], line, &start, &end);
 		start = end;
+		//
 	}
+
+	//while space or not quote
+	// start++
+	//while echo < you"st<up"id|cat<fuckyou
 }
 
 /* char	**ft_split(t_shell *shell, char *line)
@@ -89,7 +105,7 @@ int main()
 
 	init_struct(&shell);
 	init_split_struct(&split);
-	char **res = ft_split(&shell, "hello     \"world hahahha test\"  ivan    ");
+	char **res = token_split(&shell, "hello     \"world hahahha test\"  ivan    ");
 
 	int i = 0;
 
