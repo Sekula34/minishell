@@ -3,4 +3,4 @@
 2. 	split
 		by space & redirections but not if in quotations
 
-3. 	expand vars in quotations
+3. 	expand vars in quotations (but not if after heredoc)
