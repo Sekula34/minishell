@@ -13,8 +13,6 @@
 #ifndef MINISHEL_H
 # define MINISHEL_H
 # define NAME "minishel: "
-# include "builtin.h"
-# include "envexport.h"
 # include "../libft/libft.h"
 # include <errno.h>
 # include <readline/history.h>
@@ -51,5 +49,7 @@ typedef struct s_shell
 	int		last_exit_code;
 	t_vars	vars;
 }	t_shell;
+# include "envexport.h"
+# include "builtin.h"
 
 #endif
