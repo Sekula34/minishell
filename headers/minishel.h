@@ -3,16 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   minishel.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fseles <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 16:43:41 by fseles            #+#    #+#             */
-/*   Updated: 2023/11/27 16:43:45 by fseles           ###   ########.fr       */
+/*   Updated: 2023/11/29 12:37:00 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHEL_H
 # define MINISHEL_H
 # define NAME "minishel: "
+# include "builtin.h"
+# include "ft_split.h"
 # include "../libft/libft.h"
 # include <errno.h>
 # include <readline/history.h>
@@ -49,7 +51,6 @@ typedef struct s_shell
 	int		last_exit_code;
 	t_vars	vars;
 }	t_shell;
-# include "envexport.h"
-# include "builtin.h"
+
 
 #endif
