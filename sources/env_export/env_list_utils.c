@@ -21,7 +21,7 @@
 //value is /nfs/homes/fseles
 //if key or value is NULL do not create element
 //element next is set to NULL here
-t_vars *create_element(char *str)
+t_vars	*create_element(char *str)
 {
 	char	*key;
 	char	*value;
@@ -34,7 +34,7 @@ t_vars *create_element(char *str)
 	if (value == NULL)
 		return (free(key), NULL);
 	new_element = malloc(sizeof(t_vars));
-	if(new_element == NULL)
+	if (new_element == NULL)
 	{
 		free(key);
 		free(value);
@@ -49,9 +49,9 @@ t_vars *create_element(char *str)
 
 //deltes element and his 2 allocated chars
 //for key and value
-void delete_element(t_vars **element_to_delete)
+void	delete_element(t_vars **element_to_delete)
 {
-	t_vars *delete;
+	t_vars	*delete;
 
 	delete = *element_to_delete;
 	free(delete->key);
@@ -62,9 +62,9 @@ void delete_element(t_vars **element_to_delete)
 //add element at the end of list
 //if head is null do nothing
 //if head points to NUll that meand new_element is first now
-void add_element_back(t_vars **head, t_vars *new_element)
+void	add_element_back(t_vars **head, t_vars *new_element)
 {
-	t_vars *last_element;
+	t_vars	*last_element;
 
 	if (head == NULL)
 		return ;
@@ -74,7 +74,7 @@ void add_element_back(t_vars **head, t_vars *new_element)
 		return ;
 	}
 	last_element = *head;
-	while(last_element->next != NULL)
+	while (last_element->next != NULL)
 	{
 		last_element = last_element->next;
 	}

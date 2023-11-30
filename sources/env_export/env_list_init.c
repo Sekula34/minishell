@@ -34,35 +34,35 @@ int env_list_init(t_vars **start, char **envp)
 	
 }
 
-int main()
-{
-	t_vars *first, *second, *third;
-	first = create_element("LANG=en");
-	second = create_element("Hej=haj");
-	third = create_element("DONKEY=Shrek");
+// int main()
+// {
+// 	t_vars *first, *second, *third;
+// 	first = create_element("LANG=en");
+// 	second = create_element("Hej=haj");
+// 	third = create_element("DONKEY=Shrek");
 
-	t_vars *head;
-	head = NULL;
-	t_vars *begin;
+// 	t_vars *head;
+// 	head = NULL;
+// 	t_vars *begin;
 
 
-	add_element_back(&head, first);
-	add_element_back(&head, second);
-	add_element_back(&head, third);
-	begin = head;
-	while(head != NULL)
-	{
-		printf("%s, %s\n", head->key, head->value);
-		head = head->next;
-	}
-	t_vars *to_delete;
-	head = begin;
-	while (head)
-	{
-		printf("Uso sam \n");
-		to_delete = head;
-		head = head->next;
-		delete_element(&to_delete);
-	}
-	return (0);
-}
+// 	add_element_back(&head, first);
+// 	add_element_back(&head, second);
+// 	add_element_back(&head, third);
+// 	begin = head;
+// 	while(head != NULL)
+// 	{
+// 		printf("%s, %s\n", head->key, head->value);
+// 		head = head->next;
+// 	}
+// 	t_vars *to_delete;
+// 	head = begin;
+// 	while (head)
+// 	{
+// 		printf("Uso sam \n");
+// 		to_delete = head;
+// 		head = head->next;
+// 		delete_element(&to_delete);
+// 	}
+// 	return (0);
+// }

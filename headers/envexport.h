@@ -12,8 +12,9 @@
 
 #ifndef ENVEXPORT_H
 # define ENVEXPORT_H
+# include "data_types.h"
 
-void add_element_back(t_vars **head, t_vars *new_element);
+void	add_element_back(t_vars **head, t_vars *new_element);
 t_vars	*create_element(char *str);
 void	delete_element(t_vars **element_to_delete);
 char	*get_key(char *string);
