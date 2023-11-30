@@ -16,6 +16,7 @@
 
 void	add_element_back(t_vars **head, t_vars *new_element);
 t_vars	*create_element(char *str);
+void	clear_list_env(t_vars **head);
 void	delete_element(t_vars **element_to_delete);
 char	*get_key(char *string);
 char	*get_value(char *string);
