@@ -1,9 +1,11 @@
 SOURCES = sources/main.c \
 sources/builtins/echo.c \
-sources/builtins/pwd.c
+sources/builtins/pwd.c \
+sources/env_export/string_utils.c
 
-HEADERS = headers/minishel.h \
-headers/builtin.h
+HEADERS = headers/builtin.h \
+headers/envexport.h \
+headers/minishel.h 
 
 CC = cc 
 

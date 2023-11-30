@@ -31,7 +31,7 @@ static int	set_wdir(char **working_dir)
 		*working_dir = ft_calloc(i, sizeof(char));
 		if (*working_dir == NULL)
 		{
-			perror("ft_calloc in pwd (gues_size) failed\n");
+			perror("ft_calloc in pwd (set_wdir) failed\n");
 			return (errno);
 		}
 		getcwd(*working_dir, i);
