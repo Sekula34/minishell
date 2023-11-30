@@ -14,17 +14,13 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	int i = 0;
+
+	t_vars *head;
+	head = NULL;
 	if(argc && argv)
-		printf("samo printaj");
-	while(envp[i] != NULL)
-	{
-		printf("%s\n", envp[i]);
-		i++;
-	}
-	ft_putstr_fd("a sad bus radio ha?", 2);
-	char *line;
-	line = readline("shell:");
-	printf("%s\n", line);
-	free(line);
+		printf("whatever\n");
+	env_list_init(&head, envp);
+	env(head);
+	clear_list_env(&head);
+	
 }

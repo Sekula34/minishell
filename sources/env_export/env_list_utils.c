@@ -59,6 +59,19 @@ void	delete_element(t_vars **element_to_delete)
 	free(delete);
 }
 
+//clear whole list from head till end of list
+void	clear_list_env(t_vars **head)
+{
+	t_vars	*to_delete;
+
+	while (*head != NULL)
+	{
+		to_delete = *head;
+		*head = (*head)->next;
+		delete_element(&to_delete);
+	}
+}
+
 //add element at the end of list
 //if head is null do nothing
 //if head points to NUll that meand new_element is first now

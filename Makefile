@@ -1,11 +1,15 @@
 SOURCES = sources/main.c \
 sources/builtins/echo.c \
 sources/builtins/pwd.c \
-sources/env_export/string_utils.c
+sources/builtins/env.c \
+sources/env_export/env_list_init.c \
+sources/env_export/env_list_utils.c \
+sources/env_export/string_utils.c \
 
 HEADERS = headers/builtin.h \
+headers/data_types.h \
 headers/envexport.h \
-headers/minishel.h 
+headers/minishel.h \
 
 CC = cc 
 
