@@ -58,10 +58,11 @@ void	delete_element(t_vars **element_to_delete)
 	free(delete->value);
 	free(delete);
 }
+
 //clear whole list from head till end of list
 void	clear_list_env(t_vars **head)
 {
-	t_vars *to_delete;
+	t_vars	*to_delete;
 
 	while (*head != NULL)
 	{
