@@ -1,0 +1,3 @@
+valgrind
+valgrind_ignore_leaks.txt
+.vscode
