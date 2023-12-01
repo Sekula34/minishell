@@ -2,8 +2,10 @@ SOURCES = sources/main.c \
 sources/builtins/echo.c \
 sources/builtins/pwd.c \
 sources/builtins/env.c \
+sources/builtins/export.c \
 sources/env_export/env_list_init.c \
 sources/env_export/env_list_utils.c \
+sources/env_export/list_sort.c \
 sources/env_export/string_utils.c \
 
 HEADERS = headers/builtin.h \

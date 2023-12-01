@@ -23,5 +23,6 @@ int		env_list_init(t_vars **start, char **envp);
 char	*get_key(char *string);
 char	*get_value(char *string);
 void	list_sort_alpha(t_vars *head);
+int		pos_of_equal(char *string);
 
 #endif

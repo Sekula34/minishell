@@ -15,7 +15,7 @@
 //return positon of first equal ('=') in string
 //example LANG=en return 4
 //if there is no = in or string is NULL return -1;
-static int	pos_of_equal(char *string)
+int	pos_of_equal(char *string)
 {
 	int	i;
 
@@ -60,6 +60,8 @@ char	*get_key(char *string)
 //example LANGUAGE=en return allocated en
 //if string does not contain '=' return NULL
 //LANG=en
+//if string is VAL= (val size == 1)
+//return NULL
 char	*get_value(char *string)
 {
 	int		pos_eq;
@@ -72,6 +74,8 @@ char	*get_value(char *string)
 	if (pos_eq == -1)
 		return (NULL);
 	val_size = ft_strlen(string) - pos_eq;
+	if(val_size == 1)
+		return (NULL);
 	value = ft_calloc(val_size, sizeof(char));
 	if (value == NULL)
 	{
