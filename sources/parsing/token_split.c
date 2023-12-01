@@ -1,7 +1,7 @@
 #include "../../headers/minishel.h"
 #include <stdio.h>
 
-void	ft_free(char ***res, int a)
+/* void	ft_free(char ***res, int a)
 {
 	while (a >= 0)
 	{
@@ -9,9 +9,9 @@ void	ft_free(char ***res, int a)
 		a--;
 	}
 	free(*res);
-}
+} */
 
-char	*sub_str(char *str, int start, int end)
+/* char	*sub_str(char *str, int start, int end)
 {
 	int		i;
 	int		len;
@@ -30,7 +30,7 @@ char	*sub_str(char *str, int start, int end)
 	}
 	res[i] = 0;
 	return (res);
-}
+} */
 
 void	init_split_struct(t_split *split)
 {
@@ -124,7 +124,7 @@ int	is_white_space(char c)
 	 	return (0);
 }
 
-char **realloc_array(char ***array, int a)
+/* char **realloc_array(char ***array, int a)
 {
 	char **temp;
 	int i = 0;
@@ -141,7 +141,7 @@ char **realloc_array(char ***array, int a)
 	temp[i] = 0;
 	ft_free(array, 2 + a - 1);
 	return(temp);
-}
+} */
 
 void	move_counter(t_split *split)
 {
