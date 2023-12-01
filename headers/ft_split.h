@@ -16,6 +16,7 @@ typedef struct s_expand
 {
 	int	start;
 	int	end;
+	int redirect_flag;
 }	t_expand;
 
 
