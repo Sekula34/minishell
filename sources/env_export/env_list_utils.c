@@ -93,3 +93,20 @@ void	add_element_back(t_vars **head, t_vars *new_element)
 	}
 	last_element->next = new_element;
 }
+
+//goes through list and counts how many elemetns are there
+//return number of elements or 0 if list does not exist
+int	count_list_elements(t_vars *head)
+{
+	int i;
+
+	i = 0;
+	if(head == NULL)
+		return (0);
+	while(head != NULL)
+	{
+		i++;
+		head = head->next;
+	}
+	return (i);
+}
