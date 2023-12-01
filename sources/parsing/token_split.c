@@ -218,7 +218,7 @@ char **make_token(char *line)
 	return (split.token_array);
 }
 
-int main()
+/* int main()
 {
 	char **res;
 	char *line = "echo -n \"hello world\">file.txt";
@@ -234,4 +234,4 @@ int main()
 	if (res)
 		free(res);
 
-}
+} */

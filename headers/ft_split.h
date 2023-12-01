@@ -12,10 +12,18 @@ typedef struct s_split
 	int i;
 }	t_split;
 
+typedef struct s_expand
+{
+	int	start;
+	int	end;
+}	t_expand;
+
 
 void	init_split_struct(t_split *split);
 void	set_quotation(t_split *split, char c);
-void	ft_word_count(t_split *split, char *line);
+//void	ft_word_count(t_split *split, char *line);
 char	*sub_str(char *str, int start, int end);
+int		get_len(char *str);
+char 	*ft_join(char **str, char c);
 
 #endif
