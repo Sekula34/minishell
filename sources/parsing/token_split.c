@@ -36,8 +36,20 @@ void	init_split_struct(t_split *split)
 {
 	split->isq = 0;
 	split->idq = 0;
-	split->word_count = 0;
-	split->split = NULL;
+	split->token_count = 0;
+	split->redirect_count = 0;
+	split->flag = 0;
+	split->i = 0;
+	split->token_array = NULL;
+}
+void	reset_split_struct(t_split *split)
+{
+	split->isq = 0;
+	split->idq = 0;
+	split->token_count = 0;
+	split->redirect_count = 0;
+	split->flag = 0;
+	split->i = 0;
 }
 
 void	set_quotation(t_split *split, char c)
@@ -131,17 +143,51 @@ char **realloc_array(char ***array, int a)
 	return(temp);
 }
 
+void	move_counter(t_split *split)
+{
+	split->flag = 0;
+	split->token_count++;
+	split->redirect_count = 0;
+}
+
+int	count_token(t_split *split, char *line)
+{
+	init_split_struct(split);
+	while (line[split->i])
+	{
+		while (line[split->i] && is_white_space(line[split->i]) == 1)
+			split->i++;
+		while (line[split->i] && (is_white_space(line[split->i]) == 0 || split->isq == 1 || split->idq == 1) && is_redirect(line[split->i]) == 0)
+		{
+			set_quotation(split, line[split->i++]);
+			split->flag = 1;
+		}
+		if (split->flag && split->isq == 0 && split->idq == 0)
+			move_counter(split);
+		while (line[split->i] && is_redirect(line[split->i]))
+		{
+			split->flag = 1;
+			split->redirect_count++;
+			if (split->redirect_count == 2)
+				move_counter(split);
+			split->i++;
+		}
+		if (split->flag && split->isq == 0 && split->idq == 0)
+			move_counter(split);
+	}
+	//printf("count: %d\n", split->token_count);
+	return (split->token_count);
+}
+
 char **make_token(char *line)
 {
 	t_split split;
-	char **res;
-	int i = 0;
-	int j = 0;
-	int a = 0;
-	int redirect_count = 0;
-	init_split_struct(&split);
-	res = (char **)ft_calloc(10, sizeof(char *));
-	if (!res)
+	int i;
+
+	i = 0;
+	split.token_array = (char **)ft_calloc(count_token(&split, line) + 1, sizeof(char *));
+	reset_split_struct(&split);
+	if (!split.token_array)
 		return (NULL);
 	while (line[i])
 	{
@@ -150,39 +196,32 @@ char **make_token(char *line)
 		while (line[i] && (is_white_space(line[i]) == 0 || split.isq == 1 || split.idq == 1) && is_redirect(line[i]) == 0)
 		{
 			set_quotation(&split, line[i]);
-			res[a] = ft_join(&(res[a]), line[i]);
+			split.token_array[split.token_count] = ft_join(&(split.token_array[split.token_count]), line[i]);
 			i++;
 		}
-		if (res[a] && split.isq == 0 && split.idq == 0)
-		{
-			//realloc_array(&res, ++a);
-			a++;
-		}
+		if (split.token_array[split.token_count] && split.isq == 0 && split.idq == 0)
+			split.token_count++;
 		while (line[i] && is_redirect(line[i]))
 		{
-			res[a] = ft_join(&(res[a]), line[i]);
-			redirect_count++;
-			if (redirect_count == 2)
+			split.token_array[split.token_count] = ft_join(&(split.token_array[split.token_count]), line[i]);
+			split.redirect_count++;
+			if (split.redirect_count == 2)
 			{
-				//realloc_array(&res, ++a);
-				a++;
-				redirect_count = 0;
+				split.token_count++;
+				split.redirect_count = 0;
 			}
 			i++;
 		}
-		if (res[a] && split.isq == 0 && split.idq == 0)
-		{
-			//realloc_array(&res, ++a);
-			a++;
-		}
+		if (split.token_array[split.token_count] && split.isq == 0 && split.idq == 0)
+			split.token_count++;
 	}
-	return (res);
+	return (split.token_array);
 }
 
 int main()
 {
 	char **res;
-	char *line = "echo \"hello world\">file";
+	char *line = "echo -n \"hello world\">file.txt";
 
 	res = make_token(line);
 	int a = 0;
