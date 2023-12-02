@@ -71,12 +71,9 @@ int	set_key(char **key, char *string)
 	pos_eq = pos_of_equal(string);
 	if(pos_eq == -1)
 	{
-		alloc_size = ft_strlen(string) + 2;
-		*key = ft_calloc(alloc_size, sizeof(char));
+		*key = ft_strjoin(string, "=");
 		if(*key == NULL)
-			return (-1);
-		ft_strlcpy(*key, string, ft_strlen(string));
-		*key[alloc_size - 2] = '=';
+			return(-1);
 	}
 	else 
 	{
