@@ -42,6 +42,19 @@ static t_vars *create_element_from_string(char *string)
 	return (new_element);
 }
 
+//remove element that mathces key 
+//key will be set from string 
+static void remove_from_lists(char *string, t_vars **ex_head, t_vars **env_head)
+{
+	char *key;
+
+	if(set_key(&key, string) == -1)
+		return ;
+	delete_element_with_key(key, ex_head);
+	delete_element_with_key(key, env_head);
+	free(key);
+}
+
 //retunr 0 if everything ok, -1 if something fails
 //takes 3 arguments
 //first is string to be added in linked list(env and ex_vars)
@@ -60,6 +73,7 @@ int export(char *string, t_vars **ex_vars, t_vars **env_vars)
 	}
 	else 
 	{
+		remove_from_lists(string, ex_vars, env_vars);
 		new_element_ex = create_element_from_string(string);
 		if(new_element_ex == NULL)
 			return (-1);

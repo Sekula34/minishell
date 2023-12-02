@@ -19,6 +19,7 @@ t_vars	*create_element(char *key, char *value);
 void	clear_list_env(t_vars **head);
 int		count_list_elements(t_vars *head);
 void	delete_element(t_vars **element_to_delete);
+void	delete_element_with_key(char *key, t_vars **head);
 int		env_list_init(t_vars **start, char **envp);
 t_vars	*get_element(char *key, t_vars *head);
 void	list_sort_alpha(t_vars *head);

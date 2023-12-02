@@ -31,3 +31,33 @@ t_vars *get_element(char *key, t_vars *head)
 	return (NULL);
 }
 
+//delete element from list mathing the key
+//list stays connected
+void delete_element_with_key(char *key, t_vars **head)
+{
+	t_vars *to_delete;
+	t_vars *element;
+
+	if(key == NULL || *head == NULL)
+		return ;
+	element = *head;
+	to_delete = get_element(key, *head);
+	if(to_delete == NULL)
+		return ;
+	if(element == to_delete)
+		*head = to_delete->next;
+	else
+	{
+		while(element->next)
+		{
+			if(element->next == to_delete)
+			{
+				element->next = to_delete->next;
+				break;
+			}
+			element = element->next;
+		}
+	}
+	delete_element(&to_delete);
+}
+
