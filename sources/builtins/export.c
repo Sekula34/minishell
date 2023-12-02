@@ -40,7 +40,7 @@ static t_vars *special_element_create(char *string)
 		perror("strjoin in special_element_create fails\n");
 		return (NULL);
 	}
-	new_element = create_element(string_eq);
+	new_element = create_element(string_eq, NULL);
 	if (new_element == NULL)
 	{
 		perror("create element in special_element_create fails\n");
@@ -59,22 +59,33 @@ static t_vars *special_element_create(char *string)
 //if string does not contain = or have nothing after equal
 //creates special elements that has temporary "NULLLL" that is freed 
 //after creation
+//if error happend return NULL
 static t_vars* export_create(char *string)
 {
 	int		pos_of_eq;
 	t_vars *new_element;
 
+	new_element = NULL;
 	if (string == NULL)
 		return (NULL);
 	pos_of_eq = pos_of_equal(string);
 	if (pos_of_eq == -1 || pos_of_eq == (int)(ft_strlen(string) - 1))
-		new_element = special_element_create(string);
-	else 
-		new_element = create_element(string);
-	if (new_element == NULL)
 	{
-		perror("Creating new element in export create fails \n");
-		return NULL;
+		new_element = special_element_create(string);
+		if(new_element == NULL)
+		{
+			perror("Creating new element in export create fails \n");
+			return (NULL);
+		}
+	}
+	else
+	{
+		new_element = create_element(string, NULL);
+		if (new_element == NULL)
+		{
+			perror("Creating new element in export create fails \n");
+				return (NULL);
+		}
 	}
 	return (new_element);
 }
@@ -82,23 +93,31 @@ static t_vars* export_create(char *string)
 //function that takes string and ex_vars head
 //if string is NULL just print everything in ex_vars
 //difference between this in env is that we have declare-x
-//if string is not null then creates new element that is added in
+//if string is not null then creates 2 identical elements 
+//one is added in list for export variables, and other is added in list for env variables
 //BOTH env and export variables
-int export(char *string, t_vars *ex_vars, t_vars *env_vars)
+//if everything is ok return 0, Return -1 if error hapens
+int export(char *string, t_vars **ex_vars, t_vars **env_vars)
 {
-	t_vars *new_element;
+	t_vars *new_element_ex;
+	t_vars *new_element_env;
 
 	if(string == NULL)
 	{
-		list_sort_alpha(ex_vars);
-		export_print(ex_vars);
+		list_sort_alpha(*ex_vars);
+		export_print(*ex_vars);
 	}
 	else 
 	{
-		new_element = export_create(string);
-		add_element_back(&ex_vars, new_element);
-		add_element_back(&env_vars, new_element);
-		list_sort_alpha(ex_vars);
+		new_element_ex = export_create(string);
+		if(new_element_ex == NULL)
+			return (-1);
+		new_element_env = export_create(string);
+		if(new_element_env == NULL)
+			return (-1);
+		add_element_back(ex_vars, new_element_ex);
+		add_element_back(env_vars, new_element_env);
+		list_sort_alpha(*ex_vars);
 	}
 	return (0);
 }

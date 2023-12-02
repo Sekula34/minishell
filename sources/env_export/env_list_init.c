@@ -29,7 +29,7 @@ int	env_list_init(t_vars **start, char **envp)
 		return (-1);
 	while (envp[i] != NULL)
 	{
-		new_element = create_element(envp[i]);
+		new_element = create_element(envp[i], NULL);
 		if (new_element == NULL)
 			return (-2);
 		add_element_back(start, new_element);

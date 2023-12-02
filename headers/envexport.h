@@ -15,7 +15,7 @@
 # include "data_types.h"
 
 void	add_element_back(t_vars **head, t_vars *new_element);
-t_vars	*create_element(char *str);
+t_vars	*create_element(char *key, char *value);
 void	clear_list_env(t_vars **head);
 int		count_list_elements(t_vars *head);
 void	delete_element(t_vars **element_to_delete);

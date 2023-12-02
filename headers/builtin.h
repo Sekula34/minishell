@@ -15,7 +15,7 @@
 
 int	echo(char *string, int n_option);
 int	env(t_vars *head);
-int export(char *string, t_vars *ex_vars, t_vars *env_vars);
+int export(char *string, t_vars **ex_vars, t_vars **env_vars);
 int	pwd(void);
 
 #endif
