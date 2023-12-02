@@ -18,9 +18,9 @@
 //return 0 if ok
 int	unset(char *string, t_vars **env_head, t_vars **ex_head)
 {
-	char *key;
+	char	*key;
 
-	if(set_key(&key, string) == -1)
+	if (set_key(&key, string) == -1)
 		return (-1);
 	delete_element_with_key(key, ex_head);
 	delete_element_with_key(key, env_head);

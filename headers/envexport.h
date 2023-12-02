@@ -25,6 +25,6 @@ t_vars	*get_element(char *key, t_vars *head);
 void	list_sort_alpha(t_vars *head);
 int		pos_of_equal(char *string);
 int		set_key(char **key, char *string);
-int 	set_value(char **value, char *string);
+int		set_value(char **value, char *string);
 
 #endif

@@ -13,7 +13,7 @@
 #include "../../headers/minishel.h"
 
 //prints everything in linked list begginig from ex_vars
-static void export_print(t_vars *ex_vars)
+static void	export_print(t_vars *ex_vars)
 {
 	while (ex_vars != NULL)
 	{
@@ -26,34 +26,21 @@ static void export_print(t_vars *ex_vars)
 //allocates and creates element from string
 //example Key=12 creates elements wiht KEY Key= and value 12
 //return element if ok or NULL if error happens
-static t_vars *create_element_from_string(char *string)
+static t_vars	*create_element_from_string(char *string)
 {
-	t_vars *new_element;
-	char *key;
-	char *value;
+	t_vars	*new_element;
+	char	*key;
+	char	*value;
 
-	if(set_key(&key, string) == -1)
+	if (set_key(&key, string) == -1)
 		return (NULL);
-	if(set_value(&value, string) == -1)
+	if (set_value(&value, string) == -1)
 		return (free(key), NULL);
 	new_element = create_element(key, value);
-	if(new_element == NULL)
-		return(free(key), free(value), NULL);
+	if (new_element == NULL)
+		return (free(key), free(value), NULL);
 	return (new_element);
 }
-
-//remove element that mathces key 
-//key will be set from string 
-// static void remove_from_lists(char *string, t_vars **ex_head, t_vars **env_head)
-// {
-// 	char *key;
-
-// 	if(set_key(&key, string) == -1)
-// 		return ;
-// 	delete_element_with_key(key, ex_head);
-// 	delete_element_with_key(key, env_head);
-// 	free(key);
-// }
 
 //retunr 0 if everything ok, -1 if something fails
 //takes 3 arguments
@@ -62,24 +49,24 @@ static t_vars *create_element_from_string(char *string)
 //string should be in format (ARG=12)
 //creates 2 identical elements, one for ex_vars, one for env_vars
 //first try to remove variables if exist
-int export(char *string, t_vars **ex_vars, t_vars **env_vars)
+int	export(char *string, t_vars **ex_vars, t_vars **env_vars)
 {
-	t_vars *new_element_ex;
-	t_vars *new_element_env;
+	t_vars	*new_element_ex;
+	t_vars	*new_element_env;
 
-	if(string == NULL)
+	if (string == NULL)
 	{
 		list_sort_alpha(*ex_vars);
 		export_print(*ex_vars);
 	}
-	else 
+	else
 	{
 		unset(string, ex_vars, env_vars);
 		new_element_ex = create_element_from_string(string);
-		if(new_element_ex == NULL)
+		if (new_element_ex == NULL)
 			return (-1);
 		new_element_env = create_element_from_string(string);
-		if(new_element_env == NULL)
+		if (new_element_env == NULL)
 		{
 			delete_element(&new_element_ex);
 			return (-1);
