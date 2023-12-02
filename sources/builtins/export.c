@@ -44,16 +44,16 @@ static t_vars *create_element_from_string(char *string)
 
 //remove element that mathces key 
 //key will be set from string 
-static void remove_from_lists(char *string, t_vars **ex_head, t_vars **env_head)
-{
-	char *key;
+// static void remove_from_lists(char *string, t_vars **ex_head, t_vars **env_head)
+// {
+// 	char *key;
 
-	if(set_key(&key, string) == -1)
-		return ;
-	delete_element_with_key(key, ex_head);
-	delete_element_with_key(key, env_head);
-	free(key);
-}
+// 	if(set_key(&key, string) == -1)
+// 		return ;
+// 	delete_element_with_key(key, ex_head);
+// 	delete_element_with_key(key, env_head);
+// 	free(key);
+// }
 
 //retunr 0 if everything ok, -1 if something fails
 //takes 3 arguments
@@ -61,6 +61,7 @@ static void remove_from_lists(char *string, t_vars **ex_head, t_vars **env_head)
 //if string is NULL just prints everything like export
 //string should be in format (ARG=12)
 //creates 2 identical elements, one for ex_vars, one for env_vars
+//first try to remove variables if exist
 int export(char *string, t_vars **ex_vars, t_vars **env_vars)
 {
 	t_vars *new_element_ex;
@@ -73,7 +74,7 @@ int export(char *string, t_vars **ex_vars, t_vars **env_vars)
 	}
 	else 
 	{
-		remove_from_lists(string, ex_vars, env_vars);
+		unset(string, ex_vars, env_vars);
 		new_element_ex = create_element_from_string(string);
 		if(new_element_ex == NULL)
 			return (-1);
