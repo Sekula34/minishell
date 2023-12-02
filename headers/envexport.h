@@ -24,5 +24,6 @@ char	*get_key(char *string);
 char	*get_value(char *string);
 void	list_sort_alpha(t_vars *head);
 int		pos_of_equal(char *string);
+int		set_key(char **key, char *string);
 
 #endif

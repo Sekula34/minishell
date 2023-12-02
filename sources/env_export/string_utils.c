@@ -55,6 +55,40 @@ char	*get_key(char *string)
 	return (key);
 }
 
+//function that sets key to be part of string 
+//if string is LANG=EN
+//key will be allocated and set to be copy LANG=;
+//if string is NULL key is also NULL
+//if allocation fails key will be null and return status will be -1
+//if everything is oke return will be 0;
+int	set_key(char **key, char *string)
+{
+	int pos_eq;
+	int alloc_size;
+
+	if(string == NULL)
+		return (*key = NULL, 0);
+	pos_eq = pos_of_equal(string);
+	if(pos_eq == -1)
+	{
+		alloc_size = ft_strlen(string) + 2;
+		*key = ft_calloc(alloc_size, sizeof(char));
+		if(*key == NULL)
+			return (-1);
+		ft_strlcpy(*key, string, ft_strlen(string));
+		*key[alloc_size - 2] = '=';
+	}
+	else 
+	{
+		alloc_size = pos_eq + 2;
+		*key = ft_calloc(alloc_size, sizeof(char));
+		if(*key == NULL)
+			return(-1);
+		ft_strlcpy(*key, string, pos_eq + 2);
+	}
+	return (0);
+}
+
 //!!!alocates and return only part of  string  
 //part of string after =(without =)
 //example LANGUAGE=en return allocated en
