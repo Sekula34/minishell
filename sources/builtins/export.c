@@ -22,81 +22,32 @@ static void export_print(t_vars *ex_vars)
 		ex_vars = ex_vars->next;
 	}
 }
-//allocates and creates special element
-//special element is just element that is 
-//created with string that does not contain =
-//or = is also last charater
-//example LANG=
-//LAANG
-//returns new allocated elements or NULL if something fails
-static t_vars *special_element_create(char *string)
+
+//allocates and creates element from string
+//example Key=12 creates elements wiht KEY Key= and value 12
+//return element if ok or NULL if error happens
+static t_vars *create_element_from_string(char *string)
 {
-	char *string_eq;
 	t_vars *new_element;
+	char *key;
+	char *value;
 
-	string_eq = ft_strjoin(string, "=NULL");
-	if (string_eq == NULL)
-	{
-		perror("strjoin in special_element_create fails\n");
+	if(set_key(&key, string) == -1)
 		return (NULL);
-	}
-	new_element = create_element(string_eq, NULL);
-	if (new_element == NULL)
-	{
-		perror("create element in special_element_create fails\n");
-		free(string_eq);
-		return(NULL);
-	}
-	free(new_element->value);
-	new_element->value = NULL;
-	free(string_eq);
-	return(new_element);
-}
-
-//allocates!! and return new t_vars element
-//elemnt has values of string which should look like
-//LANG=HR
-//if string does not contain = or have nothing after equal
-//creates special elements that has temporary "NULLLL" that is freed 
-//after creation
-//if error happend return NULL
-static t_vars* export_create(char *string)
-{
-	int		pos_of_eq;
-	t_vars *new_element;
-
-	new_element = NULL;
-	if (string == NULL)
-		return (NULL);
-	pos_of_eq = pos_of_equal(string);
-	if (pos_of_eq == -1 || pos_of_eq == (int)(ft_strlen(string) - 1))
-	{
-		new_element = special_element_create(string);
-		if(new_element == NULL)
-		{
-			perror("Creating new element in export create fails \n");
-			return (NULL);
-		}
-	}
-	else
-	{
-		new_element = create_element(string, NULL);
-		if (new_element == NULL)
-		{
-			perror("Creating new element in export create fails \n");
-				return (NULL);
-		}
-	}
+	if(set_value(&value, string) == -1)
+		return (free(key), NULL);
+	new_element = create_element(key, value);
+	if(new_element == NULL)
+		return(free(key), free(value), NULL);
 	return (new_element);
 }
 
-//function that takes string and ex_vars head
-//if string is NULL just print everything in ex_vars
-//difference between this in env is that we have declare-x
-//if string is not null then creates 2 identical elements 
-//one is added in list for export variables, and other is added in list for env variables
-//BOTH env and export variables
-//if everything is ok return 0, Return -1 if error hapens
+//retunr 0 if everything ok, -1 if something fails
+//takes 3 arguments
+//first is string to be added in linked list(env and ex_vars)
+//if string is NULL just prints everything like export
+//string should be in format (ARG=12)
+//creates 2 identical elements, one for ex_vars, one for env_vars
 int export(char *string, t_vars **ex_vars, t_vars **env_vars)
 {
 	t_vars *new_element_ex;
@@ -109,12 +60,15 @@ int export(char *string, t_vars **ex_vars, t_vars **env_vars)
 	}
 	else 
 	{
-		new_element_ex = export_create(string);
+		new_element_ex = create_element_from_string(string);
 		if(new_element_ex == NULL)
 			return (-1);
-		new_element_env = export_create(string);
+		new_element_env = create_element_from_string(string);
 		if(new_element_env == NULL)
+		{
+			delete_element(&new_element_ex);
 			return (-1);
+		}
 		add_element_back(ex_vars, new_element_ex);
 		add_element_back(env_vars, new_element_env);
 		list_sort_alpha(*ex_vars);
