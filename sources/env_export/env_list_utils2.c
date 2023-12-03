@@ -28,10 +28,13 @@ t_vars *get_element(char *key, t_vars *head)
 	while (head)
 	{
 		current_key = head->key;
-		if(ft_strncmp(current_key, in_key_plain, ft_strlen(in_key_plain)) == 0)
+		if(ft_strlen(current_key) - ft_strlen(in_key_plain) <= 1)
 		{
-			free(in_key_plain);
-			return (head);
+			if(ft_strncmp(current_key, in_key_plain, ft_strlen(in_key_plain)) == 0)
+			{
+				free(in_key_plain);
+				return (head);
+			}
 		}
 		head = head->next;
 	}
@@ -67,5 +70,31 @@ void delete_element_with_key(char *key, t_vars **head)
 		}
 	}
 	delete_element(&to_delete);
+}
+
+//takes string and creates element only with key, value is NULL;
+//copy string so it can be freed later
+//return NULL if fails or new element
+t_vars *create_element_key_only(char *key)
+{
+	char *key_cpy;
+	t_vars *new_element;
+
+	key_cpy = ft_strdup(key);
+	if(key_cpy == NULL)
+	{
+		perror ("dup in create element_key_only failed\n");
+		return (NULL);
+	}
+	new_element = malloc(sizeof(t_vars));
+	if(new_element == NULL)
+	{
+		perror ("malloc failed in create element_key_only\n");
+		return (free(key_cpy), NULL);
+	}
+	new_element->key = key_cpy;
+	new_element->value = NULL;
+	new_element->next = NULL;
+	return (new_element);
 }
 
