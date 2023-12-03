@@ -39,20 +39,21 @@ static int	set_wdir(char **working_dir)
 	}
 	return (0);
 }
+
 //try to find pwd in export
 //print pwd and return 1 if you find it, or return -1
 //-1 if head is NULL or cannot find pwd key
 //or value is null;
-static int my_pwd(t_vars *head_ex)
+static int	my_pwd(t_vars *head_ex)
 {
-	t_vars *pwd_element;
+	t_vars	*pwd_element;
 
-	if(head_ex == NULL)
+	if (head_ex == NULL)
 		return (-1);
 	pwd_element = get_element("PWD=", head_ex);
-	if(pwd_element == NULL)
+	if (pwd_element == NULL)
 		return (-1);
-	if(pwd_element->value == NULL)
+	if (pwd_element->value == NULL)
 		return (-1);
 	printf("%s\n", pwd_element->value);
 	return (1);
@@ -62,23 +63,23 @@ static int my_pwd(t_vars *head_ex)
 //-1 if error happend
 //takes pwd_value which should be allocated before
 //creates two PWD elemetns in both ex and env list
-static int create_PWD_element(char *pwd_value, t_vars **ex, t_vars **env)
+static int	create_pwd_element(char *pwd_value, t_vars **ex, t_vars **env)
 {
-	t_vars *pwd_element_ex;
-	t_vars *pwd_element_env;
-	char *pwd_value_cpy;
+	t_vars	*pwd_element_ex;
+	t_vars	*pwd_element_env;
+	char	*pwd_value_cpy;
 
 	pwd_value_cpy = ft_strdup(pwd_value);
-	if(pwd_value_cpy == NULL)
+	if (pwd_value_cpy == NULL)
 		return (-1);
 	pwd_element_ex = create_element_key_only("PWD=");
-	if(pwd_element_ex == NULL)
-		return (free(pwd_value_cpy),-1);
+	if (pwd_element_ex == NULL)
+		return (free(pwd_value_cpy), -1);
 	pwd_element_env = create_element_key_only("PWD=");
-	if(pwd_element_env == NULL)
+	if (pwd_element_env == NULL)
 	{
 		delete_element(&pwd_element_ex);
-		return (free(pwd_value_cpy),-1);
+		return (free(pwd_value_cpy), -1);
 	}
 	pwd_element_ex->value = pwd_value;
 	pwd_element_env->value = pwd_value_cpy;
@@ -96,7 +97,7 @@ int	pwd(t_vars **head_ex, t_vars **head_env)
 	char	*working_directory;
 	int		value;
 
-	if(my_pwd(*head_ex) == 1)
+	if (my_pwd(*head_ex) == 1)
 		return (0);
 	working_directory = ft_calloc(2, sizeof(char));
 	if (working_directory == NULL)
@@ -109,7 +110,7 @@ int	pwd(t_vars **head_ex, t_vars **head_env)
 	if (value != 0)
 		return (errno);
 	printf("%s\n", working_directory);
-	if(create_PWD_element(working_directory, head_ex, head_env) == -1)
-		return(free(working_directory), -1);
+	if (create_pwd_element(working_directory, head_ex, head_env) == -1)
+		return (free(working_directory), -1);
 	return (0);
 }

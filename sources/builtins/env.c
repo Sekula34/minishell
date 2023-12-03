@@ -24,9 +24,9 @@ int	env(t_vars *head)
 		return (-1);
 	while (head != NULL)
 	{
-		if(pos_of_equal(head->key) != -1)
+		if (pos_of_equal(head->key) != -1)
 		{
-			if(head->value != NULL)
+			if (head->value != NULL)
 				printf("%s%s\n", head->key, head->value);
 			else
 				printf("%s\n", head->key);

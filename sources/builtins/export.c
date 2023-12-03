@@ -48,12 +48,12 @@ static t_vars	*create_element_from_string(char *string)
 }
 
 //export action with removing string from list then adding new element
-static int export_eq(char *string, t_vars **ex_vars, t_vars **env_vars)
+static int	export_eq(char *string, t_vars **ex_vars, t_vars **env_vars)
 {
-	t_vars *new_element_ex;
-	t_vars *new_element_env;
+	t_vars	*new_element_ex;
+	t_vars	*new_element_env;
 
-	if(unset(string, ex_vars, env_vars) == -1)
+	if (unset(string, ex_vars, env_vars) == -1)
 		return (-1);
 	new_element_ex = create_element_from_string(string);
 	if (new_element_ex == NULL)
@@ -71,20 +71,20 @@ static int export_eq(char *string, t_vars **ex_vars, t_vars **env_vars)
 }
 
 //inset new element only if there is no element with that key
-static int export_no_eq(char *string, t_vars **ex_vars, t_vars **env_vars)
+static int	export_no_eq(char *string, t_vars **ex_vars, t_vars **env_vars)
 {
-	t_vars *find_me;
-	t_vars *new_element_env;
-	t_vars *new_element_ex;
+	t_vars	*find_me;
+	t_vars	*new_element_env;
+	t_vars	*new_element_ex;
 
 	find_me = get_element(string, *ex_vars);
-	if(find_me != NULL)
+	if (find_me != NULL)
 		return (0);
 	new_element_env = create_element_key_only(string);
-	if(new_element_env == NULL)
+	if (new_element_env == NULL)
 		return (-1);
 	new_element_ex = create_element_key_only(string);
-	if(new_element_ex == NULL)
+	if (new_element_ex == NULL)
 	{
 		delete_element(&new_element_env);
 		return (-1);
@@ -113,7 +113,7 @@ int	export(char *string, t_vars **ex_vars, t_vars **env_vars)
 	}
 	else if (pos_of_equal(string) != -1)
 		return (export_eq(string, ex_vars, env_vars));
-	else 
+	else
 		return (export_no_eq(string, ex_vars, env_vars));
 	return (0);
 }
