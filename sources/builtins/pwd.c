@@ -39,16 +39,34 @@ static int	set_wdir(char **working_dir)
 	}
 	return (0);
 }
+//try to find pwd in export
+//print pwd and return 1 if you find it, or return -1
+//-1 if head is NULL or cannot find pwd key
+//or value is null;
+static int my_pwd(t_vars *head_ex)
+{
+	t_vars *pwd_element;
 
-//allocates print and then frees working directory
-//return 0 if everything is ok
-//return errno if calloc fails either right away
-//or in helper function
-int	pwd(void)
+	if(head_ex == NULL)
+		return (-1);
+	pwd_element = get_element("PWD=", head_ex);
+	if(pwd_element == NULL)
+		return (-1);
+	if(pwd_element->value == NULL)
+		return (-1);
+	printf("%s\n", pwd_element->value);
+	return (1);
+}
+
+//tries to find workingdir in head_ex
+//if cannot find in linked list then try official function
+int	pwd(t_vars *head_ex)
 {
 	char	*working_directory;
 	int		value;
 
+	if(my_pwd(head_ex) == 1)
+		return (0);
 	working_directory = ft_calloc(2, sizeof(char));
 	if (working_directory == NULL)
 	{
