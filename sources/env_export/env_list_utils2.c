@@ -18,16 +18,24 @@
 t_vars *get_element(char *key, t_vars *head)
 {
 	char *current_key;
+	char *in_key_plain;
 
 	if(head == NULL || key == NULL)
+		return (NULL);
+	in_key_plain = get_plain_key(key);
+	if (in_key_plain == NULL)
 		return (NULL);
 	while (head)
 	{
 		current_key = head->key;
-		if(ft_strncmp(current_key, key, ft_strlen(key)) == 0)
+		if(ft_strncmp(current_key, in_key_plain, ft_strlen(in_key_plain)) == 0)
+		{
+			free(in_key_plain);
 			return (head);
+		}
 		head = head->next;
 	}
+	free(in_key_plain);
 	return (NULL);
 }
 
