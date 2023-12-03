@@ -22,6 +22,7 @@ void	delete_element(t_vars **element_to_delete);
 void	delete_element_with_key(char *key, t_vars **head);
 int		env_list_init(t_vars **start, char **envp);
 t_vars	*get_element(char *key, t_vars *head);
+char 	*get_plain_key(char *key_with_eq);
 void	list_sort_alpha(t_vars *head);
 int		pos_of_equal(char *string);
 int		set_key(char **key, char *string);

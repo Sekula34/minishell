@@ -31,7 +31,38 @@ int	pos_of_equal(char *string)
 	return (-1);
 }
 
+//allocates and return plain part of key
+//if key is A56=75
+//if key doesnt have equal just copy it
+//return A56;
+//null if fails
+//null if key_with eq is NULL
+char *get_plain_key(char *key_with_eq)
+{
+	char *plain_key;
+	int pos_eq;
 
+	if (key_with_eq == NULL)
+		return (NULL);
+	pos_eq = pos_of_equal(key_with_eq);
+	if (pos_eq == -1)
+	{
+		plain_key = ft_strdup(key_with_eq);
+		if(plain_key == NULL)
+		{
+			perror("ft_strdup in plain key failed\n");
+			return (NULL);
+		}
+		return (plain_key);
+	}
+	plain_key = ft_substr(key_with_eq, 0, pos_eq);
+	if (plain_key == NULL)
+	{
+		perror("ft_substr in plain key failed\n");
+		return (NULL);
+	}
+	return (plain_key);
+}
 
 //allocates key!!
 //function that sets key to be part of string 
