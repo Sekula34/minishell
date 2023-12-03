@@ -90,6 +90,7 @@ static int create_PWD_element(char *pwd_value, t_vars **ex, t_vars **env)
 
 //tries to find workingdir in head_ex
 //if cannot find in linked list then try official function
+//adds pwd elements if use official function
 int	pwd(t_vars **head_ex, t_vars **head_env)
 {
 	char	*working_directory;
