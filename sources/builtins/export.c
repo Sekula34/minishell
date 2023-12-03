@@ -18,7 +18,10 @@ static void	export_print(t_vars *ex_vars)
 	while (ex_vars != NULL)
 	{
 		printf("declare -x ");
-		printf("%s%c%s%c\n", ex_vars->key, '"', ex_vars->value, '"');
+		if (ex_vars->value == NULL)
+			printf("%s%c%c\n", ex_vars->key, '"', '"');
+		else
+			printf("%s%c%s%c\n", ex_vars->key, '"', ex_vars->value, '"');
 		ex_vars = ex_vars->next;
 	}
 }
@@ -46,7 +49,8 @@ static t_vars	*create_element_from_string(char *string)
 //takes 3 arguments
 //first is string to be added in linked list(env and ex_vars)
 //if string is NULL just prints everything like export
-//string should be in format (ARG=12)
+//string should be in format (ARG=12) or (A=) //will work without equal but 
+//
 //creates 2 identical elements, one for ex_vars, one for env_vars
 //first try to remove variables if exist
 int	export(char *string, t_vars **ex_vars, t_vars **env_vars)
@@ -59,7 +63,7 @@ int	export(char *string, t_vars **ex_vars, t_vars **env_vars)
 		list_sort_alpha(*ex_vars);
 		export_print(*ex_vars);
 	}
-	else
+	else if (pos_of_equal(string) != -1)
 	{
 		unset(string, ex_vars, env_vars);
 		new_element_ex = create_element_from_string(string);
