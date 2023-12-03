@@ -58,14 +58,44 @@ static int my_pwd(t_vars *head_ex)
 	return (1);
 }
 
+//return 0 if everything is ok
+//-1 if error happend
+//takes pwd_value which should be allocated before
+//creates two PWD elemetns in both ex and env list
+static int create_PWD_element(char *pwd_value, t_vars **ex, t_vars **env)
+{
+	t_vars *pwd_element_ex;
+	t_vars *pwd_element_env;
+	char *pwd_value_cpy;
+
+	pwd_value_cpy = ft_strdup(pwd_value);
+	if(pwd_value_cpy == NULL)
+		return (-1);
+	pwd_element_ex = create_element_key_only("PWD=");
+	if(pwd_element_ex == NULL)
+		return (free(pwd_value_cpy),-1);
+	pwd_element_env = create_element_key_only("PWD=");
+	if(pwd_element_env == NULL)
+	{
+		delete_element(&pwd_element_ex);
+		return (free(pwd_value_cpy),-1);
+	}
+	pwd_element_ex->value = pwd_value;
+	pwd_element_env->value = pwd_value_cpy;
+	add_element_back(ex, pwd_element_ex);
+	add_element_back(env, pwd_element_env);
+	list_sort_alpha(*ex);
+	return (0);
+}
+
 //tries to find workingdir in head_ex
 //if cannot find in linked list then try official function
-int	pwd(t_vars *head_ex)
+int	pwd(t_vars **head_ex, t_vars **head_env)
 {
 	char	*working_directory;
 	int		value;
 
-	if(my_pwd(head_ex) == 1)
+	if(my_pwd(*head_ex) == 1)
 		return (0);
 	working_directory = ft_calloc(2, sizeof(char));
 	if (working_directory == NULL)
@@ -78,6 +108,7 @@ int	pwd(t_vars *head_ex)
 	if (value != 0)
 		return (errno);
 	printf("%s\n", working_directory);
-	free(working_directory);
+	if(create_PWD_element(working_directory, head_ex, head_env) == -1)
+		return(free(working_directory), -1);
 	return (0);
 }
