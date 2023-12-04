@@ -1,22 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin.h                                          :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fseles <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/28 13:31:33 by fseles            #+#    #+#             */
-/*   Updated: 2023/11/28 13:31:35 by fseles           ###   ########.fr       */
+/*   Created: 2023/12/02 19:38:12 by fseles            #+#    #+#             */
+/*   Updated: 2023/12/02 19:38:13 by fseles           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_H
-# define BUILTIN_H
+#include "../../headers/minishel.h"
 
-int	echo(char *string, int n_option);
-int	env(t_vars *head);
-int	export(char *string, t_vars **ex_vars, t_vars **env_vars);
-int	pwd(t_vars **head_ex, t_vars **head_env);
-int	unset(char *string, t_vars **env_head, t_vars **ex_head);
+//removes variables that matches key part of string
+//removes from both env and ex list 
+//return -1 if errro
+//return 0 if ok
+int	unset(char *string, t_vars **env_head, t_vars **ex_head)
+{
+	char	*key;
 
-#endif
+	if (set_key(&key, string) == -1)
+		return (-1);
+	delete_element_with_key(key, ex_head);
+	delete_element_with_key(key, env_head);
+	free(key);
+	return (0);
+}

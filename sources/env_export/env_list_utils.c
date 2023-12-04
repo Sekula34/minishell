@@ -12,34 +12,20 @@
 
 #include "../../headers/minishel.h"
 
-//!!!allocates space for element
-//string that this elements containt are also allocated and 
-//needs to be free after
-//element contains key, and value
-//str is for example HOME=/nfs/homes/fseles
-//key in this case is HOME=
-//value is /nfs/homes/fseles
-//if key or value is NULL do not create element
-//element next is set to NULL here
-t_vars	*create_element(char *str)
+//!!alllocates new element for linked list
+//create elemnent that contains key and value
+//Both key and value can be NULL (but better check if key exist)
+//Return NULL if allocation fails
+//return pointer of new element if everything is ok
+t_vars	*create_element(char *key, char *value)
 {
-	char	*key;
-	char	*value;
-	t_vars	*new_element;
-
-	key = get_key(str);
-	if (key == NULL)
-		return (NULL);
-	value = get_value(str);
-	if (value == NULL)
-		return (free(key), NULL);
+	t_vars *new_element;
+	
 	new_element = malloc(sizeof(t_vars));
 	if (new_element == NULL)
 	{
-		free(key);
-		free(value);
-		perror("allocation of t_vars elemetns failed\n");
-		return (NULL);
+		perror("Allocation of new element in create element fails\n");
+		return(NULL);
 	}
 	new_element->key = key;
 	new_element->value = value;
@@ -92,4 +78,21 @@ void	add_element_back(t_vars **head, t_vars *new_element)
 		last_element = last_element->next;
 	}
 	last_element->next = new_element;
+}
+
+//goes through list and counts how many elemetns are there
+//return number of elements or 0 if list does not exist
+int	count_list_elements(t_vars *head)
+{
+	int i;
+
+	i = 0;
+	if(head == NULL)
+		return (0);
+	while(head != NULL)
+	{
+		i++;
+		head = head->next;
+	}
+	return (i);
 }

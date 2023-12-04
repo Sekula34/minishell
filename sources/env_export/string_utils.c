@@ -15,7 +15,7 @@
 //return positon of first equal ('=') in string
 //example LANG=en return 4
 //if there is no = in or string is NULL return -1;
-static int	pos_of_equal(char *string)
+int	pos_of_equal(char *string)
 {
 	int	i;
 
@@ -31,28 +31,102 @@ static int	pos_of_equal(char *string)
 	return (-1);
 }
 
-//!!!alocates and return only part of  string  
-//part of string before =(including =)
-//example LANGUAGE=en return allocated LANGUAGE=
-//if string does not contain '=' return NULL 
-char	*get_key(char *string)
+//allocates and return plain part of key
+//if key is A56=75
+//if key doesnt have equal just copy it
+//return A56;
+//null if fails
+//null if key_with eq is NULL
+char *get_plain_key(char *key_with_eq)
 {
-	int		pos_eq;
-	char	*key;
+	char *plain_key;
+	int pos_eq;
 
-	if (string == NULL)
+	if (key_with_eq == NULL)
 		return (NULL);
-	pos_eq = pos_of_equal(string);
+	pos_eq = pos_of_equal(key_with_eq);
 	if (pos_eq == -1)
-		return (NULL);
-	key = ft_calloc(pos_eq + 2, sizeof(char));
-	if (key == NULL)
 	{
-		perror("key allocation in get_key function fails\n");
+		plain_key = ft_strdup(key_with_eq);
+		if(plain_key == NULL)
+		{
+			perror("ft_strdup in plain key failed\n");
+			return (NULL);
+		}
+		return (plain_key);
+	}
+	plain_key = ft_substr(key_with_eq, 0, pos_eq);
+	if (plain_key == NULL)
+	{
+		perror("ft_substr in plain key failed\n");
 		return (NULL);
 	}
-	ft_strlcpy(key, string, pos_eq + 2);
-	return (key);
+	return (plain_key);
+}
+
+//allocates key!!
+//function that sets key to be part of string 
+//if string is LANG=EN
+//key will be allocated and set to be copy LANG=;
+//if string is NULL key is also NULL
+//if allocation fails key will be null and return status will be -1
+//if everything is oke return will be 0;
+int	set_key(char **key, char *string)
+{
+	int pos_eq;
+	int alloc_size;
+
+	if(string == NULL)
+		return (*key = NULL, 0);
+	pos_eq = pos_of_equal(string);
+	if(pos_eq == -1)
+	{
+		*key = ft_strjoin(string, "=");
+		if(*key == NULL)
+			return(-1);
+	}
+	else 
+	{
+		alloc_size = pos_eq + 2;
+		*key = ft_calloc(alloc_size, sizeof(char));
+		if(*key == NULL)
+			return(-1);
+		ft_strlcpy(*key, string, pos_eq + 2);
+	}
+	return (0);
+}
+
+//!!!alocates value
+//if string is ARG or ARG= 
+//value is NULL without error (return 0)
+//if string is arg=12;
+//value is 12 (allllocated);
+//return 0 if ok -1 if errror
+int set_value(char **value, char *string)
+{
+	int pos_eq;
+	int alloc_size;
+
+	if(string == NULL)
+	{
+		*value = NULL;
+		return (0);
+	}
+	pos_eq = pos_of_equal(string);
+	if(pos_eq == -1 || pos_eq == (int)ft_strlen(string) - 1)
+	{
+		*value = NULL;
+		return (0);
+	}
+	else
+	{
+		alloc_size = ft_strlen(string) - pos_eq ;
+		*value = ft_calloc(alloc_size, sizeof(char));
+		if(*value == NULL)
+			return (-1);
+		ft_strlcpy(*value, string + pos_eq + 1, alloc_size);
+	}
+	return (0);
 }
 
 //!!!alocates and return only part of  string  
@@ -60,6 +134,8 @@ char	*get_key(char *string)
 //example LANGUAGE=en return allocated en
 //if string does not contain '=' return NULL
 //LANG=en
+//if string is VAL= (val size == 1)
+//return NULL
 char	*get_value(char *string)
 {
 	int		pos_eq;
@@ -72,6 +148,8 @@ char	*get_value(char *string)
 	if (pos_eq == -1)
 		return (NULL);
 	val_size = ft_strlen(string) - pos_eq;
+	if(val_size == 1)
+		return (NULL);
 	value = ft_calloc(val_size, sizeof(char));
 	if (value == NULL)
 	{

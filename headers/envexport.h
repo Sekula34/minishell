@@ -15,11 +15,18 @@
 # include "data_types.h"
 
 void	add_element_back(t_vars **head, t_vars *new_element);
-t_vars	*create_element(char *str);
+t_vars	*create_element(char *key, char *value);
+t_vars	*create_element_key_only(char *key);
 void	clear_list_env(t_vars **head);
+int		count_list_elements(t_vars *head);
 void	delete_element(t_vars **element_to_delete);
+void	delete_element_with_key(char *key, t_vars **head);
 int		env_list_init(t_vars **start, char **envp);
-char	*get_key(char *string);
-char	*get_value(char *string);
+t_vars	*get_element(char *key, t_vars *head);
+char	*get_plain_key(char *key_with_eq);
+void	list_sort_alpha(t_vars *head);
+int		pos_of_equal(char *string);
+int		set_key(char **key, char *string);
+int		set_value(char **value, char *string);
 
 #endif
