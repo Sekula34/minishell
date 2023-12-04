@@ -59,13 +59,11 @@ int	go_back_to_check_redirect(t_split *split, char *line, int i)
 	{
 		set_quotation(split, line[i]);
 		i--;
-		puts("a");
 	}
 	while (i >= 0 && (line[i] == ' ' || line[i] == '\t'))
 	{
 		set_quotation(split, line[i]);
 		i--;
-		puts("b");
 	}
 	if (line[i] == '<' || line[i] == '>')
 		return (1);
