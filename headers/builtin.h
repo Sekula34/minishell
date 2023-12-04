@@ -16,6 +16,7 @@
 int	echo(char *string, int n_option);
 int	env(t_vars *head);
 int	export(char *string, t_vars **ex_vars, t_vars **env_vars);
+int key_checker(char *string);
 int	pwd(t_vars **head_ex, t_vars **head_env);
 int	unset(char *string, t_vars **env_head, t_vars **ex_head);
 
