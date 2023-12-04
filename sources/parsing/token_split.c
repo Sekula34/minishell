@@ -218,20 +218,30 @@ char **make_token(char *line)
 	return (split.token_array);
 }
 
-/* int main()
+int main()
 {
 	char **res;
-	char *line = "echo -n \"hello world\">file.txt";
+	char *line = "echo $a \"hello world\">file.txt";
 
 	res = make_token(line);
+	char **fin;
 	int a = 0;
+
 	while (res && res[a])
 	{
 		printf("%d: %s\n", a, res[a]);
-		free(res[a]);
 		a++;
 	}
-	if (res)
-		free(res);
 
-} */
+	fin = last_expand(res);
+	a = 0;
+	while (fin && fin[a])
+	{
+		printf("%d: %s\n", a, fin[a]);
+		free(fin[a]);
+		a++;
+	}
+	if (fin)
+		free(fin);
+
+}

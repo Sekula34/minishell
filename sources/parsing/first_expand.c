@@ -1,4 +1,5 @@
 #include "../../headers/minishel.h"
+#include	<string.h>
 
 int	valid_char(char c)
 {
@@ -31,8 +32,6 @@ void	set_start_end(t_expand *expand, t_split *split, char *line, int *i)
 	expand->end = *i - 1;
 }
 
-/*when getting value of variable check if it containes a redirect. if so replace it with placeholder and rereplace it back in end of parsing*/
-
 int append_value(char **res, char *value)
 {
 	int i = 0;
@@ -47,17 +46,14 @@ int append_value(char **res, char *value)
 	return (1);
 }
 
-void	set_redirect_flag(t_expand *expand, char c)
-{
-	if (c == '<' || c == '>')
-		expand->redirect_flag = 1;
-}
 
 int	go_back_to_check_redirect(t_split *split, char *line, int i)
 {
 	while (i >= 0 && ((line[i] != ' ' && line[i] != '\t') || split->isq == 1 || split->idq == 1))
 	{
 		set_quotation(split, line[i]);
+		if (line[i] == '<' || line[i] == '>')
+			return (1);
 		i--;
 	}
 	while (i >= 0 && (line[i] == ' ' || line[i] == '\t'))
@@ -69,7 +65,22 @@ int	go_back_to_check_redirect(t_split *split, char *line, int i)
 		return (1);
 	else
 	 	return (0);
-	return (0);
+}
+
+void check_value(char **value)
+{
+	int i = 0;
+
+	if (!*value)
+		return ;
+	while ((*value)[i])
+	{
+		if ((*value)[i] == '<')
+			(*value)[i] = -1;
+		else if ((*value)[i] == '>')
+			(*value)[i] = -2;
+		i++;
+	}
 }
 
 char *first_expand(t_split *split, char *line)
@@ -79,13 +90,12 @@ char *first_expand(t_split *split, char *line)
 	int j = 0;
 	char *res;
 
-	char *value_a = "hello";
-	char *value_b = "world";
+	char *value = strdup("hello");
+
 	res = NULL;
 	init_expand_struct(&expand);
 	while (line[i])
 	{
-		set_redirect_flag(&expand, line[i]);
 		set_quotation(split, line[i]);
 		if (split->isq == 0 && split->idq == 0 && line[i] == '$')
 		{
@@ -93,7 +103,8 @@ char *first_expand(t_split *split, char *line)
 			{
 				set_start_end(&expand, split, line, &i);
 				//getvalue
-				append_value(&res, value_a);
+				check_value(&value);
+				append_value(&res, value);
 			}
 			else
 			{
@@ -111,12 +122,14 @@ char *first_expand(t_split *split, char *line)
 	return (res);
 }
 
-int main()
+/* int main(int argc, char **argv, char **envp)
 {
 	t_split split;
 	init_split_struct(&split);
-	first_expand(&split, "test $a $var$a$'a   '$a $a");
-}
+
+
+	first_expand(&split, "test    > $a $a$var$a'  '$a $b");
+} */
 
 /* int main(int argc, char **argv, char **envp)
 {

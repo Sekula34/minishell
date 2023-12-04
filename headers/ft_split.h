@@ -26,5 +26,11 @@ void	set_quotation(t_split *split, char c);
 char	*sub_str(char *str, int start, int end);
 int		get_len(char *str);
 char 	*ft_join(char **str, char c);
+void	set_start_end(t_expand *expand, t_split *split, char *line, int *i);
+void	check_value(char **value);
+int		append_value(char **res, char *value);
+void	init_expand_struct(t_expand *expand);
+int		valid_char(char c);
+char **last_expand(char **tokens);
 
 #endif
