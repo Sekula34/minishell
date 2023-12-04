@@ -51,7 +51,7 @@ int append_value_2d(char ***res, char *value, int a)
 	int j = 0;
 	while (value[i])
 	{
-		*res[a] = ft_join(res[a], value[i]);
+		(*res)[a] = ft_join(res[a], value[i]);
 		if (!*res)
 			return (0);
 		i++;
