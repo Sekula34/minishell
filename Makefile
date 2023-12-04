@@ -3,6 +3,7 @@ sources/builtins/echo.c \
 sources/builtins/pwd.c \
 sources/builtins/env.c \
 sources/builtins/export.c \
+sources/builtins/export_utils.c \
 sources/builtins/unset.c \
 sources/env_export/env_list_init.c \
 sources/env_export/env_list_utils.c \

@@ -111,7 +111,12 @@ int	export(char *string, t_vars **ex_vars, t_vars **env_vars)
 		export_print(*ex_vars);
 		return (0);
 	}
-	else if (pos_of_equal(string) != -1)
+	if(key_checker(string) != 1)
+	{
+		ft_putstr_fd("export: Not a valid identifier\n", 2);
+		return (-1);
+	}
+	if (pos_of_equal(string) != -1)
 		return (export_eq(string, ex_vars, env_vars));
 	else
 		return (export_no_eq(string, ex_vars, env_vars));
