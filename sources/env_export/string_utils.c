@@ -67,7 +67,7 @@ char *get_plain_key(char *key_with_eq)
 //allocates key!!
 //function that sets key to be part of string 
 //if string is LANG=EN
-//key will be allocated and set to be copy LANG=;
+//key will be allocated and set to be copy LANG;
 //if string is NULL key is also NULL
 //if allocation fails key will be null and return status will be -1
 //if everything is oke return will be 0;
@@ -81,17 +81,17 @@ int	set_key(char **key, char *string)
 	pos_eq = pos_of_equal(string);
 	if(pos_eq == -1)
 	{
-		*key = ft_strjoin(string, "=");
+		*key = ft_strdup(string);
 		if(*key == NULL)
 			return(-1);
 	}
 	else 
 	{
-		alloc_size = pos_eq + 2;
+		alloc_size = pos_eq + 1;
 		*key = ft_calloc(alloc_size, sizeof(char));
 		if(*key == NULL)
 			return(-1);
-		ft_strlcpy(*key, string, pos_eq + 2);
+		ft_strlcpy(*key, string, pos_eq + 1);
 	}
 	return (0);
 }

@@ -18,12 +18,9 @@ static void	export_print(t_vars *ex_vars)
 	while (ex_vars != NULL)
 	{
 		printf("declare -x ");
-		if (pos_of_equal(ex_vars->key) == -1)
-			printf ("%s\n", ex_vars->key);
-		else if (ex_vars->value == NULL)
-			printf("%s%c%c\n", ex_vars->key, '"', '"');
-		else
-			printf("%s%c%s%c\n", ex_vars->key, '"', ex_vars->value, '"');
+		printf("%s", ex_vars->key);
+		if(ex_vars->value != NULL)
+			printf("=%c%s%c\n", '"', ex_vars->value, '"');
 		ex_vars = ex_vars->next;
 	}
 }
