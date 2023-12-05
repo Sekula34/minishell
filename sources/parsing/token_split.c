@@ -1,229 +1,99 @@
 #include "../../headers/minishel.h"
-#include <stdio.h>
 
-/* void	ft_free(char ***res, int a)
+void	move_counter(t_tokens *tok)
 {
-	while (a >= 0)
+	tok->flag = 0;
+	tok->tok_i++;
+	tok->redirect_count = 0;
+}
+
+int	count_token(t_tokens *tok, char *line)
+{
+	reset_struct(tok);
+	while (line[tok->i])
 	{
-		free((*res)[a]);
-		a--;
+		while (line[tok->i] && is_white_space(line[tok->i]) == 1)
+			tok->i++;
+		while (line[tok->i] && (is_white_space(line[tok->i]) == 0 || tok->isq == 1 || tok->idq == 1) && is_redirect(line[tok->i]) == 0)
+		{
+			set_quotation(tok, line[tok->i++]);
+			tok->flag = 1;
+		}
+		if (tok->flag && tok->isq == 0 && tok->idq == 0)
+			move_counter(tok);
+		while (line[tok->i] && is_redirect(line[tok->i]))
+		{
+			tok->flag = 1;
+			tok->redirect_count++;
+			if (tok->redirect_count == 2)
+				move_counter(tok);
+			tok->i++;
+		}
+		if (tok->flag && tok->isq == 0 && tok->idq == 0)
+			move_counter(tok);
 	}
-	free(*res);
-} */
-
-/* char	*sub_str(char *str, int start, int end)
+	printf("tokens: %d\n", tok->tok_i);
+	return (tok->tok_i);
+}
+void	tokenize_redirect(t_tokens *tok, char *line)
 {
-	int		i;
-	int		len;
-	char	*res;
+	puts("40");
+	printf("%s\n", tok->tokens[tok->tok_i]);
+	tok->tokens[tok->tok_i] = ft_join(&(tok->tokens[tok->tok_i]), line[tok->i]);
+	tok->redirect_count++;
+	puts("42");
+	if (tok->redirect_count == 2)
+	{
+		tok->tok_i++;
+		tok->redirect_count = 0;
+	}
+	tok->i++;
+}
 
-	i = 0;
-	len = end - start + 1;
-	res = malloc(len + 1);
-	if (!res)
+char **make_token(t_tokens *tok, char *line)
+{
+	tok->tokens = (char **)ft_calloc(count_token(tok, line) + 1, sizeof(char *));
+	if (!tok->tokens)
 		return (NULL);
-	while (start <= end)
+	reset_struct(tok);
+	while (line[tok->i])
 	{
-		res[i] = str[start];
-		i++;
-		start++;
-	}
-	res[i] = 0;
-	return (res);
-} */
-
-void	init_split_struct(t_split *split)
-{
-	split->isq = 0;
-	split->idq = 0;
-	split->token_count = 0;
-	split->redirect_count = 0;
-	split->flag = 0;
-	split->i = 0;
-	split->token_array = NULL;
-}
-void	reset_split_struct(t_split *split)
-{
-	split->isq = 0;
-	split->idq = 0;
-	split->token_count = 0;
-	split->redirect_count = 0;
-	split->flag = 0;
-	split->i = 0;
-}
-
-void	set_quotation(t_split *split, char c)
-{
-	if (c == '"')
-	{
-		if (split->idq == 0)
+		puts("while1");
+		while (line[tok->i] && is_white_space(line[tok->i]) == 1)
+			tok->i++;
+		puts("61");
+		while (line[tok->i] && (is_white_space(line[tok->i]) == 0 || tok->isq == 1 || tok->idq == 1) && is_redirect(line[tok->i]) == 0)
 		{
-			split->idq = 1;
+			puts("1");
+			set_quotation(tok, line[tok->i]);
+			puts("1,5");
+			tok->tokens[tok->tok_i] = ft_join(&(tok->tokens[tok->tok_i]), line[tok->i++]);
+			puts("2");
 		}
-		else if (split->idq == 1)
+		if (tok->tokens[tok->tok_i] && tok->isq == 0 && tok->idq == 0)
+			tok->tok_i++;
+		puts("72");
+		while (line[tok->i] && is_redirect(line[tok->i]))
 		{
-			split->idq = 0;
+			puts("75");
+			tokenize_redirect(tok, line);
+			puts("77");
 		}
+		if (tok->tokens[tok->tok_i] && tok->isq == 0 && tok->idq == 0)
+			tok->tok_i++;
 	}
-	if (c == '\'')
-	{
-		if (split->isq == 0)
-		{
-			split->isq = 1;
-		}
-		else if (split->isq == 1)
-		{
-			split->isq = 0;
-		}
-	}
-}
-
-int is_redirect(char c)
-{
-	if (c == '<' || c == '>')
-		return (1);
-	else
-	 	return (0);
-}
-int get_len(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str && str[i])
-	{
-		i++;
-	}
-	return (i);
-}
-
-char *ft_join(char **str, char c)
-{
-	int i = 0;
-	int j = 0;
-	int len = get_len(*str);
-	char *temp = (char *)malloc(len + 2);
-	if (!temp)
-		return (NULL);
-	while (*str && (*str)[i])
-	{
-		temp[j++] = (*str)[i++];
-	}
-	temp[j] = c;
-	temp[++j] = 0;
-	if (*str)
-		free(*str);
-	return (temp);
-}
-
-int	is_white_space(char c)
-{
-	if (c == ' ' || c == '\t')
-		return (1);
-	else
-	 	return (0);
-}
-
-/* char **realloc_array(char ***array, int a)
-{
-	char **temp;
-	int i = 0;
-	int j = 0;
-
-	temp = (char **)ft_calloc(2 + a, sizeof(char *));
-	if (!temp)
-		return (NULL);
-	while (i < a)
-	{
-		temp[i] = (*array)[i];
-		i++;
-	}
-	temp[i] = 0;
-	ft_free(array, 2 + a - 1);
-	return(temp);
-} */
-
-void	move_counter(t_split *split)
-{
-	split->flag = 0;
-	split->token_count++;
-	split->redirect_count = 0;
-}
-
-int	count_token(t_split *split, char *line)
-{
-	init_split_struct(split);
-	while (line[split->i])
-	{
-		while (line[split->i] && is_white_space(line[split->i]) == 1)
-			split->i++;
-		while (line[split->i] && (is_white_space(line[split->i]) == 0 || split->isq == 1 || split->idq == 1) && is_redirect(line[split->i]) == 0)
-		{
-			set_quotation(split, line[split->i++]);
-			split->flag = 1;
-		}
-		if (split->flag && split->isq == 0 && split->idq == 0)
-			move_counter(split);
-		while (line[split->i] && is_redirect(line[split->i]))
-		{
-			split->flag = 1;
-			split->redirect_count++;
-			if (split->redirect_count == 2)
-				move_counter(split);
-			split->i++;
-		}
-		if (split->flag && split->isq == 0 && split->idq == 0)
-			move_counter(split);
-	}
-	//printf("count: %d\n", split->token_count);
-	return (split->token_count);
-}
-
-char **make_token(char *line)
-{
-	t_split split;
-	int i;
-
-	i = 0;
-	split.token_array = (char **)ft_calloc(count_token(&split, line) + 1, sizeof(char *));
-	reset_split_struct(&split);
-	if (!split.token_array)
-		return (NULL);
-	while (line[i])
-	{
-		while (line[i] && is_white_space(line[i]) == 1)
-			i++;
-		while (line[i] && (is_white_space(line[i]) == 0 || split.isq == 1 || split.idq == 1) && is_redirect(line[i]) == 0)
-		{
-			set_quotation(&split, line[i]);
-			split.token_array[split.token_count] = ft_join(&(split.token_array[split.token_count]), line[i]);
-			i++;
-		}
-		if (split.token_array[split.token_count] && split.isq == 0 && split.idq == 0)
-			split.token_count++;
-		while (line[i] && is_redirect(line[i]))
-		{
-			split.token_array[split.token_count] = ft_join(&(split.token_array[split.token_count]), line[i]);
-			split.redirect_count++;
-			if (split.redirect_count == 2)
-			{
-				split.token_count++;
-				split.redirect_count = 0;
-			}
-			i++;
-		}
-		if (split.token_array[split.token_count] && split.isq == 0 && split.idq == 0)
-			split.token_count++;
-	}
-	return (split.token_array);
+	return (puts("ende"), tok->tokens);
 }
 
 int main()
 {
+	t_tokens tok;
+
+	init_token_struct(&tok);
 	char **res;
 	char *line = "echo << $a \"hello $a world\">file.txt";
 
-	res = make_token(line);
+	res = make_token(&tok, line);
 	char **fin;
 	int a = 0;
 
@@ -233,7 +103,7 @@ int main()
 		a++;
 	}
 
-	fin = last_expand(res);
+	/* fin = last_expand(res);
 	a = 0;
 	while (fin && fin[a])
 	{
@@ -243,5 +113,5 @@ int main()
 	}
 	if (fin)
 		free(fin);
-
+ */
 }

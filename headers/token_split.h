@@ -1,20 +1,19 @@
-#ifndef FT_SPLIT_H
-#define FT_SPLIT_H
+#ifndef TOKEN_SPLIT_H
+#define TOKEN_SPLIT_H
 
 typedef struct s_tokens
 {
 	int isq;
 	int idq;
-	int	token_count;
+	int	tok_i;
 	int redirect_count;
 	int flag;
-	char **token_array;
 	int i;
 	int	j;
 	int	start;
 	int	end;
 	int redirect_flag;
-	char **tokens
+	char **tokens;
 }	t_tokens;
 
 void	init_split_struct(t_tokens *tokens);
@@ -29,5 +28,9 @@ int		append_value(char **res, char *value);
 void	init_expand_struct(t_tokens *tokens);
 int		valid_char(char c);
 char **last_expand(char **tokens);
+void	init_token_struct(t_tokens *tok);
+void	reset_struct(t_tokens *tok);
+int	is_white_space(char c);
+int is_redirect(char c);
 
 #endif

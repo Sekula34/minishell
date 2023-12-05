@@ -14,22 +14,22 @@ int	valid_char(char c)
 	return (0);
 }
 
-void	init_expand_struct(t_expand *expand)
+void	init_expand_struct(t_tokens *tok)
 {
-	expand->start = 0;
-	expand->end = 0;
-	expand->redirect_flag = 0;
+	tok->start = 0;
+	tok->end = 0;
+	tok->redirect_flag = 0;
 }
 
-void	set_start_end(t_expand *expand, t_split *split, char *line, int *i)
+void	set_start_end(t_tokens *tok, char *line, int *i)
 {
 	(*i)++;
-	expand->start = *i;
+	tok->start = *i;
 	while (line[*i] && valid_char(line[*i]))
 	{
 		(*i)++;
 	}
-	expand->end = *i - 1;
+	tok->end = *i - 1;
 }
 
 int append_value(char **res, char *value)
@@ -47,18 +47,18 @@ int append_value(char **res, char *value)
 }
 
 
-int	go_back_to_check_redirect(t_split *split, char *line, int i)
+int	go_back_to_check_redirect(t_tokens *tok, char *line, int i)
 {
-	while (i >= 0 && ((line[i] != ' ' && line[i] != '\t') || split->isq == 1 || split->idq == 1))
+	while (i >= 0 && ((line[i] != ' ' && line[i] != '\t') || tok->isq == 1 || tok->idq == 1))
 	{
-		set_quotation(split, line[i]);
+		set_quotation(tok, line[i]);
 		if (line[i] == '<' || line[i] == '>')
 			return (1);
 		i--;
 	}
 	while (i >= 0 && (line[i] == ' ' || line[i] == '\t'))
 	{
-		set_quotation(split, line[i]);
+		set_quotation(tok, line[i]);
 		i--;
 	}
 	if (line[i] == '<' || line[i] == '>')
@@ -83,23 +83,23 @@ void check_value(char **value)
 	}
 }
 
-char *first_expand(t_tokens *tokens, char *line)
+char *first_expand(t_tokens *tok, char *line)
 {
-	t_expand expand;
-	int i = 0;
-	int j = 0;
+	int i;
+	int j ;
 	char *res;
 
 	char *value = strdup("hello");
 
+	i = 0;
+	j = 0;
 	res = NULL;
-	init_expand_struct(&expand);
 	while (line[i])
 	{
-		set_quotation(split, line[i]);
-		if (split->isq == 0 && split->idq == 0 && line[i] == '$' && go_back_to_check_redirect(split, line, i) == 0)
+		set_quotation(tok, line[i]);
+		if (tok->isq == 0 && tok->idq == 0 && line[i] == '$' && go_back_to_check_redirect(tok, line, i) == 0)
 		{
-			set_start_end(&expand, split, line, &i);
+			set_start_end(tok, line, &i);
 			//getvalue
 			check_value(&value);
 			append_value(&res, value);
@@ -111,17 +111,12 @@ char *first_expand(t_tokens *tokens, char *line)
 	return (res);
 }
 
-void	init_token_struct(t_tokens *tokens)
-{
-
-}
-
 int main()
 {
-	t_tokens tokens;
+	t_tokens tok;
 
-	init_token_struct(&tokens);	
-	char *line = "echo $var > $var$var \"$var\" << $var";
+	init_token_struct(&tok);	
+	char *line = "echo $var > $var$var \"$var\" << $var  $a $a";
 
-	first_expand(&tokens, line);
+	first_expand(&tok, line);
 }
