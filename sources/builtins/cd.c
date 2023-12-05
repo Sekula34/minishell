@@ -91,6 +91,7 @@ int value_setter(char *key, char *new_value, t_vars **ex_head, t_vars **env_head
 			return (-1);
 		if(set_new_value(old_element_ex, new_value) != 0)
 			return (-1);
+		return(0);
 	}
 	if(create_add_new_elems(key, new_value, ex_head, env_head) == 0)
 		return (0);

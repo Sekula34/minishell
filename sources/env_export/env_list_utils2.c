@@ -104,6 +104,8 @@ t_vars *create_element_key_only(char *key)
 int set_new_value(t_vars *element, char *new_value)
 {
 	char *value_cpy;
+	if(element == NULL)
+		return (-1);
 	if (new_value == NULL)
 	{
 		free(element->value);
