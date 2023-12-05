@@ -34,7 +34,7 @@ int	env_list_init(t_vars **start, char **envp)
 		if (set_key(&key, envp[i]) == -1)
 			return (-1);
 		if (set_value(&value, envp[i]) == -1)
-			return(free(key), -1);
+			return (free(key), -1);
 		new_element = create_element(key, value);
 		if (new_element == NULL)
 			return (free(key), free(value), -1);
