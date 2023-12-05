@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:53:01 by wvan-der          #+#    #+#             */
-/*   Updated: 2023/12/05 16:55:37 by wvan-der         ###   ########.fr       */
+/*   Updated: 2023/12/05 18:43:56 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,36 @@ int	go_back_to_check_redirect(t_tokens *tok, char *line, int i)
 		return (0);
 }
 
-char	*first_expand(t_tokens *tok, char *line)
+char *get_var_value(t_tokens *tok, t_vars *head_ex, char *line)
+{
+	t_vars *element;
+	char *key;
+
+	key = ft_substr(line, tok->start, tok->end - tok->start + 1);
+	element = get_element(key, head_ex);
+	free(key);
+	if (!element)
+		return (NULL);
+	return (element->value);
+}
+
+int put_value(t_tokens *tok, t_vars *head_ex, char *line, char **res)
+{
+	char *value;
+
+	value = get_var_value(tok, head_ex, line);
+	if (!value)
+		return (0);
+	check_value(&value);
+	append_value(res, value);
+	return (1);
+}
+
+char	*first_expand(t_tokens *tok, t_vars *head_ex, char *line)
 {
 	int		i;
 	int		j;
 	char	*res;
-
-	char *value = strdup("hello");
 
 	i = 0;
 	j = 0;
@@ -80,9 +103,8 @@ char	*first_expand(t_tokens *tok, char *line)
 			&& go_back_to_check_redirect(tok, line, i) == 0)
 		{
 			set_start_end(tok, line, &i);
-			//getvalue
-			check_value(&value);
-			append_value(&res, value);
+			if (put_value(tok, head_ex, line, &res) == 0)
+				i++;
 		}
 		else
 			res = ft_join(&res, line[i++]);

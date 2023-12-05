@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:58:30 by wvan-der          #+#    #+#             */
-/*   Updated: 2023/12/05 17:11:38 by wvan-der         ###   ########.fr       */
+/*   Updated: 2023/12/05 17:45:07 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ int	copy_text(t_tokens *tok, char *line, int *i, int a)
 
 char	**make_token(t_tokens *tok, char *line)
 {
-	char	**res;
 	int		i;
 	int		a;
 

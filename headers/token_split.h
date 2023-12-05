@@ -6,12 +6,14 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:56:52 by wvan-der          #+#    #+#             */
-/*   Updated: 2023/12/05 17:18:59 by wvan-der         ###   ########.fr       */
+/*   Updated: 2023/12/05 18:36:56 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOKEN_SPLIT_H
 # define TOKEN_SPLIT_H
+
+#include "data_types.h"
 
 typedef struct s_tokens
 {
@@ -40,12 +42,12 @@ void	check_value(char **value);
 int		append_value(char **res, char *value);
 void	init_expand_struct(t_tokens *tokens);
 int		valid_char(char c);
-char	**last_expand(t_tokens *tok);
+char	**last_expand(t_tokens *tok, t_vars *head_ex);
 void	init_token_struct(t_tokens *tok);
 void	reset_struct(t_tokens *tok);
 int		is_white_space(char c);
 int		is_redirect(char c);
-char	*first_expand(t_tokens *tok, char *line);
+char	*first_expand(t_tokens *tok, t_vars *head_ex, char *line);
 char	**make_token(t_tokens *tok, char *line);
 int		check_quotes(t_tokens *tok);
 void	init_make_token(int *a, int *i);

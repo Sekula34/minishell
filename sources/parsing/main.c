@@ -1,17 +1,35 @@
 #include "../../headers/minishel.h"
 
-int main()
+
+
+//fix values !!!!!!
+
+
+
+int main(int argc, char **argv, char **envp)
 {
 	t_tokens tok;
+	t_vars *head_ex;
+	t_vars *head_env;
+
+	(void)argc;
+	(void)argv;
+
+	head_ex = NULL;
+	head_env = NULL;
+	env_list_init(&head_ex, envp);
+	env_list_init(&head_env, envp);
+	export("var=pupu", &head_ex, &head_env);
+	export("a=ivan", &head_ex, &head_env);
 
 	init_token_struct(&tok);	
-	char *line = "echo $var > $var$var \"$var\" << $var  $a $a";
+	char *line = "echo \"$c\" $var$var > $var$a \"$var\" << $var  $a < $c ";
 
 	printf("beginn:\n");
 	printf("%s\n", line);
 	printf("\n");
 
-	char *line2 = first_expand(&tok, line);
+	char *line2 = first_expand(&tok, head_ex, line);
 	printf("first expand:\n");
 	printf("%s\n", line2);
 	printf("\n");
@@ -19,6 +37,9 @@ int main()
 	char **tokens = make_token(&tok, line2);
 	int i = 0;
 	free(line2);
+
+	if (!tokens)
+		return (0);
 
 	printf("tokens:\n");
 	while (tokens[i])
@@ -31,7 +52,11 @@ int main()
 	printf("\n");
 	
 	i = 0;
-	char **fin = last_expand(&tok);
+	char **fin = last_expand(&tok, head_ex);
+	if (!fin)
+		return (0);
+
+
 
 	printf("last expand\n");
 	while (fin[i])
@@ -57,5 +82,8 @@ int main()
 		i++;
 	}
 	free(fin);
+
+	clear_list_env(&head_env);
+	clear_list_env(&head_ex);
 
 }

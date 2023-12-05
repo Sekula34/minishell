@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 13:55:37 by wvan-der          #+#    #+#             */
-/*   Updated: 2023/12/05 17:22:02 by wvan-der         ###   ########.fr       */
+/*   Updated: 2023/12/05 19:28:26 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char	*ft_join(char **str, char c)
 	i = 0;
 	j = 0;
 	len = get_len(*str);
-	temp = (char *)malloc(len + 2);
+	temp = (char *)ft_calloc(1, len + 2);
 	if (!temp)
 		return (NULL);
 	while (*str && (*str)[i])
