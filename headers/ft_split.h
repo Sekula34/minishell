@@ -1,7 +1,7 @@
 #ifndef FT_SPLIT_H
 #define FT_SPLIT_H
 
-typedef struct s_split
+typedef struct s_tokens
 {
 	int isq;
 	int idq;
@@ -10,26 +10,23 @@ typedef struct s_split
 	int flag;
 	char **token_array;
 	int i;
-}	t_split;
-
-typedef struct s_expand
-{
+	int	j;
 	int	start;
 	int	end;
 	int redirect_flag;
-}	t_expand;
+	char **tokens
+}	t_tokens;
 
-
-void	init_split_struct(t_split *split);
-void	set_quotation(t_split *split, char c);
+void	init_split_struct(t_tokens *tokens);
+void	set_quotation(t_tokens *tokens, char c);
 //void	ft_word_count(t_split *split, char *line);
 char	*sub_str(char *str, int start, int end);
 int		get_len(char *str);
 char 	*ft_join(char **str, char c);
-void	set_start_end(t_expand *expand, t_split *split, char *line, int *i);
+void	set_start_end(t_tokens *tokens, char *line, int *i);
 void	check_value(char **value);
 int		append_value(char **res, char *value);
-void	init_expand_struct(t_expand *expand);
+void	init_expand_struct(t_tokens *tokens);
 int		valid_char(char c);
 char **last_expand(char **tokens);
 

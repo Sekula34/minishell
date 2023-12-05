@@ -221,7 +221,7 @@ char **make_token(char *line)
 int main()
 {
 	char **res;
-	char *line = "echo << $a \"hello world\">file.txt";
+	char *line = "echo << $a \"hello $a world\">file.txt";
 
 	res = make_token(line);
 	char **fin;

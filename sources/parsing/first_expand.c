@@ -83,7 +83,7 @@ void check_value(char **value)
 	}
 }
 
-char *first_expand(t_split *split, char *line)
+char *first_expand(t_tokens *tokens, char *line)
 {
 	t_expand expand;
 	int i = 0;
@@ -97,47 +97,31 @@ char *first_expand(t_split *split, char *line)
 	while (line[i])
 	{
 		set_quotation(split, line[i]);
-		if (split->isq == 0 && split->idq == 0 && line[i] == '$')
+		if (split->isq == 0 && split->idq == 0 && line[i] == '$' && go_back_to_check_redirect(split, line, i) == 0)
 		{
-			if (go_back_to_check_redirect(split, line, i) == 0)
-			{
-				set_start_end(&expand, split, line, &i);
-				//getvalue
-				check_value(&value);
-				append_value(&res, value);
-			}
-			else
-			{
-				res = ft_join(&res, line[i]);
-				i++;
-			}
+			set_start_end(&expand, split, line, &i);
+			//getvalue
+			check_value(&value);
+			append_value(&res, value);
 		}
 		else
-		{
-			res = ft_join(&res, line[i]);
-			i++;
-		}
+			res = ft_join(&res, line[i++]);
 	}
 	printf("%s", res);
 	return (res);
 }
 
-/* int main(int argc, char **argv, char **envp)
+void	init_token_struct(t_tokens *tokens)
 {
-	t_split split;
-	init_split_struct(&split);
 
+}
 
-	first_expand(&split, "test    > $a $a$var$a'  '$a $b");
-} */
-
-/* int main(int argc, char **argv, char **envp)
+int main()
 {
-	t_vars *vars;
-	t_split split;
-	vars = NULL;
-	env_list_init(&vars, envp);
+	t_tokens tokens;
 
-	env(vars);
+	init_token_struct(&tokens);	
+	char *line = "echo $var > $var$var \"$var\" << $var";
 
-} */
+	first_expand(&tokens, line);
+}
