@@ -1,5 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   first_expand.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/05 16:53:01 by wvan-der          #+#    #+#             */
+/*   Updated: 2023/12/05 16:55:37 by wvan-der         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../headers/minishel.h"
-#include	<string.h>
+#include <string.h>
 
 void	set_start_end(t_tokens *tok, char *line, int *i)
 {
@@ -12,10 +24,13 @@ void	set_start_end(t_tokens *tok, char *line, int *i)
 	tok->end = *i - 1;
 }
 
-int append_value(char **res, char *value)
+int	append_value(char **res, char *value)
 {
-	int i = 0;
-	int j = 0;
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
 	while (value[i])
 	{
 		*res = ft_join(res, value[i]);
@@ -26,10 +41,10 @@ int append_value(char **res, char *value)
 	return (1);
 }
 
-
 int	go_back_to_check_redirect(t_tokens *tok, char *line, int i)
 {
-	while (i >= 0 && ((line[i] != ' ' && line[i] != '\t') || tok->isq == 1 || tok->idq == 1))
+	while (i >= 0 && ((line[i] != ' ' && line[i] != '\t')
+			|| tok->isq == 1 || tok->idq == 1))
 	{
 		set_quotation(tok, line[i]);
 		if (line[i] == '<' || line[i] == '>')
@@ -44,14 +59,14 @@ int	go_back_to_check_redirect(t_tokens *tok, char *line, int i)
 	if (line[i] == '<' || line[i] == '>')
 		return (1);
 	else
-	 	return (0);
+		return (0);
 }
 
-char *first_expand(t_tokens *tok, char *line)
+char	*first_expand(t_tokens *tok, char *line)
 {
-	int i;
-	int j ;
-	char *res;
+	int		i;
+	int		j;
+	char	*res;
 
 	char *value = strdup("hello");
 
@@ -61,7 +76,8 @@ char *first_expand(t_tokens *tok, char *line)
 	while (line[i])
 	{
 		set_quotation(tok, line[i]);
-		if (tok->isq == 0 && tok->idq == 0 && line[i] == '$' && go_back_to_check_redirect(tok, line, i) == 0)
+		if (tok->isq == 0 && tok->idq == 0 && line[i] == '$'
+			&& go_back_to_check_redirect(tok, line, i) == 0)
 		{
 			set_start_end(tok, line, &i);
 			//getvalue

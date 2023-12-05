@@ -1,15 +1,27 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   last_expand.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/05 17:14:03 by wvan-der          #+#    #+#             */
+/*   Updated: 2023/12/05 17:18:54 by wvan-der         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../headers/minishel.h"
 #include <stdlib.h>
 #include <string.h>
 
-int check_back_for_heredoc(char **tokens, int j)
+int	check_heredoc(char **tokens, int j)
 {
 	if (j > 0)
 	{
 		if (tokens[j - 1][0] == '<' && tokens[j - 1][1] == '<')
 			return (1);
 		else
-		 	return (0);
+			return (0);
 	}
 	return (0);
 }
@@ -23,11 +35,13 @@ void	set_start_end_2d(char *line, int *i)
 	}
 }
 
-int append_value_2d(char **res, char *value, int a)
+int	append_value_2d(char **res, char *value, int a)
 {
-	int i = 0;
-	int j = 0;
+	int	i;
+	int	j;
 
+	i = 0;
+	j = 0;
 	while (value[i])
 	{
 		*res = ft_join(res, value[i]);
@@ -38,34 +52,32 @@ int append_value_2d(char **res, char *value, int a)
 	return (1);
 }
 
-char **last_expand(t_tokens *tok)
+char	**last_expand(t_tokens *tok)
 {
-	char *value = strdup("hello");
-
 	int	i;
 	int	j;
+	char	*value = strdup("hello");
 
 	j = 0;
-	tok->fin_tok = (char **)ft_calloc(tok->token_amount + 1, sizeof(char *));
+	tok->fin = (char **)ft_calloc(tok->token_amount + 1, sizeof(char *));
 	reset_struct(tok);
-	while(tok->tokens[j])
+	while (tok->tokens[j])
 	{
 		i = 0;
-		while(tok->tokens[j][i])
+		while (tok->tokens[j][i])
 		{
-			if (tok->tokens[j][i] == '$' && check_back_for_heredoc(tok->tokens, j) == 0)
+			if (tok->tokens[j][i] == '$' && check_heredoc(tok->tokens, j) == 0)
 			{
 				set_start_end_2d(tok->tokens[j], &i);
 				//getvalue
 				//check_value(&value);
-				append_value_2d(&tok->fin_tok[j], value, j);
+				append_value_2d(&tok->fin[j], value, j);
 			}
 			else
-				tok->fin_tok[j] = ft_join(&tok->fin_tok[j], tok->tokens[j][i++]);
+				tok->fin[j] = ft_join(&tok->fin[j], tok->tokens[j][i++]);
 		}
 		j++;
 	}
-	tok->fin_tok[j] = 0;
-	return (tok->fin_tok);
+	tok->fin[j] = 0;
+	return (tok->fin);
 }
-

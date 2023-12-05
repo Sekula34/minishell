@@ -1,9 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   token_split.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/05 16:58:30 by wvan-der          #+#    #+#             */
+/*   Updated: 2023/12/05 17:11:38 by wvan-der         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../headers/minishel.h"
 
 void	move_counter(t_tokens *tok)
 {
 	tok->flag = 0;
 	tok->tok_i++;
+	tok->token_amount++;
 	tok->redirect_count = 0;
 }
 
@@ -14,7 +27,8 @@ int	count_token(t_tokens *tok, char *line)
 	{
 		while (line[tok->i] && is_white_space(line[tok->i]) == 1)
 			tok->i++;
-		while (line[tok->i] && (is_white_space(line[tok->i]) == 0 || tok->isq == 1 || tok->idq == 1) && is_redirect(line[tok->i]) == 0)
+		while (line[tok->i] && (is_white_space(line[tok->i]) == 0
+				|| check_quotes(tok)) && is_redirect(line[tok->i]) == 0)
 		{
 			set_quotation(tok, line[tok->i++]);
 			tok->flag = 1;
@@ -32,9 +46,9 @@ int	count_token(t_tokens *tok, char *line)
 		if (tok->flag && tok->isq == 0 && tok->idq == 0)
 			move_counter(tok);
 	}
-	tok->token_amount = tok->tok_i;
 	return (tok->tok_i);
 }
+
 void	tokenize_redirect(t_tokens *tok, char *line, int *i, int a)
 {
 	tok->tokens[a] = ft_join(&(tok->tokens[a]), line[*i]);
@@ -54,16 +68,14 @@ int	copy_text(t_tokens *tok, char *line, int *i, int a)
 	return (1);
 }
 
-
-char **make_token(t_tokens *tok, char *line)
+char	**make_token(t_tokens *tok, char *line)
 {
-	char **res;
+	char	**res;
 	int		i;
 	int		a;
 
-	i = 0;
-	a = 0;
-	tok->tokens = (char **)ft_calloc(count_token(tok, line) + 1, sizeof(char *));
+	init_make_token(&a, &i);
+	tok->tokens = ft_calloc(count_token(tok, line) + 1, sizeof(char *));
 	if (!tok->tokens)
 		return (NULL);
 	reset_struct(tok);
@@ -71,7 +83,8 @@ char **make_token(t_tokens *tok, char *line)
 	{
 		while (line[i] && is_white_space(line[i]) == 1)
 			i++;
-		while (line[i] && (is_white_space(line[i]) == 0 || tok->isq == 1 || tok->idq == 1) && is_redirect(line[i]) == 0)
+		while (line[i] && (is_white_space(line[i]) == 0
+				|| check_quotes(tok)) && is_redirect(line[i]) == 0)
 			copy_text(tok, line, &i, a);
 		if (tok->tokens[a] && tok->isq == 0 && tok->idq == 0)
 			a++;

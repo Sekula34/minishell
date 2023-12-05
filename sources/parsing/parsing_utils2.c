@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 14:01:46 by wvan-der          #+#    #+#             */
-/*   Updated: 2023/12/05 16:46:50 by wvan-der         ###   ########.fr       */
+/*   Updated: 2023/12/05 17:19:33 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	init_token_struct(t_tokens *tok)
 	tok->end = 0;
 	tok->redirect_flag = 0;
 	tok->tokens = NULL;
-	tok->fin_tok = NULL;
+	tok->fin = NULL;
 	tok->token_amount = 0;
 }
 
@@ -42,10 +42,11 @@ void	reset_struct(t_tokens *tok)
 	tok->redirect_flag = 0;
 }
 
-void check_value(char **value)
+void	check_value(char **value)
 {
-	int i = 0;
+	int	i;
 
+	i = 0;
 	if (!*value)
 		return ;
 	while ((*value)[i])
@@ -62,11 +63,17 @@ int	valid_char(char c)
 {
 	if (c >= 'a' && c <= 'z')
 		return (1);
-	if (c >= 'A' && c <='Z')
+	if (c >= 'A' && c <= 'Z')
 		return (1);
 	if (c >= '0' && c <= '9')
 		return (1);
 	if (c == '_')
 		return (1);
 	return (0);
+}
+
+void	init_make_token(int *a, int *i)
+{
+	*a = 0;
+	*i = 0;
 }

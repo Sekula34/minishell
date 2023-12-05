@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 13:55:37 by wvan-der          #+#    #+#             */
-/*   Updated: 2023/12/05 15:40:06 by wvan-der         ###   ########.fr       */
+/*   Updated: 2023/12/05 17:22:02 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	set_quotation(t_tokens *tok, char c)
 	}
 }
 
-int get_len(char *str)
+int	get_len(char *str)
 {
 	int	i;
 
@@ -50,12 +50,17 @@ int get_len(char *str)
 	return (i);
 }
 
-char *ft_join(char **str, char c)
+char	*ft_join(char **str, char c)
 {
-	int i = 0;
-	int j = 0;
-	int len = get_len(*str);
-	char *temp = (char *)malloc(len + 2);
+	int		i;
+	int		j;
+	int		len;
+	char	*temp;
+
+	i = 0;
+	j = 0;
+	len = get_len(*str);
+	temp = (char *)malloc(len + 2);
 	if (!temp)
 		return (NULL);
 	while (*str && (*str)[i])
@@ -74,13 +79,13 @@ int	is_white_space(char c)
 	if (c == ' ' || c == '\t')
 		return (1);
 	else
-	 	return (0);
+		return (0);
 }
 
-int is_redirect(char c)
+int	is_redirect(char c)
 {
 	if (c == '<' || c == '>')
 		return (1);
 	else
-	 	return (0);
+		return (0);
 }

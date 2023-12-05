@@ -15,11 +15,10 @@ int main()
 	printf("first expand:\n");
 	printf("%s\n", line2);
 	printf("\n");
-	//free(line);
 
 	char **tokens = make_token(&tok, line2);
 	int i = 0;
-	//free(line2);
+	free(line2);
 
 	printf("tokens:\n");
 	while (tokens[i])
@@ -43,6 +42,20 @@ int main()
 	}
 	//free(fin);
 
+	i = 0;
+	while (tokens[i])
+	{
+		free(tokens[i]);
+		i++;
+	}
+	free(tokens);
 
+	i = 0;
+	while (fin[i])
+	{
+		free(fin[i]);
+		i++;
+	}
+	free(fin);
 
 }
