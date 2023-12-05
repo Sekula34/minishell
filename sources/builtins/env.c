@@ -24,7 +24,7 @@ int	env(t_vars *head)
 		return (-1);
 	while (head != NULL)
 	{
-		if(head->value != NULL)
+		if (head->value != NULL)
 			printf("%s=%s\n", head->key, head->value);
 		head = head->next;
 	}

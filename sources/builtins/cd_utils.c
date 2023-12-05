@@ -12,47 +12,46 @@
 
 #include "../../headers/minishel.h"
 
-
 //creates element with key and value that are allocated here
 //return new element if ok
 //return NULL if fails,
-static t_vars *create_alloc_elem(char *key, char *value)
+static t_vars	*create_alloc_elem(char *key, char *value)
 {
-	t_vars *new_elem;
-	char *value_cpy;
+	t_vars	*new_elem;
+	char	*value_cpy;
 
 	new_elem = create_element_key_only(key);
-	if(new_elem == NULL)
+	if (new_elem == NULL)
 		return (NULL);
-	if(value == NULL)
+	if (value == NULL)
 	{
 		new_elem->value = NULL;
 		return (new_elem);
 	}
 	value_cpy = ft_strdup(value);
-	if(value_cpy == NULL)
+	if (value_cpy == NULL)
 	{
 		delete_element(&new_elem);
 		return (NULL);
 	}
 	new_elem->value = value_cpy;
-	return(new_elem);
+	return (new_elem);
 }
 
 //creates and adds two identiacal elements in both list
 //key, and value will be allocated here
 //return -1 if fails or 0 if ok
-int create_add_new_elems(char *key, char *value, t_vars **ex, t_vars **env)
+int	create_add_new_elems(char *key, char *value, t_vars **ex, t_vars **env)
 {
-	t_vars *ex_elem;
-	t_vars *env_elem;
+	t_vars	*ex_elem;
+	t_vars	*env_elem;
 
 	ex_elem = create_alloc_elem(key, value);
-	if(ex_elem == NULL)
+	if (ex_elem == NULL)
 		return (-1);
 	env_elem = create_alloc_elem(key, value);
 	if (env_elem == NULL)
-		return(delete_element(&ex_elem), -1);
+		return (delete_element(&ex_elem), -1);
 	add_element_back(ex, ex_elem);
 	add_element_back(env, env_elem);
 	list_sort_alpha(*ex);
