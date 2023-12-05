@@ -98,3 +98,24 @@ t_vars *create_element_key_only(char *key)
 	return (new_element);
 }
 
+//function that takes element, and set new_value
+//new value, new value will be alocated here so it can be free later
+//return 0 if success -1 if fail
+int set_new_value(t_vars *element, char *new_value)
+{
+	char *value_cpy;
+	if (new_value == NULL)
+	{
+		free(element->value);
+		element->value = NULL;
+		return (0);
+	}
+	value_cpy = ft_strdup(new_value);
+	if(value_cpy == NULL)
+		return (-1);
+	free(element->value);
+	element->value = NULL;
+	element->value = value_cpy;
+	return (0);
+}
+
