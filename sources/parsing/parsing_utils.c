@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 13:55:37 by wvan-der          #+#    #+#             */
-/*   Updated: 2023/12/05 14:25:38 by wvan-der         ###   ########.fr       */
+/*   Updated: 2023/12/05 15:40:06 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ char *ft_join(char **str, char c)
 
 int	is_white_space(char c)
 {
-	puts("is_white");
 	if (c == ' ' || c == '\t')
 		return (1);
 	else
@@ -80,7 +79,6 @@ int	is_white_space(char c)
 
 int is_redirect(char c)
 {
-	puts("is redir");
 	if (c == '<' || c == '>')
 		return (1);
 	else

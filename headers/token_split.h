@@ -14,6 +14,8 @@ typedef struct s_tokens
 	int	end;
 	int redirect_flag;
 	char **tokens;
+	char **fin_tok;
+	int token_amount;
 }	t_tokens;
 
 void	init_split_struct(t_tokens *tokens);
@@ -27,10 +29,12 @@ void	check_value(char **value);
 int		append_value(char **res, char *value);
 void	init_expand_struct(t_tokens *tokens);
 int		valid_char(char c);
-char **last_expand(char **tokens);
+char **last_expand(t_tokens *tok);
 void	init_token_struct(t_tokens *tok);
 void	reset_struct(t_tokens *tok);
 int	is_white_space(char c);
 int is_redirect(char c);
+char *first_expand(t_tokens *tok, char *line);
+char **make_token(t_tokens *tok, char *line);
 
 #endif

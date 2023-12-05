@@ -32,60 +32,59 @@ int	count_token(t_tokens *tok, char *line)
 		if (tok->flag && tok->isq == 0 && tok->idq == 0)
 			move_counter(tok);
 	}
-	printf("tokens: %d\n", tok->tok_i);
+	tok->token_amount = tok->tok_i;
 	return (tok->tok_i);
 }
-void	tokenize_redirect(t_tokens *tok, char *line)
+void	tokenize_redirect(t_tokens *tok, char *line, int *i, int a)
 {
-	puts("40");
-	printf("%s\n", tok->tokens[tok->tok_i]);
-	tok->tokens[tok->tok_i] = ft_join(&(tok->tokens[tok->tok_i]), line[tok->i]);
-	tok->redirect_count++;
-	puts("42");
+	tok->tokens[a] = ft_join(&(tok->tokens[a]), line[*i]);
 	if (tok->redirect_count == 2)
 	{
 		tok->tok_i++;
 		tok->redirect_count = 0;
 	}
-	tok->i++;
+	(*i)++;
 }
+
+int	copy_text(t_tokens *tok, char *line, int *i, int a)
+{
+	set_quotation(tok, line[*i]);
+	tok->tokens[a] = ft_join(&(tok->tokens[a]), line[*i]);
+	(*i)++;
+	return (1);
+}
+
 
 char **make_token(t_tokens *tok, char *line)
 {
+	char **res;
+	int		i;
+	int		a;
+
+	i = 0;
+	a = 0;
 	tok->tokens = (char **)ft_calloc(count_token(tok, line) + 1, sizeof(char *));
 	if (!tok->tokens)
 		return (NULL);
 	reset_struct(tok);
-	while (line[tok->i])
+	while (line[i])
 	{
-		puts("while1");
-		while (line[tok->i] && is_white_space(line[tok->i]) == 1)
-			tok->i++;
-		puts("61");
-		while (line[tok->i] && (is_white_space(line[tok->i]) == 0 || tok->isq == 1 || tok->idq == 1) && is_redirect(line[tok->i]) == 0)
-		{
-			puts("1");
-			set_quotation(tok, line[tok->i]);
-			puts("1,5");
-			tok->tokens[tok->tok_i] = ft_join(&(tok->tokens[tok->tok_i]), line[tok->i++]);
-			puts("2");
-		}
-		if (tok->tokens[tok->tok_i] && tok->isq == 0 && tok->idq == 0)
-			tok->tok_i++;
-		puts("72");
-		while (line[tok->i] && is_redirect(line[tok->i]))
-		{
-			puts("75");
-			tokenize_redirect(tok, line);
-			puts("77");
-		}
-		if (tok->tokens[tok->tok_i] && tok->isq == 0 && tok->idq == 0)
-			tok->tok_i++;
+		while (line[i] && is_white_space(line[i]) == 1)
+			i++;
+		while (line[i] && (is_white_space(line[i]) == 0 || tok->isq == 1 || tok->idq == 1) && is_redirect(line[i]) == 0)
+			copy_text(tok, line, &i, a);
+		if (tok->tokens[a] && tok->isq == 0 && tok->idq == 0)
+			a++;
+		while (line[i] && is_redirect(line[i]))
+			tokenize_redirect(tok, line, &i, a);
+		if (tok->tokens[a] && tok->isq == 0 && tok->idq == 0)
+			a++;
 	}
-	return (puts("ende"), tok->tokens);
+	tok->tokens[a] = 0;
+	return (tok->tokens);
 }
 
-int main()
+/* int main()
 {
 	t_tokens tok;
 
@@ -100,10 +99,12 @@ int main()
 	while (res && res[a])
 	{
 		printf("%d: %s\n", a, res[a]);
+		free(res[a]);
 		a++;
 	}
+	free(res);
 
-	/* fin = last_expand(res);
+	fin = last_expand(res);
 	a = 0;
 	while (fin && fin[a])
 	{
@@ -113,5 +114,5 @@ int main()
 	}
 	if (fin)
 		free(fin);
- */
-}
+ 
+} */

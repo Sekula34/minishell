@@ -1,26 +1,6 @@
 #include "../../headers/minishel.h"
 #include	<string.h>
 
-int	valid_char(char c)
-{
-	if (c >= 'a' && c <= 'z')
-		return (1);
-	if (c >= 'A' && c <='Z')
-		return (1);
-	if (c >= '0' && c <= '9')
-		return (1);
-	if (c == '_')
-		return (1);
-	return (0);
-}
-
-void	init_expand_struct(t_tokens *tok)
-{
-	tok->start = 0;
-	tok->end = 0;
-	tok->redirect_flag = 0;
-}
-
 void	set_start_end(t_tokens *tok, char *line, int *i)
 {
 	(*i)++;
@@ -67,22 +47,6 @@ int	go_back_to_check_redirect(t_tokens *tok, char *line, int i)
 	 	return (0);
 }
 
-void check_value(char **value)
-{
-	int i = 0;
-
-	if (!*value)
-		return ;
-	while ((*value)[i])
-	{
-		if ((*value)[i] == '<')
-			(*value)[i] = -1;
-		else if ((*value)[i] == '>')
-			(*value)[i] = -2;
-		i++;
-	}
-}
-
 char *first_expand(t_tokens *tok, char *line)
 {
 	int i;
@@ -107,11 +71,10 @@ char *first_expand(t_tokens *tok, char *line)
 		else
 			res = ft_join(&res, line[i++]);
 	}
-	printf("%s", res);
 	return (res);
 }
 
-int main()
+/* int main()
 {
 	t_tokens tok;
 
@@ -119,4 +82,4 @@ int main()
 	char *line = "echo $var > $var$var \"$var\" << $var  $a $a";
 
 	first_expand(&tok, line);
-}
+} */
