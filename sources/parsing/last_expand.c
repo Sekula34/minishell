@@ -28,10 +28,10 @@ int check_back_for_heredoc(char **tokens, int j)
 {
 	if (j > 0)
 	{
-		if (tokens[j - 1][0] && tokens[j - 1][1])
-			return (1);
+		if (tokens[j - 1][0] == '<' && tokens[j - 1][1] == '<')
+			return (puts("1"), 1);
 		else
-		 	return (0);
+		 	return (puts("0"), 0);
 	}
 	return (0);
 }
@@ -45,13 +45,14 @@ void	set_start_end_2d(char *line, int *i)
 	}
 }
 
-int append_value_2d(char ***res, char *value, int a)
+int append_value_2d(char **res, char *value, int a)
 {
 	int i = 0;
 	int j = 0;
+
 	while (value[i])
 	{
-		(*res)[a] = ft_join(res[a], value[i]);
+		*res = ft_join(res, value[i]);
 		if (!*res)
 			return (0);
 		i++;
@@ -67,31 +68,38 @@ char **last_expand(char **tokens)
 	//char **res;
 	int	j;
 
-	i = 0;
 	j = 0;
 	//res = NULL;
 	char *value = strdup("hello");
+
+	//put real size !!!!
 	char **res = malloc(sizeof(char *) * 6);
 	init_split_struct(&split);
 	init_expand_struct(&expand);
 	while(tokens[j])
 	{
+		i = 0;
 		while(tokens[j][i])
 		{
+			printf("%c\n", tokens[j][i]);
 			if (tokens[j][i] == '$' && check_back_for_heredoc(tokens, j) == 0)
 			{
 				set_start_end_2d(tokens[j], &i);
+				puts("after set");
 				//getvalue
 				//check_value(&value);
-				append_value_2d(&res, value, j);
+				append_value_2d(&res[j], value, j);
+				puts("after append");
+				printf("appned %s\n", res[j]);
 			}
 			else
 			{
-				res[j] = NULL;
 				res[j] = ft_join(&res[j], tokens[j][i++]);
+				printf("res: %s\n", res[j]);
 			}
 		}
 		j++;
+		puts("j++");
 	}	
 	//printf("%s\n", res);
 	return (res);
