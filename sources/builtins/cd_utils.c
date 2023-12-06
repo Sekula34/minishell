@@ -57,3 +57,22 @@ int	create_add_new_elems(char *key, char *value, t_vars **ex, t_vars **env)
 	list_sort_alpha(*ex);
 	return (0);
 }
+
+//does not allocate 
+//return home path from ex list 
+//NULL if cannot find or not set
+char	*get_home_path(t_vars *ex_head)
+{
+	t_vars	*head_elem;
+
+	head_elem = get_element("HOME", ex_head);
+	if (head_elem == NULL)
+	{
+		ft_putstr_fd("Minishell: cd: HOME not set\n", 2);
+		return (NULL);
+	}
+	if (head_elem->value != NULL)
+		return (head_elem->value);
+	ft_putstr_fd("Minishell: cd: HOME not set\n", 2);
+	return (NULL);
+}

@@ -98,7 +98,7 @@ int	value_setter(char *key, char *new_value, t_vars **ex_h, t_vars **env_head)
 
 //changes directory, set oldpwd, newpwd
 //return 0 on success -1 if failed
-int	cd(char *directory, t_vars **ex_head, t_vars **env_head)
+static int	cd_main(char *directory, t_vars **ex_head, t_vars **env_head)
 {
 	char	*current;
 
@@ -116,5 +116,35 @@ int	cd(char *directory, t_vars **ex_head, t_vars **env_head)
 	if (value_setter("PWD", current, ex_head, env_head) == -1)
 		return (free(current), -1);
 	free(current);
+	return (0);
+}
+
+//check if directory is NULL or ~ so it can call function 
+//on special case where cd is home directory
+//otherwise call function with directory;
+int	cd(char *directory, t_vars **ex_head, t_vars **env_head)
+{
+	char	*home_dir;
+
+	if (directory == NULL)
+	{
+		home_dir = get_home_path(*ex_head);
+		if (home_dir == NULL)
+			return (-1);
+		if (cd_main(home_dir, ex_head, env_head) != 0)
+			return (-1);
+		return (0);
+	}
+	if (ft_strlen(directory) == 1 && directory[0] == '~')
+	{
+		home_dir = get_home_path(*ex_head);
+		if (home_dir == NULL)
+			return (-1);
+		if (cd_main(home_dir, ex_head, env_head) != 0)
+			return (-1);
+		return (0);
+	}
+	if (cd_main(directory, ex_head, env_head) != 0)
+		return (-1);
 	return (0);
 }
