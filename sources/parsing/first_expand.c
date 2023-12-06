@@ -6,12 +6,11 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:53:01 by wvan-der          #+#    #+#             */
-/*   Updated: 2023/12/05 18:43:56 by wvan-der         ###   ########.fr       */
+/*   Updated: 2023/12/06 13:59:20 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishel.h"
-#include <string.h>
 
 void	set_start_end(t_tokens *tok, char *line, int *i)
 {

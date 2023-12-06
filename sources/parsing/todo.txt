@@ -6,3 +6,10 @@
 3. 	expand vars in quotations (but not if after heredoc)
 
 4. rereplace redirects 
+
+
+
+
+DONT FORGET TO PREPROCESS FOR PIEP AND SEMICOLON
+
+

@@ -14,6 +14,7 @@ sources/parsing/last_expand.c \
 sources/parsing/parsing_utils.c \
 sources/parsing/parsing_utils2.c \
 sources/parsing/parsing_utils3.c \
+sources/parsing/rereplace_redirect.c \
 sources/parsing/main.c \
 sources/env_export/env_list_utils2.c
 

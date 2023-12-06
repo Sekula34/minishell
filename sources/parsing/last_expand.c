@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 17:14:03 by wvan-der          #+#    #+#             */
-/*   Updated: 2023/12/05 19:35:01 by wvan-der         ###   ########.fr       */
+/*   Updated: 2023/12/06 13:17:04 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char *get_var_value_2d(t_tokens *tok, t_vars *head_ex, char *line)
 
 	key = ft_substr(line, tok->start, tok->end - tok->start + 1);
 
-	printf("key: %s\n", key);
+	//printf("key: %s\n", key);
 
 	element = get_element(key, head_ex);
 	free(key);
@@ -75,11 +75,15 @@ int	put_value_2d(t_tokens *tok, t_vars *head_ex, char *line, char **res, int j)
 {
 	char *value;
 
+	j += 0;
 	value = get_var_value_2d(tok, head_ex, line);
 	if (!value)
 	{
-/* 		if (tok->tokens[j - 1][0] == '<' || tok->tokens[j - 1][0] == '>')
-			*res = ft_join(res, '"'); */
+		if (tok->tokens[j - 1][0] == '<' || tok->tokens[j - 1][0] == '>')
+		{
+			*res = ft_join(res, '"');
+			return (1);
+		}
 		return (0);
 	}
 	check_value(&value);

@@ -21,9 +21,10 @@ int main(int argc, char **argv, char **envp)
 	env_list_init(&head_env, envp);
 	export("var=pupu", &head_ex, &head_env);
 	export("a=ivan", &head_ex, &head_env);
+	export("c=>", &head_ex, &head_env);
 
 	init_token_struct(&tok);	
-	char *line = "echo \"$c\" $var$var > $var$a \"$var\" << $var  $a < $c ";
+	char *line = "echo \"$c\" $var$var > $var$a | \"$var\" << $var  $a  $c $a hello";
 
 	printf("beginn:\n");
 	printf("%s\n", line);
@@ -56,7 +57,7 @@ int main(int argc, char **argv, char **envp)
 	if (!fin)
 		return (0);
 
-
+	rereplace_redirect(&tok);
 
 	printf("last expand\n");
 	while (fin[i])
