@@ -13,3 +13,12 @@
 DONT FORGET TO PREPROCESS FOR PIEP AND SEMICOLON
 
 
+classify
+
+	cmd -  argument(s) - input file(or stdin) - output file (or stdout)
+
+
+
+TYPED OF redirections
+
+	i = < o = > h = << a = >>

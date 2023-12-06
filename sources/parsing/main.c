@@ -24,7 +24,7 @@ int main(int argc, char **argv, char **envp)
 	export("c=>", &head_ex, &head_env);
 
 	init_token_struct(&tok);	
-	char *line = "echo \"$c\" $var$var > $var$a | \"$var\" << $var  $a  $c $a hello";
+	char *line = "                  echo \"$c\" $var$var > $var$a | \"$var\" << $var  $a  $c $a <$d hello";
 
 	printf("beginn:\n");
 	printf("%s\n", line);
@@ -57,7 +57,7 @@ int main(int argc, char **argv, char **envp)
 	if (!fin)
 		return (0);
 
-	rereplace_redirect(&tok);
+	//rereplace_redirect(&tok);
 
 	printf("last expand\n");
 	while (fin[i])
