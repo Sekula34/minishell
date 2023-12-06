@@ -14,13 +14,22 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-
-	t_vars *head;
-	head = NULL;
-	if(argc && argv)
-		printf("whatever\n");
-	env_list_init(&head, envp);
-	env(head);
-	clear_list_env(&head);
-	
+	t_vars *ex_head, *env_head;
+	ex_head = NULL;
+	env_head = NULL;
+	if(argc && argv && envp)
+		printf("Started\n");
+	if(env_list_init(&ex_head, envp) != 1)
+	{
+		shexit(&ex_head, &env_head, -1);
+	}
+	if(env_list_init(&env_head, envp) != 1)
+	{
+		shexit(&ex_head, &env_head, -1);
+	}
+	pwd(&ex_head, &env_head);
+	unset("HOME", &env_head, &ex_head);
+	cd(NULL, &ex_head, &env_head);
+	pwd(&ex_head, &env_head);
+	shexit(&ex_head, &env_head, 0);
 }
