@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 17:14:03 by wvan-der          #+#    #+#             */
-/*   Updated: 2023/12/06 13:17:04 by wvan-der         ###   ########.fr       */
+/*   Updated: 2023/12/07 17:25:13 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	check_heredoc(char **tokens, int j)
 	return (0);
 }
 
-void	set_start_end_2d(t_tokens *tok, char *line, int *i)
+/* void	set_start_end_2d(t_tokens *tok, char *line, int *i)
 {
 	(*i)++;
 	tok->start = *i;
@@ -35,8 +35,14 @@ void	set_start_end_2d(t_tokens *tok, char *line, int *i)
 		(*i)++;
 	}
 	tok->end = *i - 1;
+	if (tok->end < tok->start)
+	{
+		tok->end++;
+	}
+	if (line[*i] && (line[*i] == 0 || line[*i] == ' '))
+		puts("problem");
 	//printf("start c: %c, end c: %c\n", line[tok->start], line[tok->end]);
-}
+} */
 
 int	append_value_2d(char **res, char *value)
 {
@@ -61,8 +67,12 @@ char *get_var_value_2d(t_tokens *tok, t_vars *head_ex, char *line)
 	char *key;
 
 	key = ft_substr(line, tok->start, tok->end - tok->start + 1);
-
-	//printf("key: %s\n", key);
+	if (!key)
+		return (NULL);
+	if (!key[0] || key[0] == '\'' || key[0] == '"')
+		return (NULL);
+	printf("key: %s\n", key);
+	puts("?");
 
 	element = get_element(key, head_ex);
 	free(key);
@@ -108,7 +118,7 @@ char	**last_expand(t_tokens *tok, t_vars *head_ex)
 		{
 			if (tok->tokens[j][i] == '$' && check_heredoc(tok->tokens, j) == 0)
 			{
-				set_start_end_2d(tok, tok->tokens[j], &i);
+				set_start_end(tok, tok->tokens[j], &i);
 				if (put_value_2d(tok, head_ex,tok->tokens[j], &tok->fin[j], j) == 0)
 					i++;
 			}

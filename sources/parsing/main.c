@@ -20,18 +20,18 @@ int main(int argc, char **argv, char **envp)
 	env_list_init(&head_ex, envp);
 	env_list_init(&head_env, envp);
 	export("var=pupu", &head_ex, &head_env);
-	export("a=ivan", &head_ex, &head_env);
+	export("a=ls -l", &head_ex, &head_env);
 	export("c=>", &head_ex, &head_env);
 
 	init_token_struct(&tok);	
-	char *line = "                  echo \"$c\" $var$var > $var$a | \"$var\" << $var  $a  $c $a <$d hello";
+	char *line = "$ echo $ > file";
 
-	printf("beginn:\n");
+	//printf("beginn3:\n");
 	printf("%s\n", line);
 	printf("\n");
 
 	char *line2 = first_expand(&tok, head_ex, line);
-	printf("first expand:\n");
+	printf("first expander:\n");
 	printf("%s\n", line2);
 	printf("\n");
 
@@ -68,6 +68,14 @@ int main(int argc, char **argv, char **envp)
 	}
 	//free(fin);
 
+	classifiying_tokens(&tok);
+
+
+
+
+
+
+
 	i = 0;
 	while (tokens[i])
 	{
@@ -83,6 +91,9 @@ int main(int argc, char **argv, char **envp)
 		i++;
 	}
 	free(fin);
+
+/* 	printf("head ex\n");
+	export(NULL, &head_ex, &head_env); */
 
 	clear_list_env(&head_env);
 	clear_list_env(&head_ex);

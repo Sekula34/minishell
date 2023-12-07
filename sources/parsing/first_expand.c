@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:53:01 by wvan-der          #+#    #+#             */
-/*   Updated: 2023/12/06 13:59:20 by wvan-der         ###   ########.fr       */
+/*   Updated: 2023/12/07 17:36:46 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	set_start_end(t_tokens *tok, char *line, int *i)
 {
+	puts("set s e");
 	(*i)++;
 	tok->start = *i;
 	while (line[*i] && valid_char(line[*i]))
@@ -21,6 +22,12 @@ void	set_start_end(t_tokens *tok, char *line, int *i)
 		(*i)++;
 	}
 	tok->end = *i - 1;
+	if (tok->end < tok->start)
+	{
+		tok->end++;
+	}
+	if (line[*i] && (line[*i] == 0 || line[*i] == ' '))
+		puts("problem");
 }
 
 int	append_value(char **res, char *value)
@@ -67,6 +74,13 @@ char *get_var_value(t_tokens *tok, t_vars *head_ex, char *line)
 	char *key;
 
 	key = ft_substr(line, tok->start, tok->end - tok->start + 1);
+	if (!key)
+		return (NULL);
+	if (!key[0] || key[0] == '\'' || key[0] == '"')
+		return (NULL);
+	printf("key: %s\n", key);
+	puts("?");
+	
 	element = get_element(key, head_ex);
 	free(key);
 	if (!element)

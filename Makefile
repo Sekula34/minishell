@@ -19,6 +19,7 @@ sources/parsing/parsing_utils.c \
 sources/parsing/parsing_utils2.c \
 sources/parsing/parsing_utils3.c \
 sources/parsing/rereplace_redirect.c \
+sources/parsing/classifying_tokens.c \
 sources/parsing/main.c \
 sources/env_export/env_list_utils2.c
 
@@ -27,9 +28,9 @@ headers/data_types.h \
 headers/envexport.h \
 headers/minishel.h \
 
-CC = cc 
+CC = cc -g
 
-COMPILER_FLAGS = -Wall -Wextra -Werror -g
+#COMPILER_FLAGS = -Wall -Wextra -Werror -g
 
 EXTRA_FLAGS = -lreadline
 
