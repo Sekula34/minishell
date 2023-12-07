@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_types.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fseles <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 11:22:24 by fseles            #+#    #+#             */
-/*   Updated: 2023/11/30 11:22:25 by fseles           ###   ########.fr       */
+/*   Updated: 2023/12/06 16:55:33 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,16 @@ typedef struct s_vars
 
 typedef struct s_redirect
 {
-	char				*redirect;
+	char			type;
+	char 			*file_name;
+	//i = < o = > h = << a = >>
 	struct s_redirect	*next;
 }	t_redirect;
 
 typedef struct s_cmd
 {
 	char			*path;
+	char			*cmd;
 	char			**args;
 	t_redirect		*redirect_lst;
 	struct s_cmd	*next;

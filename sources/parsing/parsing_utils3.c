@@ -1,28 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishel.h                                         :+:      :+:    :+:   */
+/*   parsing_utils3.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/27 16:43:41 by fseles            #+#    #+#             */
-/*   Updated: 2023/12/05 13:43:24 by wvan-der         ###   ########.fr       */
+/*   Created: 2023/12/05 17:20:13 by wvan-der          #+#    #+#             */
+/*   Updated: 2023/12/05 17:20:28 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHEL_H
-# define MINISHEL_H
-# define NAME "minishel: "
-# include <errno.h>
-# include <readline/history.h>
-# include <readline/readline.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include "data_types.h"
-# include "../libft/libft.h"
-# include "token_split.h"
-# include "envexport.h"
-# include "builtin.h"
+#include "../../headers/minishel.h"
 
-#endif
+int	check_quotes(t_tokens *tok)
+{
+	if (tok->isq == 1 || tok->isq == 1)
+		return (1);
+	else
+		return (0);
+}

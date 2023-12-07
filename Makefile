@@ -12,6 +12,14 @@ sources/env_export/env_list_init.c \
 sources/env_export/env_list_utils.c \
 sources/env_export/list_sort.c \
 sources/env_export/string_utils.c \
+sources/parsing/token_split.c \
+sources/parsing/first_expand.c \
+sources/parsing/last_expand.c \
+sources/parsing/parsing_utils.c \
+sources/parsing/parsing_utils2.c \
+sources/parsing/parsing_utils3.c \
+sources/parsing/rereplace_redirect.c \
+sources/parsing/main.c \
 sources/env_export/env_list_utils2.c
 
 HEADERS = headers/builtin.h \
