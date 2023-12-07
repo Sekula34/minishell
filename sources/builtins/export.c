@@ -18,12 +18,9 @@ static void	export_print(t_vars *ex_vars)
 	while (ex_vars != NULL)
 	{
 		printf("declare -x ");
-		if (pos_of_equal(ex_vars->key) == -1)
-			printf ("%s\n", ex_vars->key);
-		else if (ex_vars->value == NULL)
-			printf("%s%c%c\n", ex_vars->key, '"', '"');
-		else
-			printf("%s%c%s%c\n", ex_vars->key, '"', ex_vars->value, '"');
+		printf("%s", ex_vars->key);
+		if (ex_vars->value != NULL)
+			printf("=%c%s%c\n", '"', ex_vars->value, '"');
 		ex_vars = ex_vars->next;
 	}
 }
@@ -111,7 +108,12 @@ int	export(char *string, t_vars **ex_vars, t_vars **env_vars)
 		export_print(*ex_vars);
 		return (0);
 	}
-	else if (pos_of_equal(string) != -1)
+	if (key_checker(string) != 1)
+	{
+		ft_putstr_fd("export: Not a valid identifier\n", 2);
+		return (-1);
+	}
+	if (pos_of_equal(string) != -1)
 		return (export_eq(string, ex_vars, env_vars));
 	else
 		return (export_no_eq(string, ex_vars, env_vars));

@@ -19,13 +19,13 @@
 //return pointer of new element if everything is ok
 t_vars	*create_element(char *key, char *value)
 {
-	t_vars *new_element;
-	
+	t_vars	*new_element;
+
 	new_element = malloc(sizeof(t_vars));
 	if (new_element == NULL)
 	{
 		perror("Allocation of new element in create element fails\n");
-		return(NULL);
+		return (NULL);
 	}
 	new_element->key = key;
 	new_element->value = value;
@@ -84,12 +84,12 @@ void	add_element_back(t_vars **head, t_vars *new_element)
 //return number of elements or 0 if list does not exist
 int	count_list_elements(t_vars *head)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	if(head == NULL)
+	if (head == NULL)
 		return (0);
-	while(head != NULL)
+	while (head != NULL)
 	{
 		i++;
 		head = head->next;
