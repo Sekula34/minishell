@@ -40,9 +40,10 @@ typedef struct s_cmd
 
 typedef struct s_shell
 {
-	t_cmd	cmd_lst;
+	t_cmd	*cmd_lst;
 	int		last_exit_code;
-	t_vars	vars;
+	t_vars	*head_ex;
+	t_vars	*head_env;
 }	t_shell;
 
 #endif
