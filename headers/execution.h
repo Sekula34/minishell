@@ -15,6 +15,6 @@
 
 # include "data_types.h"
 
-int get_number_of_commands(t_cmd *cmd);
+int set_number_of_commands(int *noc, t_cmd *cmd);
 
 #endif

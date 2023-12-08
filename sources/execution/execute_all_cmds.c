@@ -15,6 +15,9 @@
 int execute_all_cmds(t_shell shell)
 {
 	(void)(shell);
-	//int	cmd_count;
-	return (EXIT_SUCCESS);
+	int	cmd_count;
+
+	if (set_number_of_commands(&cmd_count, shell.cmd_lst) == EXIT_FAILURE)
+		return(EXIT_FAILURE);
+	return(EXIT_SUCCESS);
 }
