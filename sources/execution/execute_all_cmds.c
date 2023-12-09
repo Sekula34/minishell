@@ -16,13 +16,15 @@ int execute_all_cmds(t_shell shell)
 {
 	(void)(shell);
 	int	cmd_count;
-	//int **pipe_arr;
+	int **pipe_arr;
 
+	pipe_arr = NULL;
 	if (set_number_of_commands(&cmd_count, shell.cmd_lst) == EXIT_FAILURE)
 		return(EXIT_FAILURE);
 	if(cmd_count > 1)
 	{
-		//makepipes
+		if(make_pipes(&pipe_arr, cmd_count - 1) == EXIT_FAILURE)
+			return(EXIT_FAILURE);
 	}
 	return(EXIT_SUCCESS);
 }

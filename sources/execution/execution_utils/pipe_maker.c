@@ -84,6 +84,8 @@ void clear_pipe_array(int ***pipe_arr)
 	int i;
 	i = 0;
 	int *to_delete;
+	if(pipe_arr == NULL)
+		return ;
 	while((*pipe_arr)[i] != NULL)
 	{
 		to_delete = (*pipe_arr)[i];
@@ -98,6 +100,8 @@ void clear_pipe_array(int ***pipe_arr)
 //you put 2 in number of pipes but array will be (pipe0, pipe1, NULL)
 //retunr 1 (exit_failutre) if something fails 
 //return 0(exit suceess) if everything is ok
+//allocates and you have clear_pipe_array to freee all
+//if failes no need to clear it
 int make_pipes(int ***pipe_arr, int number_of_pipes)
 {
 	int i;
