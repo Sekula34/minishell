@@ -15,6 +15,8 @@
 
 # include "data_types.h"
 
+void clear_pipe_array(int ***pipe_arr);
+int make_pipes(int ***pipe_arr, int number_of_pipes);
 int set_number_of_commands(int *noc, t_cmd *cmd);
 
 #endif
