@@ -6,13 +6,11 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 17:14:03 by wvan-der          #+#    #+#             */
-/*   Updated: 2023/12/07 17:25:13 by wvan-der         ###   ########.fr       */
+/*   Updated: 2023/12/08 14:25:22 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishel.h"
-#include <stdlib.h>
-#include <string.h>
 
 int	check_heredoc(char **tokens, int j)
 {
@@ -44,7 +42,7 @@ int	check_heredoc(char **tokens, int j)
 	//printf("start c: %c, end c: %c\n", line[tok->start], line[tok->end]);
 } */
 
-int	append_value_2d(char **res, char *value)
+/* int	append_value_2d(char **res, char *value)
 {
 	int	i;
 	int	j;
@@ -59,9 +57,9 @@ int	append_value_2d(char **res, char *value)
 		i++;
 	}
 	return (1);
-}
+} */
 
-char *get_var_value_2d(t_tokens *tok, t_vars *head_ex, char *line)
+/* char *get_var_value_2d(t_tokens *tok, t_vars *head_ex, char *line)
 {
 	t_vars *element;
 	char *key;
@@ -79,14 +77,14 @@ char *get_var_value_2d(t_tokens *tok, t_vars *head_ex, char *line)
 	if (!element)
 		return (NULL);
 	return (element->value);
-}
+} */
 
 int	put_value_2d(t_tokens *tok, t_vars *head_ex, char *line, char **res, int j)
 {
 	char *value;
 
 	j += 0;
-	value = get_var_value_2d(tok, head_ex, line);
+	value = get_var_value(tok, head_ex, line);
 	if (!value)
 	{
 		if (tok->tokens[j - 1][0] == '<' || tok->tokens[j - 1][0] == '>')
@@ -97,7 +95,7 @@ int	put_value_2d(t_tokens *tok, t_vars *head_ex, char *line, char **res, int j)
 		return (0);
 	}
 	check_value(&value);
-	append_value_2d(res, value);
+	append_value(res, value);
 	return (1);
 }
 

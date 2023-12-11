@@ -19,78 +19,91 @@ int main(int argc, char **argv, char **envp)
 	head_env = NULL;
 	env_list_init(&head_ex, envp);
 	env_list_init(&head_env, envp);
-	export("var=pupu", &head_ex, &head_env);
+	export("var=pu pu", &head_ex, &head_env);
 	export("a=ls -l", &head_ex, &head_env);
 	export("c=>", &head_ex, &head_env);
 
 	init_token_struct(&tok);	
-	char *line = "$ echo $ > file";
+	char *line = "echo hello | cat -e";
 
-	//printf("beginn3:\n");
-	printf("%s\n", line);
-	printf("\n");
+	char **lines;
+	int a = 0;
 
-	char *line2 = first_expand(&tok, head_ex, line);
-	printf("first expander:\n");
-	printf("%s\n", line2);
-	printf("\n");
-
-	char **tokens = make_token(&tok, line2);
-	int i = 0;
-	free(line2);
-
-	if (!tokens)
-		return (0);
-
-	printf("tokens:\n");
-	while (tokens[i])
+	lines = ft_split(line, '|');
+	if (!lines)
+		return (1);
+	while (lines[a])
 	{
-		printf("%d: %s\n", i, tokens[i]);
-		//free(tokens[i]);
-		i++;
+
+
+		printf("begin:\n");
+		printf("%s\n", line);
+		printf("\n");
+
+		char *line2 = first_expand(&tok, head_ex, lines[a]);
+		printf("first expand:\n");
+		printf("%s\n", line2);
+		printf("\n");
+
+		char **tokens = make_token(&tok, line2);
+		int i = 0;
+		free(line2);
+
+		if (!tokens)
+			return (0);
+
+		printf("tokens:\n");
+		while (tokens[i])
+		{
+			printf("%d: %s\n", i, tokens[i]);
+			//free(tokens[i]);
+			i++;
+		}
+		//free(tokens);
+		printf("\n");
+		
+		i = 0;
+		char **fin = last_expand(&tok, head_ex);
+		if (!fin)
+			return (0);
+
+		//rereplace_redirect(&tok);
+
+		printf("last expand\n");
+		while (fin[i])
+		{
+			printf("%d: %s\n", i,  fin[i]);
+			//free(fin[i]);
+			i++;
+		}
+		//free(fin);
+
+		classifiying_tokens(&tok);
+
+
+
+
+
+
+
+		i = 0;
+		while (tokens[i])
+		{
+			free(tokens[i]);
+			i++;
+		}
+		free(tokens);
+
+		i = 0;
+		while (fin[i])
+		{
+			free(fin[i]);
+			i++;
+		}
+		free(fin);
+
+		a++;
 	}
-	//free(tokens);
-	printf("\n");
-	
-	i = 0;
-	char **fin = last_expand(&tok, head_ex);
-	if (!fin)
-		return (0);
-
-	//rereplace_redirect(&tok);
-
-	printf("last expand\n");
-	while (fin[i])
-	{
-		printf("%d: %s\n", i,  fin[i]);
-		//free(fin[i]);
-		i++;
-	}
-	//free(fin);
-
-	classifiying_tokens(&tok);
-
-
-
-
-
-
-
-	i = 0;
-	while (tokens[i])
-	{
-		free(tokens[i]);
-		i++;
-	}
-	free(tokens);
-
-	i = 0;
-	while (fin[i])
-	{
-		free(fin[i]);
-		i++;
-	}
-	free(fin);
 
 /* 	printf("head ex\n");
 	export(NULL, &head_ex, &head_env); */
