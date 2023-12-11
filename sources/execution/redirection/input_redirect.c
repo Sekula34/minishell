@@ -42,6 +42,7 @@ static int file_checker(char *file_name, int *new_fd)
 //return 1 if no such file or dir
 //retunr 2 if open failed
 //in fd is now standard input
+//fd is not allocated here
 int input_redirect(t_redirect *input, int *fd)
 {
 	int result;
