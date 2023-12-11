@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:56:52 by wvan-der          #+#    #+#             */
-/*   Updated: 2023/12/08 15:24:02 by wvan-der         ###   ########.fr       */
+/*   Updated: 2023/12/11 17:25:48 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	set_quotation(t_tokens *tokens, char c);
 char	*sub_str(char *str, int start, int end);
 int		get_len(char *str);
 char	*ft_join(char **str, char c);
-void	set_start_end(t_tokens *tokens, char *line, int *i);
+int	set_start_end(t_tokens *tokens, char *line, int *i);
 void	check_value(char **value);
 int		append_value(char **res, char *value);
 void	init_expand_struct(t_tokens *tokens);
@@ -55,6 +55,6 @@ void rereplace_redirect(t_tokens *tok);
 int classifiying_tokens(t_tokens *tok);
 char *get_var_value(t_tokens *tok, t_vars *head_ex, char *line);
 int	append_value(char **res, char *value);
-int	split_pipes(char *line);
+char	**split_pipes(t_tokens *tok, char *line);
 
 #endif

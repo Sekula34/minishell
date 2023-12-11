@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:58:30 by wvan-der          #+#    #+#             */
-/*   Updated: 2023/12/05 17:45:07 by wvan-der         ###   ########.fr       */
+/*   Updated: 2023/12/11 15:35:08 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,14 @@ int	count_token(t_tokens *tok, char *line)
 	return (tok->tok_i);
 }
 
-void	tokenize_redirect(t_tokens *tok, char *line, int *i, int a)
+void	tokenize_redirect(t_tokens *tok, char *line, int *i, int *a)
 {
-	tok->tokens[a] = ft_join(&(tok->tokens[a]), line[*i]);
+	tok->redirect_count++;
+	tok->tokens[*a] = ft_join(&(tok->tokens[*a]), line[*i]);
 	if (tok->redirect_count == 2)
 	{
-		tok->tok_i++;
+		(*a)++;
+		//tok->tok_i++;
 		tok->redirect_count = 0;
 	}
 	(*i)++;
@@ -88,7 +90,7 @@ char	**make_token(t_tokens *tok, char *line)
 		if (tok->tokens[a] && tok->isq == 0 && tok->idq == 0)
 			a++;
 		while (line[i] && is_redirect(line[i]))
-			tokenize_redirect(tok, line, &i, a);
+			tokenize_redirect(tok, line, &i, &a);
 		if (tok->tokens[a] && tok->isq == 0 && tok->idq == 0)
 			a++;
 	}

@@ -20,22 +20,34 @@ int main(int argc, char **argv, char **envp)
 	env_list_init(&head_ex, envp);
 	env_list_init(&head_env, envp);
 	export("var=pu pu", &head_ex, &head_env);
-	export("a=ls -l", &head_ex, &head_env);
+	export("a=|", &head_ex, &head_env);
 	export("c=>", &head_ex, &head_env);
 
 	init_token_struct(&tok);	
-	char *line = "echo hello | cat -e";
+	char *line = "$test";
+	// "echo $$$$$abc abc";
+	// variable on the first place - valgrind errors
+	// "'$assads'" - seg fault
+	// "echo '|' abc < def >fuck > you" - splitted by pipe (should not)
 
+
+	// FIXED   "echo >>><< abc < def >fuck > you" - broken redirection is one token for some reason
 	char **lines;
 	int a = 0;
+
+
+
+/* 
+	lines = split_pipes(&tok, line);
+
+	return (1); */
+
 
 	lines = ft_split(line, '|');
 	if (!lines)
 		return (1);
 	while (lines[a])
 	{
-
-
 		printf("begin:\n");
 		printf("%s\n", line);
 		printf("\n");

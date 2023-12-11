@@ -6,16 +6,18 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:53:01 by wvan-der          #+#    #+#             */
-/*   Updated: 2023/12/08 15:06:22 by wvan-der         ###   ########.fr       */
+/*   Updated: 2023/12/11 15:39:07 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishel.h"
 
-void	set_start_end(t_tokens *tok, char *line, int *i)
+int	set_start_end(t_tokens *tok, char *line, int *i)
 {
 	puts("set s e");
 	(*i)++;
+	if (!valid_char(line[*i]))
+		return (puts("invalid"), 0);
 	tok->start = *i;
 	while (line[*i] && valid_char(line[*i]))
 	{
@@ -26,8 +28,7 @@ void	set_start_end(t_tokens *tok, char *line, int *i)
 	{
 		tok->end++;
 	}
-	if (line[*i] && (line[*i] == 0 || line[*i] == ' '))
-		puts("problem");
+	return (1);
 }
 
 int	append_value(char **res, char *value)
@@ -72,19 +73,28 @@ char *get_var_value(t_tokens *tok, t_vars *head_ex, char *line)
 {
 	t_vars *element;
 	char *key;
+	char *temp;
 
 	key = ft_substr(line, tok->start, tok->end - tok->start + 1);
 	if (!key)
 		return (NULL);
-	if (!key[0] || key[0] == '\'' || key[0] == '"')
-		return (NULL);
-	printf("key: %s\n", key);
+	if (!key[0]) //|| key[0] == '\'' || key[0] == '"')
+		return (puts("key null"), NULL);
+	if (key[0] == '\'' || key[0] == '"')
+	{
+		temp = ft_substr(key, 1, ft_strlen(key) - 2);
+		printf("temp:%s-\n", temp);
+		free(key);
+		return (temp);
+	}
+	printf("key:-%s-\n", key);
 	puts("?");
-	
+/* 	if (key[0] == '\'' || key[0] == '"')
+		return ("'"); */
 	element = get_element(key, head_ex);
 	free(key);
 	if (!element)
-		return (NULL);
+		return (puts("element null"), NULL);
 	return (element->value);
 }
 
@@ -95,6 +105,9 @@ int put_value(t_tokens *tok, t_vars *head_ex, char *line, char **res)
 	value = get_var_value(tok, head_ex, line);
 	if (!value)
 		return (0);
+/* 	if (value[0] == '\'')
+		 */
+		
 	check_value(&value);
 	append_value(res, value);
 	return (1);
@@ -115,9 +128,17 @@ char	*first_expand(t_tokens *tok, t_vars *head_ex, char *line)
 		if (tok->isq == 0 && tok->idq == 0 && line[i] == '$'
 			&& go_back_to_check_redirect(tok, line, i) == 0)
 		{
-			set_start_end(tok, line, &i);
-			if (put_value(tok, head_ex, line, &res) == 0)
+			if (set_start_end(tok, line, &i) == 1)
+			{
+				if (put_value(tok, head_ex, line, &res) == 0)
+					i++;
+			}
+			else 	
+			{
+				res = ft_join(&res, line[--i]);
+				//res = ft_join(&res, line[i++]);
 				i++;
+			}
 		}
 		else
 			res = ft_join(&res, line[i++]);
