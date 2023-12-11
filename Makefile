@@ -13,6 +13,7 @@ sources/env_export/env_list_utils.c \
 sources/env_export/list_sort.c \
 sources/env_export/string_utils.c \
 sources/execution/execution_utils/count_cmds.c\
+sources/execution/execution_utils/is_builtin.c\
 sources/execution/execution_utils/pipe_maker.c \
 sources/execution/execute_all_cmds.c \
 sources/parsing/token_split.c \
