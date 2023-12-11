@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_one_command.c                              :+:      :+:    :+:   */
+/*   input_redirect.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fseles <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/11 12:00:22 by fseles            #+#    #+#             */
-/*   Updated: 2023/12/11 12:00:24 by fseles           ###   ########.fr       */
+/*   Created: 2023/12/11 16:21:32 by fseles            #+#    #+#             */
+/*   Updated: 2023/12/11 16:21:34 by fseles           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../headers/minishel.h"
+#include "../../../headers/minishel.h"
 
-int one_command_exec(t_cmd *cmd)
+
+//return 0 on success 
+//return 1 if no such file or dir
+int input_redirect(t_redirect *input)
 {
-	int builtin_cmd;
-
-	builtin_cmd = is_cmd_builtin(cmd);
-	if(builtin_cmd > 0)
+	char	*file_name;
+	int		access_val;
+	file_name = input->file_name;
+	access_val = access(file_name, F_OK | R_OK);
+	if(access_val == -1)
 	{
-		//builtin_exec;
+		perror("Input_redirect:");
+		return(1);
 	}
-
 }

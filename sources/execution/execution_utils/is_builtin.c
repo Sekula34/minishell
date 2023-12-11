@@ -33,15 +33,15 @@ static int error_input(t_cmd *cmd)
 
 
 // function that checks if command is one of following:
-// cd
-// pwd 
-// env 
-// echo 
-// exit 
-// unset 
-// export 
-// if it is return 1, otherwise return 0
-// return -1 if cmd is empty
+// cd 1
+// pwd 2
+// env 3
+// echo 4
+// exit 5
+// unset 6
+// export 7
+// if it is return 1 or bigger depend which is, otherwise return 0
+// return -1 if cmd is empty and print message what happend
 int is_cmd_builtin(t_cmd *cmd)
 {
 	if(error_input(cmd) == 1)
@@ -49,16 +49,16 @@ int is_cmd_builtin(t_cmd *cmd)
 	if(ft_strncmp(cmd->cmd, "cd", 3) == 0)
 		return (1);
 	if(ft_strncmp(cmd->cmd, "pwd", 4) == 0)
-		return (1);
+		return (2);
 	if(ft_strncmp(cmd->cmd, "env", 4) == 0)
-		return (1);
+		return (3);
 	if(ft_strncmp(cmd->cmd, "echo", 5) == 0)
-		return (1);
+		return (4);
 	if(ft_strncmp(cmd->cmd, "exit", 5) == 0)
-		return (1);
+		return (5);
 	if(ft_strncmp(cmd->cmd, "unset", 6) == 0)
-		return (1);
+		return (6);
 	if(ft_strncmp(cmd->cmd, "export", 7) == 0)
-		return (1);
+		return (7);
 	return (0);
 }

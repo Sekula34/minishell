@@ -1,25 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_one_command.c                              :+:      :+:    :+:   */
+/*   redirect_handler.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fseles <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/11 12:00:22 by fseles            #+#    #+#             */
-/*   Updated: 2023/12/11 12:00:24 by fseles           ###   ########.fr       */
+/*   Created: 2023/12/11 15:24:57 by fseles            #+#    #+#             */
+/*   Updated: 2023/12/11 15:24:59 by fseles           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../headers/minishel.h"
+#include"../../../headers/minishel.h"
 
-int one_command_exec(t_cmd *cmd)
+static int redirect_menu(t_redirect *red_list)
 {
-	int builtin_cmd;
+	return (0);
+}
 
-	builtin_cmd = is_cmd_builtin(cmd);
-	if(builtin_cmd > 0)
+int redirect_handler(t_redirect *red_list)
+{
+	if(red_list == NULL)
+		return (0);
+	while(red_list != NULL)
 	{
-		//builtin_exec;
+		
+		red_list = red_list->next;
 	}
-
+	return (0);
 }

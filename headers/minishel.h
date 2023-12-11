@@ -20,6 +20,7 @@
 # include <stdlib.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <fcntl.h>
 # include <unistd.h>
 # include "data_types.h"
 # include "../libft/libft.h"
