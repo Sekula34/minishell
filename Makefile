@@ -16,6 +16,7 @@ sources/execution/execution_utils/count_cmds.c\
 sources/execution/execution_utils/is_builtin.c\
 sources/execution/execution_utils/pipe_maker.c \
 sources/execution/redirection/append_redirect.c \
+sources/execution/redirection/heredoc_redirect.c \
 sources/execution/redirection/input_redirect.c\
 sources/execution/redirection/output_redirect.c\
 sources/execution/execute_all_cmds.c \
@@ -51,7 +52,16 @@ $(NAME): $(OBJS) $(HEADERS)
 	cd libft && $(MAKE) && $(MAKE) bonus
 	$(CC) -o $(NAME) $(EXTRA_FLAGS)  $(OBJS) ./libft/libft.a
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re valgrind funcheck funchecka
+
+valgrind : $(NAME)
+	valgrind --suppressions=valgrind_ignore_leaks.txt --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose --show-mismatched-frees=yes --read-var-info=yes --track-fds=yes --trace-children=yes ./minishell
+
+funcheck : $(NAME)
+	funcheck ./$(NAME)
+
+funchecka : $(NAME)
+	funcheck -a ./$(NAME)
 
 all: $(NAME)
 

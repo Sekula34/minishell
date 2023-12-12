@@ -17,6 +17,7 @@
 
 int append_redirect(t_redirect *append, int *fd);
 void clear_pipe_array(int ***pipe_arr);
+int heredoc_redirect(t_redirect *here_doc, int file_index, int *fd);
 int input_redirect(t_redirect *input, int *fd);
 int is_cmd_builtin(t_cmd *cmd);
 int make_pipes(int ***pipe_arr, int number_of_pipes);

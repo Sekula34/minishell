@@ -61,7 +61,7 @@ static int file_checker(char *file_name, int *new_fd)
 //return 0 on success 
 //return 1 if no such file or dir
 //retunr 2 if open failed
-//in fd is now standard input
+//in fd is now standard output in append mode
 //fd is not allocated here
 int append_redirect(t_redirect *append, int *fd)
 {
@@ -72,7 +72,7 @@ int append_redirect(t_redirect *append, int *fd)
 		return (1);
 	if(dup2(*fd, STDOUT_FILENO) == -1)
 	{
-		perror("Dup2 in input redirect failed\n");
+		perror("Dup2 in append redirect failed\n");
 		return (1);
 	}
 	close(*fd);
