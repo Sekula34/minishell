@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 17:14:03 by wvan-der          #+#    #+#             */
-/*   Updated: 2023/12/11 17:15:26 by wvan-der         ###   ########.fr       */
+/*   Updated: 2023/12/12 16:01:48 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,8 @@ char	**last_expand(t_tokens *tok, t_vars *head_ex)
 		i = 0;
 		while (tok->tokens[j][i])
 		{
-			if (tok->tokens[j][i] == '$' && check_heredoc(tok->tokens, j) == 0)
+			set_quotation(tok, tok->tokens[j][i]);
+			if (tok->tokens[j][i] == '$' && check_heredoc(tok->tokens, j) == 0 && tok->isq == 0)
 			{
 				if (set_start_end(tok, tok->tokens[j], &i) == 1)
 				{

@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:53:01 by wvan-der          #+#    #+#             */
-/*   Updated: 2023/12/12 16:33:52 by wvan-der         ###   ########.fr       */
+/*   Updated: 2023/12/12 16:50:40 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ int	set_start_end(t_tokens *tok, char *line, int *i)
 {
 	puts("set s e");
 	(*i)++;
-	if (!valid_char(line[*i]))
-		return (puts("invalid"), 0);
+/* 	if (!valid_char(line[*i]))
+		return (puts("invalid"), 0); */
 	tok->start = *i;
 	while (line[*i] && valid_char(line[*i]))
 	{
@@ -50,7 +50,7 @@ int	append_value(char **res, char *value)
 
 int	go_back_to_check_redirect(t_tokens *tok, char *line, int i)
 {
-	while (i >= 0 && ((line[i] != ' ' && line[i] != '\t')
+	while (i > 0 && ((line[i] != ' ' && line[i] != '\t')
 			|| tok->isq == 1 || tok->idq == 1))
 	{
 		set_quotation(tok, line[i]);
@@ -58,7 +58,7 @@ int	go_back_to_check_redirect(t_tokens *tok, char *line, int i)
 			return (1);
 		i--;
 	}
-	while (i >= 0 && (line[i] == ' ' || line[i] == '\t'))
+	while (i > 0 && (line[i] == ' ' || line[i] == '\t'))
 	{
 		set_quotation(tok, line[i]);
 		i--;
@@ -71,9 +71,9 @@ int	go_back_to_check_redirect(t_tokens *tok, char *line, int i)
 
 char *get_var_value(t_tokens *tok, t_vars *head_ex, char *line)
 {
-	t_vars *element;
-	char *key;
-	char *temp;
+	t_vars	*element;
+	char	*key;
+	char	*temp;
 
 	key = ft_substr(line, tok->start, tok->end - tok->start + 1);
 	if (!key)
@@ -82,6 +82,7 @@ char *get_var_value(t_tokens *tok, t_vars *head_ex, char *line)
 		return (puts("key null"), NULL);
 	if (key[0] == '\'' || key[0] == '"')
 	{
+		puts("äääää");
 		temp = ft_substr(key, 1, ft_strlen(key) - 2);
 		printf("temp:%s-\n", temp);
 		free(key);
@@ -131,7 +132,7 @@ char	*first_expand(t_tokens *tok, t_vars *head_ex, char *line)
 			if (set_start_end(tok, line, &i) == 1)
 			{
 				if (put_value(tok, head_ex, line, &res) == 0)
-					i++;
+					i+=0;
 			}
 			else 	
 			{
