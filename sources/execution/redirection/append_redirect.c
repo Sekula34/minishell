@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   output_redirect.c                                  :+:      :+:    :+:   */
+/*   append_redirect.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fseles <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/11 19:13:38 by fseles            #+#    #+#             */
-/*   Updated: 2023/12/11 19:13:40 by fseles           ###   ########.fr       */
+/*   Created: 2023/12/12 12:48:00 by fseles            #+#    #+#             */
+/*   Updated: 2023/12/12 12:48:01 by fseles           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static int file_checker(char *file_name, int *new_fd)
 		perror("File checker\n");
 		return (1);
 	}
-	*new_fd = open(file_name, O_TRUNC | O_RDWR);
+	*new_fd = open(file_name, O_APPEND | O_RDWR);
 	if(*new_fd == -1)
 		return(2);
 	return(0);
@@ -63,11 +63,11 @@ static int file_checker(char *file_name, int *new_fd)
 //retunr 2 if open failed
 //in fd is now standard input
 //fd is not allocated here
-int output_redirect(t_redirect *output, int *fd)
+int append_redirect(t_redirect *append, int *fd)
 {
 	int result;
 
-	result = file_checker(output->file_name, fd);
+	result = file_checker(append->file_name, fd);
 	if(result != 0)
 		return (1);
 	if(dup2(*fd, STDOUT_FILENO) == -1)
@@ -78,4 +78,3 @@ int output_redirect(t_redirect *output, int *fd)
 	close(*fd);
 	return(0);
 }
-

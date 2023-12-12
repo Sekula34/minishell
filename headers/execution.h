@@ -15,6 +15,7 @@
 
 # include "data_types.h"
 
+int append_redirect(t_redirect *append, int *fd);
 void clear_pipe_array(int ***pipe_arr);
 int input_redirect(t_redirect *input, int *fd);
 int is_cmd_builtin(t_cmd *cmd);
