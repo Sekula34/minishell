@@ -19,6 +19,7 @@ sources/execution/redirection/append_redirect.c \
 sources/execution/redirection/heredoc_redirect.c \
 sources/execution/redirection/input_redirect.c\
 sources/execution/redirection/output_redirect.c\
+sources/execution/redirection/redirect_handler.c \
 sources/execution/execute_all_cmds.c \
 sources/parsing/token_split.c \
 sources/parsing/first_expand.c \
