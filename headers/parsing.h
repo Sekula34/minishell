@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:56:52 by wvan-der          #+#    #+#             */
-/*   Updated: 2023/12/12 12:55:27 by wvan-der         ###   ########.fr       */
+/*   Updated: 2023/12/12 14:23:45 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_tokens
 
 void	init_parsing_struct(t_tokens *tok);
 char	**split_pipes(t_tokens *tok, char *input);
-
+int		check_quotes(t_tokens *tok);
+void	init_parsing_struct(t_tokens *tok);
 
 #endif

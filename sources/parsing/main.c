@@ -1,7 +1,6 @@
 #include "../../headers/minishel.h"
 
 
-
 //fix values !!!!!!
 
 
@@ -20,36 +19,30 @@ int main(int argc, char **argv, char **envp)
 	env_list_init(&head_ex, envp);
 	env_list_init(&head_env, envp);
 	export("var=pu pu", &head_ex, &head_env);
-	export("a=|", &head_ex, &head_env);
+	export("a=file", &head_ex, &head_env);
 	export("c=>", &head_ex, &head_env);
 
-	init_token_struct(&tok);	
-	char *line = "$test";
+	init_parsing_struct(&tok);
+	char *line = "echo $";
+
 	// "echo $$$$$abc abc";
-	// variable on the first place - valgrind errors
+	
 	// "'$assads'" - seg fault
-	// "echo '|' abc < def >fuck > you" - splitted by pipe (should not)
+	
 
-
-	// FIXED   "echo >>><< abc < def >fuck > you" - broken redirection is one token for some reason
+	// FIXED  	"echo >>><< abc < def >fuck > you" - broken redirection is one token for some reason
+	// FIXED	variable on the first place - valgrind errors
+	// FIXED	"echo '|' abc < def >fuck > you" - splitted by pipe (should not)
+	
+	
 	char **lines;
 	int a = 0;
 
-
-
-/* 
 	lines = split_pipes(&tok, line);
-
-	return (1); */
-
-
-	lines = ft_split(line, '|');
-	if (!lines)
-		return (1);
 	while (lines[a])
 	{
 		printf("begin:\n");
-		printf("%s\n", line);
+		printf("%s\n", lines[a]);
 		printf("\n");
 
 		char *line2 = first_expand(&tok, head_ex, lines[a]);
