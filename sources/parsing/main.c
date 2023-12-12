@@ -27,7 +27,7 @@ int main(int argc, char **argv, char **envp)
 
 	// "echo $$$$$abc abc";
 	
-	// "'$assads'" - seg fault
+	// "'$assads'" - fixed seg fault but still...
 	
 
 	// FIXED  	"echo >>><< abc < def >fuck > you" - broken redirection is one token for some reason
