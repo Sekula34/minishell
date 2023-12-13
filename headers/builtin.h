@@ -13,6 +13,7 @@
 #ifndef BUILTIN_H
 # define BUILTIN_H
 
+int cd_exec(t_shell *shell, t_cmd *cd_cmd);
 int		cd(char *directory, t_vars **ex_head, t_vars **env_head);
 int		create_add_new_elems(char *key, char *value, t_vars **ex, t_vars **env);
 int		echo(char *string, int n_option);

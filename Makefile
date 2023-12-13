@@ -1,4 +1,5 @@
 SOURCES = sources/main.c \
+sources/builtins/cd_exec.c\
 sources/builtins/cd_utils.c \
 sources/builtins/cd.c \
 sources/builtins/echo.c \

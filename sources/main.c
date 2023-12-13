@@ -21,6 +21,9 @@ int	main(int argc, char **argv, char **envp)
 	//char *command[] = {"wc", "-l", NULL}; // Replace "file.txt" with the name of the file you want to count lines for
 
 	t_shell shell;
+	t_cmd cd;
+	cd.args= (char *[]){"~", NULL};
+
 
 	if(shell_init(&shell, envp) == 1)
 	{
@@ -29,8 +32,10 @@ int	main(int argc, char **argv, char **envp)
 		return (EXIT_FAILURE);
 
 	}
-	export(NULL, &shell.head_ex, &shell.head_env);
+	int status = cd_exec(&shell, &cd);
+	pwd(&shell.head_ex, &shell.head_env);
+	//export(NULL, &shell.head_ex, &shell.head_env);
 	clear_list_env(&shell.head_env);
 	clear_list_env(&shell.head_ex);
-	return (0);
+	return (status);
 } 
