@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:58:30 by wvan-der          #+#    #+#             */
-/*   Updated: 2023/12/11 15:35:08 by wvan-der         ###   ########.fr       */
+/*   Updated: 2023/12/13 17:13:34 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,14 @@ void	tokenize_redirect(t_tokens *tok, char *line, int *i, int *a)
 {
 	tok->redirect_count++;
 	tok->tokens[*a] = ft_join(&(tok->tokens[*a]), line[*i]);
-	if (tok->redirect_count == 2)
+	if (tok->redirect_count == 2 && is_redirect(line[*i + 1]) && check_quotes(tok) == 0)
 	{
 		(*a)++;
 		//tok->tok_i++;
 		tok->redirect_count = 0;
 	}
+/* 	if (is_redirect(line[*i + 1]) == 0)
+		tok->redirect_count = 0; */
 	(*i)++;
 }
 
@@ -75,6 +77,8 @@ char	**make_token(t_tokens *tok, char *line)
 	int		i;
 	int		a;
 
+	if (!line)
+		return (NULL);
 	init_make_token(&a, &i);
 	tok->tokens = ft_calloc(count_token(tok, line) + 1, sizeof(char *));
 	if (!tok->tokens)

@@ -18,12 +18,18 @@ int main(int argc, char **argv, char **envp)
 	head_env = NULL;
 	env_list_init(&head_ex, envp);
 	env_list_init(&head_env, envp);
-	export("var=pu pu", &head_ex, &head_env);
+	export("var=pupu", &head_ex, &head_env);
 	export("a=file", &head_ex, &head_env);
 	export("c=>", &head_ex, &head_env);
 
+	export("?=EXIT_CODE", &head_ex, &head_env);
+
 	init_parsing_struct(&tok);
-	char *line = "echo $";
+	char *line = "\"$$$$USER''\"";
+
+	// "\"$$$$USER''\"" - segfault
+	// "\"$$$$USER'\"" - no token
+	// "echo '>>' " - three tokens instead of two
 
 	// "echo $$$$$abc abc";
 	
@@ -50,6 +56,8 @@ int main(int argc, char **argv, char **envp)
 		printf("%s\n", line2);
 		printf("\n");
 
+		puts("after first expand");
+
 		char **tokens = make_token(&tok, line2);
 		int i = 0;
 		free(line2);
@@ -67,7 +75,7 @@ int main(int argc, char **argv, char **envp)
 		//free(tokens);
 		printf("\n");
 		
-		i = 0;
+		i = 0;	
 		char **fin = last_expand(&tok, head_ex);
 		if (!fin)
 			return (0);
