@@ -21,6 +21,7 @@ sources/execution/redirection/input_redirect.c\
 sources/execution/redirection/output_redirect.c\
 sources/execution/redirection/redirect_handler.c \
 sources/execution/execute_all_cmds.c \
+sources/execution/execute_builtin.c\
 sources/parsing/token_split.c \
 sources/parsing/first_expand.c \
 sources/parsing/last_expand.c \
@@ -28,12 +29,14 @@ sources/parsing/parsing_utils.c \
 sources/parsing/parsing_utils2.c \
 sources/parsing/parsing_utils3.c \
 sources/parsing/rereplace_redirect.c \
-sources/env_export/env_list_utils2.c
+sources/env_export/env_list_utils2.c \
+sources/shell_init/shell_init.c \
 
 HEADERS = headers/builtin.h \
 headers/data_types.h \
 headers/envexport.h \
 headers/minishel.h \
+headers/shell_init.h \
 
 CC = cc 
 
