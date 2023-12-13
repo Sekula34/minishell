@@ -24,6 +24,7 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include "data_types.h"
+# include "shell_init.h"
 # include "../libft/libft.h"
 # include "token_split.h"
 # include "envexport.h"
