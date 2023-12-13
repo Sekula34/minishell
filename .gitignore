@@ -3,3 +3,4 @@ valgrind_ignore_leaks.txt
 .vscode
 libft/libft.a
 exec_algo.md
+heredoc_algo.md
