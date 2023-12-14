@@ -106,7 +106,10 @@ static int	cd_main(char *directory, t_vars **ex_head, t_vars **env_head)
 	if (current == NULL)
 		return (-1);
 	if (chdir(directory) != 0)
+	{
+		perror("cd ");
 		return (free(current), -1);
+	}
 	if (value_setter("OLDPWD", current, ex_head, env_head) == -1)
 		return (free(current), -1);
 	free(current);
