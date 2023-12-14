@@ -28,7 +28,7 @@ int execute_builtin(int builtin_num, t_shell *shell, t_cmd *cmd)
 	if(builtin_num == 3)
 		return(env_exec(shell, cmd));
 	if(builtin_num == 4)
-		echo(cmd->args[0], 1);
+		return(echo_exec(cmd));
 	if(builtin_num == 5)
 		shexit(&shell->head_ex, &shell->head_env, 0);
 	if(builtin_num == 6)

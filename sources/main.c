@@ -23,7 +23,7 @@ int	main(int argc, char **argv, char **envp)
 	t_shell shell;
 	t_cmd cd;
 	// cd.args= (char *[]){"~", NULL};
-	 cd.args= (char *[]){"hej", "-n",NULL};
+	 cd.args= (char *[]){"16",NULL};
 
 
 	if(shell_init(&shell, envp) == 1)
@@ -34,7 +34,7 @@ int	main(int argc, char **argv, char **envp)
 
 	}
 	//int status = env_exec(&shell, &cd);
-	int status = echo_exec(&cd);
+	int status = shexit_exec(&shell, &cd);
 	//status = cd_exec(&shell, &cd);
 	//status = pwd_exec(&shell, &cd);
 	//pwd(&shell.head_ex, &shell.head_env);
