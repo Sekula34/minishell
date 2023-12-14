@@ -16,7 +16,8 @@
 int 	cd_exec(t_shell *shell, t_cmd *cd_cmd);
 int		cd(char *directory, t_vars **ex_head, t_vars **env_head);
 int		create_add_new_elems(char *key, char *value, t_vars **ex, t_vars **env);
-int		echo(char *string, int n_option);
+int		echo_exec(t_cmd *echo_cmd);
+int		echo(char *string);
 int 	env_exec(t_shell *shell, t_cmd *env_cmd);
 int		env(t_vars *head);
 int		export(char *string, t_vars **ex_vars, t_vars **env_vars);

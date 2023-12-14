@@ -23,7 +23,7 @@ int	main(int argc, char **argv, char **envp)
 	t_shell shell;
 	t_cmd cd;
 	// cd.args= (char *[]){"~", NULL};
-	 cd.args= (char *[]){NULL};
+	 cd.args= (char *[]){"hej", "-n",NULL};
 
 
 	if(shell_init(&shell, envp) == 1)
@@ -33,9 +33,10 @@ int	main(int argc, char **argv, char **envp)
 		return (EXIT_FAILURE);
 
 	}
-	int status = env_exec(&shell, &cd); 
-	status = cd_exec(&shell, &cd);
-	status = pwd_exec(&shell, &cd);
+	//int status = env_exec(&shell, &cd);
+	int status = echo_exec(&cd);
+	//status = cd_exec(&shell, &cd);
+	//status = pwd_exec(&shell, &cd);
 	//pwd(&shell.head_ex, &shell.head_env);
 	//export(NULL, &shell.head_ex, &shell.head_env);
 	clear_list_env(&shell.head_env);
