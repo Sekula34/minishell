@@ -33,7 +33,8 @@ int	main(int argc, char **argv, char **envp)
 		return (EXIT_FAILURE);
 
 	}
-	int status = cd_exec(&shell, &cd);
+	int status = env_exec(&shell, &cd); 
+	status = cd_exec(&shell, &cd);
 	status = pwd_exec(&shell, &cd);
 	//pwd(&shell.head_ex, &shell.head_env);
 	//export(NULL, &shell.head_ex, &shell.head_env);

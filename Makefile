@@ -3,6 +3,7 @@ sources/builtins/cd_exec.c\
 sources/builtins/cd_utils.c \
 sources/builtins/cd.c \
 sources/builtins/echo.c \
+sources/builtins/env_exec.c \
 sources/builtins/pwd_exec.c\
 sources/builtins/pwd.c \
 sources/builtins/env.c \
