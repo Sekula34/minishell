@@ -30,7 +30,7 @@ int execute_builtin(int builtin_num, t_shell *shell, t_cmd *cmd)
 	if(builtin_num == 4)
 		return(echo_exec(cmd));
 	if(builtin_num == 5)
-		shexit(&shell->head_ex, &shell->head_env, 0);
+		return(shexit_exec(shell, cmd));
 	if(builtin_num == 6)
 		unset(cmd->args[0], &(shell->head_ex), &(shell->head_env));
 	if(builtin_num == 7)
