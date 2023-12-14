@@ -9,6 +9,7 @@ sources/builtins/pwd_exec.c\
 sources/builtins/pwd.c \
 sources/builtins/env.c \
 sources/builtins/export.c \
+sources/builtins/export_exec.c \
 sources/builtins/export_utils.c \
 sources/builtins/shexit_exec.c \
 sources/builtins/shexit.c \

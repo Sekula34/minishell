@@ -20,6 +20,7 @@ int		echo_exec(t_cmd *echo_cmd);
 int		echo(char *string);
 int 	env_exec(t_shell *shell, t_cmd *env_cmd);
 int		env(t_vars *head);
+int export_exec(t_shell *shell, t_cmd *export_cmd);
 int		export(char *string, t_vars **ex_vars, t_vars **env_vars);
 char	*get_home_path(t_vars *ex_head);
 int		key_checker(char *string);

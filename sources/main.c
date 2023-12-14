@@ -23,7 +23,7 @@ int	main(int argc, char **argv, char **envp)
 	t_shell shell;
 	t_cmd cd;
 	// cd.args= (char *[]){"~", NULL};
-	 cd.args= (char *[]){"a", "a2", "a3",NULL};
+	 cd.args= (char *[]){"a=17", "a2=19", "a3=ueue",NULL};
 
 
 	if(shell_init(&shell, envp) == 1)
@@ -33,12 +33,12 @@ int	main(int argc, char **argv, char **envp)
 		return (EXIT_FAILURE);
 
 	}
-	export("a=1", &shell.head_ex, &shell.head_env);
-	export("a2=1", &shell.head_ex, &shell.head_env);
-	export("a3=1", &shell.head_ex, &shell.head_env);
+	export_exec(&shell, &cd);
 	env(shell.head_env);
 	//int status = env_exec(&shell, &cd);
-	int status = unset_exec(&shell, &cd);
+	int status = 0;
+
+	unset_exec(&shell, &cd);
 	env(shell.head_env);
 	//status = cd_exec(&shell, &cd);
 	//status = pwd_exec(&shell, &cd);
