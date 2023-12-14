@@ -23,7 +23,8 @@ int	main(int argc, char **argv, char **envp)
 	t_shell shell;
 	t_cmd cd;
 	// cd.args= (char *[]){"~", NULL};
-	 cd.args= (char *[]){"a=17", "a2=19", "a3=ueue",NULL};
+	 cd.args= (char *[]){"/nfs/homes/fseles/eval",NULL};
+	 cd.cmd ="cd";
 
 
 	if(shell_init(&shell, envp) == 1)
@@ -33,13 +34,13 @@ int	main(int argc, char **argv, char **envp)
 		return (EXIT_FAILURE);
 
 	}
-	export_exec(&shell, &cd);
-	env(shell.head_env);
+	one_command_exec(&cd, &shell);
+	pwd(&shell.head_ex, &shell.head_env);
 	//int status = env_exec(&shell, &cd);
 	int status = 0;
 
 	unset_exec(&shell, &cd);
-	env(shell.head_env);
+	//env(shell.head_env);
 	//status = cd_exec(&shell, &cd);
 	//status = pwd_exec(&shell, &cd);
 	//pwd(&shell.head_ex, &shell.head_env);

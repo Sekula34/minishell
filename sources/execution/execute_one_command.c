@@ -12,14 +12,15 @@
 
 #include "../../headers/minishel.h"
 
-int one_command_exec(t_cmd *cmd)
+int one_command_exec(t_cmd *cmd, t_shell *shell)
 {
 	int builtin_cmd;
 
 	builtin_cmd = is_cmd_builtin(cmd);
 	if(builtin_cmd > 0)
 	{
-		//builtin_exec;
+		execute_builtin(builtin_cmd, shell, cmd);
+		return(0);
 	}
-
+	return(1);
 }
