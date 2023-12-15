@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 17:14:03 by wvan-der          #+#    #+#             */
-/*   Updated: 2023/12/13 15:53:37 by wvan-der         ###   ########.fr       */
+/*   Updated: 2023/12/15 14:34:28 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	check_heredoc(char **tokens, int j)
 	return (element->value);
 } */
 
-int	put_value_2d(t_tokens *tok, t_vars *head_ex, char *line, char **res, int j)
+/* int	put_value_2d(t_tokens *tok, t_vars *head_ex, char *line, char **res, int j)
 {
 	char *value;
 
@@ -87,17 +87,72 @@ int	put_value_2d(t_tokens *tok, t_vars *head_ex, char *line, char **res, int j)
 	value = get_var_value(tok, head_ex, line);
 	if (!value)
 	{
-/* 		if (j != 0 && (tok->tokens[j - 1][0] == '<' || tok->tokens[j - 1][0] == '>'))
+ 		if (j != 0 && (tok->tokens[j - 1][0] == '<' || tok->tokens[j - 1][0] == '>'))
 		{
 			*res = ft_join(res, '"');
 			return (1);
-		} */
+		} 
 		puts("this");
 		return (0);
 	}
 	check_value(&value);
 	append_value(res, value);
 	return (1);
+} */
+
+char *get_key_2(t_tokens *tok, int j)
+{
+	char *key;
+
+	key = ft_substr(tok->tokens[j], tok->start, tok->end - tok->start + 1);
+	if (!key)
+		return (NULL);
+	return (key);
+}
+
+int	case_invalid_c_2(t_tokens *tok, int *j, int *i)
+{
+	int a;
+
+	a = 0;
+	while (tok->tokens[*j][*i] && tok->tokens[*j][*i] != ' '
+			&& (tok->tokens[*j][*i] != '$' || a == 0))
+	{
+		tok->fin[*j] = ft_join(&tok->fin[*j], tok->tokens[*j][*i]);
+		(*i)++;
+		a++;
+	}
+}
+
+expand_var_2(t_tokens *tok, t_vars *head_ex, int *i, int *j)
+{
+	//printf("-%s-\n", tok->tokens[*j]);
+	char *key;
+	char *value;
+
+	if (tok->tokens[*j][*i + 1] == '$')
+		return ((*i)++, 0);
+ 	if (valid_char(tok->tokens[*j][*i + 1]) == 0)
+		return (case_invalid_c_2(tok, j, i), 0);
+	puts("after cases");
+	set_start_end(tok, tok->tokens[*j], (*i) + 1);
+	puts("after set");
+	key = get_key_2(tok, *j);
+	if (!key)
+		return ((*i)++, 0);
+	printf("key:%s-\n", key);
+	value = get_value_var(head_ex, key);
+	printf("value:%s-\n", value);
+	if (value)
+	{
+		append_value(&tok->fin[*j], value);
+		*i = tok->end + 1;
+	}
+	else
+	{
+		tok->fin[*j] = ft_join(&tok->fin[*j], 0);
+		(*j)++;
+	}
 }
 
 char	**last_expand(t_tokens *tok, t_vars *head_ex)
@@ -118,20 +173,12 @@ char	**last_expand(t_tokens *tok, t_vars *head_ex)
 			set_quotation(tok, tok->tokens[j][i]);
 			if (tok->tokens[j][i] == '$' && check_heredoc(tok->tokens, j) == 0 && tok->isq == 0)
 			{
-				if (set_start_end(tok, tok->tokens[j], &i) == 1)
-				{
-					if (put_value_2d(tok, head_ex,tok->tokens[j], &tok->fin[j], j) == 0)
-						i+=0;
-				}
-				else
-				{
-					tok->fin[j] = ft_join(&tok->fin[j], tok->tokens[j][--i]);
-					i++;
-				}
+				expand_var_2(tok, head_ex, &i, &j);
 			}
 			else
 				tok->fin[j] = ft_join(&tok->fin[j], tok->tokens[j][i++]);
 		}
+		puts("here");
 		j++;
 	}
 	tok->fin[j] = 0;

@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:53:01 by wvan-der          #+#    #+#             */
-/*   Updated: 2023/12/13 18:08:29 by wvan-der         ###   ########.fr       */
+/*   Updated: 2023/12/15 14:36:12 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	go_back_to_check_redirect(t_tokens *tok, char *line, int i)
 		return (0);
 }
 
-char *get_var_value(t_tokens *tok, t_vars *head_ex, char *line)
+/* char *get_var_value(t_tokens *tok, t_vars *head_ex, char *line)
 {
 	t_vars	*element;
 	char	*key;
@@ -100,7 +100,7 @@ char *get_var_value(t_tokens *tok, t_vars *head_ex, char *line)
 	if (!element)
 		return (puts("element null"), NULL);
 	return (element->value);
-}
+} */
 
 /* int put_value(t_tokens *tok, t_vars *head_ex, char *line, char **res)
 {
@@ -151,40 +151,52 @@ int case_start_with_quote(char **res, t_tokens *tok, int *i)
 	(*i)++;
 }
 
+int	case_invalid_char(char **res, t_tokens *tok, int *i)
+{
+	int	a;
+
+	a = 0;
+	puts("in");
+	//while (tok->line[*i] && (a < 2) || valid_char(tok->line[*i]))
+	while (tok->line[*i] && tok->line[*i] != ' ' && (tok->line[*i] != '$' || a == 0))
+	{
+		*res = ft_join(res, tok->line[*i]);
+		(*i)++;
+		a++;
+	}
+}
+
 int	expand_var_1(t_tokens *tok, t_vars *head_ex, int *i, char **res)
 {
-	puts("beginn expand");
 	char *key;
 	char *value;
 
 	if (tok->line[(*i) + 1] == 0 || tok->line[(*i) + 1] == '$')
 		return ((*i)++, 0);
 	if (is_quote(tok->line[*i + 1]))
-	{
-		case_start_with_quote(res, tok, i);
-		return (0);
-	}
+		return (case_start_with_quote(res, tok, i), 0);
+	if (valid_char(tok->line[*i + 1]) == 0)
+		return (case_invalid_char(res, tok, i), 0);
 	set_start_end(tok, tok->line, (*i) + 1);
 	key = check_key(tok);
 	if (!key)
 		return ((*i)++, 0);
-	printf("key:%s-\n", key);
+	//printf("key:%s-\n", key);
 	if (is_quote(key[0]))
 		value = key;
 	else
 		value = get_value_var(head_ex, key);
-	printf("value:%s-\n", value);
+	//printf("value:%s-\n", value);
 	if (value)
 	{
 		append_value(res, value);
 		*i = tok->end + 1;
-		puts("appended");
 	}
 	else
 	{
 		*i = tok->end + 1;
-		puts("lalla");
 	}
+	//free
 }
 
 char	*first_expand(t_tokens *tok, t_vars *head_ex, char *line)
@@ -208,7 +220,6 @@ char	*first_expand(t_tokens *tok, t_vars *head_ex, char *line)
 		}
 		else
 			res = ft_join(&res, line[i++]);
-		puts("end of loop");
 	}
 	return (res);
 }

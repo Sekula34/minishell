@@ -25,7 +25,7 @@ int main(int argc, char **argv, char **envp)
 	export("?=EXIT_CODE", &head_ex, &head_env);
 
 	init_parsing_struct(&tok);
-	char *line = "\"$$$$USER''\"";
+	char *line = "echo  < $pupu haha";
 
 	// "\"$$$$USER''\"" - segfault
 	// "\"$$$$USER'\"" - no token
@@ -74,6 +74,8 @@ int main(int argc, char **argv, char **envp)
 		}
 		//free(tokens);
 		printf("\n");
+
+		//return(1);
 		
 		i = 0;	
 		char **fin = last_expand(&tok, head_ex);
@@ -89,6 +91,9 @@ int main(int argc, char **argv, char **envp)
 			//free(fin[i]);
 			i++;
 		}
+/* 		printf("%d: %s\n", i,  fin[i]);
+		i++;
+		printf("%d: %s\n", i,  fin[i]); */
 		//free(fin);
 
 		classifiying_tokens(&tok);
