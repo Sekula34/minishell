@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:56:52 by wvan-der          #+#    #+#             */
-/*   Updated: 2023/12/13 12:09:31 by wvan-der         ###   ########.fr       */
+/*   Updated: 2023/12/15 18:15:49 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,15 @@ void	move_counter(t_tokens *tok);
 char	**last_expand(t_tokens *tok, t_vars *head_ex);
 int		put_value_2d(t_tokens *tok, t_vars *head_ex, char *line, char **res, int j);
 int		check_heredoc(char **tokens, int j);
-int		classify_redirect(t_tokens *tok, int j);
-int		classifiying_tokens(t_tokens *tok);
+char classify_redirect(t_tokens *tok, int j);
+int classifiying_tokens(t_tokens *tok, t_cmd *cmd_lst);
 int		is_redirect(char c);
+char *classify_filename(t_tokens *tok, int *j);
+
+t_redirect	*make_redirect_node(char type, char *file_name);
+void	add_redirect_node(t_redirect **lst, t_redirect *new_lst);
+t_redirect	*end_of_redirect(t_redirect *lst);
+t_cmd *make_cmd_node(char *cmd, t_cmd *cmd_lst);
+void add_cmd_node(t_cmd **lst, t_cmd *new_lst);
 
 #endif

@@ -19,13 +19,13 @@ int main(int argc, char **argv, char **envp)
 	env_list_init(&head_ex, envp);
 	env_list_init(&head_env, envp);
 	export("var=pupu", &head_ex, &head_env);
-	export("a=file", &head_ex, &head_env);
+	export("a=file.txt", &head_ex, &head_env);
 	export("c=>", &head_ex, &head_env);
 
 	export("?=EXIT_CODE", &head_ex, &head_env);
 
 	init_parsing_struct(&tok);
-	char *line = "echo  < $pupu haha";
+	char *line = "echo $var > $a > file2.txt >file3.txt";
 
 	// "\"$$$$USER''\"" - segfault
 	// "\"$$$$USER'\"" - no token
@@ -96,12 +96,24 @@ int main(int argc, char **argv, char **envp)
 		printf("%d: %s\n", i,  fin[i]); */
 		//free(fin);
 
-		classifiying_tokens(&tok);
+		puts("pup");
 
+		t_redirect redirect_lst;
+		puts("44");
 
+		t_cmd	cmd_lst;
+		t_shell shell;
 
+		shell.cmd_lst = NULL;
 
+		puts("ööö");
 
+		shell.cmd_lst->redirect_lst = NULL;
+
+		puts("****");
+
+		//classifiying_tokens(&tok, cmd_lst.redirect_lst, &cmd_lst);
+		classifiying_tokens(&tok, &shell.cmd_lst);
 
 
 		i = 0;
