@@ -99,21 +99,35 @@ int main(int argc, char **argv, char **envp)
 		puts("pup");
 
 		t_redirect redirect_lst;
-		puts("44");
-
 		t_cmd	cmd_lst;
 		t_shell shell;
 
-		shell.cmd_lst = NULL;
+		redirect_lst.type = 0;
+		redirect_lst.file_name = NULL;
+		redirect_lst.del_flag = 0;
+		redirect_lst.nest = NULL;
+
+		cmd_lst.path = NULL;
+		cmd_lst.cmd = NULL;
+		cmd_lst.args = NULL;
+		cmd_lst.redirect_lst = redirect_lst;
+		cmd_lst.next = NULL;
+
+		shell.cmd_lst = cmd_lst;
+		shell.last_exit_code = 0;
+		shell.
+
+
+
 
 		puts("ööö");
 
-		shell.cmd_lst->redirect_lst = NULL;
+		cmd_lst->redirect_lst = NULL;
 
 		puts("****");
 
-		//classifiying_tokens(&tok, cmd_lst.redirect_lst, &cmd_lst);
-		classifiying_tokens(&tok, &shell.cmd_lst);
+		classifiying_tokens(&tok, cmd_lst.redirect_lst, &cmd_lst);
+		//classifiying_tokens(&tok, &shell.cmd_lst);
 
 
 		i = 0;
