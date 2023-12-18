@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 13:59:09 by wvan-der          #+#    #+#             */
-/*   Updated: 2023/12/18 16:30:47 by wvan-der         ###   ########.fr       */
+/*   Updated: 2023/12/18 17:10:39 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ int	fill_redirect_node(t_tokens *tok, int *j, t_redirect **redirect_lst)
 	char type;
 	char *file_name;
 
-	puts("hello");
 
 	type = classify_redirect(tok, *j);
 	file_name = classify_filename(tok, j);
@@ -115,9 +114,25 @@ int	put_cmd(t_tokens *tok, int *j, t_cmd **cmd_lst, t_redirect *redirect_lst)
 	//printf("cmd:%s\n", (*cmd_lst)->cmd);
 }
 
+int	realloc_array(t_tokens *tok, t_cmd **cmd_lst, char *arg)
+{
+	
+}
+
+int put_arg(t_tokens *tok, int *j, t_cmd **cmd_lst)
+{
+	char *arg;
+
+	arg = ft_strdup(tok->fin[*j]);
+	if (!arg)
+		return (0);
+	realloc_array(tok, cmd_lst, arg);
+
+	
+}
+
 int	classifiying_tokens(t_tokens *tok, t_cmd **cmd_lst)
 {
-	puts("classifying token2");
 	t_redirect *redirect_lst;
 	int j;
 	int	i;
@@ -152,7 +167,7 @@ int	classifiying_tokens(t_tokens *tok, t_cmd **cmd_lst)
 		}
 		else if ((flag == 'c' || flag == 'a'))// && is_redirect(tok->fin[j][0]) == 0)
 		{
-			//arg
+			put_arg(tok, &j, cmd_lst);
 			flag = 'a';
 /* 			puts("a"); */
 		}

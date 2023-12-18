@@ -25,7 +25,7 @@ int main(int argc, char **argv, char **envp)
 	export("?=EXIT_CODE", &head_ex, &head_env);
 
 	init_parsing_struct(&tok);
-	char *line = "echo $var > $a >> file2 >file3";
+	char *line = "echo hello > file1 > file2 >file3";
 
 	// "\"$$$$USER''\"" - segfault
 	// "\"$$$$USER'\"" - no token
