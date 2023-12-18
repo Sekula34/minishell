@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 17:14:03 by wvan-der          #+#    #+#             */
-/*   Updated: 2023/12/15 14:34:28 by wvan-der         ###   ########.fr       */
+/*   Updated: 2023/12/18 16:29:29 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,9 +134,7 @@ expand_var_2(t_tokens *tok, t_vars *head_ex, int *i, int *j)
 		return ((*i)++, 0);
  	if (valid_char(tok->tokens[*j][*i + 1]) == 0)
 		return (case_invalid_c_2(tok, j, i), 0);
-	puts("after cases");
 	set_start_end(tok, tok->tokens[*j], (*i) + 1);
-	puts("after set");
 	key = get_key_2(tok, *j);
 	if (!key)
 		return ((*i)++, 0);
@@ -178,7 +176,6 @@ char	**last_expand(t_tokens *tok, t_vars *head_ex)
 			else
 				tok->fin[j] = ft_join(&tok->fin[j], tok->tokens[j][i++]);
 		}
-		puts("here");
 		j++;
 	}
 	tok->fin[j] = 0;

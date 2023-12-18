@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 13:59:09 by wvan-der          #+#    #+#             */
-/*   Updated: 2023/12/18 12:12:57 by wvan-der         ###   ########.fr       */
+/*   Updated: 2023/12/18 16:30:47 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ char *classify_filename(t_tokens *tok, int *j)
 	return (filename);
 }
 
-int	fill_redirect_node(t_tokens *tok, int *j, t_redirect *redirect_lst)
+int	fill_redirect_node(t_tokens *tok, int *j, t_redirect **redirect_lst)
 {
 	t_redirect *new_node;
 	char type;
@@ -94,12 +94,13 @@ int	fill_redirect_node(t_tokens *tok, int *j, t_redirect *redirect_lst)
 	printf("filename:%s\n", file_name);
 
 	new_node = make_redirect_node(type, file_name);
-	printf("%c, %s\n", new_node->type, new_node->file_name);
-	add_redirect_node(&redirect_lst, new_node);
-	puts("s");
+	//printf("%c, %s\n", new_node->type, new_node->file_name);
+	add_redirect_node(redirect_lst, new_node);
+	//redirect_lst = redirect_lst->next;
+	//printf("%c, %s\n", (*redirect_lst)->type, (*redirect_lst)->file_name);
 }
 
-int	put_cmd(t_tokens *tok, int *j, t_cmd *cmd_lst)
+int	put_cmd(t_tokens *tok, int *j, t_cmd **cmd_lst, t_redirect *redirect_lst)
 {
 	t_cmd *new_node;
 	char *cmd;
@@ -107,14 +108,17 @@ int	put_cmd(t_tokens *tok, int *j, t_cmd *cmd_lst)
 	cmd = ft_strdup(tok->fin[*j]);
 	if (!cmd)
 		return (0);
-	new_node = make_cmd_node(cmd, cmd_lst);
-	printf("%s\n", new_node->cmd);
-	add_cmd_node(&cmd_lst, new_node);
+	new_node = make_cmd_node(cmd, redirect_lst, *cmd_lst);
+	//printf("cmd:%s\n", new_node->cmd);
+	add_cmd_node(cmd_lst, new_node);
+	//cmd_lst = cmd_lst->next;
+	//printf("cmd:%s\n", (*cmd_lst)->cmd);
 }
 
-int classifiying_tokens(t_tokens *tok, t_cmd *cmd_lst)
+int	classifiying_tokens(t_tokens *tok, t_cmd **cmd_lst)
 {
 	puts("classifying token2");
+	t_redirect *redirect_lst;
 	int j;
 	int	i;
 	char flag;
@@ -123,6 +127,7 @@ int classifiying_tokens(t_tokens *tok, t_cmd *cmd_lst)
 	j = 0;
 	flag = 'n';
 	cmd_flag = 0;
+	redirect_lst = NULL;
 	while (tok->fin[j])
 	{
 		if (tok->fin[j][0] == '"' && tok->fin[j][1] == 0)
@@ -132,25 +137,29 @@ int classifiying_tokens(t_tokens *tok, t_cmd *cmd_lst)
 		}
 		else if (is_redirect(tok->fin[j][0]))
 		{
-			fill_redirect_node(tok, &j, cmd_lst->redirect_lst);
+			fill_redirect_node(tok, &j, &redirect_lst);
+			//printf("--%c, %s\n", redirect_lst->type, redirect_lst->file_name);
 			flag = 'f';
-			puts("r");
-			puts("f");
+/* 			puts("r");
+			puts("f"); */
 		}
 		else if (flag != 'c' && cmd_flag != 1 && (j == 0 || is_redirect(tok->fin[j - 1][0]) == 0))
 		{
-			put_cmd(tok, &j, cmd_lst);
+			put_cmd(tok, &j, cmd_lst, redirect_lst);
 			flag = 'c';
-			puts("c");
+/* 			puts("c"); */
 			cmd_flag = 1;
 		}
 		else if ((flag == 'c' || flag == 'a'))// && is_redirect(tok->fin[j][0]) == 0)
 		{
 			//arg
 			flag = 'a';
-			puts("a");
+/* 			puts("a"); */
 		}
 		j++;
 	}
-	return (1);
+
+	(*cmd_lst)->redirect_lst = redirect_lst;
+
+	/* return (cmd_lst); */
 }

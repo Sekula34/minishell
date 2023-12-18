@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:58:30 by wvan-der          #+#    #+#             */
-/*   Updated: 2023/12/13 17:13:34 by wvan-der         ###   ########.fr       */
+/*   Updated: 2023/12/18 16:28:28 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ void	tokenize_redirect(t_tokens *tok, char *line, int *i, int *a)
 		//tok->tok_i++;
 		tok->redirect_count = 0;
 	}
-/* 	if (is_redirect(line[*i + 1]) == 0)
-		tok->redirect_count = 0; */
+	if (is_redirect(line[*i + 1]) == 0)
+		tok->redirect_count = 0;
 	(*i)++;
 }
 

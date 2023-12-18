@@ -1,6 +1,6 @@
 #include "../../headers/minishel.h"
 
-t_cmd *make_cmd_node(char *cmd, t_cmd *cmd_lst)
+t_cmd *make_cmd_node(char *cmd, t_redirect *redirect_lst, t_cmd *cmd_lst)
 {
 	t_cmd	*new_node;
 
@@ -9,7 +9,7 @@ t_cmd *make_cmd_node(char *cmd, t_cmd *cmd_lst)
 		return (NULL);
 	new_node->cmd = cmd;
 	new_node->args = NULL;
-	new_node->redirect_lst = cmd_lst->redirect_lst;
+	new_node->redirect_lst = redirect_lst;
 	new_node->next = NULL;
 	return (new_node);
 }

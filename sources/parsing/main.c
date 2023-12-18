@@ -25,7 +25,7 @@ int main(int argc, char **argv, char **envp)
 	export("?=EXIT_CODE", &head_ex, &head_env);
 
 	init_parsing_struct(&tok);
-	char *line = "echo $var > $a > file2.txt >file3.txt";
+	char *line = "echo $var > $a >> file2 >file3";
 
 	// "\"$$$$USER''\"" - segfault
 	// "\"$$$$USER'\"" - no token
@@ -98,36 +98,46 @@ int main(int argc, char **argv, char **envp)
 
 		puts("pup");
 
-		t_redirect redirect_lst;
-		t_cmd	cmd_lst;
+		//t_redirect *redirect_lst;
+		t_cmd	*cmd_lst;
 		t_shell shell;
 
-		redirect_lst.type = 0;
+/* 		redirect_lst.type = 0;
 		redirect_lst.file_name = NULL;
 		redirect_lst.del_flag = 0;
-		redirect_lst.nest = NULL;
+		redirect_lst.next = NULL;
 
 		cmd_lst.path = NULL;
 		cmd_lst.cmd = NULL;
 		cmd_lst.args = NULL;
-		cmd_lst.redirect_lst = redirect_lst;
+		cmd_lst.redirect_lst = &redirect_lst;
 		cmd_lst.next = NULL;
 
-		shell.cmd_lst = cmd_lst;
+		shell.cmd_lst = &cmd_lst;
 		shell.last_exit_code = 0;
-		shell.
+		shell.head_ex = head_ex;
+		shell.head_env = head_env; */
+
+		//redirect_lst = NULL;
+		cmd_lst = NULL;
 
 
 
 
-		puts("ööö");
 
-		cmd_lst->redirect_lst = NULL;
-
-		puts("****");
-
-		classifiying_tokens(&tok, cmd_lst.redirect_lst, &cmd_lst);
+		classifiying_tokens(&tok, &cmd_lst);
 		//classifiying_tokens(&tok, &shell.cmd_lst);
+
+		printf("\nafter classifiying:\n\n");
+/* 		cmd_lst = cmd_lst->next;
+		cmd_lst->redirect_lst = cmd_lst->redirect_lst->next; */
+		printf("cmd:%s\n", cmd_lst->cmd);
+		while (cmd_lst->redirect_lst)
+		{
+			printf("redirect: %c, %s\n", cmd_lst->redirect_lst->type, cmd_lst->redirect_lst->file_name);
+			cmd_lst->redirect_lst = cmd_lst->redirect_lst->next;
+		}
+	
 
 
 		i = 0;
