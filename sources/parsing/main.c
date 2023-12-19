@@ -25,7 +25,7 @@ int main(int argc, char **argv, char **envp)
 	export("?=EXIT_CODE", &head_ex, &head_env);
 
 	init_parsing_struct(&tok);
-	char *line = "echo hello > file1 > file2 >file3";
+	char *line = "echo hello -n > file1 > file2 >file3";
 
 	// "\"$$$$USER''\"" - segfault
 	// "\"$$$$USER'\"" - no token
@@ -128,7 +128,7 @@ int main(int argc, char **argv, char **envp)
 		classifiying_tokens(&tok, &cmd_lst);
 		//classifiying_tokens(&tok, &shell.cmd_lst);
 
-		printf("\nafter classifiying:\n\n");
+		printf("\n\nafter classifiying:\n");
 /* 		cmd_lst = cmd_lst->next;
 		cmd_lst->redirect_lst = cmd_lst->redirect_lst->next; */
 		printf("cmd:%s\n", cmd_lst->cmd);
@@ -136,6 +136,12 @@ int main(int argc, char **argv, char **envp)
 		{
 			printf("redirect: %c, %s\n", cmd_lst->redirect_lst->type, cmd_lst->redirect_lst->file_name);
 			cmd_lst->redirect_lst = cmd_lst->redirect_lst->next;
+		}
+		i = 0;
+		while (cmd_lst->args && cmd_lst->args[i])
+		{
+			printf("arg%d: %s\n", i, cmd_lst->args[i]);
+			i++;
 		}
 	
 
