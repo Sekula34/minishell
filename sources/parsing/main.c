@@ -25,7 +25,10 @@ int main(int argc, char **argv, char **envp)
 	export("?=EXIT_CODE", &head_ex, &head_env);
 
 	init_parsing_struct(&tok);
-	char *line = "echo hello -n > file1 > file2 >file3";
+	char *line = "echo hello > file2 >> file3 | echo test";
+
+	//aske artem about $$var vs $$$var
+
 
 	// "\"$$$$USER''\"" - segfault
 	// "\"$$$$USER'\"" - no token
@@ -52,11 +55,11 @@ int main(int argc, char **argv, char **envp)
 		printf("\n");
 
 		char *line2 = first_expand(&tok, head_ex, lines[a]);
-		printf("first expand:\n");
+/* 		printf("first expand:\n");
 		printf("%s\n", line2);
 		printf("\n");
 
-		puts("after first expand");
+		puts("after first expand"); */
 
 		char **tokens = make_token(&tok, line2);
 		int i = 0;
@@ -65,7 +68,7 @@ int main(int argc, char **argv, char **envp)
 		if (!tokens)
 			return (0);
 
-		printf("tokens:\n");
+/* 		printf("tokens:\n");
 		while (tokens[i])
 		{
 			printf("%d: %s\n", i, tokens[i]);
@@ -73,7 +76,7 @@ int main(int argc, char **argv, char **envp)
 			i++;
 		}
 		//free(tokens);
-		printf("\n");
+		printf("\n"); */
 
 		//return(1);
 		
@@ -84,19 +87,20 @@ int main(int argc, char **argv, char **envp)
 
 		//rereplace_redirect(&tok);
 
-		printf("last expand\n");
+/* 		printf("last expand\n");
 		while (fin[i])
 		{
 			printf("%d: %s\n", i,  fin[i]);
 			//free(fin[i]);
 			i++;
-		}
+		} */
+
+
 /* 		printf("%d: %s\n", i,  fin[i]);
 		i++;
 		printf("%d: %s\n", i,  fin[i]); */
 		//free(fin);
 
-		puts("pup");
 
 		//t_redirect *redirect_lst;
 		t_cmd	*cmd_lst;
