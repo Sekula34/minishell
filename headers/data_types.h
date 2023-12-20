@@ -47,6 +47,7 @@ typedef struct s_shell
 	t_vars	*head_ex;
 	t_vars	*head_env;
 	char	*minishell_path;
+	char	**mini_env;
 }	t_shell;
 
 #endif

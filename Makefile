@@ -33,6 +33,7 @@ sources/execution/redirection/output_redirect.c\
 sources/execution/redirection/redirect_handler.c \
 sources/execution/execute_all_cmds.c \
 sources/execution/execute_builtin.c\
+sources/execution/execute_minishell.c \
 sources/execution/execute_one_command.c\
 sources/parsing/token_split.c \
 sources/parsing/first_expand.c \

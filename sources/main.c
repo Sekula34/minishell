@@ -46,13 +46,18 @@ int	main(int argc, char **argv, char **envp)
 		return (EXIT_FAILURE);
 	}
 
-	int i = 0;
-	while(mini_arr[i] != NULL)
-	{
-		printf("Line %d is : %s\n",i, mini_arr[i]);
-		i++;
-	}
-	clear_mini_env(&mini_arr);
+	printf("A jesi lud\n");
+	char *linija;
+	linija = readline("promopt");
+	if(*linija == '1')
+		execute_minishell(&shell);
+	free(linija);
+	// int i = 0;
+	// while(mini_arr[i] != NULL)
+	// {
+	// 	printf("Line %d is : %s\n",i, mini_arr[i]);
+	// 	i++;
+	// }
 	// one_command_exec(&cd, &shell);
 	// pwd(&shell.head_ex, &shell.head_env);
 	// //int status = env_exec(&shell, &cd);
@@ -66,6 +71,7 @@ int	main(int argc, char **argv, char **envp)
 	//export(NULL, &shell.head_ex, &shell.head_env);
 	clear_list_env(&shell.head_env);
 	clear_list_env(&shell.head_ex);
+	clear_mini_env(&mini_arr);
 	free(shell.minishell_path);
 	return (0);
 } 

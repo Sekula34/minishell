@@ -21,6 +21,7 @@ int shell_init(t_shell *shell, char **envp)
 	shell->head_env = NULL;
 	shell->head_ex = NULL;
 	shell->minishell_path = NULL;
+	shell->mini_env = NULL;
 	if(env_list_init(&(shell->head_env), envp) != 1)
 		return(EXIT_FAILURE);
 	if(env_list_init(&(shell->head_ex), envp) != 1)

@@ -23,6 +23,8 @@ int one_command_exec(t_cmd *cmd, t_shell *shell)
 		execute_builtin(builtin_cmd, shell, cmd);
 		return(0);
 	}
+	if(set_mini_env(&shell->mini_env, shell->head_env) == 1)
+		return (EXIT_FAILURE);
 	mini = is_minishell(cmd);
 	if(mini == 1)
 	{
