@@ -25,6 +25,7 @@ sources/parsing/main.c \
 sources/parsing/redirect_utils.c \
 sources/parsing/cmd_utils.c \
 sources/parsing/free_utils.c \
+sources/parsing/syntax_check.c \
 sources/env_export/env_list_utils2.c
 
 HEADERS = headers/builtin.h \

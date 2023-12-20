@@ -1,8 +1,6 @@
 #include "../../headers/minishel.h"
 
 
-//fix values !!!!!!
-
 	
 
 int main(int argc, char **argv, char **envp)
@@ -18,8 +16,7 @@ int main(int argc, char **argv, char **envp)
 	temp = cmd_lst;
 
 
-	(void)argc;
-	(void)argv;
+
 
 	head_ex = NULL;
 	head_env = NULL;
@@ -32,9 +29,13 @@ int main(int argc, char **argv, char **envp)
 	export("?=EXIT_CODE", &head_ex, &head_env);
 
 	init_parsing_struct(&tok);
-	char *line = "echo hello -n >file2 | wc -l";
+	char *line;
+	
+	if (argc > 1)
+		line = argv[1];
+	else
+		line = "echo 'hello\"test";
 
-	//aske artem about $$var vs $$$var
 
 
 	// "\"$$$$USER''\"" - segfault
@@ -55,6 +56,9 @@ int main(int argc, char **argv, char **envp)
 	int a = 0;
 	int i;
 
+	if (syntax_check(&tok, line) == 0)
+		return (puts("syntax error"), 0);
+
 	lines = split_pipes(&tok, line);
 	while (lines[a])
 	{
@@ -63,11 +67,11 @@ int main(int argc, char **argv, char **envp)
 		printf("\n");
 
 		char *line2 = first_expand(&tok, head_ex, lines[a]);
-/* 		printf("first expand:\n");
+/*		printf("first expand:\n");
 		printf("%s\n", line2);
-		printf("\n");
+		printf("\n"); */
 
-		puts("after first expand"); */
+		//puts("after first expand");
 
 		char **tokens = make_token(&tok, line2);
 		i = 0;
@@ -76,7 +80,7 @@ int main(int argc, char **argv, char **envp)
 		if (!tokens)
 			return (0);
 
-/* 		//printf("tokens:\n");
+		//printf("tokens:\n");
 		while (tokens[i])
 		{
 			//printf("%d: %s\n", i, tokens[i]);
@@ -84,7 +88,7 @@ int main(int argc, char **argv, char **envp)
 			i++;
 		}
 		//free(tokens);
-		printf("\n"); */
+		printf("\n");
 		
 		i = 0;	
 		char **fin = last_expand(&tok, head_ex);

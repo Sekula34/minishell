@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 15:07:07 by wvan-der          #+#    #+#             */
-/*   Updated: 2023/12/12 14:57:06 by wvan-der         ###   ########.fr       */
+/*   Updated: 2023/12/20 17:05:01 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ char **split_pipes(t_tokens *tok, char *line)
 	int a = 0;
 	char **res;
 
+	reset_struct(tok);
 	res = (char **)malloc(sizeof(char *) * (count + 1));
 	if (!res)
 		return (NULL);

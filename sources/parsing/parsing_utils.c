@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 13:55:37 by wvan-der          #+#    #+#             */
-/*   Updated: 2023/12/13 15:39:20 by wvan-der         ###   ########.fr       */
+/*   Updated: 2023/12/20 17:42:00 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,21 @@ void	set_quotation(t_tokens *tok, char c)
 {
 	if (c == '"')
 	{
+		if (tok->isq == 1)
+			return ;
 		if (tok->idq == 0)
-		{
 			tok->idq = 1;
-		}
 		else if (tok->idq == 1)
-		{
 			tok->idq = 0;
-		}
 	}
 	if (c == '\'')
 	{
+		if (tok->idq == 1)
+			return ;
 		if (tok->isq == 0)
-		{
 			tok->isq = 1;
-		}
 		else if (tok->isq == 1)
-		{
 			tok->isq = 0;
-		}
 	}
 }
 
