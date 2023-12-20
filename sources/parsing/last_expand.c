@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 17:14:03 by wvan-der          #+#    #+#             */
-/*   Updated: 2023/12/18 16:29:29 by wvan-der         ###   ########.fr       */
+/*   Updated: 2023/12/20 13:07:06 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,9 +138,9 @@ expand_var_2(t_tokens *tok, t_vars *head_ex, int *i, int *j)
 	key = get_key_2(tok, *j);
 	if (!key)
 		return ((*i)++, 0);
-	printf("key:%s-\n", key);
+	//printf("key:%s-\n", key);
 	value = get_value_var(head_ex, key);
-	printf("value:%s-\n", value);
+	//printf("value:%s-\n", value);
 	if (value)
 	{
 		append_value(&tok->fin[*j], value);
@@ -151,6 +151,7 @@ expand_var_2(t_tokens *tok, t_vars *head_ex, int *i, int *j)
 		tok->fin[*j] = ft_join(&tok->fin[*j], 0);
 		(*j)++;
 	}
+	free(key);
 }
 
 char	**last_expand(t_tokens *tok, t_vars *head_ex)

@@ -3,13 +3,20 @@
 
 //fix values !!!!!!
 
-
+	
 
 int main(int argc, char **argv, char **envp)
 {
 	t_tokens tok;
 	t_vars *head_ex;
 	t_vars *head_env;
+
+	t_cmd	*cmd_lst;
+	t_cmd	*temp;
+
+	cmd_lst = NULL;
+	temp = cmd_lst;
+
 
 	(void)argc;
 	(void)argv;
@@ -18,14 +25,14 @@ int main(int argc, char **argv, char **envp)
 	head_env = NULL;
 	env_list_init(&head_ex, envp);
 	env_list_init(&head_env, envp);
-	export("var=pupu", &head_ex, &head_env);
+	export("var=test", &head_ex, &head_env);
 	export("a=file.txt", &head_ex, &head_env);
 	export("c=>", &head_ex, &head_env);
 
 	export("?=EXIT_CODE", &head_ex, &head_env);
 
 	init_parsing_struct(&tok);
-	char *line = "echo hello > file2 >> file3 | echo test";
+	char *line = "echo hello -n >file2 | wc -l";
 
 	//aske artem about $$var vs $$$var
 
@@ -46,6 +53,7 @@ int main(int argc, char **argv, char **envp)
 	
 	char **lines;
 	int a = 0;
+	int i;
 
 	lines = split_pipes(&tok, line);
 	while (lines[a])
@@ -62,93 +70,28 @@ int main(int argc, char **argv, char **envp)
 		puts("after first expand"); */
 
 		char **tokens = make_token(&tok, line2);
-		int i = 0;
+		i = 0;
 		free(line2);
 
 		if (!tokens)
 			return (0);
 
-/* 		printf("tokens:\n");
+/* 		//printf("tokens:\n");
 		while (tokens[i])
 		{
-			printf("%d: %s\n", i, tokens[i]);
+			//printf("%d: %s\n", i, tokens[i]);
 			//free(tokens[i]);
 			i++;
 		}
 		//free(tokens);
 		printf("\n"); */
-
-		//return(1);
 		
 		i = 0;	
 		char **fin = last_expand(&tok, head_ex);
 		if (!fin)
 			return (0);
 
-		//rereplace_redirect(&tok);
-
-/* 		printf("last expand\n");
-		while (fin[i])
-		{
-			printf("%d: %s\n", i,  fin[i]);
-			//free(fin[i]);
-			i++;
-		} */
-
-
-/* 		printf("%d: %s\n", i,  fin[i]);
-		i++;
-		printf("%d: %s\n", i,  fin[i]); */
-		//free(fin);
-
-
-		//t_redirect *redirect_lst;
-		t_cmd	*cmd_lst;
-		t_shell shell;
-
-/* 		redirect_lst.type = 0;
-		redirect_lst.file_name = NULL;
-		redirect_lst.del_flag = 0;
-		redirect_lst.next = NULL;
-
-		cmd_lst.path = NULL;
-		cmd_lst.cmd = NULL;
-		cmd_lst.args = NULL;
-		cmd_lst.redirect_lst = &redirect_lst;
-		cmd_lst.next = NULL;
-
-		shell.cmd_lst = &cmd_lst;
-		shell.last_exit_code = 0;
-		shell.head_ex = head_ex;
-		shell.head_env = head_env; */
-
-		//redirect_lst = NULL;
-		cmd_lst = NULL;
-
-
-
-
-
 		classifiying_tokens(&tok, &cmd_lst);
-		//classifiying_tokens(&tok, &shell.cmd_lst);
-
-		printf("\n\nafter classifiying:\n");
-/* 		cmd_lst = cmd_lst->next;
-		cmd_lst->redirect_lst = cmd_lst->redirect_lst->next; */
-		printf("cmd:%s\n", cmd_lst->cmd);
-		while (cmd_lst->redirect_lst)
-		{
-			printf("redirect: %c, %s\n", cmd_lst->redirect_lst->type, cmd_lst->redirect_lst->file_name);
-			cmd_lst->redirect_lst = cmd_lst->redirect_lst->next;
-		}
-		i = 0;
-		while (cmd_lst->args && cmd_lst->args[i])
-		{
-			printf("arg%d: %s\n", i, cmd_lst->args[i]);
-			i++;
-		}
-	
-
 
 		i = 0;
 		while (tokens[i])
@@ -169,10 +112,44 @@ int main(int argc, char **argv, char **envp)
 		a++;
 	}
 
+	i = 0;
+
+
+	puts("");
+	puts("RESULT");
+	puts("");
+
+
+
+	temp = cmd_lst;
+
+	while (temp)
+	{
+		printf("cmd:  %s\n", temp->cmd);
+		i = 1;
+
+		while (temp->args && temp->args[i])
+		{
+			printf("arg%d: %s\n", i, temp->args[i]);
+			i++;
+		}
+		while (temp->redirect_lst)
+		{
+			printf("redirect: %c, %s\n", temp->redirect_lst->type, temp->redirect_lst->file_name);
+			temp->redirect_lst = temp->redirect_lst->next;
+		}
+		temp = temp->next;
+		puts("");
+	}
+	i = 0;
+
+	printf("\n");
+
 /* 	printf("head ex\n");
 	export(NULL, &head_ex, &head_env); */
 
 	clear_list_env(&head_env);
 	clear_list_env(&head_ex);
+	/* clear_cmd_lst(&cmd_lst); */
 
 }

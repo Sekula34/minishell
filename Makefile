@@ -24,6 +24,7 @@ sources/parsing/split_pipes.c \
 sources/parsing/main.c \
 sources/parsing/redirect_utils.c \
 sources/parsing/cmd_utils.c \
+sources/parsing/free_utils.c \
 sources/env_export/env_list_utils2.c
 
 HEADERS = headers/builtin.h \

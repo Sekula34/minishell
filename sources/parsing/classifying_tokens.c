@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 13:59:09 by wvan-der          #+#    #+#             */
-/*   Updated: 2023/12/19 17:46:07 by wvan-der         ###   ########.fr       */
+/*   Updated: 2023/12/20 16:33:06 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,8 @@ int	fill_redirect_node(t_tokens *tok, int *j, t_redirect **redirect_lst)
 	type = classify_redirect(tok, *j);
 	file_name = classify_filename(tok, j);
 
-	printf("type:%c\n", type);
-	printf("filename:%s\n", file_name);
+/* 	printf("type:%c\n", type);
+	printf("filename:%s\n", file_name); */
 
 	new_node = make_redirect_node(type, file_name);
 	//printf("%c, %s\n", new_node->type, new_node->file_name);
@@ -152,11 +152,25 @@ int realloc_array(t_tokens *tok, t_cmd **cmd_lst, char *arg)
 int put_arg(t_tokens *tok, int *j, t_cmd **cmd_lst)
 {
 	char *arg;
+	t_cmd *temp;
+
+	temp = *cmd_lst;
+
+	while (temp && temp->next)
+		temp = temp->next;
 
 	arg = ft_strdup(tok->fin[*j]);
 	if (!arg)
 		return (0);
-	realloc_array(tok, cmd_lst, arg);
+	if (!temp->args)
+	{
+		temp->args = malloc(sizeof(char *) * 2);
+		if (!temp->args)
+			return (0);
+		temp->args[0] = "filip";
+		temp->args[1] = NULL;
+	}
+	realloc_array(tok, &temp, arg);
 	return (1);
 }
 

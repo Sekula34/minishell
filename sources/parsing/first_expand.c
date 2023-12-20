@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:53:01 by wvan-der          #+#    #+#             */
-/*   Updated: 2023/12/15 14:36:12 by wvan-der         ###   ########.fr       */
+/*   Updated: 2023/12/20 13:10:50 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,7 +185,10 @@ int	expand_var_1(t_tokens *tok, t_vars *head_ex, int *i, char **res)
 	if (is_quote(key[0]))
 		value = key;
 	else
+	{
 		value = get_value_var(head_ex, key);
+		free(key);
+	}
 	//printf("value:%s-\n", value);
 	if (value)
 	{
@@ -196,7 +199,7 @@ int	expand_var_1(t_tokens *tok, t_vars *head_ex, int *i, char **res)
 	{
 		*i = tok->end + 1;
 	}
-	//free
+	//free(value);
 }
 
 char	*first_expand(t_tokens *tok, t_vars *head_ex, char *line)

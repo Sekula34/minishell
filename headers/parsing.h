@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:56:52 by wvan-der          #+#    #+#             */
-/*   Updated: 2023/12/18 15:52:25 by wvan-der         ###   ########.fr       */
+/*   Updated: 2023/12/20 13:25:03 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,6 @@ void	add_redirect_node(t_redirect **lst, t_redirect *new_lst);
 t_redirect	*end_of_redirect(t_redirect *lst);
 t_cmd *make_cmd_node(char *cmd, t_redirect *redirect_lst, t_cmd *cmd_lst);
 void add_cmd_node(t_cmd **lst, t_cmd *new_lst);
+void	clear_cmd_lst(t_cmd **head);
 
 #endif
