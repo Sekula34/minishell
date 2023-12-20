@@ -46,6 +46,7 @@ typedef struct s_shell
 	int		last_exit_code;
 	t_vars	*head_ex;
 	t_vars	*head_env;
+	char	*minishell_path;
 }	t_shell;
 
 #endif
