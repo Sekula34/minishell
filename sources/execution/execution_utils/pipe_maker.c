@@ -104,8 +104,7 @@ void clear_pipe_array(int ***pipe_arr)
 //if failes no need to clear it
 int make_pipes(int ***pipe_arr, int number_of_pipes)
 {
-	int i;
-	i = 0;
+
 	if(set_and_null_pipe_arr(pipe_arr, number_of_pipes + 1) == 1)
 		return (EXIT_FAILURE);
 	if(put_pipes_in_array(pipe_arr, number_of_pipes) == EXIT_FAILURE)

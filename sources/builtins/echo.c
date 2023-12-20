@@ -19,7 +19,9 @@
 int	echo(char *string)
 {
 	if (string == NULL)
-		printf("");
+	{
+
+	}
 	else
 		printf("%s", string);
 	return (0);

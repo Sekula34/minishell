@@ -63,7 +63,7 @@ OBJS := $(SOURCES:%.c=%.o)
 
 $(NAME): $(OBJS) $(HEADERS)
 	cd libft && $(MAKE) && $(MAKE) bonus
-	$(CC) -o $(NAME) $(EXTRA_FLAGS)  $(OBJS) ./libft/libft.a
+	$(CC) -o $(NAME)  $(OBJS) ./libft/libft.a $(EXTRA_FLAGS) 
 
 .PHONY: all clean fclean re valgrind funcheck funchecka
 
