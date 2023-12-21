@@ -21,5 +21,11 @@ int execute_minishell(t_shell *shell)
 		exit(EXIT_FAILURE);
 	}
 	//parent
+	// pid_t terminated_pid;
+	int status;
+	
+	// terminated_pid = wait(&status);
+	wait(&status);
+	// printf("Child process %d terminated with status %d\n", terminated_pid, WEXITSTATUS(status));
 	return(EXIT_SUCCESS);
 }

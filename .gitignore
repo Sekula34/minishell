@@ -4,3 +4,4 @@ valgrind_ignore_leaks.txt
 libft/libft.a
 *.md
 *.txt
+*.o

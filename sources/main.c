@@ -48,7 +48,8 @@ int	main(int argc, char **argv, char **envp)
 
 	printf("A jesi lud\n");
 	char *linija;
-	linija = readline("promopt");
+	linija = readline("promopt : ");
+	rl_on_new_line_with_prompt();
 	if(*linija == '1')
 		execute_minishell(&shell);
 	free(linija);
