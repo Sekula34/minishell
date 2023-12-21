@@ -16,10 +16,12 @@
 # include "data_types.h"
 
 int append_redirect(t_redirect *append, int *fd);
+int child_executor(t_cmd *cmd, t_shell *shell);
 void clear_mini_env(char ***env_arr);
 void clear_pipe_array(int ***pipe_arr);
 int execute_builtin(int builtin_num, t_shell *shell, t_cmd *cmd);
 int execute_minishell(t_shell *shell);
+int execute_original_cmd(t_shell *shell, t_cmd *cmd);
 int get_argc(char **argv);
 int heredoc_redirect(t_redirect *here_doc, int file_index, int *fd);
 int input_redirect(t_redirect *input, int *fd);

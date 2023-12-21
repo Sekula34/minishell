@@ -19,6 +19,7 @@ sources/env_export/env_list_init.c \
 sources/env_export/env_list_utils.c \
 sources/env_export/list_sort.c \
 sources/env_export/string_utils.c \
+sources/execution/execution_utils/child_executor.c \
 sources/execution/execution_utils/clear_mini_env.c \
 sources/execution/execution_utils/cmd_utils.c \
 sources/execution/execution_utils/count_cmds.c\
@@ -36,6 +37,7 @@ sources/execution/execute_all_cmds.c \
 sources/execution/execute_builtin.c\
 sources/execution/execute_minishell.c \
 sources/execution/execute_one_command.c\
+sources/execution/execute_original_cmd.c \
 sources/parsing/token_split.c \
 sources/parsing/first_expand.c \
 sources/parsing/last_expand.c \

@@ -23,8 +23,8 @@ int	main(int argc, char **argv, char **envp)
 	t_shell shell;
 	t_cmd cd;
 	// cd.args= (char *[]){"~", NULL};
-	cd.args= (char *[]){"/nfs/homes/fseles/eval",NULL};
-	cd.cmd ="ls";
+	cd.args= (char *[]){"/nfs/homes/fseles/eval","fajl.txt",NULL};
+	cd.cmd ="touch";
 
 
 	if(shell_init(&shell, envp) == 1)
@@ -35,8 +35,7 @@ int	main(int argc, char **argv, char **envp)
 		return (EXIT_FAILURE);
 
 	}
-	if(set_cmd_path(&cd, &shell) == 0)
-		printf("command path is :%s\n", cd.path);
+	execute_original_cmd(&shell, &cd);
 	// printf("Minishell path is %s\n", shell.minishell_exec);
 	// char **mini_arr;
 	// mini_arr = NULL;

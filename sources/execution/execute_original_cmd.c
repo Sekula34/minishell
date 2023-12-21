@@ -7,12 +7,14 @@
 int execute_original_cmd(t_shell *shell, t_cmd *cmd)
 {
 	pid_t id;
+	int status;
 
 	if(cmd == NULL)
 		return(EXIT_SUCCESS);
 	if(cmd->cmd == NULL)
 		return (EXIT_SUCCESS);
-	//path_setter
+	if(set_cmd_path(cmd, shell) != 0)
+		return (EXIT_FAILURE);
 	id = fork();
 	if(id == -1)
 	{
@@ -21,8 +23,9 @@ int execute_original_cmd(t_shell *shell, t_cmd *cmd)
 	}
 	if(id == 0)
 	{
-		//child
+		child_executor(cmd, shell);
 	}
-	//parent
+	wait(&status);
+	return(EXIT_SUCCESS);
 }
 
