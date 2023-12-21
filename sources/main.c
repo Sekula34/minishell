@@ -31,18 +31,18 @@ int	main(int argc, char **argv, char **envp)
 	{
 		clear_list_env(&shell.head_env);
 		clear_list_env(&shell.head_ex);
-		free(shell.minishell_path);
+		free(shell.minishell_exec);
 		return (EXIT_FAILURE);
 
 	}
-	printf("Minishell path is %s\n", shell.minishell_path);
+	printf("Minishell path is %s\n", shell.minishell_exec);
 	char **mini_arr;
 	mini_arr = NULL;
 	if(set_mini_env(&mini_arr, shell.head_env)==1)
 	{
 		clear_list_env(&shell.head_env);
 		clear_list_env(&shell.head_ex);
-		free(shell.minishell_path);
+		free(shell.minishell_exec);
 		return (EXIT_FAILURE);
 	}
 
@@ -73,6 +73,6 @@ int	main(int argc, char **argv, char **envp)
 	clear_list_env(&shell.head_env);
 	clear_list_env(&shell.head_ex);
 	clear_mini_env(&mini_arr);
-	free(shell.minishell_path);
+	free(shell.minishell_exec);
 	return (0);
 } 

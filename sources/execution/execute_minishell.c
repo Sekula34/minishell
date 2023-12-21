@@ -4,9 +4,8 @@ int execute_minishell(t_shell *shell)
 {
 	pid_t id;
 	char **args;
-	args= (char *[]){"~", NULL};
+	args= (char *[]){"minishell", NULL};
 
-	printf("minishell path is :%s\n", shell->minishell_path);
 	id = fork();
 	if(id == -1)
 	{
@@ -16,7 +15,7 @@ int execute_minishell(t_shell *shell)
 	if(id == 0)
 	{
 		//child;
-		execve("/home/fseles/42/minishell/minishell", args, shell->mini_env);
+		execve(shell->minishell_exec, args, shell->mini_env);
 		perror("execute minishell");
 		exit(EXIT_FAILURE);
 	}
