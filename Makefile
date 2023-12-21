@@ -25,6 +25,7 @@ sources/execution/execution_utils/count_cmds.c\
 sources/execution/execution_utils/is_builtin.c\
 sources/execution/execution_utils/is_minishell.c\
 sources/execution/execution_utils/pipe_maker.c \
+sources/execution/execution_utils/set_cmd_path.c \
 sources/execution/execution_utils/set_mini_env.c \
 sources/execution/redirection/append_redirect.c \
 sources/execution/redirection/heredoc_redirect.c \

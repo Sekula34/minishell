@@ -21,10 +21,10 @@ int	main(int argc, char **argv, char **envp)
 //	char *command[] = {"wc", "-l", NULL}; // Replace "file.txt" with the name of the file you want to count lines for
 
 	t_shell shell;
-	// t_cmd cd;
-	// // cd.args= (char *[]){"~", NULL};
-	//  cd.args= (char *[]){"/nfs/homes/fseles/eval",NULL};
-	//  cd.cmd ="cd";
+	t_cmd cd;
+	// cd.args= (char *[]){"~", NULL};
+	cd.args= (char *[]){"/nfs/homes/fseles/eval",NULL};
+	cd.cmd ="ls";
 
 
 	if(shell_init(&shell, envp) == 1)
@@ -35,24 +35,26 @@ int	main(int argc, char **argv, char **envp)
 		return (EXIT_FAILURE);
 
 	}
-	printf("Minishell path is %s\n", shell.minishell_exec);
-	char **mini_arr;
-	mini_arr = NULL;
-	if(set_mini_env(&mini_arr, shell.head_env)==1)
-	{
-		clear_list_env(&shell.head_env);
-		clear_list_env(&shell.head_ex);
-		free(shell.minishell_exec);
-		return (EXIT_FAILURE);
-	}
+	if(set_cmd_path(&cd, &shell) == 0)
+		printf("command path is :%s\n", cd.path);
+	// printf("Minishell path is %s\n", shell.minishell_exec);
+	// char **mini_arr;
+	// mini_arr = NULL;
+	// if(set_mini_env(&mini_arr, shell.head_env)==1)
+	// {
+	// 	clear_list_env(&shell.head_env);
+	// 	clear_list_env(&shell.head_ex);
+	// 	free(shell.minishell_exec);
+	// 	return (EXIT_FAILURE);
+	// }
 
-	printf("A jesi lud\n");
-	char *linija;
-	linija = readline("promopt : ");
-	rl_on_new_line_with_prompt();
-	if(*linija == '1')
-		execute_minishell(&shell);
-	free(linija);
+	// printf("A jesi lud\n");
+	// char *linija;
+	// linija = readline("promopt : ");
+	// rl_on_new_line_with_prompt();
+	// if(*linija == '1')
+	// 	execute_minishell(&shell);
+	// free(linija);
 	// int i = 0;
 	// while(mini_arr[i] != NULL)
 	// {
@@ -72,7 +74,8 @@ int	main(int argc, char **argv, char **envp)
 	//export(NULL, &shell.head_ex, &shell.head_env);
 	clear_list_env(&shell.head_env);
 	clear_list_env(&shell.head_ex);
-	clear_mini_env(&mini_arr);
+	free(cd.path);
+	//clear_mini_env(&mini_arr);
 	free(shell.minishell_exec);
 	return (0);
 } 

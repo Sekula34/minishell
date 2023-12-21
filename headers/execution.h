@@ -29,6 +29,7 @@ int make_pipes(int ***pipe_arr, int number_of_pipes);
 int one_command_exec(t_cmd *cmd, t_shell *shell);
 int output_redirect(t_redirect *output, int *fd);
 int redirect_handler(t_redirect *red_list, int *in_fd, int *out_fd);
+int set_cmd_path(t_cmd *cmd, t_shell *shell);
 int set_mini_env(char ***env_arr, t_vars *head_env);
 int set_number_of_commands(int *noc, t_cmd *cmd);
 

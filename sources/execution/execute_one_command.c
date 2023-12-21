@@ -12,6 +12,7 @@
 
 #include "../../headers/minishel.h"
 
+//execution without redirections
 int one_command_exec(t_cmd *cmd, t_shell *shell)
 {
 	int builtin_cmd;
@@ -28,7 +29,8 @@ int one_command_exec(t_cmd *cmd, t_shell *shell)
 	mini = is_minishell(cmd);
 	if(mini == 1)
 	{
-		
+		execute_minishell(shell);
+		return(EXIT_SUCCESS);
 	}
 	return(1);
 }
