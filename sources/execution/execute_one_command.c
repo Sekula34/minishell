@@ -11,9 +11,10 @@
 /* ************************************************************************** */
 
 #include "../../headers/minishel.h"
-
 //execution without redirections
-int one_command_exec(t_cmd *cmd, t_shell *shell)
+//0 if everythin ok 
+//1 if something broken
+static int exec_one(t_cmd *cmd, t_shell *shell)
 {
 	int builtin_cmd;
 	int mini;
@@ -32,5 +33,68 @@ int one_command_exec(t_cmd *cmd, t_shell *shell)
 		execute_minishell(shell);
 		return(EXIT_SUCCESS);
 	}
-	return(1);
+	if(execute_original_cmd(shell, cmd) != 0)
+		return (EXIT_FAILURE);
+	return(EXIT_SUCCESS);
+}
+//in orstdin and or_stdout are copies of original fds 1 an 0
+//1 if faile
+//0 if ok
+static int set_original_input_output(int *or_stdin, int *or_stdout)
+{
+	*or_stdin = dup(STDIN_FILENO);
+	if(*or_stdin == -1)
+	{
+		perror("dup in one_command_exec failed\n");
+		return (EXIT_FAILURE);
+	}
+	*or_stdout = dup(STDOUT_FILENO);
+	if(*or_stdout == -1)
+	{
+		perror("second dup in one_command_exec failed\n");
+		return(EXIT_FAILURE);
+	}
+	return (EXIT_SUCCESS);
+}
+
+static int reset_fd(int fd_in, int fd_out, int new_fd_in, int new_fd_out)
+{
+	if(new_fd_in != 0)
+	{
+		if(dup2(fd_in, STDIN_FILENO) == -1)
+		{
+			perror("dup2 in reset fd failed \n");
+			return (EXIT_FAILURE);
+		}
+	}
+	if(new_fd_out != 0)
+	{
+		if(dup2(fd_out, STDOUT_FILENO) == -1)
+		{
+			perror("second dup2 in reset fd failed\n");
+			return(EXIT_FAILURE);
+		}
+	}
+	return(EXIT_SUCCESS);
+}
+
+//complete execution of one command
+int one_command_exec(t_cmd *cmd, t_shell *shell)
+{
+	int original_stdin;
+	int original_stdout;
+	int new_in;
+	int new_ot;
+
+	new_in = 0;
+	new_ot = 0;
+	if(set_original_input_output(&original_stdin, &original_stdout) != 0)
+		return(EXIT_FAILURE);
+	if(redirect_handler(cmd->redirect_lst, &new_in, &new_ot)!= 0)
+		return(EXIT_FAILURE);
+	if(exec_one(cmd, shell) != 0)
+		return(EXIT_FAILURE);
+	if(reset_fd(original_stdin, original_stdout, new_in, new_ot) != 0)
+		return (EXIT_FAILURE);
+	return(EXIT_SUCCESS);
 }

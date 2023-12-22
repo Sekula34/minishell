@@ -23,19 +23,33 @@ int	main(int argc, char **argv, char **envp)
 	t_shell shell;
 	t_cmd cd;
 	// cd.args= (char *[]){"~", NULL};
-	cd.args= (char *[]){"/nfs/homes/fseles/eval","fajl.txt",NULL};
-	cd.cmd ="touch";
+	cd.args= (char *[]){"/nfs/homes/fseles/eval",NULL};
+	cd.cmd ="cat";
+	t_redirect redirect;
+	t_redirect output;
+
+	output.file_name = "output.txt";
+	output.type = 'o';
+	output.next = NULL;
+
+	redirect.file_name = "input.txt";
+	redirect.type = 'i';
+	redirect.next = &output;
+	redirect.to_delete = 0;
+	cd.redirect_lst = &redirect;
 
 
 	if(shell_init(&shell, envp) == 1)
 	{
 		clear_list_env(&shell.head_env);
 		clear_list_env(&shell.head_ex);
+		clear_mini_env(&shell.mini_env);
 		free(shell.minishell_exec);
 		return (EXIT_FAILURE);
 
 	}
-	execute_original_cmd(&shell, &cd);
+	if(one_command_exec(&cd, &shell) == 0)
+		printf("printf printa gdje \n");
 	// printf("Minishell path is %s\n", shell.minishell_exec);
 	// char **mini_arr;
 	// mini_arr = NULL;
@@ -74,7 +88,7 @@ int	main(int argc, char **argv, char **envp)
 	clear_list_env(&shell.head_env);
 	clear_list_env(&shell.head_ex);
 	free(cd.path);
-	//clear_mini_env(&mini_arr);
+	clear_mini_env(&shell.mini_env);
 	free(shell.minishell_exec);
 	return (0);
 } 

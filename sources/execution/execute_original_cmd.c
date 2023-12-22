@@ -3,7 +3,9 @@
 #include "../../headers/minishel.h"
 
 
-
+//execute original command
+//failure only if something broke 
+//otherwise success
 int execute_original_cmd(t_shell *shell, t_cmd *cmd)
 {
 	pid_t id;
