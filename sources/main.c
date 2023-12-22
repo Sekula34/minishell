@@ -18,8 +18,6 @@ int	main(int argc, char **argv, char **envp)
 	{
 
 	}
-//	char *command[] = {"wc", "-l", NULL}; // Replace "file.txt" with the name of the file you want to count lines for
-
 	t_shell shell;
 	t_cmd cd;
 	// cd.args= (char *[]){"~", NULL};
@@ -48,8 +46,17 @@ int	main(int argc, char **argv, char **envp)
 		return (EXIT_FAILURE);
 
 	}
-	if(one_command_exec(&cd, &shell) == 0)
-		printf("printf printa gdje \n");
+	if(one_command_exec(&cd, &shell) != 0)
+	{
+		clear_list_env(&shell.head_env);
+		clear_list_env(&shell.head_ex);
+		clear_mini_env(&shell.mini_env);
+		free(shell.minishell_exec);
+		free(cd.path);
+		return (EXIT_FAILURE);
+	}
+	
+	printf("printf printa gdje \n");
 	// printf("Minishell path is %s\n", shell.minishell_exec);
 	// char **mini_arr;
 	// mini_arr = NULL;
