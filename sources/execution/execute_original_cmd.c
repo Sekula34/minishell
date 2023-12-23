@@ -6,7 +6,7 @@
 //execute original command
 //failure only if something broke 
 //otherwise success
-int execute_original_cmd(t_shell *shell, t_cmd *cmd)
+int execute_original_cmd(t_shell *shell, t_cmd *cmd, int original_stdin, int original_stdout)
 {
 	pid_t id;
 	int status;
@@ -25,7 +25,7 @@ int execute_original_cmd(t_shell *shell, t_cmd *cmd)
 	}
 	if(id == 0)
 	{
-		child_executor(cmd, shell);
+		child_executor(cmd, shell, original_stdin, original_stdout);
 	}
 	wait(&status);
 	return(EXIT_SUCCESS);

@@ -14,7 +14,7 @@
 //execution without redirections
 //0 if everythin ok 
 //1 if something broken
-static int exec_one(t_cmd *cmd, t_shell *shell)
+static int exec_one(t_cmd *cmd, t_shell *shell, int original_stdin, int original_stdout)
 {
 	int builtin_cmd;
 	int mini;
@@ -33,7 +33,7 @@ static int exec_one(t_cmd *cmd, t_shell *shell)
 		execute_minishell(shell);
 		return(EXIT_SUCCESS);
 	}
-	if(execute_original_cmd(shell, cmd) != 0)
+	if(execute_original_cmd(shell, cmd, original_stdin, original_stdout) != 0)
 		return (EXIT_FAILURE);
 	return(EXIT_SUCCESS);
 }
@@ -52,6 +52,7 @@ static int set_original_input_output(int *or_stdin, int *or_stdout)
 	if(*or_stdout == -1)
 	{
 		perror("second dup in one_command_exec failed\n");
+		close(*or_stdin);
 		return(EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
@@ -64,6 +65,8 @@ static int reset_fd(int fd_in, int fd_out, int new_fd_in, int new_fd_out)
 		if(dup2(fd_in, STDIN_FILENO) == -1)
 		{
 			perror("dup2 in reset fd failed \n");
+			close(new_fd_in);
+			close(new_fd_out);
 			return (EXIT_FAILURE);
 		}
 	}
@@ -72,9 +75,13 @@ static int reset_fd(int fd_in, int fd_out, int new_fd_in, int new_fd_out)
 		if(dup2(fd_out, STDOUT_FILENO) == -1)
 		{
 			perror("second dup2 in reset fd failed\n");
+			close(new_fd_in);
+			close(new_fd_out);
 			return(EXIT_FAILURE);
 		}
 	}
+	close(new_fd_in);
+	close(new_fd_out);
 	return(EXIT_SUCCESS);
 }
 
@@ -92,9 +99,11 @@ int one_command_exec(t_cmd *cmd, t_shell *shell)
 		return(EXIT_FAILURE);
 	if(redirect_handler(cmd->redirect_lst, &new_in, &new_ot)!= 0)
 		return(EXIT_FAILURE);
-	if(exec_one(cmd, shell) != 0)
+	if(exec_one(cmd, shell, original_stdin, original_stdout) != 0)
 		return(EXIT_FAILURE);
 	if(reset_fd(original_stdin, original_stdout, new_in, new_ot) != 0)
 		return (EXIT_FAILURE);
+	close(original_stdin);
+	close(original_stdout);
 	return(EXIT_SUCCESS);
 }

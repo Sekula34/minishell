@@ -2,8 +2,10 @@
 
 //execute command
 //exit success cannot be returnd cuzz of execve
-int child_executor(t_cmd *cmd, t_shell *shell)
+int child_executor(t_cmd *cmd, t_shell *shell, int original_stdin, int original_stdout)
 {
+	close(original_stdin);
+	close(original_stdout);
 	if(cmd == NULL)
 	{
 		ft_putstr_fd("there is no command to execute\n", 2);
