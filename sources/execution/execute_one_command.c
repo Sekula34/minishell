@@ -86,6 +86,11 @@ static int reset_fd(int fd_in, int fd_out, int new_fd_in, int new_fd_out)
 }
 
 //complete execution of one command
+//originalstdin and originalstdout containt stdin and stdout fd
+//they are used to reset stdin and stoud to 0 an 1 after redirection redirect stdin and stoud 
+//to some custom files
+//this original stdin and stoud are open from seting until end of this function
+//therfore in execution if execution is making childre they are inherited and they need to be close in child
 int one_command_exec(t_cmd *cmd, t_shell *shell)
 {
 	int original_stdin;
