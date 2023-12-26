@@ -48,6 +48,7 @@ int execute_multiple_cmd(int noc, t_shell *shell)
 		shell->cmd_lst = shell->cmd_lst->next;
 		i++;
 	}
+	child_waiter(noc);
 	return(EXIT_SUCCESS);
 }
 

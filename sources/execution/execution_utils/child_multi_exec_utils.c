@@ -7,11 +7,11 @@ static int set_output_file(int *new_out, int *output_pipe)
 {
 	if(*new_out != -1)
 	{
-		if(dup2(*new_out, STDOUT_FILENO) == -1)
-		{
-			perror("dup2 in set output file failed\n");
-			return(EXIT_FAILURE);
-		}
+		// if(dup2(*new_out, STDOUT_FILENO) == -1)
+		// {
+		// 	perror("dup2 in set output file failed\n");
+		// 	return(EXIT_FAILURE);
+		// }
 		return(EXIT_SUCCESS);
 	}
 	if(dup2(*output_pipe, STDOUT_FILENO) == -1)
@@ -29,11 +29,11 @@ static int set_input_file(int *new_in, int *input_pipe)
 {
 	if(*new_in != -1)
 	{
-		if(dup2(*new_in, STDIN_FILENO) == -1)
-		{
-			perror("dup2 in set input file failed\n");
-			return(EXIT_FAILURE);
-		}
+		// if(dup2(*new_in, STDIN_FILENO) == -1)
+		// {
+		// 	perror("dup2 in set input file failed\n");
+		// 	return(EXIT_FAILURE);
+		// }
 		return(EXIT_SUCCESS);
 	}
 	if(dup2(*input_pipe, STDIN_FILENO) == -1)

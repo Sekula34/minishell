@@ -18,26 +18,26 @@ int	main(int argc, char **argv, char **envp)
 	{
 
 	}
+	t_redirect redirect;
 	t_shell shell;
-	t_cmd cd;
-	shell.cmd_lst = &cd;
+	t_cmd cmd;
+	t_cmd cmd2;
 	// cd.args= (char *[]){"~", NULL};
-	cd.args= (char *[]){"/nfs/homes/fseles/eval",NULL};
-	cd.cmd ="cat";
-	// t_redirect redirect;
-	// t_redirect output;
+	
+	redirect.file_name = "input.txt";
+	redirect.next = NULL;
+	redirect.type = 'i';
+	cmd.args= (char *[]){"/nfs/homes/fseles/eval",NULL};
+	cmd.cmd ="cat";
+	cmd.redirect_lst = &redirect;
+	cmd.next = NULL;
 
-	// output.file_name = "output.txt";
-	// output.type = 'o';
-	// output.next = NULL;
+	cmd2.args = (char *[]){"/nfs/homes/fseles/eval",NULL};
+	cmd2.cmd = "wc";
+	cmd2.next = NULL;
+	shell.cmd_lst = &cmd;
 
-	// redirect.file_name = "input.txt";
-	// redirect.type = 'i';
-	// redirect.next = &output;
-	// redirect.to_delete = 0;
-	cd.redirect_lst = NULL;
-	cd.next = NULL;
-
+	(void)cmd2;
 
 	if(shell_init(&shell, envp) == 1)
 	{
@@ -54,7 +54,7 @@ int	main(int argc, char **argv, char **envp)
 		clear_list_env(&shell.head_ex);
 		clear_mini_env(&shell.mini_env);
 		free(shell.minishell_exec);
-		free(cd.path);
+		free(cmd.path);
 		return (EXIT_FAILURE);
 	}
 	
@@ -96,7 +96,7 @@ int	main(int argc, char **argv, char **envp)
 	//export(NULL, &shell.head_ex, &shell.head_env);
 	clear_list_env(&shell.head_env);
 	clear_list_env(&shell.head_ex);
-	free(cd.path);
+	free(cmd.path);
 	clear_mini_env(&shell.mini_env);
 	free(shell.minishell_exec);
 	return (0);
