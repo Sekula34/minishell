@@ -1,61 +1,55 @@
 #include "../../../headers/minishel.h"
 
-//dup2 either pipe or custom file that is return afrer redirecthandler
-//0 ok
-//1 fail
-static int set_output_file(int *new_out, int *output_pipe)
+
+int execute_original_cmd_no_fork(t_shell *shell, t_cmd *cmd, int original_stdin, int original_stdout)
 {
-	if(*new_out != -1)
-	{
-		if(dup2(new_out, STDOUT_FILENO) == -1)
-		{
-			perror("dup2 in set output file failed\n");
-			return(EXIT_FAILURE);
-		}
+	
+
+	if(cmd == NULL)
 		return(EXIT_SUCCESS);
-	}
-	if(dup2(*output_pipe, STDOUT_FILENO) == -1)
-	{
-		perror("second dup2 in set output file failed\n");
-		return(EXIT_FAILURE);
-	}
-	return(EXIT_SUCCESS);
+	if(cmd->cmd == NULL)
+		return (EXIT_SUCCESS);
+	if(set_cmd_path(cmd, shell) != 0)
+		return (EXIT_FAILURE);
+	child_executor(cmd, shell, original_stdin, original_stdout);
+	return(EXIT_FAILURE);
 }
 
-//dup2 either pipe or custom file that is return afrer redirecthandler
-//0 ok
-//1 fail
-static int set_input_file(int *new_in, int *input_pipe)
+
+static int execute_minishell_no_fork(t_shell *shell)
 {
-	if(*new_in != -1)
-	{
-		if(dup2(new_in, STDIN_FILENO) == -1)
-		{
-			perror("dup2 in set input file failed\n");
-			return(EXIT_FAILURE);
-		}
-		return(EXIT_SUCCESS);
-	}
-	if(dup2(*input_pipe, STDIN_FILENO) == -1)
-	{
-		perror("Second dup2 in set input file failed\n");
-		return(EXIT_FAILURE);
-	}
-	return(EXIT_SUCCESS);
+	char **args;
+	args= (char *[]){"minishell", NULL};
+	execve(shell->minishell_exec, args, shell->mini_env);
+	perror("execute minishell");
+	exit(EXIT_FAILURE);
 }
 
-//set intput and output file accordingly
-//return 0 if ok 
-//return 1 if fail
-//after this function stdin and stdout are either new_in and new_out
-//or pipes
-static int set_input_output_file(int *new_in, int *new_out, int *input_pipe, int *output_pipe)
+//execution without redirections
+//0 if everythin ok 
+//1 if something broken
+static int exec_one_b(t_cmd *cmd, t_shell *shell, int original_stdin, int original_stdout)
 {
-	if(set_input_file(new_in, input_pipe) != 0)
-		return (EXIT_FAILURE);
-	if(set_output_file(new_out, output_pipe) != 0)
-		return (EXIT_FAILURE);
-	return(EXIT_SUCCESS);
+	int builtin_cmd;
+	int mini;
+
+	builtin_cmd = is_cmd_builtin(cmd);
+	if(builtin_cmd > 0)
+	{
+		execute_builtin(builtin_cmd, shell, cmd);
+		exit(0);
+	}
+	if(set_mini_env(&shell->mini_env, shell->head_env) == 1)
+		exit (EXIT_FAILURE);
+	mini = is_minishell(cmd);
+	if(mini == 1)
+	{
+		execute_minishell_no_fork(shell);
+		exit(EXIT_FAILURE);
+	}
+	if(execute_original_cmd_no_fork(shell, cmd, original_stdin, original_stdout) != 0)
+		exit (EXIT_FAILURE);
+	exit(EXIT_FAILURE);
 }
 
 int child_multi_exec(t_cmd *cmd, t_shell *shell, int input_pipe, int output_pipe)
@@ -65,8 +59,6 @@ int child_multi_exec(t_cmd *cmd, t_shell *shell, int input_pipe, int output_pipe
 
 	new_in = -1;
 	new_out = -1;
-
-	
 	if(redirect_handler(cmd->redirect_lst, &new_in, &new_out) != 0)
 		return (EXIT_FAILURE);
 	if(set_input_output_file(&new_in, &new_out, &input_pipe, &output_pipe) != 0)
@@ -75,5 +67,8 @@ int child_multi_exec(t_cmd *cmd, t_shell *shell, int input_pipe, int output_pipe
 	close(output_pipe);
 	close(new_in);
 	close(new_out);
-	
+	if(set_mini_env(&shell->mini_env, shell->head_env) == 1)
+		return (EXIT_FAILURE);
+	exec_one_b(cmd, shell, -1, -1);
+	return(EXIT_FAILURE);
 }

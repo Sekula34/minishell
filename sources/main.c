@@ -20,21 +20,23 @@ int	main(int argc, char **argv, char **envp)
 	}
 	t_shell shell;
 	t_cmd cd;
+	shell.cmd_lst = &cd;
 	// cd.args= (char *[]){"~", NULL};
 	cd.args= (char *[]){"/nfs/homes/fseles/eval",NULL};
 	cd.cmd ="cat";
-	t_redirect redirect;
-	t_redirect output;
+	// t_redirect redirect;
+	// t_redirect output;
 
-	output.file_name = "output.txt";
-	output.type = 'o';
-	output.next = NULL;
+	// output.file_name = "output.txt";
+	// output.type = 'o';
+	// output.next = NULL;
 
-	redirect.file_name = "input.txt";
-	redirect.type = 'i';
-	redirect.next = &output;
-	redirect.to_delete = 0;
-	cd.redirect_lst = &redirect;
+	// redirect.file_name = "input.txt";
+	// redirect.type = 'i';
+	// redirect.next = &output;
+	// redirect.to_delete = 0;
+	cd.redirect_lst = NULL;
+	cd.next = NULL;
 
 
 	if(shell_init(&shell, envp) == 1)
@@ -46,7 +48,7 @@ int	main(int argc, char **argv, char **envp)
 		return (EXIT_FAILURE);
 
 	}
-	if(one_command_exec(&cd, &shell) != 0)
+	if(execute_all_cmds(shell) != 0)
 	{
 		clear_list_env(&shell.head_env);
 		clear_list_env(&shell.head_ex);
