@@ -31,10 +31,10 @@ static int exec_one(t_cmd *cmd, t_shell *shell, int original_stdin, int original
 	if(mini == 1)
 	{
 		execute_minishell(shell);
-		return(EXIT_SUCCESS);
+		return(clear_mini_env(&shell->mini_env),EXIT_SUCCESS);
 	}
 	if(execute_original_cmd(shell, cmd, original_stdin, original_stdout) != 0)
-		return (EXIT_FAILURE);
+		return (clear_mini_env(&shell->mini_env),EXIT_FAILURE);
 	clear_mini_env(&shell->mini_env);
 	return(EXIT_SUCCESS);
 }

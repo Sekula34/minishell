@@ -54,7 +54,8 @@ static int set_all_lines(char ***arr_env, t_vars *head_env)
 //KEY=VALUE;
 //adds all string in char **;
 //return 0 if good
-//return 1 bad and clears all env_arr;
+//return 1 bad and clears all env_arr
+//clearthis wiht clear_mini_env function
 int set_mini_env(char ***env_arr, t_vars *head_env)
 {
 	int list_elements;

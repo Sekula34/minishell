@@ -96,8 +96,8 @@ int	main(int argc, char **argv, char **envp)
 	//export(NULL, &shell.head_ex, &shell.head_env);
 	clear_list_env(&shell.head_env);
 	clear_list_env(&shell.head_ex);
-	free(cmd.path);
 	clear_mini_env(&shell.mini_env);
+	free(cmd.path);
 	free(shell.minishell_exec);
 	return (0);
 } 
