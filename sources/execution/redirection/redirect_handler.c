@@ -34,7 +34,9 @@ int redirect_handler(t_redirect *red_list, int *in_fd, int *out_fd)
 {
 	int i = 0;
 	if(red_list == NULL)
+	{
 		return (0);
+	}
 	while(red_list != NULL)
 	{
 		if(redirect_menu(red_list, in_fd, out_fd, i) != 0)

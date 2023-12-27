@@ -18,30 +18,29 @@ int	main(int argc, char **argv, char **envp)
 	{
 
 	}
-	t_redirect redirect;
 	t_shell shell;
 	t_cmd cmd;
-	//t_cmd cmd2;
+	t_cmd cmd2;
 	// cd.args= (char *[]){"~", NULL};
 
-	t_redirect redirect2;
-	redirect2.file_name ="outputcat.txt";
-	redirect2.type ='o';
-	redirect2.next = NULL;
+	// t_redirect redirect2;
+	// redirect2.file_name ="outputcat.txt";
+	// redirect2.type ='o';
+	// redirect2.next = NULL;
 
-	redirect.file_name = "input.txt";
-	redirect.next = &redirect2;
-	redirect.type = 'i';
+	// redirect.file_name = "input.txt";
+	// redirect.next = &redirect2;
+	// redirect.type = 'i';
 
 	cmd.args= (char *[]){"cat command",NULL};
-	cmd.cmd ="cat";
-	cmd.redirect_lst = &redirect;
-	cmd.next = NULL;
+	cmd.cmd ="ls";
+	cmd.redirect_lst = NULL;
+	cmd.next = &cmd2;
 
-	// cmd2.args = (char *[]){"wc command",NULL};
-	// cmd2.cmd = "wc";
-	// cmd2.next = NULL;
-	// cmd2.redirect_lst = NULL;
+	cmd2.args = (char *[]){"wc command",NULL};
+	cmd2.cmd = "wc";
+	cmd2.next = NULL;
+	cmd2.redirect_lst = NULL;
 	shell.cmd_lst = &cmd;
 
 	
