@@ -63,6 +63,8 @@ int child_multi_exec(t_cmd *cmd, t_shell *shell, int input_pipe, int output_pipe
 		return (EXIT_FAILURE);
 	if(set_input_output_file(&new_in, &new_out, &input_pipe, &output_pipe) != 0)
 		return(EXIT_FAILURE);
+	close_all_pipes(shell->pipe_arr);
+	//perror("child close all pipes\n");
 	// close(input_pipe);
 	// close(output_pipe);
 	// close(new_in);

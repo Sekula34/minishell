@@ -28,14 +28,14 @@ static void child_handler(t_shell *shell, int index, int **pipe_arr, int number_
 
 int execute_multiple_cmd(int noc, t_shell *shell)
 {
-	int **pipe_arr;
 	int i;
 	pid_t id;
 
 	i = 0;
-	pipe_arr = NULL;
-	if(make_pipes(&pipe_arr, noc - 1) != 0)
+	shell->pipe_arr = NULL;
+	if(make_pipes(&shell->pipe_arr, noc - 1) != 0)
 		return(EXIT_FAILURE);
+	//close_all_pipes(shell->pipe_arr);
 	while(i < noc)
 	{
 		id = fork();
@@ -45,7 +45,7 @@ int execute_multiple_cmd(int noc, t_shell *shell)
 			return(child_waiter(i),EXIT_FAILURE);
 		}
 		if(id == 0)
-			child_handler(shell, i, pipe_arr, noc);
+			child_handler(shell, i, shell->pipe_arr, noc);
 		shell->cmd_lst = shell->cmd_lst->next;
 		i++;
 	}

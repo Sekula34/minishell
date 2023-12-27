@@ -23,6 +23,7 @@ sources/execution/execution_utils/child_executor.c \
 sources/execution/execution_utils/child_multi_exec_utils.c \
 sources/execution/execution_utils/child_multi_exec.c \
 sources/execution/execution_utils/clear_mini_env.c \
+sources/execution/execution_utils/close_all_pipes.c \
 sources/execution/execution_utils/cmd_utils.c \
 sources/execution/execution_utils/count_cmds.c\
 sources/execution/execution_utils/is_builtin.c\

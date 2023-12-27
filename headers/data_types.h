@@ -48,6 +48,7 @@ typedef struct s_shell
 	t_vars	*head_env;
 	char	*minishell_exec;
 	char	**mini_env;
+	int **pipe_arr;
 }	t_shell;
 
 #endif
