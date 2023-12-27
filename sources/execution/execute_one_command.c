@@ -35,6 +35,7 @@ static int exec_one(t_cmd *cmd, t_shell *shell, int original_stdin, int original
 	}
 	if(execute_original_cmd(shell, cmd, original_stdin, original_stdout) != 0)
 		return (EXIT_FAILURE);
+	clear_mini_env(&shell->mini_env);
 	return(EXIT_SUCCESS);
 }
 //in orstdin and or_stdout are copies of original fds 1 an 0
