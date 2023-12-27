@@ -63,12 +63,12 @@ int child_multi_exec(t_cmd *cmd, t_shell *shell, int input_pipe, int output_pipe
 		return (EXIT_FAILURE);
 	if(set_input_output_file(&new_in, &new_out, &input_pipe, &output_pipe) != 0)
 		return(EXIT_FAILURE);
-	close(input_pipe);
-	close(output_pipe);
-	close(new_in);
-	close(new_out);
+	// close(input_pipe);
+	// close(output_pipe);
+	// close(new_in);
+	// close(new_out);
 	if(set_mini_env(&shell->mini_env, shell->head_env) == 1)
 		return (EXIT_FAILURE);
-	exec_one_b(cmd, shell, -1, -1);
+	exec_one_b(cmd, shell, new_in, new_out);
 	return(EXIT_FAILURE);
 }

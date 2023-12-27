@@ -21,23 +21,30 @@ int	main(int argc, char **argv, char **envp)
 	t_redirect redirect;
 	t_shell shell;
 	t_cmd cmd;
-	t_cmd cmd2;
+	//t_cmd cmd2;
 	// cd.args= (char *[]){"~", NULL};
-	
+
+	t_redirect redirect2;
+	redirect2.file_name ="outputcat.txt";
+	redirect2.type ='o';
+	redirect2.next = NULL;
+
 	redirect.file_name = "input.txt";
-	redirect.next = NULL;
+	redirect.next = &redirect2;
 	redirect.type = 'i';
-	cmd.args= (char *[]){"/nfs/homes/fseles/eval",NULL};
+
+	cmd.args= (char *[]){"cat command",NULL};
 	cmd.cmd ="cat";
 	cmd.redirect_lst = &redirect;
 	cmd.next = NULL;
 
-	cmd2.args = (char *[]){"/nfs/homes/fseles/eval",NULL};
-	cmd2.cmd = "wc";
-	cmd2.next = NULL;
+	// cmd2.args = (char *[]){"wc command",NULL};
+	// cmd2.cmd = "wc";
+	// cmd2.next = NULL;
+	// cmd2.redirect_lst = NULL;
 	shell.cmd_lst = &cmd;
 
-	(void)cmd2;
+	
 
 	if(shell_init(&shell, envp) == 1)
 	{
@@ -59,41 +66,6 @@ int	main(int argc, char **argv, char **envp)
 	}
 	
 	printf("printf printa gdje \n");
-	// printf("Minishell path is %s\n", shell.minishell_exec);
-	// char **mini_arr;
-	// mini_arr = NULL;
-	// if(set_mini_env(&mini_arr, shell.head_env)==1)
-	// {
-	// 	clear_list_env(&shell.head_env);
-	// 	clear_list_env(&shell.head_ex);
-	// 	free(shell.minishell_exec);
-	// 	return (EXIT_FAILURE);
-	// }
-
-	// printf("A jesi lud\n");
-	// char *linija;
-	// linija = readline("promopt : ");
-	// rl_on_new_line_with_prompt();
-	// if(*linija == '1')
-	// 	execute_minishell(&shell);
-	// free(linija);
-	// int i = 0;
-	// while(mini_arr[i] != NULL)
-	// {
-	// 	printf("Line %d is : %s\n",i, mini_arr[i]);
-	// 	i++;
-	// }
-	// one_command_exec(&cd, &shell);
-	// pwd(&shell.head_ex, &shell.head_env);
-	// //int status = env_exec(&shell, &cd);
-	// int status = 0;
-
-	// unset_exec(&shell, &cd);
-	//env(shell.head_env);
-	//status = cd_exec(&shell, &cd);
-	//status = pwd_exec(&shell, &cd);
-	//pwd(&shell.head_ex, &shell.head_env);
-	//export(NULL, &shell.head_ex, &shell.head_env);
 	clear_list_env(&shell.head_env);
 	clear_list_env(&shell.head_ex);
 	clear_mini_env(&shell.mini_env);

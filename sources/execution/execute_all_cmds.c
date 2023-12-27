@@ -23,6 +23,7 @@ int execute_all_cmds(t_shell shell)
 	{
 		if(execute_multiple_cmd(cmd_count, &shell) != 0)
 			return(EXIT_FAILURE);
+		return(EXIT_SUCCESS);
 	}
 	if(one_command_exec(shell.cmd_lst, &shell) != 0)
 		return(EXIT_FAILURE);
