@@ -16,7 +16,7 @@
 # include "data_types.h"
 
 int append_redirect(t_redirect *append, int *fd);
-int child_executor(t_cmd *cmd, t_shell *shell, int original_stdin, int original_stdout);
+int child_executor(t_cmd *cmd, t_shell *shell);
 int child_multi_exec(t_cmd *cmd, t_shell *shell, int input_pipe, int output_pipe);
 void clear_mini_env(char ***env_arr);
 void clear_pipe_array(int ***pipe_arr);
@@ -34,9 +34,9 @@ int is_minishell(t_cmd  *mini);
 int make_pipes(int ***pipe_arr, int number_of_pipes);
 int one_command_exec(t_cmd *cmd, t_shell *shell);
 int output_redirect(t_redirect *output, int *fd);
+int prepare_fds(t_cmd *cmd, t_shell *shell, int input_file, int output_file);
 int redirect_handler(t_redirect *red_list, int *in_fd, int *out_fd);
 int set_cmd_path(t_cmd *cmd, t_shell *shell);
-int set_input_output_file(int *new_in, int *new_out, int *input_pipe, int *output_pipe);
 int set_mini_env(char ***env_arr, t_vars *head_env);
 int set_number_of_commands(int *noc, t_cmd *cmd);
 

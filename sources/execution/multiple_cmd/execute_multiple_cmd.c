@@ -1,6 +1,9 @@
 #include "../../../headers/minishel.h"
 
-static void child_waiter(int number_of_kids)
+//this is parent action 
+//wait for number of kids
+//and close pipesaswell
+static void child_waiter(int number_of_kids, int **pipe_arr)
 {
 	int i;
 	i = 0;
@@ -10,6 +13,7 @@ static void child_waiter(int number_of_kids)
 		wait(NULL);
 		i++;
 	}
+	close_all_pipes(pipe_arr);
 }
 
 
@@ -35,21 +39,20 @@ int execute_multiple_cmd(int noc, t_shell *shell)
 	shell->pipe_arr = NULL;
 	if(make_pipes(&shell->pipe_arr, noc - 1) != 0)
 		return(EXIT_FAILURE);
-	//close_all_pipes(shell->pipe_arr);
 	while(i < noc)
 	{
 		id = fork();
 		if(id == -1)
 		{
 			perror("fork in execute multiple cmd failed\n");
-			return(child_waiter(i),EXIT_FAILURE);
+			return(child_waiter(i, shell->pipe_arr),EXIT_FAILURE);
 		}
 		if(id == 0)
 			child_handler(shell, i, shell->pipe_arr, noc);
 		shell->cmd_lst = shell->cmd_lst->next;
 		i++;
 	}
-	child_waiter(noc);
+	child_waiter(noc, shell->pipe_arr);
 	return(EXIT_SUCCESS);
 }
 

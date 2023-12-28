@@ -42,7 +42,7 @@ int	main(int argc, char **argv, char **envp)
 	cmd2.next = NULL;
 	cmd2.redirect_lst = NULL;
 	shell.cmd_lst = &cmd;
-
+	(void) (cmd2);
 	
 
 	if(shell_init(&shell, envp) == 1)

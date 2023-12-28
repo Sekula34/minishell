@@ -25,7 +25,9 @@ int execute_original_cmd(t_shell *shell, t_cmd *cmd, int original_stdin, int ori
 	}
 	if(id == 0)
 	{
-		child_executor(cmd, shell, original_stdin, original_stdout);
+		close(original_stdin);
+		close(original_stdout);
+		child_executor(cmd, shell);
 	}
 	wait(&status);
 	return(EXIT_SUCCESS);

@@ -1,7 +1,7 @@
 #include "../../../headers/minishel.h"
 
 
-int execute_original_cmd_no_fork(t_shell *shell, t_cmd *cmd, int original_stdin, int original_stdout)
+int execute_original_cmd_no_fork(t_shell *shell, t_cmd *cmd)
 {
 	
 
@@ -11,7 +11,7 @@ int execute_original_cmd_no_fork(t_shell *shell, t_cmd *cmd, int original_stdin,
 		return (EXIT_SUCCESS);
 	if(set_cmd_path(cmd, shell) != 0)
 		return (EXIT_FAILURE);
-	child_executor(cmd, shell, original_stdin, original_stdout);
+	child_executor(cmd, shell);
 	return(EXIT_FAILURE);
 }
 
@@ -28,7 +28,7 @@ static int execute_minishell_no_fork(t_shell *shell)
 //execution without redirections
 //0 if everythin ok 
 //1 if something broken
-static int exec_one_b(t_cmd *cmd, t_shell *shell, int original_stdin, int original_stdout)
+static int exec_one_b(t_cmd *cmd, t_shell *shell)
 {
 	int builtin_cmd;
 	int mini;
@@ -47,30 +47,23 @@ static int exec_one_b(t_cmd *cmd, t_shell *shell, int original_stdin, int origin
 		execute_minishell_no_fork(shell);
 		exit(EXIT_FAILURE);
 	}
-	if(execute_original_cmd_no_fork(shell, cmd, original_stdin, original_stdout) != 0)
+	if(execute_original_cmd_no_fork(shell, cmd) != 0)
 		exit (EXIT_FAILURE);
 	exit(EXIT_FAILURE);
 }
 
-int child_multi_exec(t_cmd *cmd, t_shell *shell, int input_pipe, int output_pipe)
-{
-	int new_in;
-	int new_out;
 
-	new_in = -1;
-	new_out = -1;
-	if(redirect_handler(cmd->redirect_lst, &new_in, &new_out) != 0)
-		return (EXIT_FAILURE);
-	if(set_input_output_file(&new_in, &new_out, &input_pipe, &output_pipe) != 0)
+
+//input file is pipe od reading end excpet if input file is 0 that is for first command
+//output file is pipe on writing end except if output file is 0 that is for last command 
+//0 ok 
+//1 fail
+int child_multi_exec(t_cmd *cmd, t_shell *shell, int input_file, int output_file)
+{
+	if(prepare_fds(cmd, shell, input_file, output_file) != 0)
 		return(EXIT_FAILURE);
-	close_all_pipes(shell->pipe_arr);
-	//perror("child close all pipes\n");
-	// close(input_pipe);
-	// close(output_pipe);
-	// close(new_in);
-	// close(new_out);
 	if(set_mini_env(&shell->mini_env, shell->head_env) == 1)
 		return (EXIT_FAILURE);
-	exec_one_b(cmd, shell, new_in, new_out);
+	exec_one_b(cmd, shell);
 	return(EXIT_FAILURE);
 }
