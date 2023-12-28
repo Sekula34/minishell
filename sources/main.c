@@ -35,7 +35,7 @@ int	main(int argc, char **argv, char **envp)
 	cmd.args= (char *[]){"cat command",NULL};
 	cmd.cmd ="ls";
 	cmd.redirect_lst = &redirect;
-	cmd.next = NULL;
+	cmd.next = &cmd2;
 
 	cmd2.args = (char *[]){"wc command",NULL};
 	cmd2.cmd = "wc";
@@ -53,7 +53,7 @@ int	main(int argc, char **argv, char **envp)
 		return (EXIT_FAILURE);
 
 	}
-	child_multi_exec(&cmd, &shell, 0, 1);
+	//child_multi_exec(&cmd, &shell, 0, 1);
 	if(execute_all_cmds(shell) != 0)
 	{
 		clear_list_env(&shell.head_env);

@@ -5,8 +5,8 @@ static int prepare_input(int red_in, int input_pipe)
 {
 	if(red_in != 0)
 	{
-		if(input_pipe != 0)
-			close(input_pipe);
+		// if(input_pipe != 0)
+		// 	close(input_pipe);
 		return(EXIT_SUCCESS);
 	}
 	else
@@ -18,7 +18,7 @@ static int prepare_input(int red_in, int input_pipe)
 			perror("dup2 in prepare input failed\n");
 			return(EXIT_FAILURE);
 		}
-		close(input_pipe);
+		// close(input_pipe);
 	}
 	return(EXIT_SUCCESS);
 }
@@ -27,8 +27,8 @@ static int prepare_output(int red_out, int output_pipe)
 {
 	if(red_out != 1)
 	{
-		if(output_pipe != 1)
-			close(output_pipe);
+		// if(output_pipe != 1)
+		// 	close(output_pipe);
 		return(EXIT_SUCCESS);
 	}
 	else
@@ -40,7 +40,7 @@ static int prepare_output(int red_out, int output_pipe)
 			perror("dup2 in prepare output failed\n");
 			return(EXIT_FAILURE);
 		}
-		close(output_pipe);
+		// close(output_pipe);
 	}
 	return(EXIT_SUCCESS);
 }
