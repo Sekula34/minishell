@@ -32,14 +32,15 @@ int	main(int argc, char **argv, char **envp)
 	cmd.args= (char *[]){"cat command",NULL};
 	cmd.cmd ="ls";
 	cmd.redirect_lst = NULL;
-	cmd.next = NULL;
+	cmd.next = &cmd2;
+	cmd.path = NULL;
 
 	cmd2.args = (char *[]){"wc command",NULL};
 	cmd2.cmd = "wc";
 	cmd2.next = NULL;
 	cmd2.redirect_lst = NULL;
 	shell.cmd_lst = &cmd;
-	(void) cmd2;
+	cmd2.path = NULL;
 
 	if(shell_init(&shell, envp) == 1)
 	{
@@ -66,7 +67,7 @@ int	main(int argc, char **argv, char **envp)
 	clear_list_env(&shell.head_ex);
 	clear_mini_env(&shell.mini_env);
 	free(cmd.path);
-	//free(cmd2.path);
+	free(cmd2.path);
 	clear_pipe_array(&shell.pipe_arr);
 	free(shell.minishell_exec);
 	return (0);
