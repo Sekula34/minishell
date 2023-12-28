@@ -84,7 +84,7 @@ void clear_pipe_array(int ***pipe_arr)
 	int i;
 	i = 0;
 	int *to_delete;
-	if(pipe_arr == NULL)
+	if(pipe_arr == NULL || *pipe_arr == NULL)
 		return ;
 	while((*pipe_arr)[i] != NULL)
 	{

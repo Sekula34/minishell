@@ -28,19 +28,19 @@ int	main(int argc, char **argv, char **envp)
 	// redirect2.type ='o';
 	// redirect2.next = NULL;
 
-	redirect.file_name = "input.txt";
+	redirect.file_name = "output.txt";
 	redirect.next = NULL;
-	redirect.type = 'i';
+	redirect.type = 'o';
 
 	cmd.args= (char *[]){"cat command",NULL};
 	cmd.cmd ="ls";
-	cmd.redirect_lst = &redirect;
+	cmd.redirect_lst = NULL;
 	cmd.next = &cmd2;
 
 	cmd2.args = (char *[]){"wc command",NULL};
 	cmd2.cmd = "wc";
 	cmd2.next = NULL;
-	cmd2.redirect_lst = NULL;
+	cmd2.redirect_lst = &redirect;
 	shell.cmd_lst = &cmd;
 	(void) cmd2;
 
