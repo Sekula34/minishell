@@ -12,20 +12,20 @@
 
 #include "../../headers/minishel.h"
 
-int execute_all_cmds(t_shell shell)
+int execute_all_cmds(t_shell *shell)
 {
-	(void)(shell);
+	(void)(*shell);
 	int	cmd_count;
 	
-	if (set_number_of_commands(&cmd_count, shell.cmd_lst) == EXIT_FAILURE)
+	if (set_number_of_commands(&cmd_count, shell->cmd_lst) == EXIT_FAILURE)
 		return(EXIT_FAILURE);
 	if(cmd_count > 1)
 	{
-		if(execute_multiple_cmd(cmd_count, &shell) != 0)
+		if(execute_multiple_cmd(cmd_count, shell) != 0)
 			return(EXIT_FAILURE);
 		return(EXIT_SUCCESS);
 	}
-	if(one_command_exec(shell.cmd_lst, &shell) != 0)
+	if(one_command_exec(shell->cmd_lst, shell) != 0)
 		return(EXIT_FAILURE);
 	return(EXIT_SUCCESS);
 }

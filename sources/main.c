@@ -23,24 +23,21 @@ int	main(int argc, char **argv, char **envp)
 	t_cmd cmd2;
 	// cd.args= (char *[]){"~", NULL};
 
-	t_redirect redirect;
+	//t_redirect redirect;
 	// redirect2.file_name ="outputcat.txt";
 	// redirect2.type ='o';
 	// redirect2.next = NULL;
 
-	redirect.file_name = "output.txt";
-	redirect.next = NULL;
-	redirect.type = 'o';
 
 	cmd.args= (char *[]){"cat command",NULL};
 	cmd.cmd ="ls";
 	cmd.redirect_lst = NULL;
-	cmd.next = &cmd2;
+	cmd.next = NULL;
 
 	cmd2.args = (char *[]){"wc command",NULL};
 	cmd2.cmd = "wc";
 	cmd2.next = NULL;
-	cmd2.redirect_lst = &redirect;
+	cmd2.redirect_lst = NULL;
 	shell.cmd_lst = &cmd;
 	(void) cmd2;
 
@@ -54,7 +51,7 @@ int	main(int argc, char **argv, char **envp)
 
 	}
 	//child_multi_exec(&cmd, &shell, 0, 1);
-	if(execute_all_cmds(shell) != 0)
+	if(execute_all_cmds(&shell) != 0)
 	{
 		clear_list_env(&shell.head_env);
 		clear_list_env(&shell.head_ex);
@@ -68,7 +65,9 @@ int	main(int argc, char **argv, char **envp)
 	clear_list_env(&shell.head_env);
 	clear_list_env(&shell.head_ex);
 	clear_mini_env(&shell.mini_env);
-	//free(cmd.path);
+	free(cmd.path);
+	//free(cmd2.path);
+	clear_pipe_array(&shell.pipe_arr);
 	free(shell.minishell_exec);
 	return (0);
 } 

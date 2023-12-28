@@ -21,7 +21,7 @@ int child_multi_exec(t_cmd *cmd, t_shell *shell, int input_pipe, int output_pipe
 void clear_mini_env(char ***env_arr);
 void clear_pipe_array(int ***pipe_arr);
 void close_all_pipes(int **pipe_arr);
-int execute_all_cmds(t_shell shell);
+int execute_all_cmds(t_shell *shell);
 int execute_builtin(int builtin_num, t_shell *shell, t_cmd *cmd);
 int execute_minishell(t_shell *shell);
 int execute_multiple_cmd(int noc, t_shell *shell);
