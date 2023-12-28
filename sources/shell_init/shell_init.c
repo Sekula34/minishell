@@ -46,6 +46,7 @@ int shell_init(t_shell *shell, char **envp)
 	shell->head_ex = NULL;
 	shell->minishell_exec = NULL;
 	shell->mini_env = NULL;
+	shell->pipe_arr = NULL;
 	if(env_list_init(&(shell->head_env), envp) != 1)
 		return(EXIT_FAILURE);
 	if(env_list_init(&(shell->head_ex), envp) != 1)
