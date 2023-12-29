@@ -19,7 +19,7 @@ static int get_number_of_commands(t_cmd *cmd)
 	int counter;
 
 	counter = 0;
-	if (cmd == NULL)
+	if (cmd == NULL || cmd->cmd == NULL) 
 		return (0);
 	while (cmd != NULL)
 	{
