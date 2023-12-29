@@ -24,9 +24,11 @@ static int write_in_temp_file(int *fd, char *eof)
 	int compare;
 	int size;
 
+	
+
 	line = readline("heredoc> ");
 	if(line == NULL)
-		return (2);
+		return (close(*fd), 2);
 	compare = ft_strncmp(line, eof, ft_strlen(eof) + 1);
 	while(compare != 0)
 	{
@@ -35,15 +37,15 @@ static int write_in_temp_file(int *fd, char *eof)
 		else 
 			size = ft_strlen(line);
 		if(write(*fd, line, size) == -1 || write(*fd, "\n", 1) == -1)
-			return(free(line), 1);
+			return(free(line), close(*fd), 1);
 		free(line);
 		line = NULL;
 		line = readline("heredoc> ");
 		if(line == NULL)
-			return (2);
+			return (close(*fd), 2);
 		compare = ft_strncmp(line, eof, ft_strlen(eof) + 1);
 	}
-	return(free(line), close(*fd), 0);
+	return(free(line),close(*fd),0);
 }
 
 //create file in append mode, reading and writing
@@ -70,7 +72,7 @@ static char *get_real_fn(int file_index)
 	number = ft_itoa(file_index);
 	if(number == NULL)
 	{
-		perror("some malloc failed\n");
+		perror("Malloc in get_real_fn failed\n");
 		return (NULL);
 	}
 	file_name = ft_strjoin("here_doc_temp", number);
@@ -83,21 +85,26 @@ static char *get_real_fn(int file_index)
 	return(file_name);
 }
 
+//file name in this case is actually eof for heredoc
+//this function will make change so here_doc-eof and here_doc_file name are not switched anymore
+//file name is stored so that file could be found and deleted later
+//function creates temporary file called here_doc_temp<file_index>
+// 1 fail
+// 0 ok
 int heredoc_redirect(t_redirect *here_doc, int file_index, int *fd)
 {
-	char *eof;
-	char *real_file_name; 
+	here_doc->eof = here_doc->file_name;
+	here_doc->file_name = NULL;
 
-	eof = here_doc->file_name;
-	real_file_name = get_real_fn(file_index);
-	if(real_file_name == NULL)
-		return (2);
-	if(create_append_file(fd, real_file_name) == 1)
-		return(free(real_file_name),1);
-	free(real_file_name);
-	if(write_in_temp_file(fd, eof) != 0)
-		return(1);
-	// if(dup2(*fd, STDIN_FILENO) == -1)
-	// 	return (1);
-	return(0);
+	here_doc->file_name = get_real_fn(file_index);
+	if(here_doc->file_name == NULL)
+		return (EXIT_FAILURE);
+	if(create_append_file(fd, here_doc->file_name) != 0)
+		return(EXIT_FAILURE);
+	here_doc->to_delete = 1;
+	if(write_in_temp_file(fd, here_doc->eof) != 0)
+		return(EXIT_FAILURE);
+	if (input_redirect(here_doc, fd) !=0)
+		return(EXIT_FAILURE);
+	return(EXIT_SUCCESS);
 }
