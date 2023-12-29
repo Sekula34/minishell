@@ -12,6 +12,17 @@
 
 #include "../../../headers/minishel.h"
 
+//delete temporary heredoc_file;
+void here_doc_file_delete(t_redirect *heredoc)
+{
+	if(heredoc->file_name != NULL)
+	{
+		if(unlink(heredoc->file_name) != 0)
+			perror("unlink in here_doc_clear failed\n");
+		free(heredoc->file_name);
+		heredoc->file_name = NULL;
+	}
+}
 
 // write in open fd fd which will be close in the end
 //usign readline write in file and add newline at the end

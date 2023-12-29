@@ -71,6 +71,7 @@ int	main(int argc, char **argv, char **envp)
 	free(cmd2.path);
 	clear_pipe_array(&shell.pipe_arr);
 	free(shell.minishell_exec);
+	here_doc_file_delete(&redirect2);
 	free(redirect2.file_name);
 	return (0);
 } 
