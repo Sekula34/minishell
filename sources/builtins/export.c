@@ -17,6 +17,11 @@ static void	export_print(t_vars *ex_vars)
 {
 	while (ex_vars != NULL)
 	{
+		if(ex_vars->key[0] == '?')
+		{
+			ex_vars = ex_vars->next;
+			continue;
+		}
 		printf("declare -x ");
 		printf("%s", ex_vars->key);
 		if (ex_vars->value != NULL)

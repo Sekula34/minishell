@@ -30,7 +30,7 @@ int	main(int argc, char **argv, char **envp)
 
 
 	cmd.args= (char *[]){NULL,NULL};
-	cmd.cmd ="export";
+	cmd.cmd ="env";
 	cmd.redirect_lst = NULL;
 	cmd.next = NULL;;
 	cmd.path = NULL;
