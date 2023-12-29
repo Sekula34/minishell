@@ -51,6 +51,7 @@ int shell_init(t_shell *shell, char **envp)
 		return(EXIT_FAILURE);
 	if(env_list_init(&(shell->head_ex), envp) != 1)
 		return(EXIT_FAILURE);
+	export("?=0", &shell->head_ex, &shell->head_env, 0);
 	list_sort_alpha(shell->head_ex);
 	if(set_minishell_exec(&(shell->minishell_exec)) != 0)
 		return(EXIT_FAILURE);

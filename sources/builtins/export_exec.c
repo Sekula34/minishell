@@ -20,10 +20,13 @@ int export_exec(t_shell *shell, t_cmd *export_cmd)
 	i = 0;
 	argc = get_argc(export_cmd->args);
 	if(argc == 0)
+	{
+		export(export_cmd->args[1], &shell->head_ex, &shell->head_env, 1);
 		return 0;
+	}
 	while(export_cmd->args[i] != NULL)
 	{
-		export(export_cmd->args[i], &shell->head_ex, &shell->head_env);
+		export(export_cmd->args[i], &shell->head_ex, &shell->head_env, 1);
 		i++;
 	}
 	return (0);

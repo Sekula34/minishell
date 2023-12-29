@@ -29,9 +29,9 @@ int	main(int argc, char **argv, char **envp)
 	redirect2.next = NULL;
 
 
-	cmd.args= (char *[]){"cat command",NULL};
-	cmd.cmd ="cat";
-	cmd.redirect_lst = &redirect2;
+	cmd.args= (char *[]){NULL,NULL};
+	cmd.cmd ="export";
+	cmd.redirect_lst = NULL;
 	cmd.next = NULL;;
 	cmd.path = NULL;
 
@@ -64,6 +64,9 @@ int	main(int argc, char **argv, char **envp)
 	}
 	
 	printf("printf printa gdje \n");
+	t_vars *element;
+	element = get_element("?", shell.head_env);
+	printf("%s\n", element->value);
 	clear_list_env(&shell.head_env);
 	clear_list_env(&shell.head_ex);
 	clear_mini_env(&shell.mini_env);
@@ -71,7 +74,7 @@ int	main(int argc, char **argv, char **envp)
 	free(cmd2.path);
 	clear_pipe_array(&shell.pipe_arr);
 	free(shell.minishell_exec);
-	here_doc_file_delete(&redirect2);
-	free(redirect2.file_name);
+	//here_doc_file_delete(&redirect2);
+	//free(redirect2.file_name);
 	return (0);
 } 
