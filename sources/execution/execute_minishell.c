@@ -10,7 +10,7 @@ static int increase_lvl(char *current_lvl, char **shlvl)
 
 	new_lvl = ft_atoi(current_lvl) + 1;
 	if(new_lvl < 1)
-		new_lvl = 1;
+		new_lvl = 0;
 	lvl_part = ft_itoa(new_lvl);
 	if(lvl_part == NULL)
 	{
