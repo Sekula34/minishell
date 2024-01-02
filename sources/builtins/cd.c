@@ -125,6 +125,7 @@ static int	cd_main(char *directory, t_vars **ex_head, t_vars **env_head)
 //check if directory is NULL or ~ so it can call function 
 //on special case where cd is home directory
 //otherwise call function with directory;
+//0 ok -1 fail
 int	cd(char *directory, t_vars **ex_head, t_vars **env_head)
 {
 	char	*home_dir;
