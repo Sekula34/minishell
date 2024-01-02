@@ -26,6 +26,7 @@ sources/execution/execution_utils/clear_mini_env.c \
 sources/execution/execution_utils/close_all_pipes.c \
 sources/execution/execution_utils/cmd_utils.c \
 sources/execution/execution_utils/count_cmds.c\
+sources/execution/execution_utils/export_exit_status.c \
 sources/execution/execution_utils/is_builtin.c\
 sources/execution/execution_utils/is_minishell.c\
 sources/execution/execution_utils/pipe_maker.c \

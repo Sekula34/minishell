@@ -26,6 +26,7 @@ int execute_builtin(int builtin_num, t_shell *shell, t_cmd *cmd);
 int execute_minishell(t_shell *shell);
 int execute_multiple_cmd(int noc, t_shell *shell);
 int execute_original_cmd(t_shell *shell, t_cmd *cmd, int original_stdin, int original_stdout);
+int export_exit_status(int exit_number, t_shell *shell);
 int get_argc(char **argv);
 void here_doc_file_delete(t_redirect *heredoc);
 int heredoc_redirect(t_redirect *here_doc, int file_index, int *fd);

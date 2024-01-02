@@ -30,7 +30,7 @@ int	main(int argc, char **argv, char **envp)
 
 
 	cmd.args= (char *[]){NULL,NULL};
-	cmd.cmd ="env";
+	cmd.cmd = "export";
 	cmd.redirect_lst = NULL;
 	cmd.next = NULL;;
 	cmd.path = NULL;
@@ -52,6 +52,9 @@ int	main(int argc, char **argv, char **envp)
 		return (EXIT_FAILURE);
 
 	}
+
+	export_shlvl(&shell);
+	export_exit_status(1, &shell);
 	//child_multi_exec(&cmd, &shell, 0, 1);
 	if(execute_all_cmds(&shell) != 0)
 	{
