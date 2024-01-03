@@ -27,7 +27,7 @@ int		key_checker(char *string);
 int 	pwd_exec(t_shell *shell, t_cmd *pwd_cmd);
 int		pwd(t_vars **head_ex, t_vars **head_env);
 int shexit_exec(t_shell *shell, t_cmd *exit_cmd);
-int		shexit(t_vars **head_ex, t_vars **head_env, int status);
+int		shexit(t_shell *shell, int status);
 int unset_exec(t_shell *shell, t_cmd *unset_cmd);
 int		unset(char *string, t_vars **env_head, t_vars **ex_head);
 

@@ -48,6 +48,6 @@ int shexit_exec(t_shell *shell, t_cmd *exit_cmd)
 		}
 		status = atoi(exit_cmd->args[0]);
 	}
-	shexit(&shell->head_ex, &shell->head_env, status);
+	shexit(shell, status);
 	return (0);
 }

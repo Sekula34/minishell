@@ -82,6 +82,6 @@ int	main(int argc, char **argv, char **envp)
 	//here_doc_file_delete(&redirect2);
 	//free(redirect2.file_name);
 	//shell.cmd_lst = cmd;
-	shell_clear(&shell);
+	shexit(&shell, 1);
 	return (0);
 } 
