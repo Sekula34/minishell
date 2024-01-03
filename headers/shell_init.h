@@ -15,5 +15,6 @@
 # include "data_types.h"
 
 int shell_init(t_shell *shell, char **envp);
+void shell_clear(t_shell *shell);
 
 #endif

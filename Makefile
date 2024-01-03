@@ -52,6 +52,7 @@ sources/parsing/parsing_utils3.c \
 sources/parsing/rereplace_redirect.c \
 sources/env_export/env_list_utils2.c \
 sources/shell_init/shell_init.c \
+sources/shell_init/shell_clear.c
 
 HEADERS = headers/builtin.h \
 headers/data_types.h \

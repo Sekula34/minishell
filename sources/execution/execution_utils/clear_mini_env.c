@@ -6,7 +6,7 @@ void clear_mini_env(char ***env_arr)
 	int i; 
 
 	i = 0;
-	if(*env_arr == NULL)
+	if(*env_arr == NULL || env_arr == NULL)
 		return ;
 	while ((*env_arr)[i] != NULL)
 	{
