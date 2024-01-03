@@ -42,6 +42,7 @@ int	main(int argc, char **argv, char **envp)
 	cmd->next =  cmd2;
 	cmd->path = NULL;
 	shell.cmd_lst = cmd;
+	shell.first_cmd_copy = cmd;
 
 	cmd2->args = (char *[]){"wc command",NULL};
 	cmd2->cmd = ft_strdup("wc");
@@ -80,7 +81,7 @@ int	main(int argc, char **argv, char **envp)
 	// free(shell.minishell_exec);
 	//here_doc_file_delete(&redirect2);
 	//free(redirect2.file_name);
-	shell.cmd_lst = cmd;
+	//shell.cmd_lst = cmd;
 	shell_clear(&shell);
 	return (0);
 } 

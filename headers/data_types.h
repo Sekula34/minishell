@@ -43,6 +43,7 @@ typedef struct s_cmd
 typedef struct s_shell
 {
 	t_cmd	*cmd_lst;
+	t_cmd	*first_cmd_copy;
 	int		last_exit_code;
 	t_vars	*head_ex;
 	t_vars	*head_env;

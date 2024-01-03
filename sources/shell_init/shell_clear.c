@@ -60,5 +60,5 @@ void shell_clear(t_shell *shell)
 	clear_pipe_array(&shell->pipe_arr);
 	clear_mini_env(&shell->mini_env);
 	free(shell->minishell_exec);
-	clear_all_commands(&shell->cmd_lst);
+	clear_all_commands(&shell->first_cmd_copy);
 }
