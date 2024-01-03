@@ -12,11 +12,11 @@ int execute_original_cmd(t_shell *shell, t_cmd *cmd, int original_stdin, int ori
 	int status;
 
 	if(cmd == NULL)
-		return(EXIT_SUCCESS);
+		return(export_exit_status(127, shell));
 	if(cmd->cmd == NULL)
-		return (EXIT_SUCCESS);
+		return (export_exit_status(127, shell));
 	if(set_cmd_path(cmd, shell) != 0)
-		return (EXIT_FAILURE);
+		return (export_exit_status(127, shell));
 	id = fork();
 	if(id == -1)
 	{
@@ -29,7 +29,8 @@ int execute_original_cmd(t_shell *shell, t_cmd *cmd, int original_stdin, int ori
 		close(original_stdout);
 		child_executor(cmd, shell);
 	}
-	wait(&status);
-	return(EXIT_SUCCESS);
+	//wait(&status);
+	waitpid(-1, &status, 0);
+	return(export_exit_status(status, shell));
 }
 

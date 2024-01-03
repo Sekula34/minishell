@@ -95,7 +95,9 @@ int execute_minishell(t_shell *shell)
 	int status;
 	
 	// terminated_pid = wait(&status);
-	wait(&status);
+	waitpid(-1,&status, 0);
+	return (export_exit_status(status, shell));
+	//wait(&status);
 	// printf("Child process %d terminated with status %d\n", terminated_pid, WEXITSTATUS(status));
-	return(EXIT_SUCCESS);
+	//return(EXIT_SUCCESS);
 }

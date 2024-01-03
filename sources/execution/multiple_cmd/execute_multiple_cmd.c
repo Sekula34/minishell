@@ -3,17 +3,20 @@
 //this is parent action 
 //wait for number of kids
 //and close pipesaswell
-static void child_waiter(int number_of_kids, int **pipe_arr)
+static void child_waiter(int number_of_kids, int **pipe_arr, t_shell *shell)
 {
 	int i;
-	i = 0;
+	int status;
 
+	i = 0;
 	close_all_pipes(pipe_arr);
 	while (i < number_of_kids)
 	{
-		wait(NULL);
+		waitpid(-1, &status, 0);
+		//wait(NULL);
 		i++;
 	}
+	export_exit_status(status, shell);
 }
 
 
@@ -50,14 +53,14 @@ int execute_multiple_cmd(int noc, t_shell *shell)
 		if(id == -1)
 		{
 			perror("fork in execute multiple cmd failed\n");
-			return(child_waiter(i, shell->pipe_arr),EXIT_FAILURE);
+			return(child_waiter(i, shell->pipe_arr, shell),EXIT_FAILURE);
 		}
 		if(id == 0)
 			child_handler(shell, i, shell->pipe_arr, noc);
 		shell->cmd_lst = shell->cmd_lst->next;
 		i++;
 	}
-	child_waiter(noc, shell->pipe_arr);
+	child_waiter(noc, shell->pipe_arr, shell);
 	return(EXIT_SUCCESS);
 }
 
