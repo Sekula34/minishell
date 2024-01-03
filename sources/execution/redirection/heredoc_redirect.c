@@ -75,26 +75,26 @@ static int create_append_file(int *fd, char *file_name)
 // return that file name if okkay 
 //return NULL if something failed and print perrror
 //freee this shit later
-static char *get_real_fn(int file_index)
-{
-	char *number;
-	char *file_name;
+// static char *get_real_fn(int file_index)
+// {
+// 	char *number;
+// 	char *file_name;
 
-	number = ft_itoa(file_index);
-	if(number == NULL)
-	{
-		perror("Malloc in get_real_fn failed\n");
-		return (NULL);
-	}
-	file_name = ft_strjoin("here_doc_temp", number);
-	if(file_name == NULL)
-	{
-		perror("strjoin in get_real_fn failed\n");
-		return(free(number), NULL);
-	}
-	free(number);
-	return(file_name);
-}
+// 	number = ft_itoa(file_index);
+// 	if(number == NULL)
+// 	{
+// 		perror("Malloc in get_real_fn failed\n");
+// 		return (NULL);
+// 	}
+// 	file_name = ft_strjoin("here_doc_temp", number);
+// 	if(file_name == NULL)
+// 	{
+// 		perror("strjoin in get_real_fn failed\n");
+// 		return(free(number), NULL);
+// 	}
+// 	free(number);
+// 	return(file_name);
+// }
 
 //file name in this case is actually eof for heredoc
 //this function will make change so here_doc-eof and here_doc_file name are not switched anymore
@@ -104,12 +104,13 @@ static char *get_real_fn(int file_index)
 // 0 ok
 int heredoc_redirect(t_redirect *here_doc, int file_index, int *fd)
 {
-	here_doc->eof = here_doc->file_name;
-	here_doc->file_name = NULL;
+	// here_doc->eof = here_doc->file_name;
+	// here_doc->file_name = NULL;
 
-	here_doc->file_name = get_real_fn(file_index);
-	if(here_doc->file_name == NULL)
-		return (EXIT_FAILURE);
+	// here_doc->file_name = get_real_fn(file_index);
+	// if(here_doc->file_name == NULL)
+	// 	return (EXIT_FAILURE);
+	(void)(file_index);
 	if(create_append_file(fd, here_doc->file_name) != 0)
 		return(EXIT_FAILURE);
 	here_doc->to_delete = 1;

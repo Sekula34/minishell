@@ -23,33 +23,33 @@ int	main(int argc, char **argv, char **envp)
 	cmd = malloc(sizeof(t_cmd));
 	if(cmd == NULL)
 		return (EXIT_FAILURE);
-//	t_cmd cmd2;
+	t_cmd *cmd2;
 	// cd.args= (char *[]){"~", NULL};
+	cmd2 = malloc(sizeof(t_cmd));
 
-	// t_redirect *redirect2;
-	// redirect2 = malloc(sizeof(t_redirect));
-	// redirect2->file_name = ft_strdup("kraj");
-	// redirect2->type ='i';
-	// redirect2->next = NULL;
+	t_redirect *redirect2;
+	redirect2 = malloc(sizeof(t_redirect));
+	redirect2->file_name = ft_strdup("kraj");
+	redirect2->type ='h';
+	redirect2->next = NULL;
 
 
-	cmd->args= (char *[]){NULL,NULL};
-	cmd->args = malloc(sizeof(char *));
-	cmd->args[0] = ft_strdup("ls");
+	cmd->args= (char *[]){"ls",NULL};
+	// cmd->args = malloc(sizeof(char *));
+	// cmd->args[0] = ft_strdup("ls");
 	cmd->cmd = ft_strdup("ls");
-	cmd->redirect_lst = NULL;
-	cmd->next = NULL;;
+	cmd->redirect_lst = redirect2;
+	cmd->next =  cmd2;
 	cmd->path = NULL;
 	shell.cmd_lst = cmd;
 
-	// cmd2.args = (char *[]){"wc command",NULL};
-	// cmd2.cmd = "wc";
-	// cmd2.next = NULL;
-	// cmd2.redirect_lst = &redirect2;
-	// shell.cmd_lst = &cmd;
-	// cmd2.path = NULL;
-	// (void )cmd2;
-
+	cmd2->args = (char *[]){"wc command",NULL};
+	cmd2->cmd = ft_strdup("wc");
+	cmd2->next = NULL;
+	cmd2->redirect_lst = NULL;
+	cmd2->path = NULL;
+	(void )cmd2;
+	heredoc_parent_prepare(cmd);
 	if(shell_init(&shell, envp) == 1)
 	{
 		shell_clear(&shell);
@@ -80,6 +80,7 @@ int	main(int argc, char **argv, char **envp)
 	// free(shell.minishell_exec);
 	//here_doc_file_delete(&redirect2);
 	//free(redirect2.file_name);
+	shell.cmd_lst = cmd;
 	shell_clear(&shell);
 	return (0);
 } 

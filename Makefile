@@ -34,6 +34,7 @@ sources/execution/execution_utils/set_cmd_path.c \
 sources/execution/execution_utils/set_mini_env.c \
 sources/execution/multiple_cmd/execute_multiple_cmd.c \
 sources/execution/redirection/append_redirect.c \
+sources/execution/redirection/heredoc_parent_prepare.c \
 sources/execution/redirection/heredoc_redirect.c \
 sources/execution/redirection/input_redirect.c\
 sources/execution/redirection/output_redirect.c\
