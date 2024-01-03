@@ -22,11 +22,11 @@ int unset_exec(t_shell *shell, t_cmd *unset_cmd)
 	i = 0;
 	argc = get_argc(unset_cmd->args);
 	if(argc == 0)
-		return (0);
+		return (export_exit_status(0, shell));
 	while(unset_cmd->args[i] != NULL)
 	{
 		unset(unset_cmd->args[i], &shell->head_env, &shell->head_ex);
 		i++;
 	}
-	return(0);
+	return(export_exit_status(0,shell));
 }

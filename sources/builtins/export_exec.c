@@ -16,18 +16,23 @@ int export_exec(t_shell *shell, t_cmd *export_cmd)
 {
 	int argc;
 	int i;
+	int status;
 
 	i = 0;
 	argc = get_argc(export_cmd->args);
 	if(argc == 0)
 	{
-		export(export_cmd->args[1], &shell->head_ex, &shell->head_env, 1);
-		return 0;
+		status = export(export_cmd->args[1], &shell->head_ex, &shell->head_env, 1);
+		if(status != 0)
+			status = 2;
+		return (export_exit_status(status, shell));
 	}
 	while(export_cmd->args[i] != NULL)
 	{
-		export(export_cmd->args[i], &shell->head_ex, &shell->head_env, 1);
+		status = export(export_cmd->args[i], &shell->head_ex, &shell->head_env, 1);
 		i++;
 	}
-	return (0);
+	if(status != 0)
+		status = 2;
+	return (export_exit_status(status, shell));
 }

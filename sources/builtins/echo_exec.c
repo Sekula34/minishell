@@ -32,7 +32,7 @@ static int n_option(char *str)
 	return (1);
 }
 
-int echo_exec(t_cmd *echo_cmd)
+int echo_exec(t_cmd *echo_cmd, t_shell *shell)
 {
 	int argc;
 	int is_option;
@@ -57,5 +57,5 @@ int echo_exec(t_cmd *echo_cmd)
 	}
 	if(is_option == 0)
 		printf("\n");
-	return (0);
+	return (export_exit_status(0, shell));
 }

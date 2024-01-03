@@ -15,13 +15,16 @@
 int pwd_exec(t_shell *shell, t_cmd *pwd_cmd)
 {
 	int argc;
+	int status;
 
 	argc = get_argc(pwd_cmd->args);
 	if(argc != 0)
 	{
 		ft_putstr_fd("pwd with no options page 6\n",2);
-		return (2);
+		return (export_exit_status(2, shell));
 	}
-	pwd(&shell->head_ex, &shell->head_env);
-	return (0);
+	status = pwd(&shell->head_ex, &shell->head_env);
+	if(status != 0)
+		status = 2;
+	return (export_exit_status(status, shell));
 }
