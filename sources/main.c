@@ -26,16 +26,18 @@ int	main(int argc, char **argv, char **envp)
 //	t_cmd cmd2;
 	// cd.args= (char *[]){"~", NULL};
 
-	t_redirect *redirect2;
-	redirect2 = malloc(sizeof(t_redirect));
-	redirect2->file_name = ft_strdup("kraj");
-	redirect2->type ='h';
-	redirect2->next = NULL;
+	// t_redirect *redirect2;
+	// redirect2 = malloc(sizeof(t_redirect));
+	// redirect2->file_name = ft_strdup("kraj");
+	// redirect2->type ='i';
+	// redirect2->next = NULL;
 
 
 	cmd->args= (char *[]){NULL,NULL};
-	cmd->cmd = ft_strdup("env");
-	cmd->redirect_lst = redirect2;
+	cmd->args = malloc(sizeof(char *));
+	cmd->args[0] = ft_strdup("ls");
+	cmd->cmd = ft_strdup("ls");
+	cmd->redirect_lst = NULL;
 	cmd->next = NULL;;
 	cmd->path = NULL;
 	shell.cmd_lst = cmd;

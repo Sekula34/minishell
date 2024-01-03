@@ -20,9 +20,9 @@ void clear_redirects(t_redirect **list)
 		return;
 	while(*list != NULL)
 	{
-		to_delete = *list;
-		*list = to_delete->next;
-		clear_one_redirect(&to_delete);
+		to_delete = (*list)->next;
+		clear_one_redirect(list);
+		*list = to_delete;
 		to_delete = NULL;
 	}
 }
