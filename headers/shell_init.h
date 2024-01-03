@@ -14,6 +14,7 @@
 # define SHELL_INIT_H
 # include "data_types.h"
 
+void clear_all_commands(t_cmd **cmd_list);
 int shell_init(t_shell *shell, char **envp);
 void shell_clear(t_shell *shell);
 
