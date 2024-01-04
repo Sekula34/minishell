@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shexit.c                                           :+:      :+:    :+:   */
+/*   shell_init.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fseles <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/05 18:44:28 by fseles            #+#    #+#             */
-/*   Updated: 2023/12/05 18:44:29 by fseles           ###   ########.fr       */
+/*   Created: 2023/12/13 15:20:49 by fseles            #+#    #+#             */
+/*   Updated: 2023/12/13 15:20:51 by fseles           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../headers/minishel.h"
+#ifndef SHELL_INIT_H
+# define SHELL_INIT_H
+# include "data_types.h"
 
-//function that exit shell and clears everything
-int	shexit(t_shell *shell, int status)
-{
-	shell_clear(shell);
-	exit(status);
-}
+void clear_all_commands(t_cmd **cmd_list);
+int shell_init(t_shell *shell, char **envp);
+void shell_clear(t_shell *shell);
+
+#endif

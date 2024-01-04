@@ -1,20 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shexit.c                                           :+:      :+:    :+:   */
+/*   env_exec.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fseles <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/05 18:44:28 by fseles            #+#    #+#             */
-/*   Updated: 2023/12/05 18:44:29 by fseles           ###   ########.fr       */
+/*   Created: 2023/12/14 14:19:59 by fseles            #+#    #+#             */
+/*   Updated: 2023/12/14 14:20:02 by fseles           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishel.h"
 
-//function that exit shell and clears everything
-int	shexit(t_shell *shell, int status)
+int env_exec(t_shell *shell, t_cmd *env_cmd)
 {
-	shell_clear(shell);
-	exit(status);
+	int argc;
+
+	argc = get_argc(env_cmd->args);
+	if(argc != 0)
+	{
+		ft_putstr_fd("env with no options or arguments\n", 2);
+		return (export_exit_status(2, shell));
+	}
+	env(shell->head_env);
+	return(export_exit_status(0, shell));
 }

@@ -18,11 +18,17 @@
 # include <readline/readline.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <sys/wait.h>
+# include <fcntl.h>
 # include <unistd.h>
 # include "data_types.h"
+# include "shell_init.h"
 # include "../libft/libft.h"
 # include "parsing.h"
 # include "envexport.h"
 # include "builtin.h"
+# include "execution.h"
 
 #endif

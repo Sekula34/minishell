@@ -1,20 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shexit.c                                           :+:      :+:    :+:   */
+/*   execute_all_cmds.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fseles <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/05 18:44:28 by fseles            #+#    #+#             */
-/*   Updated: 2023/12/05 18:44:29 by fseles           ###   ########.fr       */
+/*   Created: 2023/12/08 20:13:01 by fseles            #+#    #+#             */
+/*   Updated: 2023/12/08 20:13:03 by fseles           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishel.h"
 
-//function that exit shell and clears everything
-int	shexit(t_shell *shell, int status)
+int execute_all_cmds(t_shell *shell)
 {
-	shell_clear(shell);
-	exit(status);
+	(void)(*shell);
+	int	cmd_count;
+	
+	if (set_number_of_commands(&cmd_count, shell->cmd_lst) == EXIT_FAILURE)
+		return(EXIT_FAILURE);
+	if(cmd_count > 1)
+	{
+		if(execute_multiple_cmd(cmd_count, shell) != 0)
+			return(EXIT_FAILURE);
+		return(EXIT_SUCCESS);
+	}
+	if(one_command_exec(shell->cmd_lst, shell) != 0)
+		return(EXIT_FAILURE);
+	return(EXIT_SUCCESS);
 }

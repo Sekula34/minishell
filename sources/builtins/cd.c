@@ -106,7 +106,10 @@ static int	cd_main(char *directory, t_vars **ex_head, t_vars **env_head)
 	if (current == NULL)
 		return (-1);
 	if (chdir(directory) != 0)
+	{
+		perror("cd ");
 		return (free(current), -1);
+	}
 	if (value_setter("OLDPWD", current, ex_head, env_head) == -1)
 		return (free(current), -1);
 	free(current);
@@ -122,6 +125,7 @@ static int	cd_main(char *directory, t_vars **ex_head, t_vars **env_head)
 //check if directory is NULL or ~ so it can call function 
 //on special case where cd is home directory
 //otherwise call function with directory;
+//0 ok -1 fail
 int	cd(char *directory, t_vars **ex_head, t_vars **env_head)
 {
 	char	*home_dir;

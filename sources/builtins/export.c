@@ -17,6 +17,11 @@ static void	export_print(t_vars *ex_vars)
 {
 	while (ex_vars != NULL)
 	{
+		if(ex_vars->key[0] == '?')
+		{
+			ex_vars = ex_vars->next;
+			continue;
+		}
 		printf("declare -x ");
 		printf("%s", ex_vars->key);
 		if (ex_vars->value != NULL)
@@ -100,7 +105,8 @@ static int	export_no_eq(char *string, t_vars **ex_vars, t_vars **env_vars)
 //
 //creates 2 identical elements, one for ex_vars, one for env_vars
 //first try to remove variables if exist
-int	export(char *string, t_vars **ex_vars, t_vars **env_vars)
+//if safe option is 0 key will not be check (USE ONLY FOR LAST EXIT STATUS aka ?=)
+int	export(char *string, t_vars **ex_vars, t_vars **env_vars, int safe_option)
 {
 	if (string == NULL)
 	{
@@ -108,7 +114,11 @@ int	export(char *string, t_vars **ex_vars, t_vars **env_vars)
 		export_print(*ex_vars);
 		return (0);
 	}
+<<<<<<< HEAD
 /* 	if (key_checker(string) != 1)
+=======
+	if (key_checker(string) != 1 && safe_option == 1)
+>>>>>>> main
 	{
 		ft_putstr_fd("export: Not a valid identifier\n", 2);
 		return (-1);
