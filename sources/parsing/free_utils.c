@@ -57,4 +57,5 @@ void	delete_redirect_element(t_redirect **element_to_delete)
 	delete = *element_to_delete;
 
 	free(delete->file_name);
+	free(delete);
 }

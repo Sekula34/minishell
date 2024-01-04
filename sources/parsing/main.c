@@ -12,6 +12,8 @@ int main(int argc, char **argv, char **envp)
 	t_cmd	*cmd_lst;
 	t_cmd	*temp;
 
+	t_redirect *temp_redirect;
+
 	cmd_lst = NULL;
 	temp = cmd_lst;
 
@@ -112,9 +114,11 @@ int main(int argc, char **argv, char **envp)
 			i++;
 		}
 		free(fin);
+		free(lines[a]);
 
 		a++;
 	}
+	free(lines);
 
 	i = 0;
 
@@ -124,8 +128,8 @@ int main(int argc, char **argv, char **envp)
 	puts("");
 
 
-
 	temp = cmd_lst;
+	temp_redirect = temp->redirect_lst;
 
 	while (temp)
 	{
@@ -137,10 +141,11 @@ int main(int argc, char **argv, char **envp)
 			printf("arg%d: %s\n", i, temp->args[i]);
 			i++;
 		}
-		while (temp->redirect_lst)
+		temp_redirect = temp->redirect_lst;
+		while (temp_redirect)
 		{
-			printf("redirect: %c, %s\n", temp->redirect_lst->type, temp->redirect_lst->file_name);
-			temp->redirect_lst = temp->redirect_lst->next;
+			printf("redirect: %c, %s\n", temp_redirect->type, temp_redirect->file_name);
+			temp_redirect = temp_redirect->next;
 		}
 		temp = temp->next;
 		puts("");
@@ -148,6 +153,7 @@ int main(int argc, char **argv, char **envp)
 	i = 0;
 
 	printf("\n");
+
 
 /* 	printf("head ex\n");
 	export(NULL, &head_ex, &head_env); */
