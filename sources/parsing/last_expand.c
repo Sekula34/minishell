@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 17:14:03 by wvan-der          #+#    #+#             */
-/*   Updated: 2023/12/20 13:07:06 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/04 12:07:17 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,12 +119,18 @@ int	case_invalid_c_2(t_tokens *tok, int *j, int *i)
 			&& (tok->tokens[*j][*i] != '$' || a == 0))
 	{
 		tok->fin[*j] = ft_join(&tok->fin[*j], tok->tokens[*j][*i]);
+		if (!tok->fin[*j])
+		{
+			//free
+			return(0);
+		}
 		(*i)++;
 		a++;
 	}
+	return (1);
 }
 
-expand_var_2(t_tokens *tok, t_vars *head_ex, int *i, int *j)
+int	expand_var_2(t_tokens *tok, t_vars *head_ex, int *i, int *j)
 {
 	//printf("-%s-\n", tok->tokens[*j]);
 	char *key;
@@ -152,6 +158,7 @@ expand_var_2(t_tokens *tok, t_vars *head_ex, int *i, int *j)
 		(*j)++;
 	}
 	free(key);
+	return (1);
 }
 
 char	**last_expand(t_tokens *tok, t_vars *head_ex)

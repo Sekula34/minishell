@@ -6,33 +6,11 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 13:59:09 by wvan-der          #+#    #+#             */
-/*   Updated: 2023/12/20 16:33:06 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/04 12:18:57 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishel.h"
-
-
-int	is_input(t_tokens *tok)
-{
-
-	//protect
-	//fill
-	//add t0 back
-}
-int	is_output(t_tokens *tok)
-{
-
-}
-int	is_heredoc(t_tokens *tok)
-{
-
-}
-int	is_append(t_tokens *tok)
-{
-
-}
-
 
 char classify_redirect(t_tokens *tok, int j)
 {
@@ -46,10 +24,6 @@ char classify_redirect(t_tokens *tok, int j)
 		{
 			return ('h');
 		}
-		else
-		{
-		 //is error
-		}
 	}
 	if (tok->fin[j][0] == '>')
 	{
@@ -61,11 +35,8 @@ char classify_redirect(t_tokens *tok, int j)
 		{
 			return ('a');
 		}
-		else
-		{
-		 //is error
-		}
 	}
+	return (1);
 }
 
 char *classify_filename(t_tokens *tok, int *j)
@@ -93,10 +64,16 @@ int	fill_redirect_node(t_tokens *tok, int *j, t_redirect **redirect_lst)
 	printf("filename:%s\n", file_name); */
 
 	new_node = make_redirect_node(type, file_name);
+	if (!new_node)
+	{
+		//Free
+		return (0);
+	}
 	//printf("%c, %s\n", new_node->type, new_node->file_name);
 	add_redirect_node(redirect_lst, new_node);
 	//redirect_lst = redirect_lst->next;
 	//printf("%c, %s\n", (*redirect_lst)->type, (*redirect_lst)->file_name);
+	return (1);
 }
 
 int	put_cmd(t_tokens *tok, int *j, t_cmd **cmd_lst, t_redirect *redirect_lst)
@@ -112,6 +89,7 @@ int	put_cmd(t_tokens *tok, int *j, t_cmd **cmd_lst, t_redirect *redirect_lst)
 	add_cmd_node(cmd_lst, new_node);
 	//cmd_lst = cmd_lst->next;
 	//printf("cmd:%s\n", (*cmd_lst)->cmd);
+	return (1);
 }
 
 int	get_array_size(t_cmd *cmd_lst)
@@ -220,4 +198,5 @@ int	classifiying_tokens(t_tokens *tok, t_cmd **cmd_lst)
 	(*cmd_lst)->redirect_lst = redirect_lst;
 
 	/* return (cmd_lst); */
+	return (1);
 }

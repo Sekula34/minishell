@@ -154,6 +154,6 @@ int main(int argc, char **argv, char **envp)
 
 	clear_list_env(&head_env);
 	clear_list_env(&head_ex);
-	/* clear_cmd_lst(&cmd_lst); */
+	clear_cmd_lst(&cmd_lst);
 
 }

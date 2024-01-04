@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:53:01 by wvan-der          #+#    #+#             */
-/*   Updated: 2023/12/20 13:10:50 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/04 12:06:33 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,9 +146,15 @@ int case_start_with_quote(char **res, t_tokens *tok, int *i)
 	while (tok->line[*i] && valid_char(tok->line[*i]))
 	{
 		*res = ft_join(res, tok->line[*i]);
+		if (!*res)
+		{
+			//free
+			return (0);
+		}
 		(*i)++;
 	}
 	(*i)++;
+	return (1);
 }
 
 int	case_invalid_char(char **res, t_tokens *tok, int *i)
@@ -161,9 +167,15 @@ int	case_invalid_char(char **res, t_tokens *tok, int *i)
 	while (tok->line[*i] && tok->line[*i] != ' ' && (tok->line[*i] != '$' || a == 0))
 	{
 		*res = ft_join(res, tok->line[*i]);
+		if (!*res)
+		{
+			//free
+			return (0);
+		}
 		(*i)++;
 		a++;
 	}
+	return (1);
 }
 
 int	expand_var_1(t_tokens *tok, t_vars *head_ex, int *i, char **res)
@@ -200,6 +212,7 @@ int	expand_var_1(t_tokens *tok, t_vars *head_ex, int *i, char **res)
 		*i = tok->end + 1;
 	}
 	//free(value);
+	return (1);
 }
 
 char	*first_expand(t_tokens *tok, t_vars *head_ex, char *line)

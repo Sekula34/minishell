@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:56:52 by wvan-der          #+#    #+#             */
-/*   Updated: 2023/12/20 17:13:20 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/04 13:00:37 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,12 @@ void	clear_cmd_lst(t_cmd **head);
 
 
 int	syntax_check(t_tokens *tok, char *line);
+
+void	init_make_token(int *a, int *i);
+
+void	delete_cmd_element(t_cmd **element_to_delete);
+void	clear_redirect_lst(t_redirect **head);
+void	delete_redirect_element(t_redirect **element_to_delete);
+void	clear_cmd_lst(t_cmd **head);
 
 #endif
