@@ -3,7 +3,7 @@
 
 	
 
-int parsing_test_main(int argc, char **argv, char **envp)
+int main(int argc, char **argv, char **envp)
 {
 	t_tokens tok;
 	t_vars *head_ex;
@@ -30,7 +30,7 @@ int parsing_test_main(int argc, char **argv, char **envp)
 
 	export("?=EXIT_CODE", &head_ex, &head_env, 0);
 
-	init_parsing_struct(&tok);
+	init_tok_struct(&tok);
 	char *line;
 	
 	if (argc > 1)

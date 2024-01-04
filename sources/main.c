@@ -2,7 +2,7 @@
 
 
 
-int main(int argc, char **argv, char **envp)
+/* int main(int argc, char **argv, char **envp)
 {
 	t_shell shell;
 	if(shell_init(&shell, envp) != 0)
@@ -21,8 +21,8 @@ int main(int argc, char **argv, char **envp)
 		puts("after parsing");
 		shell.first_cmd_copy = shell.cmd_lst;
 		puts("test");
-/* 		if(heredoc_parent_prepare(&shell.cmd_lst) != 0)
-			shexit(&shell, 1); */
+ 		if(heredoc_parent_prepare(&shell.cmd_lst) != 0)
+			shexit(&shell, 1);
 		if(execute_all_cmds(&shell) != 0)
 			shexit(&shell, 1);
 		clear_all_commands(&shell.first_cmd_copy);
@@ -30,4 +30,4 @@ int main(int argc, char **argv, char **envp)
 	}
 	shexit(&shell, 0);
 	return(EXIT_SUCCESS);
-}
+} */

@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 15:39:08 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/04 17:03:52 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/04 17:13:45 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,13 @@ int	parsing(t_shell *shell, char **envp)
 	int i;
 
 	if (syntax_check(&tok, line) == 0)
-		return (puts("syntax error"), 0);
+	{
+		clear_list_env(&head_env);
+		clear_list_env(&head_ex);
+		clear_cmd_lst(&cmd_lst);
 
+		return (puts("syntax error"), 0);
+	}
 	lines = split_pipes(&tok, line);
 	while (lines[a])
 	{
