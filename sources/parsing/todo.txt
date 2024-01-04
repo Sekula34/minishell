@@ -22,3 +22,8 @@ classify
 TYPED OF redirections
 
 	i = < o = > h = << a = >>
+
+
+
+fix >	$ 
+		$'LSKFJLK'

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fseles <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 19:02:03 by fseles            #+#    #+#             */
-/*   Updated: 2023/12/01 19:02:04 by fseles           ###   ########.fr       */
+/*   Updated: 2024/01/04 14:37:14 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ int	export(char *string, t_vars **ex_vars, t_vars **env_vars, int safe_option)
 	{
 		ft_putstr_fd("export: Not a valid identifier\n", 2);
 		return (-1);
-	}
+	} */
 	if (pos_of_equal(string) != -1)
 		return (export_eq(string, ex_vars, env_vars));
 	else

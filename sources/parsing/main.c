@@ -1,10 +1,7 @@
 #include "../../headers/minishel.h"
 
 
-
-//fix values !!!!!!
-
-
+	
 
 int main(int argc, char **argv, char **envp)
 {
@@ -12,79 +9,157 @@ int main(int argc, char **argv, char **envp)
 	t_vars *head_ex;
 	t_vars *head_env;
 
-	(void)argc;
-	(void)argv;
+	t_cmd	*cmd_lst;
+	t_cmd	*temp;
+
+	t_redirect *temp_redirect;
+
+	cmd_lst = NULL;
+	temp = cmd_lst;
+
+
+
 
 	head_ex = NULL;
 	head_env = NULL;
 	env_list_init(&head_ex, envp);
 	env_list_init(&head_env, envp);
-	export("var=pupu", &head_ex, &head_env);
-	export("a=ivan", &head_ex, &head_env);
+	export("var=test", &head_ex, &head_env);
+	export("a=file.txt", &head_ex, &head_env);
 	export("c=>", &head_ex, &head_env);
 
-	init_token_struct(&tok);	
-	char *line = "                  echo \"$c\" $var$var > $var$a | \"$var\" << $var  $a  $c $a <$d hello";
+	export("?=EXIT_CODE", &head_ex, &head_env);
 
-	printf("beginn:\n");
-	printf("%s\n", line);
-	printf("\n");
-
-	char *line2 = first_expand(&tok, head_ex, line);
-	printf("first expand:\n");
-	printf("%s\n", line2);
-	printf("\n");
-
-	char **tokens = make_token(&tok, line2);
-	int i = 0;
-	free(line2);
-
-	if (!tokens)
-		return (0);
-
-	printf("tokens:\n");
-	while (tokens[i])
-	{
-		printf("%d: %s\n", i, tokens[i]);
-		//free(tokens[i]);
-		i++;
-	}
-	//free(tokens);
-	printf("\n");
+	init_parsing_struct(&tok);
+	char *line;
 	
-	i = 0;
-	char **fin = last_expand(&tok, head_ex);
-	if (!fin)
-		return (0);
+	if (argc > 1)
+		line = argv[1];
+	else
+		line = "echo 'zzzz aaaa' > file2";
 
-	//rereplace_redirect(&tok);
 
-	printf("last expand\n");
-	while (fin[i])
+
+	// "\"$$$$USER''\"" - segfault
+	// "\"$$$$USER'\"" - no token
+	// "echo '>>' " - three tokens instead of two
+
+	// "echo $$$$$abc abc";
+	
+	// "'$assads'" - fixed seg fault but still...
+	
+
+	// FIXED  	"echo >>><< abc < def >fuck > you" - broken redirection is one token for some reason
+	// FIXED	variable on the first place - valgrind errors
+	// FIXED	"echo '|' abc < def >fuck > you" - splitted by pipe (should not)
+	
+	
+	char **lines;
+	int a = 0;
+	int i;
+
+	if (syntax_check(&tok, line) == 0)
+		return (puts("syntax error"), 0);
+
+	lines = split_pipes(&tok, line);
+	while (lines[a])
 	{
-		printf("%d: %s\n", i,  fin[i]);
-		//free(fin[i]);
-		i++;
+		printf("begin:\n");
+		printf("%s\n", lines[a]);
+		printf("\n");
+
+		char *line2 = first_expand(&tok, head_ex, lines[a]);
+/*		printf("first expand:\n");
+		printf("%s\n", line2);
+		printf("\n"); */
+
+		//puts("after first expand");
+
+		char **tokens = make_token(&tok, line2);
+		i = 0;
+		free(line2);
+
+		if (!tokens)
+			return (0);
+
+		//printf("tokens:\n");
+		while (tokens[i])
+		{
+			//printf("%d: %s\n", i, tokens[i]);
+			//free(tokens[i]);
+			i++;
+		}
+		//free(tokens);
+		printf("\n");
+		
+		i = 0;	
+		char **fin = last_expand(&tok, head_ex);
+		if (!fin)
+			return (0);
+
+		classifiying_tokens(&tok, &cmd_lst);
+
+		i = 0;
+		while (tokens[i])
+		{
+			free(tokens[i]);
+			i++;
+		}
+		free(tokens);
+
+		i = 0;
+		while (fin[i])
+		{
+			free(fin[i]);
+			i++;
+		}
+		free(fin);
+		free(lines[a]);
+
+		a++;
 	}
-	//free(fin);
+	free(lines);
 
 	i = 0;
-	while (tokens[i])
-	{
-		free(tokens[i]);
-		i++;
-	}
-	free(tokens);
 
-	i = 0;
-	while (fin[i])
+
+	puts("");
+	puts("RESULT");
+	puts("");
+
+
+	temp = cmd_lst;
+	temp_redirect = temp->redirect_lst;
+
+	while (temp)
 	{
-		free(fin[i]);
-		i++;
+		printf("cmd:  %s\n", temp->cmd);
+		i = 1;
+
+		while (temp->args && temp->args[i])
+		{
+			printf("arg%d: %s\n", i, temp->args[i]);
+			i++;
+		}
+		temp_redirect = temp->redirect_lst;
+		while (temp_redirect)
+		{
+			printf("redirect: %c, %s\n", temp_redirect->type, temp_redirect->file_name);
+			temp_redirect = temp_redirect->next;
+		}
+		temp = temp->next;
+		puts("");
 	}
-	free(fin);
+	i = 0;
+
+	printf("\n");
+
+
+/* 	printf("head ex\n");
+	export(NULL, &head_ex, &head_env); */
 
 	clear_list_env(&head_env);
 	clear_list_env(&head_ex);
+	clear_cmd_lst(&cmd_lst);
 
 }

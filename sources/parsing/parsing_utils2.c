@@ -6,13 +6,13 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 14:01:46 by wvan-der          #+#    #+#             */
-/*   Updated: 2023/12/05 17:19:33 by wvan-der         ###   ########.fr       */
+/*   Updated: 2023/12/13 17:31:46 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishel.h"
 
-void	init_token_struct(t_tokens *tok)
+void	init_parsing_struct(t_tokens *tok)
 {
 	tok->isq = 0;
 	tok->idq = 0;
@@ -27,6 +27,9 @@ void	init_token_struct(t_tokens *tok)
 	tok->tokens = NULL;
 	tok->fin = NULL;
 	tok->token_amount = 0;
+	tok->line = NULL;
+	tok->key = NULL;
+	tok->value = NULL;
 }
 
 void	reset_struct(t_tokens *tok)
@@ -69,6 +72,10 @@ int	valid_char(char c)
 		return (1);
 	if (c == '_')
 		return (1);
+/* 	if (c == '"')
+		return (1);
+	if (c == '\'')
+		return (1); */
 	return (0);
 }
 
