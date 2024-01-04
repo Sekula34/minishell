@@ -1,9 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/04 15:39:08 by wvan-der          #+#    #+#             */
+/*   Updated: 2024/01/04 15:52:50 by wvan-der         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../headers/minishel.h"
 
-
-	
-
-int main(int argc, char **argv, char **envp)
+int	parsing(t_shell *shell, char **envp)
 {
 	t_tokens tok;
 	t_vars *head_ex;
@@ -24,19 +33,19 @@ int main(int argc, char **argv, char **envp)
 	head_env = NULL;
 	env_list_init(&head_ex, envp);
 	env_list_init(&head_env, envp);
-	export("var=test", &head_ex, &head_env);
-	export("a=file.txt", &head_ex, &head_env);
-	export("c=>", &head_ex, &head_env);
+	export("var=test", &head_ex, &head_env, 1);
+	export("a=file.txt", &head_ex, &head_env, 1);
+	export("c=>", &head_ex, &head_env, 1);
 
-	export("?=EXIT_CODE", &head_ex, &head_env);
+	export("?=EXIT_CODE", &head_ex, &head_env, 0);
 
-	init_parsing_struct(&tok);
+	init_tok_struct(&tok);
 	char *line;
 	
-	if (argc > 1)
+/* 	if (argc > 1)
 		line = argv[1];
-	else
-		line = "echo 'zzzz aaaa' > file2";
+	else */
+	line = "echo 'zzzz aaaa' > file2";
 
 
 
@@ -162,4 +171,6 @@ int main(int argc, char **argv, char **envp)
 	clear_list_env(&head_ex);
 	clear_cmd_lst(&cmd_lst);
 
+
+	return (0);
 }

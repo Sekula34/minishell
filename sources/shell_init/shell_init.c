@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fseles <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 14:53:13 by fseles            #+#    #+#             */
-/*   Updated: 2023/12/13 14:53:15 by fseles           ###   ########.fr       */
+/*   Updated: 2024/01/04 15:38:10 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,10 @@ static int set_minishell_exec(char **program)
 //sorts head_ex;
 int shell_init(t_shell *shell, char **envp)
 {
+	shell->cmd_lst = NULL;
+
+
+
 	shell->head_env = NULL;
 	shell->head_ex = NULL;
 	shell->minishell_exec = NULL;

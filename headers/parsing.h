@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:56:52 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/04 13:00:37 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/04 15:52:21 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,10 @@ typedef struct s_tokens
 	int		tok_i;
 }	t_tokens;
 
-void	init_parsing_struct(t_tokens *tok);
+int		parsing(t_shell *shell, char **envp);
+
+void	init_parsing_structs(t_tokens *tok);
+void	init_tok_struct(t_tokens *tok);
 char	**split_pipes(t_tokens *tok, char *input);
 int		check_quotes(t_tokens *tok);
 void	init_parsing_struct(t_tokens *tok);
@@ -83,5 +86,7 @@ void	delete_cmd_element(t_cmd **element_to_delete);
 void	clear_redirect_lst(t_redirect **head);
 void	delete_redirect_element(t_redirect **element_to_delete);
 void	clear_cmd_lst(t_cmd **head);
+
+
 
 #endif

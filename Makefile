@@ -53,12 +53,11 @@ sources/parsing/parsing_utils3.c \
 sources/parsing/rereplace_redirect.c \
 sources/parsing/classifying_tokens.c \
 sources/parsing/split_pipes.c \
-sources/parsing/main.c \
 sources/parsing/redirect_utils.c \
 sources/parsing/cmd_utils.c \
 sources/parsing/free_utils.c \
 sources/parsing/syntax_check.c \
-sources/env_export/env_list_utils2.c
+sources/parsing/parsing.c \
 sources/env_export/env_list_utils2.c \
 sources/shell_init/shell_init.c \
 sources/shell_init/shell_clear.c
