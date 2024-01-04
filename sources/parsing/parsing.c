@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 15:39:08 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/04 17:03:52 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/04 17:09:09 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	parsing(t_shell *shell, char **envp)
 /* 	if (argc > 1)
 		line = argv[1];
 	else */
-	line = "echo 'hello";
+	line = "echo hello";
 
 
 
