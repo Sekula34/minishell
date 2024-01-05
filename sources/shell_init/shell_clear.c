@@ -47,7 +47,7 @@ void clear_all_commands(t_cmd **cmd_list)
 	while(*cmd_list != NULL)
 	{
 		to_delete = (*cmd_list)->next;
-		clear_one_command(cmd_list);
+		delete_cmd_element(cmd_list);
 		*cmd_list = to_delete;
 		to_delete = NULL;
 	}

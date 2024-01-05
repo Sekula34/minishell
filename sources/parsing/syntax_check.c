@@ -21,8 +21,8 @@ int check_unclosed_quote(t_tokens *tok, char *line)
 		}
 		i++;
 	}
-	printf("sqc:%d\n", single_count);
-	printf("dqc:%d\n", double_count);
+/* 	printf("sqc:%d\n", single_count);
+	printf("dqc:%d\n", double_count); */
 	if (check_quotes(tok) == 1)
 		return (puts("!"), 0);
 /* 	if (double_count % 2 != 0)

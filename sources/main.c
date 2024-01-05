@@ -2,17 +2,19 @@
 
 
 
-/* int main(int argc, char **argv, char **envp)
+int main(int argc, char **argv, char **envp)
 {
 	t_shell shell;
+	char *line;
+
 	if(shell_init(&shell, envp) != 0)
 	{
 		shexit(&shell, 1);
 	}
 	while(1)
 	{
-		//readline
-		if (parsing(&shell, envp) == 0)
+		line = readline("minishell: ");
+		if (parsing(&shell, line) == 0)
 		{
 			//error handeling
 
@@ -20,8 +22,7 @@
 		}
 		puts("after parsing");
 		shell.first_cmd_copy = shell.cmd_lst;
-		puts("test");
- 		if(heredoc_parent_prepare(&shell.cmd_lst) != 0)
+ 		if(heredoc_parent_prepare(shell.cmd_lst) != 0)
 			shexit(&shell, 1);
 		if(execute_all_cmds(&shell) != 0)
 			shexit(&shell, 1);
@@ -30,4 +31,4 @@
 	}
 	shexit(&shell, 0);
 	return(EXIT_SUCCESS);
-} */
+}

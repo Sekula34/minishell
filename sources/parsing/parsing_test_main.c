@@ -3,7 +3,7 @@
 
 	
 
-int main(int argc, char **argv, char **envp)
+int testmain(int argc, char **argv, char **envp)
 {
 	t_tokens tok;
 	t_vars *head_ex;
