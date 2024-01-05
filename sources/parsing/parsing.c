@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 15:39:08 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/05 17:19:12 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/05 18:01:22 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	parsing(t_shell *shell, char *line)
 	tokens = NULL;
 	fin = NULL;
 	
+	shell->cmd_lst = cmd_lst;
 
 	if (!line)
 		return (puts("line=NULL"), 0);
@@ -60,12 +61,14 @@ int	parsing(t_shell *shell, char *line)
 		if (!fin)
 			return (puts("last expand err"), parsing_free(&lines, &line2, &tokens, &fin), 0);
 
-		classifiying_tokens(&tok, &cmd_lst);
+		if (classifiying_tokens(&tok, &shell->cmd_lst) == 0)
+			return (puts("last expand err"), parsing_free(&lines, &line2, &tokens, &fin), 0);
+
 
 		a++;
 	}
 
-	shell->cmd_lst = cmd_lst;
+/* 	shell->cmd_lst = cmd_lst; */
 
 	parsing_free(&lines, &line2, &tokens, &fin);
 
