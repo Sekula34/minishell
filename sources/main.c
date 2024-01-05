@@ -20,7 +20,6 @@ int main(int argc, char **argv, char **envp)
 		line = "echo hello";
 		if (parsing(&shell, line) == 0)
 		{
-			//error handeling
 			shexit(&shell, 1);
 		}
 
