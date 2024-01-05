@@ -59,3 +59,28 @@ void	delete_redirect_element(t_redirect **element_to_delete)
 	free(delete->file_name);
 	free(delete);
 }
+
+void	free_2d_arr(char ***arr)
+{
+	int	i;
+
+	i = 0;
+	while ((*arr)[i])
+	{
+		free((*arr)[i]);
+		i++;
+	}
+	free(*arr);
+}
+
+void	parsing_free(char ***lines, char **line2, char ***tokens, char ***fin)
+{
+	if (*lines)
+		free_2d_arr(lines);
+	if (*tokens)
+		free_2d_arr(tokens);
+	if (*fin)
+		free_2d_arr(fin);
+	if (*line2)
+		free(*line2);
+}

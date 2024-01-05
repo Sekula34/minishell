@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_one_command.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fseles <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 12:00:22 by fseles            #+#    #+#             */
-/*   Updated: 2023/12/11 12:00:24 by fseles           ###   ########.fr       */
+/*   Updated: 2024/01/05 16:18:01 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ static int reset_fd(int fd_in, int fd_out, int new_fd_in, int new_fd_out)
 			return(EXIT_FAILURE);
 		}
 	}
-	close(new_fd_in);
-	close(new_fd_out);
+	// close(new_fd_in);
+	// close(new_fd_out);
 	return(EXIT_SUCCESS);
 }
 
