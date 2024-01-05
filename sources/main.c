@@ -17,9 +17,6 @@ int main(int argc, char **argv, char **envp)
 	{
 		line = readline("minishell: ");
 		if (parsing(&shell, line) == 0)
-		line = readline("minishell: ");
-		rl_on_new_line();
-		if (parsing(&shell, line) == 0)
 		{
 			//error handeling
 
