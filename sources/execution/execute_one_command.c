@@ -56,6 +56,8 @@ static int set_original_input_output(int *or_stdin, int *or_stdout)
 		close(*or_stdin);
 		return(EXIT_FAILURE);
 	}
+	close(*or_stdin);
+	close(*or_stdout);
 	return (EXIT_SUCCESS);
 }
 
@@ -81,8 +83,8 @@ static int reset_fd(int fd_in, int fd_out, int new_fd_in, int new_fd_out)
 			return(EXIT_FAILURE);
 		}
 	}
-	close(new_fd_in);
-	close(new_fd_out);
+	// close(new_fd_in);
+	// close(new_fd_out);
 	return(EXIT_SUCCESS);
 }
 
