@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 13:59:09 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/05 14:26:59 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/05 17:35:47 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ int	put_cmd(t_tokens *tok, int *j, t_cmd **cmd_lst, t_redirect *redirect_lst)
 	if (!cmd)
 		return (0);
 	new_node = make_cmd_node(cmd, redirect_lst, *cmd_lst);
+	if (!new_node)
+		return (0);
 	//printf("cmd:%s\n", new_node->cmd);
 	add_cmd_node(cmd_lst, new_node);
 	//cmd_lst = cmd_lst->next;
@@ -181,14 +183,16 @@ int	classifiying_tokens(t_tokens *tok, t_cmd **cmd_lst)
 		}
 		else if (flag != 'c' && cmd_flag != 1 && (j == 0 || is_redirect(tok->fin[j - 1][0]) == 0))
 		{
-			put_cmd(tok, &j, cmd_lst, redirect_lst);
+			if (put_cmd(tok, &j, cmd_lst, redirect_lst) == 0)
+				return (0);
 			flag = 'c';
 /* 			puts("c"); */
 			cmd_flag = 1;
 		}
 		else if ((flag == 'c' || flag == 'a'))// && is_redirect(tok->fin[j][0]) == 0)
 		{
-			put_arg(tok, &j, cmd_lst);
+			if (put_arg(tok, &j, cmd_lst) == 0)
+				return (0);
 			flag = 'a';
 /* 			puts("a"); */
 		}

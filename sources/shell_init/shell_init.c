@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 14:53:13 by fseles            #+#    #+#             */
-/*   Updated: 2024/01/04 15:38:10 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/05 17:18:09 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int shell_init(t_shell *shell, char **envp)
 {
 	shell->cmd_lst = NULL;
 
-
+	shell->first_cmd_copy = NULL;
 
 	shell->head_env = NULL;
 	shell->head_ex = NULL;

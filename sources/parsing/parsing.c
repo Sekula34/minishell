@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 15:39:08 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/05 16:10:09 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/05 17:36:14 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,22 @@ int	parsing(t_shell *shell, char *line)
 	t_tokens tok;
 	t_cmd	*cmd_lst;
 	char **lines;
+	char *line2;
+	char **tokens;
+	char **fin;
 	int a;
 	
 	a = 0;
 
 	cmd_lst = NULL;
+	lines = NULL;
+	line2 = NULL;
+	tokens = NULL;
+	fin = NULL;
 	
 
 	if (!line)
-		return (puts("line=NULL"), 1);
+		return (puts("line=NULL"), 0);
 
 	init_tok_struct(&tok);
 
@@ -36,47 +43,31 @@ int	parsing(t_shell *shell, char *line)
 
 	lines = split_pipes(&tok, line);
 	if (!lines)
-		return (puts("split pipes err"), 0);
+		return (puts("split pipes err"), parsing_free(&lines, &line2, &tokens, &fin), 0);
 
 	while (lines[a])
 	{
-		char *line2 = first_expand(&tok, shell->head_ex, lines[a]);
+		line2 = first_expand(&tok, shell->head_ex, lines[a]);
 		if (!line2)
-			return (puts("first expand err"), 0);
+			return (puts("first expand err"), parsing_free(&lines, &line2, &tokens, &fin), 0);
 
-		char **tokens = make_token(&tok, line2);
-		free(line2);
-		if (!tokens)
-			return (puts("make token err"), 0);
+		tokens = make_token(&tok, line2);
 		
-		char **fin = last_expand(&tok, shell->head_ex);
+		if (!tokens)
+			return (puts("make token err"), parsing_free(&lines, &line2, &tokens, &fin), 0);
+		
+		fin = last_expand(&tok, shell->head_ex);
 		if (!fin)
-			return (puts("last expand err"), 0);
+			return (puts("last expand err"), parsing_free(&lines, &line2, &tokens, &fin), 0);
 
 		classifiying_tokens(&tok, &cmd_lst);
 
-		int i = 0;
-		while (tokens[i])
-		{
-			free(tokens[i]);
-			i++;
-		}
-		free(tokens);
-
-		i = 0;
-		while (fin[i])
-		{
-			free(fin[i]);
-			i++;
-		}
-		free(fin);
-		free(lines[a]);
-
 		a++;
 	}
-	free(lines);
 
 	shell->cmd_lst = cmd_lst;
+
+	parsing_free(&lines, &line2, &tokens, &fin);
 
 	return (1);
 }
