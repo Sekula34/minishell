@@ -7,7 +7,6 @@ int main(int argc, char **argv, char **envp)
 	t_shell shell;
 	char *line;
 
-	char *line;
 
 	if(shell_init(&shell, envp) != 0)
 	{
