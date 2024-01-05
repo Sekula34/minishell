@@ -7,6 +7,8 @@ int main(int argc, char **argv, char **envp)
 	t_shell shell;
 	char *line;
 
+	char *line;
+
 	if(shell_init(&shell, envp) != 0)
 	{
 		shexit(&shell, 1);
@@ -14,6 +16,8 @@ int main(int argc, char **argv, char **envp)
 	int i = 0;
 	while(1)
 	{
+		line = readline("minishell: ");
+		if (parsing(&shell, line) == 0)
 		line = readline("minishell: ");
 		rl_on_new_line();
 		if (parsing(&shell, line) == 0)

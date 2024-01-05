@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:53:01 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/04 12:06:33 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/05 14:15:06 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,7 +192,7 @@ int	expand_var_1(t_tokens *tok, t_vars *head_ex, int *i, char **res)
 	set_start_end(tok, tok->line, (*i) + 1);
 	key = check_key(tok);
 	if (!key)
-		return ((*i)++, 0);
+		return ((*i)++, -1);
 	//printf("key:%s-\n", key);
 	if (is_quote(key[0]))
 		value = key;
@@ -204,7 +204,8 @@ int	expand_var_1(t_tokens *tok, t_vars *head_ex, int *i, char **res)
 	//printf("value:%s-\n", value);
 	if (value)
 	{
-		append_value(res, value);
+		if (append_value(res, value) == 0)
+			return (-1);
 		*i = tok->end + 1;
 	}
 	else
@@ -232,10 +233,16 @@ char	*first_expand(t_tokens *tok, t_vars *head_ex, char *line)
 		if (tok->isq == 0 && tok->idq == 0 && line[i] == '$'
 			&& go_back_to_check_redirect(tok, line, i) == 0)
 		{
-			expand_var_1(tok, head_ex, &i, &res);
+			if (expand_var_1(tok, head_ex, &i, &res) == -1)
+				return (NULL);
 		}
 		else
+		{
 			res = ft_join(&res, line[i++]);
+			if (!res)
+				return (NULL);
+		}
+
 	}
 	return (res);
 }

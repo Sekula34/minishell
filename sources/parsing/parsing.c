@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 15:39:08 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/05 15:15:06 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/05 16:10:09 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,105 +14,48 @@
 
 int	parsing(t_shell *shell, char *line)
 {
+	puts("begin parsing\n");
 	t_tokens tok;
-/* 	t_vars *head_ex;
-	t_vars *head_env; */
-
 	t_cmd	*cmd_lst;
-	t_cmd	*temp;
-
-	t_redirect *temp_redirect;
+	char **lines;
+	int a;
+	
+	a = 0;
 
 	cmd_lst = NULL;
-	temp = cmd_lst;
+	
 
-
-
-
-/* 	head_ex = NULL;
-	head_env = NULL;
-	env_list_init(&head_ex, envp);
-	env_list_init(&head_env, envp);
-	export("var=test", &head_ex, &head_env, 1);
-	export("a=file.txt", &head_ex, &head_env, 1);
-	export("c=>", &head_ex, &head_env, 1);
-
-	export("?=EXIT_CODE", &head_ex, &head_env, 0); */
+	if (!line)
+		return (puts("line=NULL"), 1);
 
 	init_tok_struct(&tok);
-	
-/* 	if (argc > 1)
-		line = argv[1];
-	else */
-	//line = "wc -l <<eof";
 
-
-
-	// "\"$$$$USER''\"" - segfault
-	// "\"$$$$USER'\"" - no token
-	// "echo '>>' " - three tokens instead of two
-
-	// "echo $$$$$abc abc";
-	
-	// "'$assads'" - fixed seg fault but still...
-	
-
-	// FIXED  	"echo >>><< abc < def >fuck > you" - broken redirection is one token for some reason
-	// FIXED	variable on the first place - valgrind errors
-	// FIXED	"echo '|' abc < def >fuck > you" - splitted by pipe (should not)
-	
-	
-	char **lines;
-	int a = 0;
-	int i;
 
 	if (syntax_check(&tok, line) == 0)
 		return (puts("syntax error"), 0);
 
-
-	if (line)
-		lines = split_pipes(&tok, line);
-
-
+	lines = split_pipes(&tok, line);
+	if (!lines)
+		return (puts("split pipes err"), 0);
 
 	while (lines[a])
 	{
-		printf("begin:\n");
-		printf("%s\n", lines[a]);
-		printf("\n");
-
 		char *line2 = first_expand(&tok, shell->head_ex, lines[a]);
-/*		printf("first expand:\n");
-		printf("%s\n", line2);
-		printf("\n"); */
-
-		//puts("after first expand");
+		if (!line2)
+			return (puts("first expand err"), 0);
 
 		char **tokens = make_token(&tok, line2);
-		i = 0;
 		free(line2);
-
 		if (!tokens)
-			return (0);
-
-		//printf("tokens:\n");
-		while (tokens[i])
-		{
-			//printf("%d: %s\n", i, tokens[i]);
-			//free(tokens[i]);
-			i++;
-		}
-		//free(tokens);
-		printf("\n");
+			return (puts("make token err"), 0);
 		
-		i = 0;	
 		char **fin = last_expand(&tok, shell->head_ex);
 		if (!fin)
-			return (0);
+			return (puts("last expand err"), 0);
 
 		classifiying_tokens(&tok, &cmd_lst);
 
-		i = 0;
+		int i = 0;
 		while (tokens[i])
 		{
 			free(tokens[i]);
@@ -133,54 +76,7 @@ int	parsing(t_shell *shell, char *line)
 	}
 	free(lines);
 
-	i = 0;
-
-
 	shell->cmd_lst = cmd_lst;
-
-
-/* 
-	//PRINT RESULT OF PARSING
-
-	puts("");
-	puts("RESULT");
-	puts("");
-
-
-	temp = cmd_lst;
-	temp_redirect = temp->redirect_lst;
-
-	while (temp)
-	{
-		printf("cmd:  %s\n", temp->cmd);
-		i = 1;
-
-		while (temp->args && temp->args[i])
-		{
-			printf("arg%d: %s\n", i, temp->args[i]);
-			i++;
-		}
-		temp_redirect = temp->redirect_lst;
-		while (temp_redirect)
-		{
-			printf("redirect: %c, %s\n", temp_redirect->type, temp_redirect->file_name);
-			temp_redirect = temp_redirect->next;
-		}
-		temp = temp->next;
-		puts("");
-	}
-	i = 0;
-
-	printf("\n"); */
-
-
-/* 	printf("head ex\n");
-	export(NULL, &head_ex, &head_env); */
-
-/* 	clear_list_env(&head_env);
-	clear_list_env(&head_ex);
-	clear_cmd_lst(&cmd_lst); */
-
 
 	return (1);
 }
