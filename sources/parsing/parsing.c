@@ -6,17 +6,17 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 15:39:08 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/04 17:09:09 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/05 15:15:06 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishel.h"
 
-int	parsing(t_shell *shell, char **envp)
+int	parsing(t_shell *shell, char *line)
 {
 	t_tokens tok;
-	t_vars *head_ex;
-	t_vars *head_env;
+/* 	t_vars *head_ex;
+	t_vars *head_env; */
 
 	t_cmd	*cmd_lst;
 	t_cmd	*temp;
@@ -29,7 +29,7 @@ int	parsing(t_shell *shell, char **envp)
 
 
 
-	head_ex = NULL;
+/* 	head_ex = NULL;
 	head_env = NULL;
 	env_list_init(&head_ex, envp);
 	env_list_init(&head_env, envp);
@@ -37,15 +37,14 @@ int	parsing(t_shell *shell, char **envp)
 	export("a=file.txt", &head_ex, &head_env, 1);
 	export("c=>", &head_ex, &head_env, 1);
 
-	export("?=EXIT_CODE", &head_ex, &head_env, 0);
+	export("?=EXIT_CODE", &head_ex, &head_env, 0); */
 
 	init_tok_struct(&tok);
-	char *line;
 	
 /* 	if (argc > 1)
 		line = argv[1];
 	else */
-	line = "echo hello";
+	//line = "wc -l <<eof";
 
 
 
@@ -70,14 +69,19 @@ int	parsing(t_shell *shell, char **envp)
 	if (syntax_check(&tok, line) == 0)
 		return (puts("syntax error"), 0);
 
-	lines = split_pipes(&tok, line);
+
+	if (line)
+		lines = split_pipes(&tok, line);
+
+
+
 	while (lines[a])
 	{
 		printf("begin:\n");
 		printf("%s\n", lines[a]);
 		printf("\n");
 
-		char *line2 = first_expand(&tok, head_ex, lines[a]);
+		char *line2 = first_expand(&tok, shell->head_ex, lines[a]);
 /*		printf("first expand:\n");
 		printf("%s\n", line2);
 		printf("\n"); */
@@ -102,7 +106,7 @@ int	parsing(t_shell *shell, char **envp)
 		printf("\n");
 		
 		i = 0;	
-		char **fin = last_expand(&tok, head_ex);
+		char **fin = last_expand(&tok, shell->head_ex);
 		if (!fin)
 			return (0);
 
@@ -135,7 +139,7 @@ int	parsing(t_shell *shell, char **envp)
 	shell->cmd_lst = cmd_lst;
 
 
-
+/* 
 	//PRINT RESULT OF PARSING
 
 	puts("");
@@ -167,7 +171,7 @@ int	parsing(t_shell *shell, char **envp)
 	}
 	i = 0;
 
-	printf("\n");
+	printf("\n"); */
 
 
 /* 	printf("head ex\n");

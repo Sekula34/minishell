@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 15:07:07 by wvan-der          #+#    #+#             */
-/*   Updated: 2023/12/20 17:05:01 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/05 15:11:33 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	count_pipes(t_tokens *tok, char *input)
 	int i = 0;
 	int count = 0;
 
-	while (input[i])
+	while (input && input[i])
 	{
 		set_quotation(tok, input[i]);
 		if (input[i] == '|' && check_quotes(tok) == 0)
@@ -45,12 +45,20 @@ char **split_pipes(t_tokens *tok, char *line)
 	int a = 0;
 	char **res;
 
+	printf("count: %d\n", count);
 	reset_struct(tok);
 	res = (char **)malloc(sizeof(char *) * (count + 1));
 	if (!res)
 		return (NULL);
 	while (a < count)
 	{
+		puts("c");
+
+
+		/* if (!line)
+			break; */
+
+			
 		set_quotation(tok, line[end]);
 		while (line[end] && (line[end] != '|' || check_quotes(tok) == 1))
 			set_quotation(tok,line[end++]);

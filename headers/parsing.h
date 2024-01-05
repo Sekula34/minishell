@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:56:52 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/04 15:52:21 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/05 14:42:58 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct s_tokens
 	int		tok_i;
 }	t_tokens;
 
-int		parsing(t_shell *shell, char **envp);
+int	parsing(t_shell *shell, char *line);
 
 void	init_parsing_structs(t_tokens *tok);
 void	init_tok_struct(t_tokens *tok);

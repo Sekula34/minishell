@@ -39,7 +39,7 @@ int check_pipes(t_tokens *tok, char *line)
 
 	flag = 0;
 	i = 0;
-	while (line[i])
+	while (line && line[i])
 	{
 		if (line[i] != '|' && line[i] != ' ')
 			flag = 1;
