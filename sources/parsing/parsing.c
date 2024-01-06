@@ -6,7 +6,7 @@
 /*   By: willem <willem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 15:39:08 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/06 13:18:53 by willem           ###   ########.fr       */
+/*   Updated: 2024/01/06 13:30:48 by willem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,15 +64,22 @@ int	parsing(t_shell *shell, char *line)
 		if (classifiying_tokens(&tok, &shell->cmd_lst) == 0)
 			return (puts("last expand err"), parsing_free(&lines, &line2, &tokens, &fin), 0);
 
-	/* 	printf("%s\n", shell->cmd_lst->args[0]);
-		printf("%s\n", shell->cmd_lst->args[1]); */
 
+		puts("1");
+		printf("%s\n", shell->cmd_lst->args[0]);
+		printf("%p\n", shell->cmd_lst->args[1]);
+		puts("2");
+
+		ft_printf("%s\n", shell->cmd_lst->args[1]);
 		a++;
+
 	}
 
 /* 	shell->cmd_lst = cmd_lst; */
 
 	parsing_free(&lines, &line2, &tokens, &fin);
 
+
+	puts("after parsing");
 	return (1);
 }
