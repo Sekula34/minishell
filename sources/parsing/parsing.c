@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
+/*   By: willem <willem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 15:39:08 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/05 17:36:14 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/06 13:30:48 by willem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	parsing(t_shell *shell, char *line)
 	tokens = NULL;
 	fin = NULL;
 	
+	shell->cmd_lst = cmd_lst;
 
 	if (!line)
 		return (puts("line=NULL"), 0);
@@ -60,14 +61,25 @@ int	parsing(t_shell *shell, char *line)
 		if (!fin)
 			return (puts("last expand err"), parsing_free(&lines, &line2, &tokens, &fin), 0);
 
-		classifiying_tokens(&tok, &cmd_lst);
+		if (classifiying_tokens(&tok, &shell->cmd_lst) == 0)
+			return (puts("last expand err"), parsing_free(&lines, &line2, &tokens, &fin), 0);
 
+
+		puts("1");
+		printf("%s\n", shell->cmd_lst->args[0]);
+		printf("%p\n", shell->cmd_lst->args[1]);
+		puts("2");
+
+		ft_printf("%s\n", shell->cmd_lst->args[1]);
 		a++;
+
 	}
 
-	shell->cmd_lst = cmd_lst;
+/* 	shell->cmd_lst = cmd_lst; */
 
 	parsing_free(&lines, &line2, &tokens, &fin);
 
+
+	puts("after parsing");
 	return (1);
 }

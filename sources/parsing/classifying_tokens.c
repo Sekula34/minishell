@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   classifying_tokens.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
+/*   By: willem <willem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 13:59:09 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/05 17:35:47 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/06 13:24:34 by willem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,20 @@ int put_arg(t_tokens *tok, int *j, t_cmd **cmd_lst)
 	return (1);
 }
 
+int	make_arg_arr(t_tokens *tok, t_cmd **cmd_lst)
+{
+	t_cmd *temp;
+
+	puts("doint the thing");
+
+	temp = *cmd_lst;
+	temp->args = malloc(sizeof(char *) * 2);
+	if (!temp->args)
+		return (0);
+	temp->args[0] = "filip2";
+	temp->args[1] = NULL;
+}
+
 int	classifiying_tokens(t_tokens *tok, t_cmd **cmd_lst)
 {
 	t_redirect *redirect_lst;
@@ -161,6 +175,7 @@ int	classifiying_tokens(t_tokens *tok, t_cmd **cmd_lst)
 	int	i;
 	char flag;
 	int	cmd_flag;
+	int	found_arg_flag = 0;
 	
 	j = 0;
 	flag = 'n';
@@ -194,10 +209,14 @@ int	classifiying_tokens(t_tokens *tok, t_cmd **cmd_lst)
 			if (put_arg(tok, &j, cmd_lst) == 0)
 				return (0);
 			flag = 'a';
+			found_arg_flag = 1;
 /* 			puts("a"); */
 		}
 		j++;
 	}
+
+	if (found_arg_flag == 0)
+		make_arg_arr(tok, cmd_lst);
 
 	(*cmd_lst)->redirect_lst = redirect_lst;
 

@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 17:14:03 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/04 12:07:17 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/05 17:47:44 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,7 +182,11 @@ char	**last_expand(t_tokens *tok, t_vars *head_ex)
 				expand_var_2(tok, head_ex, &i, &j);
 			}
 			else
+			{
 				tok->fin[j] = ft_join(&tok->fin[j], tok->tokens[j][i++]);
+				if (!tok->fin[j])
+					return (free(tok->fin), NULL);
+			}
 		}
 		j++;
 	}
