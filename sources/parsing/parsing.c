@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
+/*   By: willem <willem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 15:39:08 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/05 18:01:22 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/06 13:14:23 by willem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ int	parsing(t_shell *shell, char *line)
 		if (classifiying_tokens(&tok, &shell->cmd_lst) == 0)
 			return (puts("last expand err"), parsing_free(&lines, &line2, &tokens, &fin), 0);
 
+	/* 	printf("%s\n", shell->cmd_lst->args[0]);
+		printf("%s\n", shell->cmd_lst->args[1]); */
 
 		a++;
 	}
