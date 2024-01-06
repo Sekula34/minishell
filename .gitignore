@@ -1,7 +1,5 @@
-valgrind
-valgrind_ignore_leaks.txt
 .vscode
 libft/libft.a
 *.md
-*.txt
 *.o
+folder_to_ignore

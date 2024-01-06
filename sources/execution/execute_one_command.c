@@ -56,6 +56,8 @@ static int set_original_input_output(int *or_stdin, int *or_stdout)
 		close(*or_stdin);
 		return(EXIT_FAILURE);
 	}
+	close(*or_stdin);
+	close(*or_stdout);
 	return (EXIT_SUCCESS);
 }
 

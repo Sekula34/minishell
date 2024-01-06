@@ -6,7 +6,7 @@
 /*   By: willem <willem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 13:59:09 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/06 13:07:51 by willem           ###   ########.fr       */
+/*   Updated: 2024/01/06 13:16:36 by willem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,7 @@ int put_arg(t_tokens *tok, int *j, t_cmd **cmd_lst)
 		temp->args = malloc(sizeof(char *) * 2);
 		if (!temp->args)
 			return (0);
-		temp->args[0] = "filip";
+		temp->args[0] = "minishell";
 		temp->args[1] = NULL;
 	}
 	realloc_array(tok, &temp, arg);

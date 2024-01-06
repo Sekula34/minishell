@@ -7,6 +7,7 @@ int main(int argc, char **argv, char **envp)
 	t_shell shell;
 	char *line;
 
+
 	if(shell_init(&shell, envp) != 0)
 	{
 		shexit(&shell, 1);
@@ -17,18 +18,15 @@ int main(int argc, char **argv, char **envp)
 		line = readline("minishell: ");
 		if (!line)
 			exit(0);
-		/* line = "echo hello"; */
+		line = "echo hello";
 		if (parsing(&shell, line) == 0)
 		{
 			shexit(&shell, 1);
 		}
-
-
-		
-		
 		puts("after parsing");
+		puts("");
 		shell.first_cmd_copy = shell.cmd_lst;
- 		if(heredoc_parent_prepare(shell.cmd_lst) != 0)
+ 	if(heredoc_parent_prepare(shell.cmd_lst) != 0)
 			shexit(&shell, 1);
 		if(execute_all_cmds(&shell) != 0)
 			shexit(&shell, 1);
