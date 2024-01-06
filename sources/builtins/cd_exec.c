@@ -23,12 +23,12 @@ int cd_exec(t_shell *shell, t_cmd *cd_cmd)
 	int exit_status;
 
 	argc = get_argc(cd_cmd->args);
-	if(argc > 1)
+	if(argc > 2)
 	{
 		ft_putstr_fd("cd with only relative or absoulute path page 6.\n", 2);
 		return(export_exit_status(2, shell));
 	}
-	else if (argc == 0)
+	else if (argc == 1)
 	{
 		exit_status = cd(NULL, &shell->head_ex, &shell->head_env);
 		if(exit_status != 0)
@@ -37,7 +37,7 @@ int cd_exec(t_shell *shell, t_cmd *cd_cmd)
 	}
 	else
 	{
-		exit_status = cd(cd_cmd->args[0],&shell->head_ex, &shell->head_env);
+		exit_status = cd(cd_cmd->args[1],&shell->head_ex, &shell->head_env);
 		if(exit_status != 0)
 			exit_status = 2;
 		return(export_exit_status(exit_status, shell));

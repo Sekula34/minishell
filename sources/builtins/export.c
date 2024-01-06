@@ -25,7 +25,8 @@ static void	export_print(t_vars *ex_vars)
 		printf("declare -x ");
 		printf("%s", ex_vars->key);
 		if (ex_vars->value != NULL)
-			printf("=%c%s%c\n", '"', ex_vars->value, '"');
+			printf("=%c%s%c", '"', ex_vars->value, '"');
+		printf("\n");
 		ex_vars = ex_vars->next;
 	}
 }

@@ -34,14 +34,14 @@ int shexit_exec(t_shell *shell, t_cmd *exit_cmd)
 	status = 0;
 	printf("exit\n");
 	argc = get_argc(exit_cmd->args);
-	if(argc > 1)
+	if(argc > 2)
 	{
 		ft_putstr_fd("To many arguments\n", 2);
 		return (export_exit_status(2, shell));
 	}
-	if(argc == 1)
+	if(argc == 2)
 	{
-		if(numeric_argument_check(exit_cmd->args[0]) == 0)
+		if(numeric_argument_check(exit_cmd->args[1]) == 0)
 		{
 			ft_putstr_fd("Numeric argument required\n", 2);
 			return(export_exit_status(2, shell));

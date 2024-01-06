@@ -17,7 +17,7 @@ int env_exec(t_shell *shell, t_cmd *env_cmd)
 	int argc;
 
 	argc = get_argc(env_cmd->args);
-	if(argc != 0)
+	if(argc != 1)
 	{
 		ft_putstr_fd("env with no options or arguments\n", 2);
 		return (export_exit_status(2, shell));

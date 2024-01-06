@@ -18,7 +18,7 @@ int pwd_exec(t_shell *shell, t_cmd *pwd_cmd)
 	int status;
 
 	argc = get_argc(pwd_cmd->args);
-	if(argc != 0)
+	if(argc != 1)
 	{
 		ft_putstr_fd("pwd with no options page 6\n",2);
 		return (export_exit_status(2, shell));

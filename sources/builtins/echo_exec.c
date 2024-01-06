@@ -38,14 +38,14 @@ int echo_exec(t_cmd *echo_cmd, t_shell *shell)
 	int is_option;
 	int i;
 
-	i = 0;
+	i = 1;
 	argc = get_argc(echo_cmd->args);
-	if(argc == 0)
+	if(argc == 1)
 	{
 		echo(NULL);
 		printf("\n");
 	}
-	is_option = n_option(echo_cmd->args[0]);
+	is_option = n_option(echo_cmd->args[1]);
 	if(is_option == 1)
 		i++;
 	while(echo_cmd->args[i] != NULL)

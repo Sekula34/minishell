@@ -18,9 +18,9 @@ int export_exec(t_shell *shell, t_cmd *export_cmd)
 	int i;
 	int status;
 
-	i = 0;
+	i = 1;
 	argc = get_argc(export_cmd->args);
-	if(argc == 0)
+	if(argc == 1)
 	{
 		status = export(export_cmd->args[1], &shell->head_ex, &shell->head_env, 1);
 		if(status != 0)
