@@ -50,6 +50,9 @@ typedef struct s_shell
 	char	*minishell_exec;
 	char	**mini_env;
 	int **pipe_arr;
+	int stdin_cpy;
+	int stdout_cpy;
+
 }	t_shell;
 
 #endif

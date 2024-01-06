@@ -15,6 +15,8 @@
 //function that exit shell and clears everything
 int	shexit(t_shell *shell, int status)
 {
+	close(shell->stdin_cpy);
+	close(shell->stdout_cpy);
 	shell_clear(shell);
 	exit(status);
 }

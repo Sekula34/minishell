@@ -56,8 +56,9 @@ static int set_original_input_output(int *or_stdin, int *or_stdout)
 		close(*or_stdin);
 		return(EXIT_FAILURE);
 	}
-	close(*or_stdin);
-	close(*or_stdout);
+	//this closing is also broken
+	// close(*or_stdin);
+	// close(*or_stdout);
 	return (EXIT_SUCCESS);
 }
 
@@ -83,6 +84,7 @@ static int reset_fd(int fd_in, int fd_out, int new_fd_in, int new_fd_out)
 			return(EXIT_FAILURE);
 		}
 	}
+	//this closing fuckesup readline
 	// close(new_fd_in);
 	// close(new_fd_out);
 	return(EXIT_SUCCESS);
@@ -96,22 +98,23 @@ static int reset_fd(int fd_in, int fd_out, int new_fd_in, int new_fd_out)
 //therfore in execution if execution is making childre they are inherited and they need to be close in child
 int one_command_exec(t_cmd *cmd, t_shell *shell)
 {
-	int original_stdin;
-	int original_stdout;
+	shell->stdin_cpy;
+
+	shell->stdout_cpy;
 	int new_in;
 	int new_ot;
 
 	new_in = 0;
 	new_ot = 0;
-	if(set_original_input_output(&original_stdin, &original_stdout) != 0)
+	if(set_original_input_output(&shell->stdin_cpy, &shell->stdout_cpy) != 0)
 		return(EXIT_FAILURE);
 	if(redirect_handler(cmd->redirect_lst, &new_in, &new_ot)!= 0)
 		return(EXIT_FAILURE);
-	if(exec_one(cmd, shell, original_stdin, original_stdout) != 0)
+	if(exec_one(cmd, shell, shell->stdin_cpy, shell->stdout_cpy) != 0)
 		return(EXIT_FAILURE);
-	if(reset_fd(original_stdin, original_stdout, new_in, new_ot) != 0)
+	if(reset_fd(shell->stdin_cpy, shell->stdout_cpy, new_in, new_ot) != 0)
 		return (EXIT_FAILURE);
-	close(original_stdin);
-	close(original_stdout);
+	close(shell->stdin_cpy);
+	close(shell->stdout_cpy);
 	return(EXIT_SUCCESS);
 }
