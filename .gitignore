@@ -2,4 +2,5 @@
 libft/libft.a
 *.md
 *.o
+*.txt
 folder_to_ignore
