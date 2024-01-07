@@ -18,6 +18,12 @@ int main(int argc, char **argv, char **envp)
 		line = readline("minishell: ");
 		if (!line)
 			exit(0);
+		if (line[0] == 0)
+		{
+			free(line);
+			continue;
+		}
+		add_history(line);
 		//line = "echo hello";
 		if (parsing(&shell, line) == 0)
 		{
