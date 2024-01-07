@@ -54,16 +54,17 @@ int check_pipes(t_tokens *tok, char *line)
 	return (1);
 }
 
-int	check_redirect(t_tokens *tok, char *line)
+int	check_after_redirect(char *line)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while (line && line[i])
 	{
 		if (is_redirect(line[i]))
 		{
-			i++;
+			while (is_redirect(line[i]))
+				i++;
 			while (line[i] && line[i] != '|')
 			{
 				if (line[i] != ' ')
@@ -74,6 +75,24 @@ int	check_redirect(t_tokens *tok, char *line)
 		i++;
 	}
 	return ( 0);
+}
+
+int	check_redirect(t_tokens *tok, char *line)
+{
+	int	i;
+	int	flag;
+
+	i = 0;
+	flag = 0;
+	while (line && line[i])
+	{
+		if (is_redirect(line[i]))
+			flag = 1;
+		i++;
+	}
+	if (flag == 1)
+		return (check_after_redirect(line));
+	return (1);
 }
 
 

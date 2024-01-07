@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 15:39:08 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/07 16:26:12 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/07 18:24:33 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	parsing(t_shell *shell, char *line)
 
 
 	if (syntax_check(&tok, line) == 0)
-		return (puts("syntax error"), 0);
+		return (puts("syntax error"), 2);
 
 	lines = split_pipes(&tok, line);
 	if (!lines)
@@ -56,14 +56,20 @@ int	parsing(t_shell *shell, char *line)
 
 		tokens = make_token(&tok, line2);
 
-		puts("tokens");
+
 		int i = 0;
+
+//	PRINTING
+
+/* 		puts("tokens");
+		
 		while (tokens[i])
 		{
 			printf("%d: %s\n", i, tokens[i]);
 			i++;
-		}
+		} */
 
+//	PRINTING
 		
 		if (!tokens)
 			return (puts("make token err"), parsing_free(&lines, &line2, &tokens, &fin), 0);
@@ -74,13 +80,16 @@ int	parsing(t_shell *shell, char *line)
 
 		i = 0;
 
+//	PRINTING
 
-		puts("fin");
+/* 		puts("fin");
 		while (fin[i])
 		{
 			printf("%d: %s\n", i, fin[i]);
 			i++;
-		}
+		} */
+
+//	PRINTING
 
 		if (!fin)
 			return (puts("last expand err"), parsing_free(&lines, &line2, &tokens, &fin), 0);
