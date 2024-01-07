@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   classifying_tokens.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
+/*   By: willem <willem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 13:59:09 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/07 16:04:47 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/07 23:40:20 by willem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,7 @@ char *classify_filename(t_tokens *tok, int *j)
 	char *filename;
 	
 	(*j)++;
-	puts("hello");
-	printf("here: %s", tok->fin[*j]);
+	//printf("here: %s\n", tok->fin[*j]);
 	filename = ft_strdup(tok->fin[*j]);
 	if (!filename)
 		return (NULL);
