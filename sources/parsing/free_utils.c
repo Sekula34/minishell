@@ -25,7 +25,7 @@ void	delete_cmd_element(t_cmd **element_to_delete)
 	if (delete->cmd)
 		free(delete->cmd);
 	
-	while(delete->args && delete->args[i])
+	while (delete->args && delete->args[i])
 	{
 		free(delete->args[i]);
 		i++;
