@@ -44,8 +44,8 @@ char *classify_filename(t_tokens *tok, int *j)
 	char *filename;
 	
 	(*j)++;
-	puts("hello");
-	printf("here: %s", tok->fin[*j]);
+	//puts("hello");
+	//printf("here: %s\n", tok->fin[*j]);
 	filename = ft_strdup(tok->fin[*j]);
 	if (!filename)
 		return (NULL);
