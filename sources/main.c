@@ -13,7 +13,7 @@ int main(int argc, char **argv, char **envp)
 		shexit(&shell, 1);
 	}
 	int i = 0;
-	while(i < 1)
+	while(1)
 	{
 		line = readline("minishell: ");
 		if (!line)
