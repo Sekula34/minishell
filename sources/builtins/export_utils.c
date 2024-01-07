@@ -32,7 +32,7 @@ int	key_checker(char *string)
 		return (free(key_part), 0);
 	while (key_part[i] != '\0')
 	{
-		if (ft_isalnum(key_part[i] == 0) && key_part[i] != '_')
+		if (!ft_isalnum(key_part[i]) && key_part[i] != '_')
 			return (free(key_part), 0);
 		i++;
 	}
