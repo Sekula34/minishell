@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 15:39:08 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/07 14:46:44 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/07 16:26:12 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,21 +55,32 @@ int	parsing(t_shell *shell, char *line)
 			return (puts("first expand err"), parsing_free(&lines, &line2, &tokens, &fin), 0);
 
 		tokens = make_token(&tok, line2);
+
+		puts("tokens");
+		int i = 0;
+		while (tokens[i])
+		{
+			printf("%d: %s\n", i, tokens[i]);
+			i++;
+		}
+
 		
 		if (!tokens)
 			return (puts("make token err"), parsing_free(&lines, &line2, &tokens, &fin), 0);
 		
 		fin = last_expand(&tok, shell->head_ex);
 
-		int i = 0;
 
-/* 
+
+		i = 0;
+
+
 		puts("fin");
 		while (fin[i])
 		{
-			printf("%s\n", fin[i]);
+			printf("%d: %s\n", i, fin[i]);
 			i++;
-		} */
+		}
 
 		if (!fin)
 			return (puts("last expand err"), parsing_free(&lines, &line2, &tokens, &fin), 0);

@@ -54,6 +54,29 @@ int check_pipes(t_tokens *tok, char *line)
 	return (1);
 }
 
+int	check_redirect(t_tokens *tok, char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line && line[i])
+	{
+		if (is_redirect(line[i]))
+		{
+			i++;
+			while (line[i] && line[i] != '|')
+			{
+				if (line[i] != ' ')
+					return (1);	
+				i++;
+			}
+		}
+		i++;
+	}
+	return ( 0);
+}
+
+
 int	syntax_check(t_tokens *tok, char *line)
 {
 	reset_struct(tok);
@@ -61,5 +84,7 @@ int	syntax_check(t_tokens *tok, char *line)
 		return (puts("quotes"), 0);
 	if (check_pipes(tok, line) == 0)
 		return (puts("pipes"), 0);
+	if (check_redirect(tok, line) == 0)
+		return (puts("redirect"), 0);
 	return (1);
 }
