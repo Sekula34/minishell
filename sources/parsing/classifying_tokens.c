@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   classifying_tokens.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: willem <willem@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 13:59:09 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/06 13:24:34 by willem           ###   ########.fr       */
+/*   Updated: 2024/01/07 12:40:55 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,13 @@ int	put_cmd(t_tokens *tok, int *j, t_cmd **cmd_lst, t_redirect *redirect_lst)
 	char *cmd;
 
 	cmd = ft_strdup(tok->fin[*j]);
+	//cmd = NULL;
 	if (!cmd)
 		return (0);
 	new_node = make_cmd_node(cmd, redirect_lst, *cmd_lst);
+	//new_node = NULL;
 	if (!new_node)
-		return (0);
+		return (free(cmd), 0);
 	//printf("cmd:%s\n", new_node->cmd);
 	add_cmd_node(cmd_lst, new_node);
 	//cmd_lst = cmd_lst->next;
@@ -140,17 +142,19 @@ int put_arg(t_tokens *tok, int *j, t_cmd **cmd_lst)
 		temp = temp->next;
 
 	arg = ft_strdup(tok->fin[*j]);
+	//arg = NULL;
 	if (!arg)
 		return (0);
 	if (!temp->args)
 	{
 		temp->args = malloc(sizeof(char *) * 2);
 		if (!temp->args)
-			return (0);
+			return (free(arg), 0);
 		temp->args[0] = "minishell";
 		temp->args[1] = NULL;
 	}
-	realloc_array(tok, &temp, arg);
+	if (realloc_array(tok, &temp, arg) == 0)
+		return (free(arg), 0);
 	return (1);
 }
 
@@ -166,6 +170,7 @@ int	make_arg_arr(t_tokens *tok, t_cmd **cmd_lst)
 		return (0);
 	temp->args[0] = "filip2";
 	temp->args[1] = NULL;
+	return (1);
 }
 
 int	classifiying_tokens(t_tokens *tok, t_cmd **cmd_lst)
@@ -216,8 +221,10 @@ int	classifiying_tokens(t_tokens *tok, t_cmd **cmd_lst)
 	}
 
 	if (found_arg_flag == 0)
-		make_arg_arr(tok, cmd_lst);
-
+	{
+		if (make_arg_arr(tok, cmd_lst) == 0)
+			return (0);
+	}
 	(*cmd_lst)->redirect_lst = redirect_lst;
 
 	/* return (cmd_lst); */

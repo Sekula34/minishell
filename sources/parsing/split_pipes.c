@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 15:07:07 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/05 17:35:55 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/07 12:13:13 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,14 @@ char **split_pipes(t_tokens *tok, char *line)
 	int a = 0;
 	char **res;
 
-	printf("count: %d\n", count);
+	//printf("count: %d\n", count);
 	reset_struct(tok);
 	res = (char **)malloc(sizeof(char *) * (count + 1));
 	if (!res)
 		return (NULL);
 	while (a < count)
 	{
-		puts("c");
+	
 
 
 		/* if (!line)
