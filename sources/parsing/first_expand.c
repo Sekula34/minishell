@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:53:01 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/05 14:15:06 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/07 15:14:55 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	set_start_end(t_tokens *tok, char *line, int i)
 {
 	tok->start = i;
-	printf("1st:%c-\n", line[i]);
+	//printf("1st:%c-\n", line[i]);
 	if (line[i] == '?')
 	{
 		tok->end = i;
@@ -30,7 +30,7 @@ int	set_start_end(t_tokens *tok, char *line, int i)
 	{
 		tok->end++;
 	}
-	printf("last:%c-\n", line[tok->end]);
+	//printf("last:%c-\n", line[tok->end]);
 	return (1);
 }
 
