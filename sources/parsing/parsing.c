@@ -68,13 +68,13 @@ int	parsing(t_shell *shell, char *line)
 		int i = 0;
 
 
-		puts("tokens");
+		// puts("tokens");
 		
-		while (tokens[i])
-		{
-			printf("%d: %s\n", i, tokens[i]);
-			i++;
-		}
+		// while (tokens[i])
+		// {
+		// 	printf("%d: %s\n", i, tokens[i]);
+		// 	i++;
+		// }
 
 
 		
@@ -87,12 +87,12 @@ int	parsing(t_shell *shell, char *line)
 
 
 
-		puts("fin");
-		while (fin[i])
-		{
-			printf("%d: %s\n", i, fin[i]);
-			i++;
-		}
+		// puts("fin");
+		// while (fin[i])
+		// {
+		// 	printf("%d: %s\n", i, fin[i]);
+		// 	i++;
+		// }
 
 
 
