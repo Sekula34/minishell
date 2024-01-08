@@ -13,9 +13,12 @@ static void child_waiter(int number_of_kids, int **pipe_arr, t_shell *shell)
 	while (i < number_of_kids)
 	{
 		waitpid(-1, &status, 0);
+		//ft_printf("status returned to parent is %d\n", status);
 		//wait(NULL);
 		i++;
 	}
+	if(status != 0)
+		status = 1;
 	export_exit_status(status, shell);
 }
 
