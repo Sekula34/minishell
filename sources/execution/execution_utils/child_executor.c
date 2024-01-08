@@ -10,7 +10,7 @@ int child_executor(t_cmd *cmd, t_shell *shell)
 	if(cmd == NULL)
 	{
 		ft_putstr_fd("there is no command to execute\n", 2);
-		exit(EXIT_FAILURE);
+		exit(127);
 	}
 	if(cmd->path == NULL)
 	{
