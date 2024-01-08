@@ -4,3 +4,4 @@ libft/libft.a
 *.o
 *.txt
 folder_to_ignore
+minishell_tester

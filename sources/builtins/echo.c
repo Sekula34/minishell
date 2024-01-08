@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fseles <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: willem <willem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 11:39:05 by fseles            #+#    #+#             */
-/*   Updated: 2023/11/28 11:39:07 by fseles           ###   ########.fr       */
+/*   Updated: 2024/01/08 17:30:27 by willem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ int	echo(char *string)
 	}
 	else
 	{
-		//printf("%s", string);
-		echo_print(string);
+		ft_printf("%s", string);
+		//echo_print(string);
 	}
 	return (0);
 }

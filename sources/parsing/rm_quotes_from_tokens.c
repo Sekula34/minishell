@@ -14,7 +14,7 @@ char *realloc_token(char **token)
 	temp = (char *)malloc(len - 1);
 	if (!temp)
 		return (free(*token), NULL);
-	while ((*token)[j] && (*token)[j] != '"')
+	while ((*token)[j] && j < len - 1)
 	{
 		temp[i] = (*token)[j];
 		i++;
@@ -55,7 +55,7 @@ int check_tokens_for_quotes(t_tokens *tok, char ***tokensss)
 
 	while (tokens[j])
 	{
-		if (tokens[j][0] == '"')
+		if (tokens[j][0] == '"' || tokens[j][0] == '\'')
 		{
 			tokens[j] = realloc_token(&tokens[j]);
 			if (!tokens[j])
