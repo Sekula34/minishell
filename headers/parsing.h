@@ -6,7 +6,7 @@
 /*   By: willem <willem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:56:52 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/08 15:13:08 by willem           ###   ########.fr       */
+/*   Updated: 2024/01/08 15:59:32 by willem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,8 @@ void	clear_cmd_lst(t_cmd **head);
 void	parsing_free(char ***lines, char **line2, char ***tokens, char ***fin);
 
 
-int rm_quotes_from_tokens(char ***tok);
+int rm_quotes_from_tokens(t_tokens *tok, char ***tokenss);
+char	*rm_quotes_from_line(char **line);
 
 
 #endif

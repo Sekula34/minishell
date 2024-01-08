@@ -6,7 +6,7 @@
 /*   By: willem <willem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 15:39:08 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/08 15:21:55 by willem           ###   ########.fr       */
+/*   Updated: 2024/01/08 17:12:35 by willem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,18 @@ int	parsing(t_shell *shell, char *line)
 		if (!line2)
 			return (puts("first expand err"), parsing_free(&lines, &line2, &tokens, &fin), 0);
 
+		//ft_printf("\nline\n%s\n", line2);
+
+
+		//line2 = rm_quotes_from_line(&line2);
+		if (!line2)
+			return (puts("first expand err"), parsing_free(&lines, &line2, &tokens, &fin), 0);
+
 		tokens = make_token(&tok, line2);
 
 
 		int i = 0;
 
-//	PRINTING
 
 /* 		puts("tokens");
 		
@@ -69,12 +75,11 @@ int	parsing(t_shell *shell, char *line)
 			i++;
 		} */
 
-//	PRINTING
-		
+
 		if (!tokens)
 			return (puts("make token err"), parsing_free(&lines, &line2, &tokens, &fin), 0);
 		
-		rm_quotes_from_tokens(&tokens);
+		rm_quotes_from_tokens(&tok, &tokens);
 
 
 
@@ -85,7 +90,7 @@ int	parsing(t_shell *shell, char *line)
 
 		i = 0;
 
-//	PRINTING
+
 
 /* 		puts("fin");
 		while (fin[i])
@@ -94,7 +99,7 @@ int	parsing(t_shell *shell, char *line)
 			i++;
 		} */
 
-//	PRINTING
+
 
 		if (!fin)
 			return (puts("last expand err"), parsing_free(&lines, &line2, &tokens, &fin), 0);
@@ -103,15 +108,10 @@ int	parsing(t_shell *shell, char *line)
 			return (puts("last expand err"), parsing_free(&lines, &line2, &tokens, &fin), clear_cmd_lst(&shell->cmd_lst), 0);
 
 
-		/* printf("%s\n", shell->cmd_lst->args[0]);
-		printf("%p\n", shell->cmd_lst->args[1]); */
-
-		//ft_printf("%s\n", shell->cmd_lst->args[1]);
 		a++;
 
 	}
 
-/* 	shell->cmd_lst = cmd_lst; */
 
 	parsing_free(&lines, &line2, &tokens, &fin);
 
