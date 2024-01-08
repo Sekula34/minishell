@@ -6,7 +6,7 @@
 /*   By: willem <willem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 15:39:08 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/08 17:40:23 by willem           ###   ########.fr       */
+/*   Updated: 2024/01/08 17:57:30 by willem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ int	parsing(t_shell *shell, char *line)
 			return (puts("first expand err"), parsing_free(&lines, &line2, &tokens, &fin), 0);
 
 		tokens = make_token(&tok, line2);
-
+		if (!tokens)
+			return (puts("make token err"), parsing_free(&lines, &line2, &tokens, &fin), 0);
 
 		int i = 0;
 
@@ -76,13 +77,11 @@ int	parsing(t_shell *shell, char *line)
 		} */
 
 
-		if (!tokens)
-			return (puts("make token err"), parsing_free(&lines, &line2, &tokens, &fin), 0);
 		
 		
 		fin = last_expand(&tok, shell->head_ex);
-
-
+		if (!fin)
+			return (puts("last expand err"), parsing_free(&lines, &line2, &tokens, &fin), 0);
 
 		i = 0;
 
@@ -97,8 +96,7 @@ int	parsing(t_shell *shell, char *line)
 
 
 
-		if (!fin)
-			return (puts("last expand err"), parsing_free(&lines, &line2, &tokens, &fin), 0);
+		
 
 		rm_quotes_from_tokens(&tok, &fin);
 
