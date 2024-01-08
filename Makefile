@@ -19,6 +19,7 @@ sources/env_export/env_list_init.c \
 sources/env_export/env_list_utils.c \
 sources/env_export/list_sort.c \
 sources/env_export/string_utils.c \
+sources/env_export/string_utils2.c \
 sources/execution/execution_utils/child_executor.c \
 sources/execution/execution_utils/child_multi_exec_utils.c \
 sources/execution/execution_utils/child_multi_exec.c \

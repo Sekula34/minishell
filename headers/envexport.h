@@ -30,5 +30,6 @@ int		pos_of_equal(char *string);
 int		set_key(char **key, char *string);
 int		set_new_value(t_vars *element, char *new_value);
 int		set_value(char **value, char *string);
+int set_value_without_quotes(char **value, char *value_part_of_string);
 
 #endif
