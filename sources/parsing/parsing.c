@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
+/*   By: willem <willem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 15:39:08 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/07 18:24:33 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/08 15:21:55 by willem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,11 @@ int	parsing(t_shell *shell, char *line)
 		if (!tokens)
 			return (puts("make token err"), parsing_free(&lines, &line2, &tokens, &fin), 0);
 		
+		rm_quotes_from_tokens(&tokens);
+
+
+
+
 		fin = last_expand(&tok, shell->head_ex);
 
 

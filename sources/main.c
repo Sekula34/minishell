@@ -27,7 +27,6 @@ int main(int argc, char **argv, char **envp)
 			continue;
 		}
 		add_history(line);
-		//line = "echo hello";
 		parsing_return = parsing(&shell, line);
 		if (parsing_return == 0)
 			shexit(&shell, 1);
@@ -37,7 +36,7 @@ int main(int argc, char **argv, char **envp)
 			continue;
 		}
 		shell.first_cmd_copy = shell.cmd_lst;
- 		if(heredoc_parent_prepare(shell.cmd_lst) != 0)
+		if(heredoc_parent_prepare(shell.cmd_lst) != 0)
 			shexit(&shell, 1);
 		if(execute_all_cmds(&shell) != 0)
 			shexit(&shell, 1);
