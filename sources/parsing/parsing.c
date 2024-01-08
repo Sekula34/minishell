@@ -6,7 +6,7 @@
 /*   By: willem <willem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 15:39:08 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/08 13:29:51 by willem           ###   ########.fr       */
+/*   Updated: 2024/01/08 15:21:55 by willem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,20 +61,20 @@ int	parsing(t_shell *shell, char *line)
 
 //	PRINTING
 
-		puts("tokens");
+/* 		puts("tokens");
 		
 		while (tokens[i])
 		{
 			printf("%d: %s\n", i, tokens[i]);
 			i++;
-		}
+		} */
 
 //	PRINTING
 		
 		if (!tokens)
 			return (puts("make token err"), parsing_free(&lines, &line2, &tokens, &fin), 0);
 		
-		tokens = rm_quotes_from_tokens(&tokens);
+		rm_quotes_from_tokens(&tokens);
 
 
 
@@ -87,12 +87,12 @@ int	parsing(t_shell *shell, char *line)
 
 //	PRINTING
 
-		puts("fin");
+/* 		puts("fin");
 		while (fin[i])
 		{
 			printf("%d: %s\n", i, fin[i]);
 			i++;
-		}
+		} */
 
 //	PRINTING
 

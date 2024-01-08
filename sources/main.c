@@ -16,35 +16,36 @@ int main(int argc, char **argv, char **envp)
 		shexit(&shell, 1);
 	}
 	int i = 0;
-	while(1)
+	while(i < 1)
 	{
-		line = readline("minishell: ");
+		/* line = readline("minishell: ");
 		if (!line)
-			exit(0);
+			exit(0); */
+		line = "echo \"hello world\"";
 		if (line[0] == 0)
 		{
-			free(line);
+			//free(line);
 			continue;
 		}
-		add_history(line);
+		//add_history(line);
 		//line = "echo hello";
 		parsing_return = parsing(&shell, line);
 		if (parsing_return == 0)
 			shexit(&shell, 1);
 		if (parsing_return == 2)
 		{
-			free(line);
+			//free(line);
 			continue;
 		}
 		shell.first_cmd_copy = shell.cmd_lst;
- 		if(heredoc_parent_prepare(shell.cmd_lst) != 0)
+ 		/* if(heredoc_parent_prepare(shell.cmd_lst) != 0)
 			shexit(&shell, 1);
 		if(execute_all_cmds(&shell) != 0)
-			shexit(&shell, 1);
+			shexit(&shell, 1); */
 		clear_all_commands(&shell.first_cmd_copy);
 		shell.first_cmd_copy = NULL;
 		i++;
-		free(line);
+		//free(line);
 		line = NULL;
 	}
 	shexit(&shell, 0);

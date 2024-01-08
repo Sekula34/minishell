@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
+/*   By: willem <willem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:56:52 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/05 17:36:52 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/08 15:13:08 by willem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ void	clear_cmd_lst(t_cmd **head);
 
 void	parsing_free(char ***lines, char **line2, char ***tokens, char ***fin);
 
+
+int rm_quotes_from_tokens(char ***tok);
 
 
 #endif
