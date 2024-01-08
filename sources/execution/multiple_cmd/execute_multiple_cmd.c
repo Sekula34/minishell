@@ -7,19 +7,23 @@ static void child_waiter(int number_of_kids, int **pipe_arr, t_shell *shell)
 {
 	int i;
 	int status;
-
+	int exit_status;
 	i = 0;
 	close_all_pipes(pipe_arr);
 	while (i < number_of_kids)
 	{
 		waitpid(-1, &status, 0);
+		if(WIFEXITED(status))
+		{
+			exit_status = WEXITSTATUS(status);
+			//ft_printf("exit status of child is %d\n", exit_status);
+		}
 		//ft_printf("status returned to parent is %d\n", status);
 		//wait(NULL);
 		i++;
 	}
-	if(status != 0)
-		status = 1;
-	export_exit_status(status, shell);
+
+	export_exit_status(exit_status, shell);
 }
 
 
