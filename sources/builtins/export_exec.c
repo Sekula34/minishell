@@ -33,6 +33,6 @@ int export_exec(t_shell *shell, t_cmd *export_cmd)
 		i++;
 	}
 	if(status != 0)
-		status = 2;
+		status = 1;
 	return (export_exit_status(status, shell));
 }

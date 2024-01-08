@@ -13,7 +13,10 @@ int	check_tokens_for_quotes(char ***tok)
 	while (tokens[j])
 	{
 		if (tokens[j][0] == '"')
+		{
 			
+		}
+
 	}
 }
 

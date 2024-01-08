@@ -44,6 +44,8 @@ int main(int argc, char **argv, char **envp)
 		clear_all_commands(&shell.first_cmd_copy);
 		shell.first_cmd_copy = NULL;
 		i++;
+		free(line);
+		line = NULL;
 	}
 	shexit(&shell, 0);
 	return(EXIT_SUCCESS);
