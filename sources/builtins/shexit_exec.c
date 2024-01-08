@@ -30,10 +30,45 @@ static int numeric_argument_check(char *str)
 	return (1);
 }
 
+static char* point_to_digit(char *string)
+{
+	char *ptr = NULL;
+	int i;
+
+	i = 0;
+	while(string[i] != '\0')
+	{
+		if(string[i] == '-')
+			return(NULL);
+		if(ft_isdigit(string[i]) == 1)
+		{
+			ptr=string + i;
+			return (ptr);
+		}
+		i++;
+	}
+	return (NULL);
+}
+
+static void set_status(char *exit_argument, int *status)
+{
+	char *digit;
+
+	digit = point_to_digit(exit_argument);
+	if(digit == NULL)
+	{
+		*status = 156;
+		return ;
+	}
+	*status = ft_atoi(digit);
+	return ;
+}
+
 int shexit_exec(t_shell *shell, t_cmd *exit_cmd)
 {
 	int argc;
 	int status;
+	char *digit;
 
 	status = 0;
 	printf("exit\n");
@@ -48,9 +83,9 @@ int shexit_exec(t_shell *shell, t_cmd *exit_cmd)
 		if(numeric_argument_check(exit_cmd->args[1]) == 0)
 		{
 			ft_putstr_fd(" numeric argument required\n", 2);
-			return(export_exit_status(1, shell));
+			return(export_exit_status(2, shell));
 		}
-		status = ft_atoi(exit_cmd->args[1]);
+		set_status(exit_cmd->args[1], &status);
 	}
 	shexit(shell, status);
 	return (0);
