@@ -52,7 +52,7 @@ int echo_exec(t_cmd *echo_cmd, t_shell *shell)
 	{
 		echo(echo_cmd->args[i]);
 		if(echo_cmd->args[i + 1] != NULL)
-			printf(" ");
+			ft_putchar_fd(' ', 1);
 		i++;
 	}
 	if(is_option == 0)

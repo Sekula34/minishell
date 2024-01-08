@@ -117,7 +117,7 @@ int	export(char *string, t_vars **ex_vars, t_vars **env_vars, int safe_option)
 	}
 	if (key_checker(string) != 1 && safe_option == 1)
 	{
-		ft_putstr_fd("export: Not a valid identifier\n", 2);
+		ft_putstr_fd("export: not a valid identifier\n", 2);
 		return (-1);
 	}
 	if (pos_of_equal(string) != -1)
