@@ -6,7 +6,7 @@
 /*   By: willem <willem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 15:39:08 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/08 17:57:30 by willem           ###   ########.fr       */
+/*   Updated: 2024/01/08 18:09:36 by willem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,13 @@ int	parsing(t_shell *shell, char *line)
 		int i = 0;
 
 
-/* 		puts("tokens");
+		puts("tokens");
 		
 		while (tokens[i])
 		{
 			printf("%d: %s\n", i, tokens[i]);
 			i++;
-		} */
+		}
 
 
 		
@@ -86,13 +86,13 @@ int	parsing(t_shell *shell, char *line)
 		i = 0;
 
 
-/* 
+
 		puts("fin");
 		while (fin[i])
 		{
 			printf("%d: %s\n", i, fin[i]);
 			i++;
-		} */
+		}
 
 
 
