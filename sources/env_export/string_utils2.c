@@ -48,7 +48,7 @@ int set_value_without_quotes(char **value, char *value_part_of_string)
 		return(0);
 	}
 	*value= ft_calloc(no_qutes_len + 1, sizeof(char));
-	if(value == NULL)
+	if(*value == NULL)
 	{
 		perror("ft_calloc in set_value_without_quotes failed\n");
 		return(1);
