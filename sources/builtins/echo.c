@@ -6,13 +6,13 @@
 /*   By: willem <willem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 11:39:05 by fseles            #+#    #+#             */
-/*   Updated: 2024/01/09 11:37:27 by willem           ###   ########.fr       */
+/*   Updated: 2024/01/09 12:02:31 by willem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishel.h"
 
-static void echo_print(char *string)
+/* static void echo_print(char *string)
 {
 	int i;
 
@@ -23,36 +23,38 @@ static void echo_print(char *string)
 			ft_putchar_fd(string[i], 1);
 		i++;
 	}
-}
+} */
 
-/* static void echo_print(char *string)
+static void echo_print(char *string)
 {
-	int i;
-	int	last_check_quotes;
 	t_tokens tok;
+	int	i;
 
-	init_tok_struct(&tok);
 	i = 0;
-	last_check_quotes = 0;
+	init_tok_struct(&tok);
 	while (string[i])
 	{
 		set_quotation(&tok, string[i]);
-		if (check_quotes(&tok) != last_check_quotes)
+		if (tok.isq == 0 && tok.idq == 0)
 		{
-			ft_putchar_fd(string[i], 1);
+			if (string[i] != '\'' && string [i] != '"')
+				ft_putchar_fd(string[i], 1);
 		}
-		else if (check_quotes(&tok))
+		else if (tok.isq == 1)
 		{
-			ft_putchar_fd(string[i], 1);
+			if (string[i] != '\'')
+				ft_putchar_fd(string[i], 1);
 		}
-		else if (is_quote(string[i]) == 0)
+		else if (tok.idq == 1)
 		{
-			ft_putchar_fd(string[i], 1);
+			if (string[i] != '"')
+				ft_putchar_fd(string[i], 1);
 		}
-		last_check_quotes = check_quotes(&tok);
+		
 		i++;
 	}
-} */
+
+}
 
 //prints string on standard output 
 //if n_option is 1 print without newline 
@@ -66,8 +68,8 @@ int	echo(char *string)
 	}
 	else
 	{
-		ft_printf("%s", string);
-		//echo_print(string);
+		//ft_printf("%s", string);
+		echo_print(string);
 	}
 	return (0);
 }
