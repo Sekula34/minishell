@@ -10,14 +10,14 @@ int child_executor(t_cmd *cmd, t_shell *shell)
 	if(cmd == NULL)
 	{
 		ft_putstr_fd("there is no command to execute\n", 2);
-		exit(EXIT_FAILURE);
+		exit(127);
 	}
 	if(cmd->path == NULL)
 	{
 		ft_putstr_fd("Command path not found\n", 2);
-		exit(EXIT_FAILURE);
+		exit(127);
 	}
 	execve(cmd->path, cmd->args, shell->mini_env);
 	perror("child executor\n");
-	exit(EXIT_FAILURE);
+	exit(126);
 }
