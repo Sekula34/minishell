@@ -6,7 +6,7 @@
 /*   By: willem <willem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 11:39:05 by fseles            #+#    #+#             */
-/*   Updated: 2024/01/08 18:34:08 by willem           ###   ########.fr       */
+/*   Updated: 2024/01/09 11:37:27 by willem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,9 @@
 
 static void echo_print(char *string)
 {
-	t_tokens tok;
 	int i;
 
-	init_tok_struct(&tok);
 	i = 0;
-	puts("1");
 	while(string[i] != '\0')
 	{
 		if (string[i] != '\'' && string [i] != '"')
