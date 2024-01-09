@@ -6,7 +6,7 @@
 /*   By: willem <willem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:58:30 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/08 14:59:34 by willem           ###   ########.fr       */
+/*   Updated: 2024/01/09 12:30:03 by willem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ char	**make_token(t_tokens *tok, char *line)
 	reset_struct(tok);
 	while (line[i])
 	{
-		while (line[i] && is_white_space(line[i]) == 1)
+		while (line[i] && is_white_space(line[i]) == 1 && check_quotes(tok) == 0)
 			i++;
 		while (line[i] && (is_white_space(line[i]) == 0
 				|| check_quotes(tok)) && is_redirect(line[i]) == 0)
