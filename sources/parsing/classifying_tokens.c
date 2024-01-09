@@ -6,7 +6,7 @@
 /*   By: willem <willem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 13:59:09 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/08 14:59:26 by willem           ###   ########.fr       */
+/*   Updated: 2024/01/09 18:17:19 by willem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,46 @@ char classify_redirect(t_tokens *tok, int j)
 	return (1);
 }
 
-char *classify_filename(t_tokens *tok, int *j)
+int rm_quotes_from_filename(char **filename)
+{
+	char *temp;
+	int len;
+	int i;
+	int j;
+
+	i = 1;
+	j = 0;
+	if (is_quote((*filename)[0]) == 0)
+		return (1);
+	len = ft_strlen(*filename);
+	temp = (char *)malloc(len - 1);
+	if (!temp)
+		return (free(*filename), 0);
+	while (i < len - 1)
+	{
+		temp[j] = (*filename)[i];
+		i++;
+		j++;
+	}
+	temp[j] = 0;
+
+	//ft_printf("%s\n", temp);
+
+	free(*filename);
+	*filename = temp;
+	return (1);
+}
+
+char *make_filename(t_tokens *tok, int *j)
 {
 	char *filename;
 	
 	(*j)++;
-	//puts("hello");
-	//printf("here: %s\n", tok->fin[*j]);
 	filename = ft_strdup(tok->fin[*j]);
+	if (!filename)
+		return (NULL);
+	if (rm_quotes_from_filename(&filename) == 0)
+		return (NULL);
 	if (!filename)
 		return (NULL);
 	return (filename);
@@ -60,7 +92,7 @@ int	fill_redirect_node(t_tokens *tok, int *j, t_redirect **redirect_lst)
 
 
 	type = classify_redirect(tok, *j);
-	file_name = classify_filename(tok, j);
+	file_name = make_filename(tok, j);
 
 /* 	printf("type:%c\n", type);
 	printf("filename:%s\n", file_name); */
@@ -68,7 +100,7 @@ int	fill_redirect_node(t_tokens *tok, int *j, t_redirect **redirect_lst)
 	new_node = make_redirect_node(type, file_name);
 	if (!new_node)
 	{
-		//Free
+		free(file_name);
 		return (0);
 	}
 	//printf("%c, %s\n", new_node->type, new_node->file_name);
@@ -195,7 +227,8 @@ int	classifiying_tokens(t_tokens *tok, t_cmd **cmd_lst)
 		}
 		else if (is_redirect(tok->fin[j][0]))
 		{
-			fill_redirect_node(tok, &j, &redirect_lst);
+			if (fill_redirect_node(tok, &j, &redirect_lst) == 0)
+				return (0);
 			//printf("--%c, %s\n", redirect_lst->type, redirect_lst->file_name);
 			flag = 'f';
 /* 			puts("r");

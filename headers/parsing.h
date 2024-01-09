@@ -6,7 +6,7 @@
 /*   By: willem <willem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:56:52 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/08 15:59:32 by willem           ###   ########.fr       */
+/*   Updated: 2024/01/09 17:54:03 by willem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int		check_heredoc(char **tokens, int j);
 char classify_redirect(t_tokens *tok, int j);
 int	classifiying_tokens(t_tokens *tok, t_cmd **cmd_lst);
 int		is_redirect(char c);
-char *classify_filename(t_tokens *tok, int *j);
+char *make_filename(t_tokens *tok, int *j);
 
 t_redirect	*make_redirect_node(char type, char *file_name);
 void	add_redirect_node(t_redirect **lst, t_redirect *new_lst);
