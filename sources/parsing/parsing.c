@@ -6,7 +6,7 @@
 /*   By: willem <willem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 15:39:08 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/09 12:14:54 by willem           ###   ########.fr       */
+/*   Updated: 2024/01/09 12:17:37 by willem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	parsing(t_shell *shell, char *line)
 		if (!line2)
 			return (puts("first expand err"), parsing_free(&lines, &line2, &tokens, &fin), 0);
 
-		ft_printf("\nline\n%s\n", line2);
+		// ft_printf("\nline\n%s\n", line2);
 
 
 		//line2 = rm_quotes_from_line(&line2);
@@ -68,13 +68,13 @@ int	parsing(t_shell *shell, char *line)
 		int i = 0;
 
 
-		puts("tokens");
+		// puts("tokens");
 		
-		while (tokens[i])
-		{
-			printf("%d: %s\n", i, tokens[i]);
-			i++;
-		}
+		// while (tokens[i])
+		// {
+		// 	printf("%d: %s\n", i, tokens[i]);
+		// 	i++;
+		// }
 
 
 		
@@ -89,13 +89,13 @@ int	parsing(t_shell *shell, char *line)
 
 
 		//rm_quotes_from_tokens(&tok, &fin);
-
-		puts("fin");
-		while (fin[i])
-		{
-			printf("%d: %s\n", i, fin[i]);
-			i++;
-		}
+	
+		// puts("fin");
+		// while (fin[i])
+		// {
+		// 	printf("%d: %s\n", i, fin[i]);
+		// 	i++;
+		// }
 
 
 
