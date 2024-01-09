@@ -16,18 +16,19 @@ int main(int argc, char **argv, char **envp)
 		shexit(&shell, 1);
 	}
 	int i = 0;
-	while(1)
+	while(i < 1)
 	{
 		// line = readline("minishell: ");
 		// if (!line)
 		// 	exit(0);
-		line = "echo hello > \"filename\"";
+		//line = "echo \"$USER\"";
+		line = "echo \"$USER\"";
 		if (line[0] == 0)
 		{
 			free(line);
 			continue;
 		}
-		//add_history(line);
+		// add_history(line);
 		parsing_return = parsing(&shell, line);
 		if (parsing_return == 0)
 			shexit(&shell, 1);
@@ -44,7 +45,7 @@ int main(int argc, char **argv, char **envp)
 		clear_all_commands(&shell.first_cmd_copy);
 		shell.first_cmd_copy = NULL;
 		i++;
-		free(line);
+		// free(line);
 		line = NULL;
 	}
 	shexit(&shell, 0);
