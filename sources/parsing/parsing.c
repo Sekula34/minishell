@@ -6,7 +6,7 @@
 /*   By: willem <willem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 15:39:08 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/09 14:08:03 by willem           ###   ########.fr       */
+/*   Updated: 2024/01/09 17:41:53 by willem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	parsing(t_shell *shell, char *line)
 
 
 		//rm_quotes_from_tokens(&tok, &fin);
-
+		
 		// puts("fin");
 		// while (fin[i])
 		// {
@@ -108,7 +108,7 @@ int	parsing(t_shell *shell, char *line)
 
 
 		a++;
-
+ 
 	}
 
 
