@@ -108,10 +108,15 @@ int one_command_exec(t_cmd *cmd, t_shell *shell)
 	new_ot = 0;
 	if(set_original_input_output(&shell->stdin_cpy, &shell->stdout_cpy) != 0)
 		return(EXIT_FAILURE);
-	if(redirect_handler(cmd->redirect_lst, &new_in, &new_ot)!= 0)
-		return(EXIT_FAILURE);
-	if(exec_one(cmd, shell, shell->stdin_cpy, shell->stdout_cpy) != 0)
-		return(EXIT_FAILURE);
+	if(redirect_handler(cmd->redirect_lst, &new_in, &new_ot) == 0)
+	{
+		if(exec_one(cmd, shell, shell->stdin_cpy, shell->stdout_cpy) != 0)
+			return(EXIT_FAILURE);
+	}
+	else
+	{
+		export_exit_status(1, shell);
+	}
 	if(reset_fd(shell->stdin_cpy, shell->stdout_cpy, new_in, new_ot) != 0)
 		return (EXIT_FAILURE);
 	close(shell->stdin_cpy);
