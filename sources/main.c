@@ -18,7 +18,7 @@ int main(int argc, char **argv, char **envp)
 	int i = 0;
 	while(i < 1)
 	{
-		// line = readline("minishell: ");
+		// line = readline("minishell: ");g
 		// if (!line)
 		// 	exit(0);
 		//line = "echo \"$USER\"";
