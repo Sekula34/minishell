@@ -1,4 +1,4 @@
-#include "../../headers/minishel.h"
+	#include "../../headers/minishel.h"
 
 int check_unclosed_quote(t_tokens *tok, char *line)
 {
@@ -107,3 +107,4 @@ int	syntax_check(t_tokens *tok, char *line)
 		return (puts("redirect"), 0);
 	return (1);
 }
+

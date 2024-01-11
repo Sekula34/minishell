@@ -20,8 +20,9 @@ int main(int argc, char **argv, char **envp)
 	{
 		line = readline("minishell: ");
 		if (!line)
-			exit(0);
-		// line = "echo hello > \"filename\"";
+		 	exit(0);
+		//line = "echo \"$USER\"";
+		//line = "echo \"$USER\"";
 		if (line[0] == 0)
 		{
 			free(line);
@@ -38,13 +39,13 @@ int main(int argc, char **argv, char **envp)
 		}
 		shell.first_cmd_copy = shell.cmd_lst;
  		if(heredoc_parent_prepare(shell.cmd_lst) != 0)
-			shexit(&shell, 1);
+		 	shexit(&shell, 1);
 		if(execute_all_cmds(&shell) != 0)
 			shexit(&shell, 1);
 		clear_all_commands(&shell.first_cmd_copy);
 		shell.first_cmd_copy = NULL;
 		i++;
-		free(line);
+		 free(line);
 		line = NULL;
 	}
 	shexit(&shell, 0);

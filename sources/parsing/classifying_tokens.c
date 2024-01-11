@@ -6,7 +6,7 @@
 /*   By: willem <willem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 13:59:09 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/09 18:17:19 by willem           ###   ########.fr       */
+/*   Updated: 2024/01/11 17:28:00 by willem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ int	fill_redirect_node(t_tokens *tok, int *j, t_redirect **redirect_lst)
 	t_redirect *new_node;
 	char type;
 	char *file_name;
-
 
 	type = classify_redirect(tok, *j);
 	file_name = make_filename(tok, j);
@@ -197,6 +196,8 @@ int	make_arg_arr(t_tokens *tok, t_cmd **cmd_lst)
 	t_cmd *temp;
 
 	temp = *cmd_lst;
+	if (!temp)
+		return (0);
 	temp->args = malloc(sizeof(char *) * 2);
 	if (!temp->args)
 		return (0);
@@ -253,12 +254,32 @@ int	classifiying_tokens(t_tokens *tok, t_cmd **cmd_lst)
 		j++;
 	}
 
+	
 	if (found_arg_flag == 0)
 	{
 		if (make_arg_arr(tok, cmd_lst) == 0)
 			return (0);
 	}
-	(*cmd_lst)->redirect_lst = redirect_lst;
+
+	//add redirect list to CORRECT cmd_lst node
+	t_cmd *last;
+
+	if (cmd_lst && *cmd_lst)
+	{
+		last = *cmd_lst;
+		while (last->next)
+			last = last->next;
+		last->redirect_lst = redirect_lst;
+	}
+
+
+	//(*cmd_lst)->redirect_lst = redirect_lst;
+
+
+
+
+
+
 
 	/* return (cmd_lst); */
 	return (1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   first_expand.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
+/*   By: willem <willem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:53:01 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/07 15:14:55 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/09 20:06:35 by willem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,7 +234,7 @@ char	*first_expand(t_tokens *tok, t_vars *head_ex, char *line)
 			&& go_back_to_check_redirect(tok, line, i) == 0)
 		{
 			if (expand_var_1(tok, head_ex, &i, &res) == -1)
-				return (NULL);
+				return (free(res), NULL);
 		}
 		else
 		{

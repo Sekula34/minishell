@@ -75,12 +75,12 @@ void	free_2d_arr(char ***arr)
 
 void	parsing_free(char ***lines, char **line2, char ***tokens, char ***fin)
 {
-	if (*lines)
+	if (lines && *lines)
 		free_2d_arr(lines);
-	if (*tokens)
+	if (tokens && *tokens)
 		free_2d_arr(tokens);
-	if (*fin)
+	if (fin && *fin)
 		free_2d_arr(fin);
-	if (*line2)
+	if (line2 && *line2)
 		free(*line2);
 }

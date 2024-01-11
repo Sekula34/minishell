@@ -6,7 +6,7 @@
 /*   By: willem <willem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:56:52 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/09 17:54:03 by willem           ###   ########.fr       */
+/*   Updated: 2024/01/09 19:17:44 by willem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int		append_value(char **res, char *value);
 int		set_start_end(t_tokens *tok, char *line, int i);
 char	**make_token(t_tokens *tok, char *line);
 int		copy_text(t_tokens *tok, char *line, int *i, int a);
-void	tokenize_redirect(t_tokens *tok, char *line, int *i, int *a);
+int	tokenize_redirect(t_tokens *tok, char *line, int *i, int *a);
 int		count_token(t_tokens *tok, char *line);
 void	move_counter(t_tokens *tok);
 char	**last_expand(t_tokens *tok, t_vars *head_ex);
