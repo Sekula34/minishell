@@ -41,9 +41,10 @@ int check_pipes(t_tokens *tok, char *line)
 	i = 0;
 	while (line && line[i])
 	{
-		if (line[i] != '|' && line[i] != ' ')
+		set_quotation(tok, line[i]);
+		if (check_quotes(tok) == 0 && line[i] != '|' && line[i] != ' ')
 			flag = 1;
-		if (line[i] == '|')
+		if (check_quotes(tok) == 0 && line[i] == '|')
 		{
 			if (flag == 0)
 				return (0);
@@ -86,15 +87,57 @@ int	check_redirect(t_tokens *tok, char *line)
 	flag = 0;
 	while (line && line[i])
 	{
-		if (is_redirect(line[i]))
+		set_quotation(tok, line[i]);
+		if (check_quotes(tok) == 0 && is_redirect(line[i]))
 			flag = 1;
 		i++;
 	}
-	if (flag == 1)
+	if (check_quotes(tok) == 0 && flag == 1)
 		return (check_after_redirect(line));
 	return (1);
 }
 
+int check_amount_redirect(t_tokens *tok, char *line)
+{
+	int	i;
+	int	r_count;
+	int	l_count;
+
+	i = 0;
+	r_count = 0;
+	l_count = 0;
+
+	reset_struct(tok);
+	while (line && line[i])
+	{
+		set_quotation(tok, line[i]);
+		if (check_quotes(tok) == 0 && line[i] == '<')
+		{
+			l_count++;
+			if (l_count == 3)
+				return (0);
+			if (r_count != 0)
+				return (0);
+		}
+		if (check_quotes(tok) == 0 && line[i] == '>')
+		{
+			r_count++;
+			if (r_count == 3)
+				return (0);
+			if (l_count != 0)
+				return (0);
+		}
+		if (line[i] != ' ' && line[i] != '\t' && is_redirect(line[i]) == 0)
+		{
+			l_count = 0;
+			r_count = 0;
+		}
+		i++;
+	}
+	return (1);
+}
+
+//ADD EXEPTIONS FOR IF SYNTAX ERROR IS IN QUOTES
 
 int	syntax_check(t_tokens *tok, char *line)
 {
@@ -105,6 +148,8 @@ int	syntax_check(t_tokens *tok, char *line)
 		return (puts("pipes"), 0);
 	if (check_redirect(tok, line) == 0)
 		return (puts("redirect"), 0);
+	if (check_amount_redirect(tok, line) == 0)
+		return (puts("to many redirects"), 0);
 	return (1);
 }
 
