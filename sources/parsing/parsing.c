@@ -6,7 +6,7 @@
 /*   By: willem <willem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 15:39:08 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/09 19:56:16 by willem           ###   ########.fr       */
+/*   Updated: 2024/01/11 17:16:58 by willem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,12 @@ int	parsing(t_shell *shell, char *line)
 		int i = 0;
 
 
-		puts("tokens");
-		
-		while (tokens[i])
-		{
-			printf("%d: %s\n", i, tokens[i]);
-			i++;
-		}
+		// puts("tokens");
+		// while (tokens[i])
+		// {
+		// 	printf("%d: %s\n", i, tokens[i]);
+		// 	i++;
+		// }
 
 
 		
@@ -90,12 +89,16 @@ int	parsing(t_shell *shell, char *line)
 
 		//rm_quotes_from_tokens(&tok, &fin);
 		
-		puts("fin");
-		while (fin[i])
-		{
-			printf("%d: %s\n", i, fin[i]);
-			i++;
-		}
+
+
+		
+		
+		// puts("fin");
+		// while (fin[i])
+		// {
+		// 	printf("%d: %s\n", i, fin[i]);
+		// 	i++;
+		// }
 
 
 
@@ -109,10 +112,47 @@ int	parsing(t_shell *shell, char *line)
 
 		a++;
  
+		parsing_free(NULL, &line2, &tokens, &fin);
 	}
 
+	parsing_free(&lines, NULL, NULL, NULL);
+	
 
-	parsing_free(&lines, &line2, &tokens, &fin);
+
+
+
+	// puts("");
+	// puts("RESULT");
+	// puts("");
+
+	// t_cmd *temp;
+	// t_redirect *temp_redirect;
+
+	// int i;
+
+	// temp = shell->cmd_lst;
+	// temp_redirect = temp->redirect_lst;
+
+	// while (temp)
+	// {
+	// 	printf("cmd:  %s\n", temp->cmd);
+	// 	i = 1;
+
+	// 	while (temp->args && temp->args[i])
+	// 	{
+	// 		printf("arg%d: %s\n", i, temp->args[i]);
+	// 		i++;
+	// 	}
+	// 	temp_redirect = temp->redirect_lst;
+	// 	while (temp_redirect)
+	// 	{
+	// 		printf("redirect: %c, %s\n", temp_redirect->type, temp_redirect->file_name);
+	// 		temp_redirect = temp_redirect->next;
+	// 	}
+	// 	temp = temp->next;
+	// 	puts("");
+	// }
+	// i = 0;
 
 
 	//puts("after parsing\n");
