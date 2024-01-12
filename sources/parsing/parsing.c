@@ -6,7 +6,7 @@
 /*   By: willem <willem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 15:39:08 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/11 17:16:58 by willem           ###   ########.fr       */
+/*   Updated: 2024/01/12 18:02:20 by willem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	parsing(t_shell *shell, char *line)
 
 
 	if (syntax_check(&tok, line) == 0)
-		return (puts("syntax error"), 2);
+		return (2);
 
 	lines = split_pipes(&tok, line);
 	if (!lines)
