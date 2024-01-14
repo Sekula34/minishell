@@ -10,7 +10,7 @@ int check_command_acces(char *cmd_path)
 	acc_val = access(cmd_path, F_OK);
 	if(acc_val != 0)
 	{
-		perror("minishell");
+		ft_putstr_fd("command not found\n", 2);
 		return (127);
 	}
 	acc_val = access(cmd_path, X_OK);
