@@ -1,6 +1,19 @@
 #include "../headers/minishel.h"
 
 
+void my_signal_handle()
+{
+	ft_printf("\n");
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
+}
+
+void interacitve_signals()
+{
+	signal(SIGINT, my_signal_handle);
+	signal(SIGQUIT, SIG_IGN);
+}
 
 int main(int argc, char **argv, char **envp)
 {
@@ -8,9 +21,9 @@ int main(int argc, char **argv, char **envp)
 	char *line;
 	int	parsing_return;
 
+	interacitve_signals();
+
 	parsing_return = 0;
-
-
 	if(shell_init(&shell, envp) != 0)
 	{
 		shexit(&shell, 1);
