@@ -47,6 +47,11 @@ int execute_original_cmd(t_shell *shell, t_cmd *cmd, int original_stdin, int ori
 		return (export_exit_status(127, shell));
 	if(set_cmd_path(cmd, shell) != 0)
 		return (export_exit_status(127, shell));
+	if(cmd->path == NULL)
+	{
+		ft_putstr_fd("Command not found \n", 2);
+		return(export_exit_status(127, shell));
+	}
 	id = fork();
 	if(id == -1)
 	{
