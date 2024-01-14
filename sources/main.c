@@ -20,7 +20,7 @@ int main(int argc, char **argv, char **envp)
 	{
 		line = readline("minishell: ");
 		if (!line)
-		 	exit(0);
+		 	shexit(&shell, 0);
 		//line = "echo \"$USER\"";
 		//line = "echo \"$USER\"";
 		if (line[0] == 0)
