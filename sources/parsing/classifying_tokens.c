@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   classifying_tokens.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: willem <willem@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 13:59:09 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/11 17:28:00 by willem           ###   ########.fr       */
+/*   Updated: 2024/01/15 12:36:35 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,24 +232,24 @@ int	classifiying_tokens(t_tokens *tok, t_cmd **cmd_lst)
 				return (0);
 			//printf("--%c, %s\n", redirect_lst->type, redirect_lst->file_name);
 			flag = 'f';
-/* 			puts("r");
-			puts("f"); */
+			// puts("r");
+			// puts("f");
 		}
 		else if (flag != 'c' && cmd_flag != 1 && (j == 0 || is_redirect(tok->fin[j - 1][0]) == 0))
 		{
 			if (put_cmd(tok, &j, cmd_lst, redirect_lst) == 0)
 				return (0);
 			flag = 'c';
-/* 			puts("c"); */
+			// puts("c");
 			cmd_flag = 1;
 		}
-		else if ((flag == 'c' || flag == 'a'))// && is_redirect(tok->fin[j][0]) == 0)
+		else if ((flag == 'c' || flag == 'a' || flag == 'f'))// && is_redirect(tok->fin[j][0]) == 0)
 		{
 			if (put_arg(tok, &j, cmd_lst) == 0)
 				return (0);
 			flag = 'a';
 			found_arg_flag = 1;
-/* 			puts("a"); */
+			// puts("a");
 		}
 		j++;
 	}

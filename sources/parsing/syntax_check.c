@@ -21,16 +21,10 @@ int check_unclosed_quote(t_tokens *tok, char *line)
 		}
 		i++;
 	}
-/* 	printf("sqc:%d\n", single_count);
-	printf("dqc:%d\n", double_count); */
 	if (tok->isq == 1)
 		return (ft_printf("syntax error near unexpected token `''\n"), 0);
 	if (tok->idq == 1)
 		return (ft_printf("syntax error near unexpected token `\"'\n"), 0);
-/* 	if (double_count % 2 != 0)
-		return (puts("!d"), 0);
-	if (single_count % 2 != 0)
-		return (puts("!s"), 0); */
 	return (1);
 }
 
@@ -113,7 +107,7 @@ static int redirect_right(int *r_count, int *l_count)
 {
 	(*r_count)++;
 	if (*r_count == 3)
-		return (ft_printf("syntax error near unexpected token `>'\n"), 0);
+		return (ft_putstr_fd("syntax error near unexpected token `>'\n", 2), 0);
 	if (*l_count != 0)
 		return (ft_printf("syntax error near unexpected token `>'\n"), 0);
 	return (1);
@@ -149,7 +143,6 @@ int check_amount_redirect(t_tokens *tok, char *line)
 	return (1);
 }
 
-//ADD EXEPTIONS FOR IF SYNTAX ERROR IS IN QUOTES
 
 int	syntax_check(t_tokens *tok, char *line)
 {

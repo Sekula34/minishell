@@ -18,9 +18,24 @@ int main(int argc, char **argv, char **envp)
 	int i = 0;
 	while(1)
 	{
-		line = readline("minishell: ");
-		if (!line)
-		 	exit(0);
+		if (isatty(fileno(stdin)))
+			line = readline("minishell: ");
+		
+		else
+		{
+			char *line2;
+			line2 = get_next_line(fileno(stdin));
+			line = ft_strtrim(line2, "\n");
+			free(line2);
+		}
+
+		//line[600000] = 'a';
+
+
+
+		// line = readline("minishell: ");
+		// if (!line)
+		//  	exit(0);
 		//line = "echo \"$USER\"";
 		//line = "echo \"$USER\"";
 		if (line[0] == 0)

@@ -63,7 +63,9 @@ sources/parsing/parsing.c \
 sources/env_export/env_list_utils2.c \
 sources/shell_init/shell_init.c \
 sources/shell_init/shell_clear.c \
-sources/parsing/parsing_test_main.c
+sources/parsing/parsing_test_main.c \
+sources/get_next_line/get_next_line.c \
+sources/get_next_line/get_next_line_utils.c
 
 HEADERS = headers/builtin.h \
 headers/data_types.h \
