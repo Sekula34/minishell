@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   count_cmds.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fseles <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 20:22:32 by fseles            #+#    #+#             */
-/*   Updated: 2023/12/08 20:22:34 by fseles           ###   ########.fr       */
+/*   Updated: 2024/01/16 17:57:14 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int get_number_of_commands(t_cmd *cmd)
 	int counter;
 
 	counter = 0;
-	if (cmd == NULL || cmd->cmd == NULL) 
+	if (cmd == NULL) 
 		return (0);
 	while (cmd != NULL)
 	{
