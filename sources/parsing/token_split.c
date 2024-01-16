@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_split.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: willem <willem@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:58:30 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/09 19:39:44 by willem           ###   ########.fr       */
+/*   Updated: 2024/01/16 14:35:35 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,17 +76,17 @@ int	copy_text(t_tokens *tok, char *line, int *i, int a)
 	return (1);
 }
 
-char	**make_token(t_tokens *tok, char *line)
+int make_token(t_tokens *tok, char *line)
 {
 	int		i;
 	int		a;
 
 	if (!line)
-		return (NULL);
+		return (0);
 	init_make_token(&a, &i);
 	tok->tokens = ft_calloc(count_token(tok, line) + 1, sizeof(char *));
 	if (!tok->tokens)
-		return (NULL);
+		return (0);
 	reset_struct(tok);
 	while (line[i])
 	{
@@ -95,20 +95,20 @@ char	**make_token(t_tokens *tok, char *line)
 		while (line[i] && (is_white_space(line[i]) == 0 || check_quotes(tok)) && is_redirect(line[i]) == 0)
 		{
 			if (copy_text(tok, line, &i, a) == 0)
-				return (free(tok->tokens), NULL);
+				return (0);
 		}
 		if (tok->tokens[a] && tok->isq == 0 && tok->idq == 0)
 			a++;
 		while (line[i] && is_redirect(line[i]))
 		{
 			if (tokenize_redirect(tok, line, &i, &a) == 0)
-				return (free(tok->tokens), NULL);
+				return (0);
 		}
 		if (tok->tokens[a] && tok->isq == 0 && tok->idq == 0)
 			a++;
 	}
 	tok->tokens[a] = 0;
-	return (tok->tokens);
+	return (1);
 }
 
 /* int main()

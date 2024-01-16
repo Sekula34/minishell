@@ -1,5 +1,5 @@
 #include "../headers/minishel.h"
-
+#include "../headers/get_next_line.h"
 
 
 int main(int argc, char **argv, char **envp)
@@ -16,18 +16,18 @@ int main(int argc, char **argv, char **envp)
 		shexit(&shell, 1);
 	}
 	int i = 0;
-	while(i < 1)
+	while(1)
 	{
-	// 	if (isatty(fileno(stdin)))
-	// 		line = readline("minishell: ");
+		if (isatty(fileno(stdin)))
+			line = readline("minishell: ");
 		
-	// 	else
-	// 	{
-	// 		char *line2;
-	// 		line2 = get_next_line(fileno(stdin));
-	// 		line = ft_strtrim(line2, "\n");
-	// 		free(line2);
-	// 	}
+		else
+		{
+			char *line2;
+			line2 = get_next_line(fileno(stdin));
+			line = ft_strtrim(line2, "\n");
+			free(line2);
+		}
 
 
 
@@ -36,13 +36,13 @@ int main(int argc, char **argv, char **envp)
 		// if (!line)
 		//  	exit(0);
 		//line = "echo \"$USER\"";
-		line = "echo \"$USER\"";
+		//line = "echo hello'test' $USER \"$USER\" | wc -l";
 		if (line[0] == 0)
 		{
 			free(line);
 			continue;
 		}
-		//add_history(line);
+		add_history(line);
 		parsing_return = parsing(&shell, line);
 		if (parsing_return == 0)
 			shexit(&shell, 1);
@@ -59,8 +59,8 @@ int main(int argc, char **argv, char **envp)
 		clear_all_commands(&shell.first_cmd_copy);
 		shell.first_cmd_copy = NULL;
 		i++;
-		//free(line);
-		//line = NULL;
+		free(line);
+		line = NULL;
 	}
 	shexit(&shell, 0);
 	return(EXIT_SUCCESS);

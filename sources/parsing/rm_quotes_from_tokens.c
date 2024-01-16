@@ -26,54 +26,51 @@ char *realloc_token(char **token)
 	return(temp);
 }
 
-int decide_to_keep(t_tokens *tok, char ***tokens, int j)
+int decide_to_keep(t_tokens *tok, int j)
 {
-	// int i;
-	// char *res;
+	int i;
+	char *res;
 
-	// i = 0;
-	// res = NULL;
-	// reset_struct(tok);
-	// while (token[i])
-	// {
-	// 	set_quotation(tok, token[i]);
-	// 	if (check_quotes(tok) == 0 && is_quote(token[i]) == 0)
-	// 	{
-	// 		res = ft_join(&res, token[i]);
-	// 		if (!res)
-	// 			return (free(token), NULL);
-	// 	}
-	// 	else if (tok->isq == 1 && token[i] != '\'')
-	// 	{
-	// 		res = ft_join(&res, token[i]);
-	// 		if (!res)
-	// 			return (free(token), NULL);
-	// 	}
-	// 	else if (tok->idq == 1 && token[i] != '"')
-	// 	{
-	// 		res = ft_join(&res, token[i]);
-	// 		if (!res)
-	// 			return (free(token), NULL);
-	// 	}
-	// 	i++;
-	// }
-	// ft_printf("res:%s\n", res);
-	// free(token);
-	// return (res);
+	i = 0;
+	res = NULL;
+	reset_struct(tok);
+	while (tok->tokens[j][i])
+	{
+		set_quotation(tok, tok->tokens[j][i]);
+		if (check_quotes(tok) == 0 && is_quote(tok->tokens[j][i]) == 0)
+		{
+			res = ft_join(&res, tok->tokens[j][i]);
+			if (!res)
+				return (0);
+		}
+		else if (tok->isq == 1 && tok->tokens[j][i] != '\'')
+		{
+			res = ft_join(&res, tok->tokens[j][i]);
+			if (!res)
+				return (0);
+		}
+		else if (tok->idq == 1 && tok->tokens[j][i] != '"')
+		{
+			res = ft_join(&res, tok->tokens[j][i]);
+			if (!res)
+				return (0);
+		}
+		i++;
+	}
+	//ft_printf("res:%s\n", res);
+	free(tok->tokens[j]);
+	tok->tokens[j] = res;
+	return (res);
 }
 
-int rm_quotes_from_tokens(t_tokens *tok, char ***tokens)
+int rm_quotes_from_tokens(t_tokens *tok)
 {
 	int j;
 
 	j = 0;
-	while ((*tokens)[j])
+	while (tok->tokens[j])
 	{
-		// if (decide_to_keep(tok, tokens) == 0)
-		// 	return (0);
-		// (*tokens)[i] = decide_to_keep(tok, (*tokens)[i]);
-		// if (!(*tokens)[i])
-		// 	return (0);
+		decide_to_keep(tok, j);
 		j++;
 	}
 	return (1);

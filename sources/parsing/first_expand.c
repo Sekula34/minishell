@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   first_expand.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: willem <willem@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:53:01 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/09 20:06:35 by willem           ###   ########.fr       */
+/*   Updated: 2024/01/16 14:55:58 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,16 +128,15 @@ char	*check_key(t_tokens *tok)
 	return (key);
 }
 
-char *get_value_var(t_vars *head_ex, char *key)
+int get_value_var(t_vars *head_ex, char *key, char **value)
 {
 	t_vars *element;
-	char *value;
 
 	element = get_element(key, head_ex);
 	if (!element)
-		return (NULL);
-	value = element->value;
-	return (value);
+		return (0);
+	*value = element->value;
+	return (1);
 }
 
 int case_start_with_quote(char **res, t_tokens *tok, int *i)
@@ -198,7 +197,8 @@ int	expand_var_1(t_tokens *tok, t_vars *head_ex, int *i, char **res)
 		value = key;
 	else
 	{
-		value = get_value_var(head_ex, key);
+		if (get_value_var(head_ex, key, &value) == 0)
+			return (free(key), 0);
 		free(key);
 	}
 	//printf("value:%s-\n", value);
