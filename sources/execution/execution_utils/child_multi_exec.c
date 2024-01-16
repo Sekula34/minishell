@@ -32,12 +32,13 @@ static int exec_one_b(t_cmd *cmd, t_shell *shell)
 {
 	int builtin_cmd;
 	int mini;
+	int builtin_exit;
 
 	builtin_cmd = is_cmd_builtin(cmd);
 	if(builtin_cmd > 0)
 	{
-		execute_builtin(builtin_cmd, shell, cmd);
-		exit(0);
+		builtin_exit = execute_builtin(builtin_cmd, shell, cmd);
+		shexit(shell, builtin_exit);
 	}
 	if(set_mini_env(&shell->mini_env, shell->head_env) == 1)
 		exit (EXIT_FAILURE);
