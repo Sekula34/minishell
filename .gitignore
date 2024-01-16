@@ -1,4 +1,7 @@
-valgrind
-valgrind_ignore_leaks.txt
 .vscode
 libft/libft.a
+*.md
+*.o
+*.txt
+folder_to_ignore
+minishell_tester

@@ -13,9 +13,12 @@
 #include "../../headers/minishel.h"
 
 //function that exit shell and clears everything
-int	shexit(t_vars **head_ex, t_vars **head_env, int status)
+int	shexit(t_shell *shell, int status)
 {
-	clear_list_env(head_env);
-	clear_list_env(head_ex);
+	if(shell->stdin_cpy != -1)
+		close(shell->stdin_cpy);
+	if(shell->stdout_cpy != -1)
+		close(shell->stdout_cpy);
+	shell_clear(shell);
 	exit(status);
 }

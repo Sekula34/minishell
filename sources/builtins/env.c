@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fseles <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 15:27:10 by fseles            #+#    #+#             */
-/*   Updated: 2023/11/30 15:27:12 by fseles           ###   ########.fr       */
+/*   Updated: 2024/01/07 14:41:07 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	env(t_vars *head)
 		return (-1);
 	while (head != NULL)
 	{
-		if (head->value != NULL)
+		if (head->value != NULL && head->key[0] != '?')
 			printf("%s=%s\n", head->key, head->value);
 		head = head->next;
 	}

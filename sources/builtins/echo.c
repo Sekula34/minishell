@@ -3,26 +3,73 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fseles <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 11:39:05 by fseles            #+#    #+#             */
-/*   Updated: 2023/11/28 11:39:07 by fseles           ###   ########.fr       */
+/*   Updated: 2024/01/16 12:27:10 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishel.h"
 
+/* static void echo_print(char *string)
+{
+	int i;
+
+	i = 0;
+	while(string[i] != '\0')
+	{
+		if (string[i] != '\'' && string [i] != '"')
+			ft_putchar_fd(string[i], 1);
+		i++;
+	}
+} */
+
+// static void echo_print(char *string)
+// {
+// 	t_tokens tok;
+// 	int	i;
+
+// 	i = 0;
+// 	init_tok_struct(&tok);
+// 	while (string[i])
+// 	{
+// 		set_quotation(&tok, string[i]);
+// 		if (tok.isq == 0 && tok.idq == 0)
+// 		{
+// 			if (string[i] != '\'' && string [i] != '"')
+// 				ft_putchar_fd(string[i], 1);
+// 		}
+// 		else if (tok.isq == 1)
+// 		{
+// 			if (string[i] != '\'')
+// 				ft_putchar_fd(string[i], 1);
+// 		}
+// 		else if (tok.idq == 1)
+// 		{
+// 			if (string[i] != '"')
+// 				ft_putchar_fd(string[i], 1);
+// 		}
+		
+// 		i++;
+// 	}
+
+// }
+
 //prints string on standard output 
-//if n_option is 1 pritns newline aswell
-//otherwise prints it without newline
+//if n_option is 1 print without newline 
+//otherwise prints newline
 //return 0 
-int	echo(char *string, int n_option)
+int	echo(char *string)
 {
 	if (string == NULL)
-		printf("");
+	{
+
+	}
 	else
-		printf("%s", string);
-	if (n_option == 1)
-		printf("\n");
+	{
+		ft_printf("%s", string);
+		//echo_print(string);
+	}
 	return (0);
 }

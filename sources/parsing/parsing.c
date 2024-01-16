@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 15:39:08 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/16 13:22:01 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/16 13:23:17 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ int	parsing(t_shell *shell, char *line)
 	
 
 
-	//testt
+
 
 	// puts("");
 	// puts("RESULT");

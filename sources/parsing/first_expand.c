@@ -3,31 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   first_expand.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
+/*   By: willem <willem@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:53:01 by wvan-der          #+#    #+#             */
-/*   Updated: 2023/12/12 16:05:43 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/09 20:06:35 by willem           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishel.h"
 
-int	set_start_end(t_tokens *tok, char *line, int *i)
+int	set_start_end(t_tokens *tok, char *line, int i)
 {
-	puts("set s e");
-	(*i)++;
-/* 	if (!valid_char(line[*i]))
-		return (puts("invalid"), 0); */
-	tok->start = *i;
-	while (line[*i] && valid_char(line[*i]))
+	tok->start = i;
+	//printf("1st:%c-\n", line[i]);
+	if (line[i] == '?')
 	{
-		(*i)++;
+		tok->end = i;
+		return (1);
 	}
-	tok->end = *i - 1;
+	while (line[i] && valid_char(line[i]))
+	{
+		i++;
+	}
+	tok->end = i - 1;
 	if (tok->end < tok->start)
 	{
 		tok->end++;
 	}
+	//printf("last:%c-\n", line[tok->end]);
 	return (1);
 }
 
@@ -69,7 +72,7 @@ int	go_back_to_check_redirect(t_tokens *tok, char *line, int i)
 		return (0);
 }
 
-char *get_var_value(t_tokens *tok, t_vars *head_ex, char *line)
+/* char *get_var_value(t_tokens *tok, t_vars *head_ex, char *line)
 {
 	t_vars	*element;
 	char	*key;
@@ -90,27 +93,126 @@ char *get_var_value(t_tokens *tok, t_vars *head_ex, char *line)
 	}
 	printf("key:-%s-\n", key);
 	puts("?");
-/* 	if (key[0] == '\'' || key[0] == '"')
-		return ("'"); */
+ 	if (key[0] == '\'' || key[0] == '"')
+		return ("'");
 	element = get_element(key, head_ex);
 	free(key);
 	if (!element)
 		return (puts("element null"), NULL);
 	return (element->value);
-}
+} */
 
-int put_value(t_tokens *tok, t_vars *head_ex, char *line, char **res)
+/* int put_value(t_tokens *tok, t_vars *head_ex, char *line, char **res)
 {
 	char *value;
 
 	value = get_var_value(tok, head_ex, line);
 	if (!value)
 		return (0);
-/* 	if (value[0] == '\'')
-		 */
+	if (!value[0])
+		return (puts("no value"), 1);
+	if (value[0] == '\'')
 		
 	check_value(&value);
 	append_value(res, value);
+	return (1);
+} */
+
+char	*check_key(t_tokens *tok)
+{
+	char *key;
+
+	key = ft_substr(tok->line, tok->start, tok->end - tok->start + 1);
+	if (!key)
+		return (NULL);
+	return (key);
+}
+
+char *get_value_var(t_vars *head_ex, char *key)
+{
+	t_vars *element;
+	char *value;
+
+	element = get_element(key, head_ex);
+	if (!element)
+		return (NULL);
+	value = element->value;
+	return (value);
+}
+
+int case_start_with_quote(char **res, t_tokens *tok, int *i)
+{
+	*i += 2;
+	while (tok->line[*i] && valid_char(tok->line[*i]))
+	{
+		*res = ft_join(res, tok->line[*i]);
+		if (!*res)
+		{
+			//free
+			return (0);
+		}
+		(*i)++;
+	}
+	(*i)++;
+	return (1);
+}
+
+int	case_invalid_char(char **res, t_tokens *tok, int *i)
+{
+	int	a;
+
+	a = 0;
+	puts("in");
+	//while (tok->line[*i] && (a < 2) || valid_char(tok->line[*i]))
+	while (tok->line[*i] && tok->line[*i] != ' ' && (tok->line[*i] != '$' || a == 0))
+	{
+		*res = ft_join(res, tok->line[*i]);
+		if (!*res)
+		{
+			//free
+			return (0);
+		}
+		(*i)++;
+		a++;
+	}
+	return (1);
+}
+
+int	expand_var_1(t_tokens *tok, t_vars *head_ex, int *i, char **res)
+{
+	char *key;
+	char *value;
+
+	if (tok->line[(*i) + 1] == 0 || tok->line[(*i) + 1] == '$')
+		return ((*i)++, 0);
+	if (is_quote(tok->line[*i + 1]))
+		return (case_start_with_quote(res, tok, i), 0);
+	if (valid_char(tok->line[*i + 1]) == 0)
+		return (case_invalid_char(res, tok, i), 0);
+	set_start_end(tok, tok->line, (*i) + 1);
+	key = check_key(tok);
+	if (!key)
+		return ((*i)++, -1);
+	//printf("key:%s-\n", key);
+	if (is_quote(key[0]))
+		value = key;
+	else
+	{
+		value = get_value_var(head_ex, key);
+		free(key);
+	}
+	//printf("value:%s-\n", value);
+	if (value)
+	{
+		if (append_value(res, value) == 0)
+			return (-1);
+		*i = tok->end + 1;
+	}
+	else
+	{
+		*i = tok->end + 1;
+	}
+	//free(value);
 	return (1);
 }
 
@@ -123,26 +225,24 @@ char	*first_expand(t_tokens *tok, t_vars *head_ex, char *line)
 	i = 0;
 	j = 0;
 	res = NULL;
+	tok->line = line;
+	reset_struct(tok);
 	while (line[i])
 	{
 		set_quotation(tok, line[i]);
 		if (tok->isq == 0 && tok->idq == 0 && line[i] == '$'
 			&& go_back_to_check_redirect(tok, line, i) == 0)
 		{
-			if (set_start_end(tok, line, &i) == 1)
-			{
-				if (put_value(tok, head_ex, line, &res) == 0)
-					i+=0;
-			}
-			else 	
-			{
-				res = ft_join(&res, line[--i]);
-				//res = ft_join(&res, line[i++]);
-				i++;
-			}
+			if (expand_var_1(tok, head_ex, &i, &res) == -1)
+				return (free(res), NULL);
 		}
 		else
+		{
 			res = ft_join(&res, line[i++]);
+			if (!res)
+				return (NULL);
+		}
+
 	}
 	return (res);
 }

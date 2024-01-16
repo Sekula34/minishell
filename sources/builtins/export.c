@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fseles <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 19:02:03 by fseles            #+#    #+#             */
-/*   Updated: 2023/12/01 19:02:04 by fseles           ###   ########.fr       */
+/*   Updated: 2024/01/04 16:42:02 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,16 @@ static void	export_print(t_vars *ex_vars)
 {
 	while (ex_vars != NULL)
 	{
+		if(ex_vars->key[0] == '?')
+		{
+			ex_vars = ex_vars->next;
+			continue;
+		}
 		printf("declare -x ");
 		printf("%s", ex_vars->key);
 		if (ex_vars->value != NULL)
-			printf("=%c%s%c\n", '"', ex_vars->value, '"');
+			printf("=%c%s%c", '"', ex_vars->value, '"');
+		printf("\n");
 		ex_vars = ex_vars->next;
 	}
 }
@@ -100,7 +106,8 @@ static int	export_no_eq(char *string, t_vars **ex_vars, t_vars **env_vars)
 //
 //creates 2 identical elements, one for ex_vars, one for env_vars
 //first try to remove variables if exist
-int	export(char *string, t_vars **ex_vars, t_vars **env_vars)
+//if safe option is 0 key will not be check (USE ONLY FOR LAST EXIT STATUS aka ?=)
+int	export(char *string, t_vars **ex_vars, t_vars **env_vars, int safe_option)
 {
 	if (string == NULL)
 	{
@@ -108,9 +115,9 @@ int	export(char *string, t_vars **ex_vars, t_vars **env_vars)
 		export_print(*ex_vars);
 		return (0);
 	}
-	if (key_checker(string) != 1)
+	if (key_checker(string) != 1 && safe_option == 1)
 	{
-		ft_putstr_fd("export: Not a valid identifier\n", 2);
+		ft_putstr_fd("export: not a valid identifier\n", 2);
 		return (-1);
 	}
 	if (pos_of_equal(string) != -1)
