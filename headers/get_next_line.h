@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 10:43:25 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/15 14:07:22 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/16 15:19:48 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 # include <fcntl.h>
 
 void	*ft_calloc(size_t nitems, size_t size);
-size_t	ft_strlen(char *s);
-char	*ft_strjoin(char *s1, char *s2);
+//size_t	ft_strlen(char *s);
+//char	*ft_strjoin(char *s1, char *s2);
 int		check_newline(char *line);
 int		check_newline_res(char *line);
 //char	*ft_free(int bytes_read, char **line);

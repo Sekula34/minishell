@@ -7,6 +7,7 @@ static void child_function(int original_stdin, int original_stdout, t_cmd *cmd, 
 {
 	close(original_stdin);
 	close(original_stdout);
+	minishel_signals(3);
 	child_executor(cmd, shell);
 }
 
@@ -29,8 +30,15 @@ static int parent_function_set_status(pid_t child_id, int *exit_code)
 		*exit_code = WEXITSTATUS(status);
 		return(EXIT_SUCCESS);
 	}
-	ft_putstr_fd("child process did not exit normally\n", 2);
-	return(EXIT_FAILURE);
+	if(WIFSIGNALED(status))
+	{
+		*exit_code = WTERMSIG(status) + 128;
+		ft_printf("\n");
+		//rl_on_new_line();
+		return(EXIT_SUCCESS);
+	}
+	// ft_putstr_fd("child process did not exit normally\n", 2);
+	// return(EXIT_FAILURE);
 }
 
 //execute original command
@@ -47,6 +55,11 @@ int execute_original_cmd(t_shell *shell, t_cmd *cmd, int original_stdin, int ori
 		return (export_exit_status(127, shell));
 	if(set_cmd_path(cmd, shell) != 0)
 		return (export_exit_status(127, shell));
+	if(cmd->path == NULL)
+	{
+		ft_putstr_fd("Command not found \n", 2);
+		return(export_exit_status(127, shell));
+	}
 	id = fork();
 	if(id == -1)
 	{

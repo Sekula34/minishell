@@ -16,6 +16,7 @@ int execute_all_cmds(t_shell *shell)
 {
 	(void)(*shell);
 	int	cmd_count;
+	minishel_signals(2);
 	
 	if (set_number_of_commands(&cmd_count, shell->cmd_lst) == EXIT_FAILURE)
 		return(EXIT_FAILURE);

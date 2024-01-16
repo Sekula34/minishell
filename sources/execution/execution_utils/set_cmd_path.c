@@ -22,7 +22,7 @@ static int try_one_path(char *path, t_cmd *cmd)
 		return(free(plain_cmd), EXIT_FAILURE);
 	}
 	free(plain_cmd);
-	if(access(full_path, X_OK) == 0)
+	if(access(full_path, F_OK) == 0)
 	{
 		cmd->path = full_path;
 		return (EXIT_SUCCESS);
@@ -85,6 +85,26 @@ static int path_finder(t_cmd *cmd, t_shell *shell)
 	return(EXIT_SUCCESS);
 }
 
+int set_path_to_current_dir(t_shell *shell, char **path, char *file)
+{
+	t_vars *current_dir;
+
+	current_dir = get_element("PWD", shell->head_env);
+	if(current_dir == NULL || current_dir->value == NULL)
+	{
+		ft_putstr_fd("PWD is unset so path to file cannot be found\n",2);
+		return (EXIT_SUCCESS);
+	}
+	*path = ft_strjoin(current_dir->value, file + 1);
+	if(*path == NULL)
+	{
+		perror("ft_strjoin in set_path_to_current dir failed");
+		return(EXIT_FAILURE);
+	}
+	return(EXIT_SUCCESS);
+	
+}
+
 //set command paths 
 //cmd path will be either NULL or different than NULL
 //if cmd path is NULL and 0 retutrend that means there is no such command
@@ -92,6 +112,7 @@ static int path_finder(t_cmd *cmd, t_shell *shell)
 //cmd path is different than NULL only if everything is ok
 int set_cmd_path(t_cmd *cmd, t_shell *shell)
 {
+	t_vars *current_dir;
 	cmd->path = NULL;
 	if(cmd->cmd[0] == '/')
 	{
@@ -102,6 +123,12 @@ int set_cmd_path(t_cmd *cmd, t_shell *shell)
 			return (EXIT_FAILURE);
 		}
 		return (EXIT_SUCCESS);
+	}
+	if(cmd->cmd[0] == '.')
+	{
+		if(set_path_to_current_dir(shell, &cmd->path, cmd->cmd) != 0)
+			return (EXIT_FAILURE);
+		return(EXIT_SUCCESS);
 	}
 	if(path_finder(cmd, shell) != 0)
 		return (EXIT_FAILURE);

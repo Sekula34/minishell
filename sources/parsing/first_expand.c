@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   first_expand.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: willem <willem@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:53:01 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/09 20:06:35 by willem           ###   ########.fr       */
+/*   Updated: 2024/01/16 16:47:22 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	set_start_end(t_tokens *tok, char *line, int i)
 	}
 	while (line[i] && valid_char(line[i]))
 	{
+
 		i++;
 	}
 	tok->end = i - 1;
@@ -47,6 +48,7 @@ int	append_value(char **res, char *value)
 		if (!*res)
 			return (0);
 		i++;
+		//puts("ets");
 	}
 	return (1);
 }
@@ -128,16 +130,21 @@ char	*check_key(t_tokens *tok)
 	return (key);
 }
 
-char *get_value_var(t_vars *head_ex, char *key)
+int get_value_var(t_vars *head_ex, char *key, char **value)
 {
 	t_vars *element;
-	char *value;
 
 	element = get_element(key, head_ex);
+	// if (errno != 0)
+	// 	return (0);
 	if (!element)
-		return (NULL);
-	value = element->value;
-	return (value);
+	{
+		*value = element;
+		//errno = 0;
+		return (1);
+	}
+	*value = element->value;
+	return (1);
 }
 
 int case_start_with_quote(char **res, t_tokens *tok, int *i)
@@ -162,7 +169,6 @@ int	case_invalid_char(char **res, t_tokens *tok, int *i)
 	int	a;
 
 	a = 0;
-	puts("in");
 	//while (tok->line[*i] && (a < 2) || valid_char(tok->line[*i]))
 	while (tok->line[*i] && tok->line[*i] != ' ' && (tok->line[*i] != '$' || a == 0))
 	{
@@ -183,6 +189,7 @@ int	expand_var_1(t_tokens *tok, t_vars *head_ex, int *i, char **res)
 	char *key;
 	char *value;
 
+	value = NULL;
 	if (tok->line[(*i) + 1] == 0 || tok->line[(*i) + 1] == '$')
 		return ((*i)++, 0);
 	if (is_quote(tok->line[*i + 1]))
@@ -198,7 +205,8 @@ int	expand_var_1(t_tokens *tok, t_vars *head_ex, int *i, char **res)
 		value = key;
 	else
 	{
-		value = get_value_var(head_ex, key);
+		if (get_value_var(head_ex, key, &value) == 0)
+			return (free(key), 0);
 		free(key);
 	}
 	//printf("value:%s-\n", value);
@@ -207,9 +215,11 @@ int	expand_var_1(t_tokens *tok, t_vars *head_ex, int *i, char **res)
 		if (append_value(res, value) == 0)
 			return (-1);
 		*i = tok->end + 1;
+	
 	}
 	else
 	{
+		
 		*i = tok->end + 1;
 	}
 	//free(value);

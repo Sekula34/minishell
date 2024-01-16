@@ -73,14 +73,43 @@ void	free_2d_arr(char ***arr)
 	free(*arr);
 }
 
-void	parsing_free(char ***lines, char **line2, char ***tokens, char ***fin)
+//put somewhere else
+
+void free_tokens(t_tokens *tok)
+{
+	int	i;
+
+	i = 0;
+	while (tok->tokens[i])
+	{
+		free(tok->tokens[i]);
+		i++;
+	}
+	free(tok->tokens);
+}
+
+void	free_fin(t_tokens *tok)
+{
+	int	i;
+
+	i = 0;
+	while (tok && tok->fin && tok->fin[i])
+	{
+		free(tok->fin[i]);
+		i++;
+	}
+	if (tok && tok->fin)
+		free(tok->fin);
+}
+
+void	parsing_free(t_tokens *tok, char ***lines, char **line2)
 {
 	if (lines && *lines)
 		free_2d_arr(lines);
-	if (tokens && *tokens)
-		free_2d_arr(tokens);
-	if (fin && *fin)
-		free_2d_arr(fin);
 	if (line2 && *line2)
 		free(*line2);
+	if (tok && tok->tokens)
+		free_tokens(tok);
+	// if (tok && tok->fin)
+	// 	free_fin(tok);
 }

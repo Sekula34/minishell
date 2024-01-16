@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 13:59:09 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/15 12:36:35 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/16 17:46:48 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,7 +201,7 @@ int	make_arg_arr(t_tokens *tok, t_cmd **cmd_lst)
 	temp->args = malloc(sizeof(char *) * 2);
 	if (!temp->args)
 		return (0);
-	temp->args[0] = "filip2";
+	temp->args[0] = "cmd name";
 	temp->args[1] = NULL;
 	return (1);
 }

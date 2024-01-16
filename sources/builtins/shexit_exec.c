@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shexit_exec.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fseles <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 17:50:29 by fseles            #+#    #+#             */
-/*   Updated: 2023/12/14 17:50:30 by fseles           ###   ########.fr       */
+/*   Updated: 2024/01/16 15:32:25 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int shexit_exec(t_shell *shell, t_cmd *exit_cmd)
 	char *digit;
 
 	status = 0;
-	printf("exit\n");
+	//ft_printf("exit\n");
 	argc = get_argc(exit_cmd->args);
 	if(argc > 2)
 	{

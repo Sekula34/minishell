@@ -16,6 +16,7 @@
 # include <errno.h>
 # include <readline/history.h>
 # include <readline/readline.h>
+# include <signal.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/types.h>
@@ -30,5 +31,6 @@
 # include "envexport.h"
 # include "builtin.h"
 # include "execution.h"
+# include "signals.h"
 
 #endif
