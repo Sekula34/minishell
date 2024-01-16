@@ -33,6 +33,8 @@ static int parent_function_set_status(pid_t child_id, int *exit_code)
 	if(WIFSIGNALED(status))
 	{
 		*exit_code = WTERMSIG(status) + 128;
+		ft_printf("\n");
+		//rl_on_new_line();
 		return(EXIT_SUCCESS);
 	}
 	// ft_putstr_fd("child process did not exit normally\n", 2);
