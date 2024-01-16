@@ -13,7 +13,6 @@
 #ifndef SIGNALS_H
 # define SIGNALS_H
 
-void child_sigquit();
 void interactive_sigint();
 void minishel_signals(int mode);
 

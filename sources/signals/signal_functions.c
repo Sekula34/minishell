@@ -19,9 +19,3 @@ void interactive_sigint()
 	rl_on_new_line();
 	rl_redisplay();
 }
-
-void child_sigquit()
-{
-	ft_printf("sigquit in child\n");
-	exit(131);
-}
