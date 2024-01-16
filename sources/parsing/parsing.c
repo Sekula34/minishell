@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 15:39:08 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/16 15:20:11 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/16 16:35:56 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int	parsing(t_shell *shell, char *line)
 		
 
 		if (classifiying_tokens(&tok, &shell->cmd_lst) == 0)
-			return (puts("last expand err"), parsing_free(&tok, &lines, &line2), clear_cmd_lst(&shell->cmd_lst), 0);
+			return (puts("classifying err"), parsing_free(&tok, &lines, &line2), clear_cmd_lst(&shell->cmd_lst), 0);
 
 
 		a++;

@@ -31,15 +31,25 @@ int main(int argc, char **argv, char **envp)
 	while(1)
 	{
 		minishel_signals(1);
-		line = readline("minishell: ");
-		if (!line)
-		 	shexit(&shell, 0);
+		if (isatty(fileno(stdin)))
+            line = readline("minishell: ");
+
+        else
+        {
+            char *line2;
+            line2 = get_next_line(fileno(stdin));
+            line = ft_strtrim(line2, "\n");
+            free(line2);
+        }
+		// line = readline("minishell: ");
+		// if (!line)
+		//  	shexit(&shell, 0);
 		//line = "echo \"$USER\"";
 		//line = "echo hello'test' $USER \"$USER\" | wc -l";
-		if (line[0] == 0)
+		if (line == NULL)
 		{
 			free(line);
-			continue;
+			break;
 		}
 		add_history(line);
 		parsing_return = parsing(&shell, line);
