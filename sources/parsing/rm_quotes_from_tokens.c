@@ -26,76 +26,79 @@ char *realloc_token(char **token)
 	return(temp);
 }
 
-int check_tokens_for_quotes(t_tokens *tok, char ***tokensss)
+int decide_to_keep(t_tokens *tok, int j)
 {
-	int	i;
-	int j;
-	char **tokens;
+	int i;
+	char *res;
 
 	i = 0;
-	j = 0;
-	tokens = *tokensss;
-
-/* 	while (tokens[j])
+	res = NULL;
+	reset_struct(tok);
+	while (tok->tokens[j][i])
 	{
-		while (tokens[j][i])
+		set_quotation(tok, tok->tokens[j][i]);
+		if (check_quotes(tok) == 0 && is_quote(tok->tokens[j][i]) == 0)
 		{
-			set_quotation(tok, tokens[j][i]);
-			if (to)
-			tokens[j] = realloc_token(&tokens[j]);
-			if (!tokens[j])
+			res = ft_join(&res, tok->tokens[j][i]);
+			if (!res)
 				return (0);
 		}
-		j++;
-	}
-	return (1); */
-
-
-
-
-	while (tokens[j])
-	{
-		if (tokens[j][0] == '"' || tokens[j][0] == '\'')
+		else if (tok->isq == 1 && tok->tokens[j][i] != '\'')
 		{
-			tokens[j] = realloc_token(&tokens[j]);
-			if (!tokens[j])
+			res = ft_join(&res, tok->tokens[j][i]);
+			if (!res)
 				return (0);
 		}
-		j++;
-	}
-	return (1);
-}
-
-int rm_quotes_from_tokens(t_tokens *tok, char ***tokenss)
-{
-	if (check_tokens_for_quotes(tok, tokenss) == 0)
-		return (0);
-	return (1);
-}
-
-char	*rm_quotes_from_line(char **line)
-{
-	char *temp;
-	int	i;
-	int j;
-
-	i = 0;
-	j = 0;
-
-	temp = (char *)malloc(ft_strlen(*line) + 1);
-	if (!temp)
-		return (NULL);
-	
-	while ((*line)[i])
-	{
-		if (is_quote((*line)[i]) == 0)
-		{	
-			temp[j] = (*line)[i];
-			j++;
+		else if (tok->idq == 1 && tok->tokens[j][i] != '"')
+		{
+			res = ft_join(&res, tok->tokens[j][i]);
+			if (!res)
+				return (0);
 		}
 		i++;
 	}
-	temp[j] = 0;
-	free(*line);
-	return (temp);
+	//ft_printf("res:%s\n", res);
+	free(tok->tokens[j]);
+	tok->tokens[j] = res;
+	return (res);
 }
+
+int rm_quotes_from_tokens(t_tokens *tok)
+{
+	int j;
+
+	j = 0;
+	while (tok->tokens[j])
+	{
+		decide_to_keep(tok, j);
+		j++;
+	}
+	return (1);
+}
+
+// char	*rm_quotes_from_line(char **line)
+// {
+// 	char *temp;
+// 	int	i;
+// 	int j;
+
+// 	i = 0;
+// 	j = 0;
+
+// 	temp = (char *)malloc(ft_strlen(*line) + 1);
+// 	if (!temp)
+// 		return (NULL);
+	
+// 	while ((*line)[i])
+// 	{
+// 		if (is_quote((*line)[i]) == 0)
+// 		{	
+// 			temp[j] = (*line)[i];
+// 			j++;
+// 		}
+// 		i++;
+// 	}
+// 	temp[j] = 0;
+// 	free(*line);
+// 	return (temp);
+// }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: willem <willem@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:56:52 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/09 19:17:44 by willem           ###   ########.fr       */
+/*   Updated: 2024/01/16 14:40:59 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,19 +50,19 @@ void	check_value(char **value);
 void	reset_struct(t_tokens *tok);
 int		is_white_space(char c);
 int		expand_var_1(t_tokens *tok, t_vars *head_ex, int *i, char **res);
-char	*get_value_var(t_vars *head_ex, char *key);
+int get_value_var(t_vars *head_ex, char *key, char **value);
 char	*check_key(t_tokens *tok);
 int		put_value(t_tokens *tok, t_vars *head_ex, char *line, char **res);
 char	*first_expand(t_tokens *tok, t_vars *head_ex, char *line);
 int		go_back_to_check_redirect(t_tokens *tok, char *line, int i);
 int		append_value(char **res, char *value);
 int		set_start_end(t_tokens *tok, char *line, int i);
-char	**make_token(t_tokens *tok, char *line);
+int make_token(t_tokens *tok, char *line);
 int		copy_text(t_tokens *tok, char *line, int *i, int a);
 int	tokenize_redirect(t_tokens *tok, char *line, int *i, int *a);
 int		count_token(t_tokens *tok, char *line);
 void	move_counter(t_tokens *tok);
-char	**last_expand(t_tokens *tok, t_vars *head_ex);
+int last_expand(t_tokens *tok, t_vars *head_ex);
 int		put_value_2d(t_tokens *tok, t_vars *head_ex, char *line, char **res, int j);
 int		check_heredoc(char **tokens, int j);
 char classify_redirect(t_tokens *tok, int j);
@@ -87,11 +87,13 @@ void	clear_redirect_lst(t_redirect **head);
 void	delete_redirect_element(t_redirect **element_to_delete);
 void	clear_cmd_lst(t_cmd **head);
 
-void	parsing_free(char ***lines, char **line2, char ***tokens, char ***fin);
+void	parsing_free(t_tokens *tok, char ***lines, char **line2);
 
 
-int rm_quotes_from_tokens(t_tokens *tok, char ***tokenss);
+int rm_quotes_from_tokens(t_tokens *tok);
 char	*rm_quotes_from_line(char **line);
+
+void free_tokens(t_tokens *tok);
 
 
 #endif

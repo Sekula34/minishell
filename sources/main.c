@@ -1,4 +1,5 @@
 #include "../headers/minishel.h"
+#include "../headers/get_next_line.h"
 
 
 // void my_signal_handle()
@@ -34,7 +35,7 @@ int main(int argc, char **argv, char **envp)
 		if (!line)
 		 	shexit(&shell, 0);
 		//line = "echo \"$USER\"";
-		//line = "echo \"$USER\"";
+		//line = "echo hello'test' $USER \"$USER\" | wc -l";
 		if (line[0] == 0)
 		{
 			free(line);
@@ -57,7 +58,7 @@ int main(int argc, char **argv, char **envp)
 		clear_all_commands(&shell.first_cmd_copy);
 		shell.first_cmd_copy = NULL;
 		i++;
-		 free(line);
+		free(line);
 		line = NULL;
 		rl_on_new_line();
 	}

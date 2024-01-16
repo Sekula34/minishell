@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 17:14:03 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/05 17:47:44 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/16 15:13:11 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,8 @@ int	expand_var_2(t_tokens *tok, t_vars *head_ex, int *i, int *j)
 	if (!key)
 		return ((*i)++, 0);
 	//printf("key:%s-\n", key);
-	value = get_value_var(head_ex, key);
+	if (get_value_var(head_ex, key, &value) == 0)
+		return (free(key), 0);
 	//printf("value:%s-\n", value);
 	if (value)
 	{
@@ -161,7 +162,22 @@ int	expand_var_2(t_tokens *tok, t_vars *head_ex, int *i, int *j)
 	return (1);
 }
 
-char	**last_expand(t_tokens *tok, t_vars *head_ex)
+
+void free_tokens_set_fin(t_tokens *tok)
+{
+	int	i;
+
+	i = 0;
+	while (tok->tokens[i])
+	{
+		free(tok->tokens[i]);
+		i++;
+	}
+	free(tok->tokens);
+	tok->tokens = tok->fin;
+}
+
+int last_expand(t_tokens *tok, t_vars *head_ex)
 {
 	int	i;
 	int	j;
@@ -169,7 +185,7 @@ char	**last_expand(t_tokens *tok, t_vars *head_ex)
 	j = 0;
 	tok->fin = (char **)ft_calloc(tok->token_amount + 1, sizeof(char *));
 	if (!tok->fin)
-		return (NULL);
+		return (0);
 	reset_struct(tok);
 	while (tok->tokens[j])
 	{
@@ -179,17 +195,19 @@ char	**last_expand(t_tokens *tok, t_vars *head_ex)
 			set_quotation(tok, tok->tokens[j][i]);
 			if (tok->tokens[j][i] == '$' && check_heredoc(tok->tokens, j) == 0 && tok->isq == 0)
 			{
-				expand_var_2(tok, head_ex, &i, &j);
+				if (expand_var_2(tok, head_ex, &i, &j) == 0)
+					return (0);
 			}
 			else
 			{
 				tok->fin[j] = ft_join(&tok->fin[j], tok->tokens[j][i++]);
 				if (!tok->fin[j])
-					return (free(tok->fin), NULL);
+					return (0);
 			}
 		}
 		j++;
 	}
 	tok->fin[j] = 0;
-	return (tok->fin);
+	free_tokens_set_fin(tok);
+	return (1);
 }
