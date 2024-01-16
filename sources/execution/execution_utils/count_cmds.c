@@ -19,7 +19,7 @@ static int get_number_of_commands(t_cmd *cmd)
 	int counter;
 
 	counter = 0;
-	if (cmd == NULL) 
+	if (cmd == NULL || cmd->cmd == NULL) 
 		return (0);
 	while (cmd != NULL)
 	{
@@ -38,7 +38,7 @@ int set_number_of_commands(int *noc, t_cmd *cmd)
 	if (*noc == 0)
 	{
 		ft_putstr_fd("There is not even one command in list or list is empty\n", 2);
-		return (EXIT_FAILURE);
+		return (EXIT_SUCCESS);
 	}
 	return (EXIT_SUCCESS);
 }

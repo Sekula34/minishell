@@ -43,6 +43,7 @@ sources/execution/redirection/redirect_handler.c \
 sources/execution/execute_all_cmds.c \
 sources/execution/execute_builtin.c\
 sources/execution/execute_minishell.c \
+sources/execution/execute_no_cmd.c \
 sources/execution/execute_one_command.c\
 sources/execution/execute_original_cmd.c \
 sources/parsing/token_split.c \
