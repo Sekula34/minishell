@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:56:52 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/16 14:40:59 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/16 19:30:57 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,9 @@ int rm_quotes_from_tokens(t_tokens *tok);
 char	*rm_quotes_from_line(char **line);
 
 void free_tokens(t_tokens *tok);
+void	free_fin(t_tokens *tok);
+
+int	convert_fake_redirect(t_tokens *tok);
 
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 13:59:09 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/16 17:56:30 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/16 18:08:14 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -257,14 +257,14 @@ int	classifiying_tokens(t_tokens *tok, t_cmd **cmd_lst)
 
 	t_cmd *new_node;
 
-	if (cmd_flag == 0)
-	{
-		new_node = make_cmd_node(NULL, redirect_lst, cmd_lst);
-		if (!new_node)
-			return (0);
-		add_cmd_node(cmd_lst, new_node);
+	// if (cmd_flag == 0)
+	// {
+	// 	new_node = make_cmd_node(NULL, redirect_lst, cmd_lst);
+	// 	if (!new_node)
+	// 		return (0);
+	// 	add_cmd_node(cmd_lst, new_node);
 
-	}
+	// }
 	
 	if (found_arg_flag == 0)
 	{

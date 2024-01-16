@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 15:39:08 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/16 16:35:56 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/16 19:30:19 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,8 @@ int	parsing(t_shell *shell, char *line)
 		// 	i++;
 		// }
 
-
+		convert_fake_redirect(&tok);
+		
 		
 		
 		
@@ -90,12 +91,12 @@ int	parsing(t_shell *shell, char *line)
 
 		
 		
-		// puts("fin");
-		// while (tok.tokens[i])
-		// {
-		// 	printf("%d: %s\n", i, tok.tokens[i]);
-		// 	i++;
-		// }
+		puts("fin");
+		while (tok.tokens[i])
+		{
+			printf("%d: %s\n", i, tok.tokens[i]);
+			i++;
+		}
 
 
 
