@@ -63,6 +63,8 @@ sources/parsing/parsing.c \
 sources/env_export/env_list_utils2.c \
 sources/shell_init/shell_init.c \
 sources/shell_init/shell_clear.c \
+sources/signals/signal_functions.c \
+sources/signals/signals.c \
 sources/parsing/parsing_test_main.c
 
 HEADERS = headers/builtin.h \

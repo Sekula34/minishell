@@ -31,5 +31,6 @@
 # include "envexport.h"
 # include "builtin.h"
 # include "execution.h"
+# include "signals.h"
 
 #endif

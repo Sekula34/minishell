@@ -1,27 +1,25 @@
 #include "../headers/minishel.h"
 
 
-void my_signal_handle()
-{
-	ft_printf("\n");
-	rl_replace_line("", 0);
-	rl_on_new_line();
-	rl_redisplay();
-}
+// void my_signal_handle()
+// {
+// 	ft_printf("\n");
+// 	rl_replace_line("", 0);
+// 	rl_on_new_line();
+// 	rl_redisplay();
+// }
 
-void interacitve_signals()
-{
-	signal(SIGINT, my_signal_handle);
-	signal(SIGQUIT, SIG_IGN);
-}
+// void interacitve_signals()
+// {
+// 	signal(SIGINT, my_signal_handle);
+// 	signal(SIGQUIT, SIG_IGN);
+// }
 
 int main(int argc, char **argv, char **envp)
 {
 	t_shell shell;
 	char *line;
 	int	parsing_return;
-
-	interacitve_signals();
 
 	parsing_return = 0;
 	if(shell_init(&shell, envp) != 0)
@@ -31,6 +29,7 @@ int main(int argc, char **argv, char **envp)
 	int i = 0;
 	while(1)
 	{
+		minishel_signals(1);
 		line = readline("minishell: ");
 		if (!line)
 		 	shexit(&shell, 0);
@@ -60,6 +59,7 @@ int main(int argc, char **argv, char **envp)
 		i++;
 		 free(line);
 		line = NULL;
+		rl_on_new_line();
 	}
 	shexit(&shell, 0);
 	return(EXIT_SUCCESS);
