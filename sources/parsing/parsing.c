@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 15:39:08 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/15 12:36:07 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/16 13:20:04 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,12 @@ int	parsing(t_shell *shell, char *line)
 		int i = 0;
 
 
-		// puts("tokens");
-		// while (tokens[i])
-		// {
-		// 	printf("%d: %s\n", i, tokens[i]);
-		// 	i++;
-		// }
+		puts("tokens");
+		while (tokens[i])
+		{
+			printf("%d: %s\n", i, tokens[i]);
+			i++;
+		}
 
 
 		
@@ -87,18 +87,19 @@ int	parsing(t_shell *shell, char *line)
 		i = 0;
 
 
-		//rm_quotes_from_tokens(&tok, &fin);
+		// if (rm_quotes_from_tokens(&tok, &fin) == 0)
+		// 	return (puts("rm quotes err"), parsing_free(&lines, &line2, &tokens, &fin), 0);
 		
 
 
 		
 		
-		// puts("fin");
-		// while (fin[i])
-		// {
-		// 	printf("%d: %s\n", i, fin[i]);
-		// 	i++;
-		// }
+		puts("fin");
+		while (fin[i])
+		{
+			printf("%d: %s\n", i, fin[i]);
+			i++;
+		}
 
 
 
