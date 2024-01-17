@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 14:01:46 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/16 18:47:33 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/17 12:39:33 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@ void	init_tok_struct(t_tokens *tok)
 	tok->line = NULL;
 	tok->key = NULL;
 	tok->value = NULL;
+	tok->c_flag = 'n';
+	tok->found_arg_flag = 0;
+	tok->found_cmd_flag = 0;
 }
 
 void	reset_struct(t_tokens *tok)
@@ -43,6 +46,9 @@ void	reset_struct(t_tokens *tok)
 	tok->start = 0;
 	tok->end = 0;
 	tok->redirect_flag = 0;
+	tok->c_flag = 'n';
+	tok->found_arg_flag = 0;
+	tok->found_cmd_flag = 0;
 }
 
 void	check_value(char **value)
