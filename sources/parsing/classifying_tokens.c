@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 13:59:09 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/17 13:14:16 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/17 15:10:05 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,7 +181,7 @@ int	make_arg_arr(t_tokens *tok, t_cmd **cmd_lst)
 
 	temp = *cmd_lst;
 	if (!temp)
-		return (0);
+		return (1);
 	while (temp->next)
 		temp = temp->next;
 	temp->args = malloc(sizeof(char *) * 2);
