@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:53:01 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/16 18:47:23 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/17 14:27:50 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ int get_value_var(t_vars *head_ex, char *key, char **value)
 	// 	return (0);
 	if (!element)
 	{
-		*value = element;
+		*value = NULL;
 		//errno = 0;
 		return (1);
 	}
