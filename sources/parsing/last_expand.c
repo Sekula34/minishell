@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 17:14:03 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/16 15:55:59 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/17 18:53:42 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,8 +136,12 @@ int	expand_var_2(t_tokens *tok, t_vars *head_ex, int *i, int *j)
 	char *key;
 	char *value;
 
-	if (tok->tokens[*j][*i + 1] == '$')
-		return ((*i)++, 0);
+	if (tok->tokens[*j][*i + 1] == '$' || tok->tokens[*j][*i + 1] == 0)
+	{
+		tok->fin[*j] = ft_join(&tok->fin[*j], tok->tokens[*j][*i + 1]);
+		if (!tok->fin[*j])
+			return (0);
+	}
  	if (valid_char(tok->tokens[*j][*i + 1]) == 0)
 		return (case_invalid_c_2(tok, j, i), 1);
 	set_start_end(tok, tok->tokens[*j], (*i) + 1);
@@ -193,7 +197,7 @@ int last_expand(t_tokens *tok, t_vars *head_ex)
 		while (tok->tokens[j][i])
 		{
 			set_quotation(tok, tok->tokens[j][i]);
-			if (tok->tokens[j][i] == '$' && check_heredoc(tok->tokens, j) == 0 && tok->isq == 0)
+			if (tok->tokens[j][i] == '$' && check_heredoc(tok->tokens, j) == 0 && tok->isq == 0 && tok->idq == 1)
 			{
 				if (expand_var_2(tok, head_ex, &i, &j) == 0)
 					return (puts("1"), 0);
