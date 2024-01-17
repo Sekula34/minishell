@@ -32,7 +32,8 @@ void	delete_cmd_element(t_cmd **element_to_delete)
 	}
 	free(delete->args);
 
-	clear_redirect_lst(&delete->redirect_lst);
+	clear_redirects(&(*element_to_delete)->redirect_lst);
+	//clear_redirect_lst(&delete->redirect_lst);
 	
 	
 	free(delete);
