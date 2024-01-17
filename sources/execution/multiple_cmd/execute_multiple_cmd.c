@@ -41,8 +41,8 @@ static void child_handler(t_shell *shell, int index, int **pipe_arr, int number_
 	}
 	else
 		child_multi_exec(shell->cmd_lst, shell, pipe_arr[index - 1][0], pipe_arr[index][1]);
-	exit(EXIT_FAILURE);
-	
+	//ft_printf("special case called\n");
+	shexit(shell, 0);
 }
 
 int execute_multiple_cmd(int noc, t_shell *shell)
