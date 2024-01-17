@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 15:39:08 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/17 15:44:46 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/17 19:26:53 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	parsing(t_shell *shell, char *line)
 
 	lines = split_pipes(&tok, line);
 	if (!lines)
-		return (puts("split pipes err"), parsing_free(NULL, &lines, &line2), 0);
+		return (ft_putstr_fd(), parsing_free(NULL, &lines, &line2), 0);
 
 	while (lines[a])
 	{

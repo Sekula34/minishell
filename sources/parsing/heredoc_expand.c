@@ -36,7 +36,7 @@ int	expand_var_heredoc(t_shell *shell, int *i, char **res, t_tokens *tok_h)
 	key = get_key_heredoc(shell, (*i) + 1, res, tok_h);
 	if (!key)
 		return ((*i)++, -1);
-	ft_printf("key %s\n", key);
+	//ft_printf("key %s\n", key);
 	if (get_value_var(shell->head_ex, key, &value) == 0)
 		return (free(key), 0);
 	free(key);
