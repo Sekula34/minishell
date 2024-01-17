@@ -67,7 +67,7 @@ int child_multi_exec(t_cmd *cmd, t_shell *shell, int input_file, int output_file
 		return (EXIT_FAILURE);
 	if(shell->cmd_lst->cmd == NULL)
 	{
-		ft_printf("with list cmd\n");
+		//ft_printf("with list cmd\n");
 		shexit(shell, 0);
 	}
 	exec_one_b(cmd, shell);
