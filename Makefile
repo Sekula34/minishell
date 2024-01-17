@@ -97,7 +97,7 @@ $(NAME): $(OBJS) $(HEADERS)
 .PHONY: all clean fclean re valgrind funcheck funchecka
 
 valgrind : $(NAME)
-	valgrind --suppressions=valgrind_ignore_leaks.txt --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose --show-mismatched-frees=yes --read-var-info=yes --track-fds=yes --trace-children=yes ./minishell
+	valgrind --suppressions=valgrind_ignore_leaks.txt --leak-check=full --show-leak-kinds=all --track-fds=yes --trace-children=yes ./minishell
 
 funcheck : $(NAME)
 	funcheck ./$(NAME)
