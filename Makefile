@@ -60,6 +60,7 @@ sources/parsing/free_utils.c \
 sources/parsing/syntax_check.c \
 sources/parsing/rm_quotes_from_tokens.c \
 sources/parsing/convert_fake_redirect.c \
+sources/parsing/heredoc_expand.c \
 sources/parsing/parsing.c \
 sources/env_export/env_list_utils2.c \
 sources/shell_init/shell_init.c \

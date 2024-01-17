@@ -27,6 +27,10 @@ int main(int argc, char **argv, char **envp)
 	{
 		shexit(&shell, 1);
 	}
+	line = "hhhh $";
+	heredoc_expand(&shell, &line);
+	return (0);
+
 	int i = 0;
 	while(1)
 	{

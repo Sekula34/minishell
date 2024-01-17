@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:56:52 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/17 11:48:26 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/17 18:05:57 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ typedef struct s_tokens
 
 int	parsing(t_shell *shell, char *line);
 
-void	init_parsing_structs(t_tokens *tok);
 void	init_tok_struct(t_tokens *tok);
 char	**split_pipes(t_tokens *tok, char *input);
 int		check_quotes(t_tokens *tok);
@@ -101,6 +100,7 @@ void	free_fin(t_tokens *tok);
 
 void	convert_fake_redirect(t_tokens *tok);
 void	convert_fake_redirect_back(char **str);
+int	heredoc_expand(t_shell *shell, char **line);
 
 
 #endif
