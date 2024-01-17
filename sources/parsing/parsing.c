@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 15:39:08 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/17 15:10:29 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/17 15:23:47 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,38 +121,38 @@ int	parsing(t_shell *shell, char *line)
 
 
 
-	puts("");
-	puts("RESULT");
-	puts("");
+	// puts("");
+	// puts("RESULT");
+	// puts("");
 
-	t_cmd *temp;
-	t_redirect *temp_redirect;
+	// t_cmd *temp;
+	// t_redirect *temp_redirect;
 
-	int i;
+	// int i;
 
-	temp = shell->cmd_lst;
-	temp_redirect = temp->redirect_lst;
+	// temp = shell->cmd_lst;
+	// temp_redirect = temp->redirect_lst;
 
-	while (temp)
-	{
-		printf("cmd:  %s\n", temp->cmd);
-		i = 1;
+	// while (temp)
+	// {
+	// 	printf("cmd:  %s\n", temp->cmd);
+	// 	i = 1;
 
-		while (temp->args && temp->args[i])
-		{
-			printf("arg%d: %s\n", i, temp->args[i]);
-			i++;
-		}
-		temp_redirect = temp->redirect_lst;
-		while (temp_redirect)
-		{
-			printf("redirect: %c, %s\n", temp_redirect->type, temp_redirect->file_name);
-			temp_redirect = temp_redirect->next;
-		}
-		temp = temp->next;
-		puts("");
-	}
-	i = 0;
+	// 	while (temp->args && temp->args[i])
+	// 	{
+	// 		printf("arg%d: %s\n", i, temp->args[i]);
+	// 		i++;
+	// 	}
+	// 	temp_redirect = temp->redirect_lst;
+	// 	while (temp_redirect)
+	// 	{
+	// 		printf("redirect: %c, %s\n", temp_redirect->type, temp_redirect->file_name);
+	// 		temp_redirect = temp_redirect->next;
+	// 	}
+	// 	temp = temp->next;
+	// 	puts("");
+	// }
+	// i = 0;
 
 
 	//puts("after parsing\n");
