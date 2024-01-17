@@ -43,7 +43,6 @@ sources/execution/redirection/redirect_handler.c \
 sources/execution/execute_all_cmds.c \
 sources/execution/execute_builtin.c\
 sources/execution/execute_minishell.c \
-sources/execution/execute_no_cmd.c \
 sources/execution/execute_one_command.c\
 sources/execution/execute_original_cmd.c \
 sources/parsing/token_split.c \
@@ -97,7 +96,7 @@ $(NAME): $(OBJS) $(HEADERS)
 .PHONY: all clean fclean re valgrind funcheck funchecka
 
 valgrind : $(NAME)
-	valgrind --suppressions=valgrind_ignore_leaks.txt --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose --show-mismatched-frees=yes --read-var-info=yes --track-fds=yes --trace-children=yes ./minishell
+	valgrind --suppressions=valgrind_ignore_leaks.txt --leak-check=full --show-leak-kinds=all --track-fds=yes --trace-children=yes ./minishell
 
 funcheck : $(NAME)
 	funcheck ./$(NAME)

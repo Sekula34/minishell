@@ -110,8 +110,11 @@ int one_command_exec(t_cmd *cmd, t_shell *shell)
 		return(EXIT_FAILURE);
 	if(redirect_handler(cmd->redirect_lst, &new_in, &new_ot) == 0)
 	{
-		if(exec_one(cmd, shell, shell->stdin_cpy, shell->stdout_cpy) != 0)
-			return(EXIT_FAILURE);
+		if(cmd->cmd != NULL)
+		{
+			if(exec_one(cmd, shell, shell->stdin_cpy, shell->stdout_cpy) != 0)
+				return(EXIT_FAILURE);
+		}
 	}
 	else
 	{

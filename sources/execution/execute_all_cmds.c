@@ -20,10 +20,6 @@ int execute_all_cmds(t_shell *shell)
 	
 	if (set_number_of_commands(&cmd_count, shell->cmd_lst) == EXIT_FAILURE)
 		return(EXIT_FAILURE);
-	if(cmd_count == 0)
-	{
-		return(execute_no_cmd(shell));
-	}
 	if(cmd_count > 1)
 	{
 		if(execute_multiple_cmd(cmd_count, shell) != 0)
