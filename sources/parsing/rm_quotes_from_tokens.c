@@ -60,7 +60,7 @@ int decide_to_keep(t_tokens *tok, int j)
 	//ft_printf("res:%s\n", res);
 	free(tok->tokens[j]);
 	tok->tokens[j] = res;
-	return (res);
+	return (1);
 }
 
 int rm_quotes_from_tokens(t_tokens *tok)

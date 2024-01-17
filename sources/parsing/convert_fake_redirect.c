@@ -1,6 +1,6 @@
 #include "../../headers/minishel.h"
 
-int	doing_conversion(t_tokens *tok, int j)
+void	doing_conversion(t_tokens *tok, int j)
 {
 	int	i;
 
@@ -15,7 +15,7 @@ int	doing_conversion(t_tokens *tok, int j)
 	}
 }
 
-int	convert_fake_redirect(t_tokens *tok)
+void	convert_fake_redirect(t_tokens *tok)
 {
 	int	j;
 
@@ -28,7 +28,7 @@ int	convert_fake_redirect(t_tokens *tok)
 	}
 }
 
-int	convert_fake_redirect_back(char **str)
+void	convert_fake_redirect_back(char **str)
 {
 	int	i;
 
@@ -41,5 +41,4 @@ int	convert_fake_redirect_back(char **str)
 			(*str)[i] = '>';
 		i++;
 	}
-	return (1);
 }
