@@ -41,7 +41,7 @@ static int exec_one(t_cmd *cmd, t_shell *shell, int original_stdin, int original
 //in orstdin and or_stdout are copies of original fds 1 an 0
 //1 if faile
 //0 if ok
-static int set_original_input_output(int *or_stdin, int *or_stdout)
+int set_original_input_output(int *or_stdin, int *or_stdout)
 {
 	*or_stdin = dup(STDIN_FILENO);
 	if(*or_stdin == -1)
@@ -62,7 +62,7 @@ static int set_original_input_output(int *or_stdin, int *or_stdout)
 	return (EXIT_SUCCESS);
 }
 
-static int reset_fd(int fd_in, int fd_out, int new_fd_in, int new_fd_out)
+int reset_fd(int fd_in, int fd_out, int new_fd_in, int new_fd_out)
 {
 	if(new_fd_in != 0)
 	{
@@ -110,8 +110,11 @@ int one_command_exec(t_cmd *cmd, t_shell *shell)
 		return(EXIT_FAILURE);
 	if(redirect_handler(cmd->redirect_lst, &new_in, &new_ot) == 0)
 	{
-		if(exec_one(cmd, shell, shell->stdin_cpy, shell->stdout_cpy) != 0)
-			return(EXIT_FAILURE);
+		if(cmd->cmd != NULL)
+		{
+			if(exec_one(cmd, shell, shell->stdin_cpy, shell->stdout_cpy) != 0)
+				return(EXIT_FAILURE);
+		}
 	}
 	else
 	{

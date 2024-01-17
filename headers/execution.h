@@ -25,6 +25,7 @@ int execute_all_cmds(t_shell *shell);
 int execute_builtin(int builtin_num, t_shell *shell, t_cmd *cmd);
 int execute_minishell(t_shell *shell);
 int execute_multiple_cmd(int noc, t_shell *shell);
+int execute_no_cmd(t_shell *shell);
 int execute_original_cmd(t_shell *shell, t_cmd *cmd, int original_stdin, int original_stdout);
 int export_exit_status(int exit_number, t_shell *shell);
 int get_argc(char **argv);
@@ -39,8 +40,10 @@ int one_command_exec(t_cmd *cmd, t_shell *shell);
 int output_redirect(t_redirect *output, int *fd);
 int prepare_fds(t_cmd *cmd, t_shell *shell, int input_file, int output_file);
 int redirect_handler(t_redirect *red_list, int *in_fd, int *out_fd);
+int reset_fd(int fd_in, int fd_out, int new_fd_in, int new_fd_out);
 int set_cmd_path(t_cmd *cmd, t_shell *shell);
 int set_mini_env(char ***env_arr, t_vars *head_env);
 int set_number_of_commands(int *noc, t_cmd *cmd);
+int set_original_input_output(int *or_stdin, int *or_stdout);
 
 #endif
