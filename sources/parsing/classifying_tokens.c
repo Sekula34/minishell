@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 13:59:09 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/16 18:08:14 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/17 11:10:56 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ char *make_filename(t_tokens *tok, int *j)
 	filename = ft_strdup(tok->fin[*j]);
 	if (!filename)
 		return (NULL);
+	convert_fake_redirect_back(&filename);
 	if (rm_quotes_from_filename(&filename) == 0)
 		return (NULL);
 	if (!filename)
@@ -118,6 +119,7 @@ int	put_cmd(t_tokens *tok, int *j, t_cmd **cmd_lst, t_redirect *redirect_lst)
 	//cmd = NULL;
 	if (!cmd)
 		return (0);
+	convert_fake_redirect_back(&cmd);
 	new_node = make_cmd_node(cmd, redirect_lst, *cmd_lst);
 	//new_node = NULL;
 	if (!new_node)
@@ -178,6 +180,7 @@ int put_arg(t_tokens *tok, int *j, t_cmd **cmd_lst)
 	//arg = NULL;
 	if (!arg)
 		return (0);
+	convert_fake_redirect_back(&arg);
 	if (!temp->args)
 	{
 		temp->args = malloc(sizeof(char *) * 2);

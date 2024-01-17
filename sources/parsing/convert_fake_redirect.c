@@ -27,3 +27,19 @@ int	convert_fake_redirect(t_tokens *tok)
 		j++;
 	}
 }
+
+int	convert_fake_redirect_back(char **str)
+{
+	int	i;
+
+	i = 0;
+	while (*str && (*str)[i])
+	{
+		if ((*str)[i] == -1)
+			(*str)[i] = '<';
+		if ((*str)[i] == -2)
+			(*str)[i] = '>';
+		i++;
+	}
+	return (1);
+}

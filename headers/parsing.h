@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:56:52 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/16 19:30:57 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/17 11:07:22 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ void free_tokens(t_tokens *tok);
 void	free_fin(t_tokens *tok);
 
 int	convert_fake_redirect(t_tokens *tok);
+int	convert_fake_redirect_back(char **str);
 
 
 #endif
