@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 13:59:09 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/17 15:20:35 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/17 15:43:11 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,6 +217,25 @@ int	classify(t_tokens *tok, t_cmd **cmd_lst, int *j, t_redirect **redirect_lst)
 	return (1);
 }
 
+int	check_0_cmd_or_arg(t_tokens *tok, t_cmd **cmd_lst, t_redirect **redirect_lst)
+{
+	t_cmd	*new;
+
+	if (tok->found_arg_flag == 0)
+	{
+		if (make_arg_arr(tok, cmd_lst) == 0)
+			return (0);
+	}
+	if (tok->found_cmd_flag == 0)
+	{
+		new = make_cmd_node(NULL, *redirect_lst, *cmd_lst);
+		if (!new)
+			return (0);
+		add_cmd_node(cmd_lst, new);
+	}
+	return (1);
+}
+
 int	classifiying_tokens(t_tokens *tok, t_cmd **cmd_lst)
 {
 	t_redirect *redirect_lst;
@@ -232,21 +251,8 @@ int	classifiying_tokens(t_tokens *tok, t_cmd **cmd_lst)
 			return (0);
 		j++;
 	}
-	if (tok->found_arg_flag == 0)
-	{
-		if (make_arg_arr(tok, cmd_lst) == 0)
-			return (0);
-	}
-	t_cmd	*new;
-
-	if (tok->found_cmd_flag == 0)
-	{
-		new = make_cmd_node(NULL, redirect_lst, *cmd_lst);
-		if (!new)
-			return (0);
-		add_cmd_node(cmd_lst, new);
-	}
-	
+	if (check_0_cmd_or_arg(tok, cmd_lst, &redirect_lst) == 0)
+		return (0);
 	if (cmd_lst && *cmd_lst)
 	{
 		last = *cmd_lst;
