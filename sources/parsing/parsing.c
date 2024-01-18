@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 15:39:08 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/17 19:26:53 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/18 12:02:04 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ int	parsing(t_shell *shell, char *line)
 	shell->cmd_lst = cmd_lst;
 
 	if (!line)
-		return (puts("line=NULL"), 0);
+		return (put_error("line=NULL"), 0);
 	if (line[0] == 0)
-		return (puts("\"\""), 1);
+		return (put_error("\"\""), 1);
 
 	init_tok_struct(&tok);
 
@@ -47,21 +47,21 @@ int	parsing(t_shell *shell, char *line)
 
 	lines = split_pipes(&tok, line);
 	if (!lines)
-		return (ft_putstr_fd(), parsing_free(NULL, &lines, &line2), 0);
+		return (parsing_free(NULL, &lines, &line2), 0);
 
 	while (lines[a])
 	{
 		line2 = first_expand(&tok, shell->head_ex, lines[a]);
 		if (!line2)
-			return (puts("first expand err"), parsing_free(NULL, &lines, &line2), 0);
+			return (put_error("first expand err"), parsing_free(NULL, &lines, &line2), 0);
 
 		//ft_printf("\nline\n%s\n", line2);
 
 		if (!line2)
-			return (puts("first expand err"), parsing_free(NULL, &lines, &line2), 0);
+			return (put_error("first expand err"), parsing_free(NULL, &lines, &line2), 0);
 
 		if (make_token(&tok, line2) == 0)
-			return (puts("make token err"), parsing_free(&tok, &lines, &line2), 0);
+			return (put_error("make token err"), parsing_free(&tok, &lines, &line2), 0);
 
 		int i = 0;
 
@@ -79,14 +79,14 @@ int	parsing(t_shell *shell, char *line)
 		
 		
 		if (last_expand(&tok, shell->head_ex) == 0)
-			return (puts("last expand err"), free_fin(&tok), parsing_free(&tok, &lines, &line2), 0);
+			return (put_error("last expand err"), free_fin(&tok), parsing_free(&tok, &lines, &line2), 0);
 
 
 		i = 0;
 
 
 		if (rm_quotes_from_tokens(&tok) == 0)
-			return (puts("rm quotes err"), parsing_free(&tok, &lines, &line2), 0);
+			return (put_error("rm quotes err"), parsing_free(&tok, &lines, &line2), 0);
 		
 
 
@@ -106,7 +106,7 @@ int	parsing(t_shell *shell, char *line)
 		
 
 		if (classifiying_tokens(&tok, &shell->cmd_lst) == 0)
-			return (puts("classifying err"), parsing_free(&tok, &lines, &line2), clear_cmd_lst(&shell->cmd_lst), 0);
+			return (put_error("classifying err"), parsing_free(&tok, &lines, &line2), clear_cmd_lst(&shell->cmd_lst), 0);
 
 
 		a++;

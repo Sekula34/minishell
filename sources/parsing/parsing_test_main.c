@@ -59,7 +59,7 @@ int testmain(int argc, char **argv, char **envp)
 	int i;
 
 	if (syntax_check(&tok, line) == 0)
-		return (puts("syntax error"), 0);
+		return (put_error("syntax error"), 0);
 
 	lines = split_pipes(&tok, line);
 	while (lines[a])

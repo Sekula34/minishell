@@ -22,9 +22,9 @@ int check_unclosed_quote(t_tokens *tok, char *line)
 		i++;
 	}
 	if (tok->isq == 1)
-		return (ft_printf("syntax error near unexpected token `''\n"), 0);
+		return (put_error("syntax error near unexpected token `''\n"), 0);
 	if (tok->idq == 1)
-		return (ft_printf("syntax error near unexpected token `\"'\n"), 0);
+		return (put_error("syntax error near unexpected token `\"'\n"), 0);
 	return (1);
 }
 
@@ -43,7 +43,7 @@ int check_pipes(t_tokens *tok, char *line)
 		if (check_quotes(tok) == 0 && line[i] == '|')
 		{
 			if (flag == 0)
-				return (ft_printf("syntax error near unexpected token `|'\n"), 0);
+				return (put_error("syntax error near unexpected token `|'\n"), 0);
 			flag = 0;
 		}
 		i++;
@@ -51,11 +51,11 @@ int check_pipes(t_tokens *tok, char *line)
 	return (1);
 }
 
-int	check_after_redirect(char *line)
+int	check_after_redirect(char *line, int i)
 {
-	int i;
+	int	flag;
 
-	i = 0;
+	flag = 0;
 	while (line && line[i])
 	{
 		if (is_redirect(line[i]))
@@ -65,13 +65,13 @@ int	check_after_redirect(char *line)
 			while (line[i] && line[i] != '|')
 			{
 				if (line[i] != ' ')
-					return (1);	
+					return (1);
 				i++;
 			}
 		}
 		i++;
 	}
-	return (ft_printf("syntax error near unexpected token `|'\n"), 0);
+	return (put_error("syntax error near end of cmd\n"), 0);
 }
 
 int	check_redirect(t_tokens *tok, char *line)
@@ -85,11 +85,14 @@ int	check_redirect(t_tokens *tok, char *line)
 	{
 		set_quotation(tok, line[i]);
 		if (check_quotes(tok) == 0 && is_redirect(line[i]))
-			flag = 1;
+		{
+			if (check_after_redirect(line, i) == 0)
+				return (0);
+		}
 		i++;
 	}
-	if (check_quotes(tok) == 0 && flag == 1)
-		return (check_after_redirect(line));
+	// if (check_quotes(tok) == 0 && flag == 1)
+	// 	return (check_after_redirect(line));
 	return (1);
 }
 
@@ -97,9 +100,9 @@ static int redirect_left(int *l_count, int *r_count)
 {
 	(*l_count)++;
 	if (*l_count == 3)
-		return (ft_printf("syntax error near unexpected token `<'\n"), 0);
+		return (put_error("syntax error near unexpected token `<'\n"), 0);
 	if (*r_count != 0)
-		return (ft_printf("syntax error near unexpected token `<'\n"), 0);
+		return (put_error("syntax error near unexpected token `<'\n"), 0);
 	return (1);
 }
 
@@ -107,9 +110,9 @@ static int redirect_right(int *r_count, int *l_count)
 {
 	(*r_count)++;
 	if (*r_count == 3)
-		return (ft_putstr_fd("syntax error near unexpected token `>'\n", 2), 0);
+		return (put_error("syntax error near unexpected token `>'\n"), 0);
 	if (*l_count != 0)
-		return (ft_printf("syntax error near unexpected token `>'\n"), 0);
+		return (put_error("syntax error near unexpected token `>'\n"), 0);
 	return (1);
 }
 
