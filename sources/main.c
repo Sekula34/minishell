@@ -61,6 +61,7 @@ int main(int argc, char **argv, char **envp)
 			shexit(&shell, 1);
 		if (parsing_return == 2)
 		{
+			export_exit_status(2, &shell);
 			free(line);
 			continue;
 		}
