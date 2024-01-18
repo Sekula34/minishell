@@ -57,7 +57,7 @@ static void set_status(char *exit_argument, int *status)
 	digit = point_to_digit(exit_argument);
 	if(digit == NULL)
 	{
-		*status = 156;
+		*status = 2;
 		return ;
 	}
 	*status = ft_atoi(digit);
@@ -76,17 +76,18 @@ int shexit_exec(t_shell *shell, t_cmd *exit_cmd)
 	if(argc > 2)
 	{
 		ft_putstr_fd(" too many arguments\n", 2);
-		return (export_exit_status(1, shell));
+		shell->last_exit_code = export_exit_status(1, shell);
 	}
 	if(argc == 2)
 	{
 		if(numeric_argument_check(exit_cmd->args[1]) == 0)
 		{
 			ft_putstr_fd(" numeric argument required\n", 2);
-			return(export_exit_status(2, shell));
+			shell->last_exit_code= export_exit_status(2, shell);
 		}
 		set_status(exit_cmd->args[1], &status);
+		export_exit_status(status, shell);
 	}
-	shexit(shell, status);
+	shexit(shell, shell->last_exit_code);
 	return (0);
 }

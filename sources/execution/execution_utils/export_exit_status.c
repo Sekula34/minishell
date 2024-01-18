@@ -8,6 +8,7 @@ int export_exit_status(int exit_number, t_shell *shell)
 	char *exit_chr;
 	char *full_string;
 	exit_chr = ft_itoa(exit_number);
+	shell->last_exit_code = 1;
 	if(exit_chr == NULL)
 	{
 		perror("ft_itoa in export exit failed\n");
@@ -21,6 +22,7 @@ int export_exit_status(int exit_number, t_shell *shell)
 	}
 	if(export(full_string, &shell->head_ex, &shell->head_env, 0) != 0)
 		return(free(exit_chr), free(full_string), EXIT_FAILURE);
+	shell->last_exit_code = exit_number;
 	return(free(exit_chr), free(full_string), EXIT_SUCCESS);
 
 }

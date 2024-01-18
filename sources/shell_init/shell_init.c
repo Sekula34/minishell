@@ -53,6 +53,7 @@ int shell_init(t_shell *shell, char **envp)
 	shell->pipe_arr = NULL;
 	shell->stdin_cpy = -1;
 	shell->stdout_cpy = -1;
+	shell->last_exit_code = 0;
 	if(env_list_init(&(shell->head_env), envp) != 1)
 		return(EXIT_FAILURE);
 	if(env_list_init(&(shell->head_ex), envp) != 1)
