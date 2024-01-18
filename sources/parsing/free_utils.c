@@ -81,12 +81,15 @@ void free_tokens(t_tokens *tok)
 	int	i;
 
 	i = 0;
-	while (tok->tokens[i])
+	if (!tok || !tok->tokens)
+		return ;
+	while (tok && tok->tokens && tok->tokens[i])
 	{
 		free(tok->tokens[i]);
 		i++;
 	}
 	free(tok->tokens);
+	tok->tokens = NULL;
 }
 
 void	free_fin(t_tokens *tok)
