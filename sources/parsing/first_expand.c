@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:53:01 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/18 14:18:28 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/18 17:59:19 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,10 +148,10 @@ int get_value_var(t_vars *head_ex, char *key, char **value)
 	return (1);
 }
 
-int case_start_with_quote(char **res, t_tokens *tok, int *i)
+int case_start_with_quote_single(char **res, t_tokens *tok, int *i)
 {
 	*i += 2;
-	while (tok->line[*i] && is_quote(tok->line[*i]) == 0)
+	while (tok->line[*i] && tok->line[*i] != '\'')
 	{
 		*res = ft_join(res, tok->line[*i]);
 		if (!*res)
@@ -159,6 +159,35 @@ int case_start_with_quote(char **res, t_tokens *tok, int *i)
 		(*i)++;
 	}
 	(*i)++;
+	return (1);
+}
+
+int case_start_with_quote_double(char **res, t_tokens *tok, int *i)
+{
+	*i += 2;
+	while (tok->line[*i] && tok->line[*i] != '"')
+	{
+		*res = ft_join(res, tok->line[*i]);
+		if (!*res)
+			return (0);
+		(*i)++;
+	}
+	(*i)++;
+	return (1);
+}
+
+int case_start_with_quote(char **res, t_tokens *tok, int *i)
+{
+	if (tok->line[*i + 1] == '\'')
+	{
+		if (case_start_with_quote_single(res, tok, i) == 0)
+			return (0);
+	}
+	if (tok->line[*i + 1] == '"')
+	{
+		if (case_start_with_quote_double(res, tok, i) == 0)
+			return (0);
+	}
 	return (1);
 }
 

@@ -32,7 +32,9 @@ int decide_to_keep(t_tokens *tok, int j)
 	char *res;
 
 	i = 0;
-	res = NULL;
+	res = ft_strdup(0);
+	if (!res)
+		return (0);
 	reset_struct(tok);
 	while (tok->tokens[j][i])
 	{
