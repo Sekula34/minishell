@@ -37,7 +37,6 @@ int main(int argc, char **argv, char **envp)
 		minishel_signals(1);
 		if (isatty(fileno(stdin)))
             line = readline("minishell: ");
-
         else
         {
             char *line2;
@@ -45,11 +44,14 @@ int main(int argc, char **argv, char **envp)
             line = ft_strtrim(line2, "\n");
             free(line2);
         }
-		// line = readline("minishell: ");
+
+		//line = readline("minishell: ");
 		// if (!line)
 		//  	shexit(&shell, 0);
-		//line = "echo \"$USER\"";
-		//line = "echo hello'test' $USER \"$USER\" | wc -l";
+
+		// line = "echo \"$USER\"";
+		//line = "echo $$$$ hello'test' $USER \"$USER\" | wc -l";
+
 		if (line == NULL)
 		{
 			free(line);
@@ -57,14 +59,15 @@ int main(int argc, char **argv, char **envp)
 		}
 		add_history(line);
 		parsing_return = parsing(&shell, line);
-		if (parsing_return == 0)
-			shexit(&shell, 1);
 		if (parsing_return == 2)
 		{
+			export_exit_status(2, &shell);
 			free(line);
 			continue;
 		}
 		shell.first_cmd_copy = shell.cmd_lst;
+		if (parsing_return == 0)
+			shexit(&shell, 1);
  		if(heredoc_parent_prepare(shell.cmd_lst) != 0)
 		 	shexit(&shell, 1);
 		if(execute_all_cmds(&shell) != 0)
