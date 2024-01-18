@@ -62,9 +62,9 @@ static int exec_one_b(t_cmd *cmd, t_shell *shell)
 int child_multi_exec(t_cmd *cmd, t_shell *shell, int input_file, int output_file)
 {
 	if(prepare_fds(cmd, shell, input_file, output_file) != 0)
-		return(EXIT_FAILURE);
+		shexit(shell, 1);
 	if(set_mini_env(&shell->mini_env, shell->head_env) == 1)
-		return (EXIT_FAILURE);
+		shexit(shell, 1);
 	if(shell->cmd_lst->cmd == NULL)
 	{
 		//ft_printf("with list cmd\n");
