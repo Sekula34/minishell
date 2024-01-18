@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 17:14:03 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/18 12:40:08 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/18 14:17:49 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,9 @@ int	expand_var_2(t_tokens *tok, t_vars *head_ex, int *i, int *j)
 	if (get_value_var(head_ex, key, &value) == 0)
 		return (free(key), 0);
 	//printf("value:%s-\n", value);
+
+
+	//this in ft
 	if (value)
 	{
 		append_value(&tok->fin[*j], value);
@@ -161,8 +164,9 @@ int	expand_var_2(t_tokens *tok, t_vars *head_ex, int *i, int *j)
 	else
 	{
 		tok->fin[*j] = ft_join(&tok->fin[*j], 0);
-		(*j)++;
+		*i = tok->end + 1;
 	}
+	//----------
 	free(key);
 	return (1);
 }
@@ -195,7 +199,7 @@ int last_expand(t_tokens *tok, t_vars *head_ex)
 	while (tok->tokens[j])
 	{
 		i = 0;
-		while (tok->tokens[j][i])
+		while (tok->tokens[j] &&tok->tokens[j][i])
 		{
 			set_quotation(tok, tok->tokens[j][i]);
 			if (tok->tokens[j][i] == '$' && check_heredoc(tok->tokens, j) == 0 && tok->isq == 0 && tok->idq == 1)

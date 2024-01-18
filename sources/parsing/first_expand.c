@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:53:01 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/18 12:41:13 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/18 14:18:28 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,11 +218,9 @@ int	expand_var_1(t_tokens *tok, t_vars *head_ex, int *i, char **res)
 		if (append_value(res, value) == 0)
 			return (-1);
 		*i = tok->end + 1;
-	
 	}
 	else
 	{
-		
 		*i = tok->end + 1;
 	}
 	//free(value);
