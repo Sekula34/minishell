@@ -86,7 +86,8 @@ int shexit_exec(t_shell *shell, t_cmd *exit_cmd)
 			return(export_exit_status(2, shell));
 		}
 		set_status(exit_cmd->args[1], &status);
+		export_exit_status(status, shell);
 	}
-	shexit(shell, status);
+	shexit(shell, shell->last_exit_code);
 	return (0);
 }

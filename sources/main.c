@@ -72,6 +72,6 @@ int main(int argc, char **argv, char **envp)
 		line = NULL;
 		rl_on_new_line();
 	}
-	shexit(&shell, 0);
+	shexit(&shell, shell.last_exit_code);
 	return(EXIT_SUCCESS);
 }
