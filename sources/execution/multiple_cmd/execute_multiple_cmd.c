@@ -67,7 +67,8 @@ int execute_multiple_cmd(int noc, t_shell *shell)
 		i++;
 	}
 	child_waiter(noc, shell->pipe_arr, shell);
-	//clear_pipe_array(&shell->pipe_arr);
+	clear_pipe_array(&shell->pipe_arr);
+	//ft_printf("Pipe array is %p\n", shell->pipe_arr);
 	return(EXIT_SUCCESS);
 }
 
