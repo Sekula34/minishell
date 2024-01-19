@@ -69,7 +69,6 @@ void	free_2d_arr(char ***arr)
 	free(*arr);
 }
 
-//put somewhere else
 
 void free_tokens(t_tokens *tok)
 {

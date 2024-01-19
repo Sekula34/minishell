@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:53:01 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/19 14:29:02 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/19 14:55:05 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ int	go_back_to_check_redirect(t_tokens *tok, char *line, int i)
 	else
 		return (0);
 }
-
 
 char	*check_key(t_tokens *tok)
 {
