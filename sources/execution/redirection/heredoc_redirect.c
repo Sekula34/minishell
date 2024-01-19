@@ -56,6 +56,7 @@ static int write_in_temp_file(int *fd, char *eof, t_shell *shell)
 		if(write(*fd, final_line, size) == -1 || write(*fd, "\n", 1) == -1)
 			return(free(line), free(final_line), close(*fd), 1);
 		free(line);
+		free(final_line);
 		line = NULL;
 		line = readline("heredoc> ");
 		if(line == NULL)
