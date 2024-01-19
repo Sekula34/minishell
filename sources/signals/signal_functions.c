@@ -23,6 +23,10 @@ void interactive_sigint()
 
 void heredoc_sigint()
 {
-	ft_printf("heredoc ctrl + c\n");
+	//ft_printf("heredoc ctrl + c\n");
+	ioctl(STDIN_FILENO, TIOCSTI, "\n");
 	global_signal = 130;
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	//ft_printf("on new line");
 }

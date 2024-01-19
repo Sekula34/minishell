@@ -39,10 +39,10 @@ static int write_in_temp_file(int *fd, char *eof, t_shell *shell)
 	minishel_signals(4);
 
 	line = readline("heredoc> ");
-	if(line == NULL)
+	if(line == NULL || global_signal != 0)
 	{
 		perror("heredoc:");
-		return (close(*fd), EXIT_SUCCESS);
+		return (close(*fd), global_signal);
 	}
 	compare = ft_strncmp(line, eof, ft_strlen(eof) + 1);
 	while(compare != 0)
@@ -74,8 +74,10 @@ static int write_in_temp_file(int *fd, char *eof, t_shell *shell)
 		}
 			//return (close(*fd), 2);
 		compare = ft_strncmp(line, eof, ft_strlen(eof) + 1);
+		if(global_signal != 0)
+			break ;
 	}
-	return(free(line),close(*fd),0);
+	return(free(line),close(*fd), global_signal);
 }
 
 //create file in append mode, reading and writing
