@@ -31,7 +31,7 @@ int export_exit_status(int exit_number, t_shell *shell);
 int get_argc(char **argv);
 void here_doc_file_delete(t_redirect *heredoc);
 int heredoc_parent_prepare(t_cmd *cmd);
-int heredoc_redirect(t_redirect *here_doc, int file_index, int *fd);
+int heredoc_redirect(t_redirect *here_doc, int *fd);
 int input_redirect(t_redirect *input, int *fd);
 int is_cmd_builtin(t_cmd *cmd);
 int is_minishell(t_cmd  *mini);

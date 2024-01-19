@@ -19,7 +19,7 @@ static int redirect_menu(t_redirect *red_list, int *in_fd, int *out_fd, int i)
 	if(red_list->type == 'a')
 		return(append_redirect(red_list, out_fd));
 	if(red_list->type == 'h')
-		return(heredoc_redirect(red_list,i, in_fd));
+		return(input_redirect(red_list, in_fd));
 	if(red_list->type == 'i')
 		return(input_redirect(red_list, in_fd));
 	if(red_list->type == 'o')

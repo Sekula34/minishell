@@ -96,13 +96,10 @@ static int create_append_file(int *fd, char *file_name)
 // 	return(file_name);
 // }
 
-//file name in this case is actually eof for heredoc
-//this function will make change so here_doc-eof and here_doc_file name are not switched anymore
-//file name is stored so that file could be found and deleted later
-//function creates temporary file called here_doc_temp<file_index>
-// 1 fail
-// 0 ok
-int heredoc_redirect(t_redirect *here_doc, int file_index, int *fd)
+//function that creates and write in temp_heredoc_file
+//0 ok
+//1 fail
+int heredoc_redirect(t_redirect *here_doc, int *fd)
 {
 	// here_doc->eof = here_doc->file_name;
 	// here_doc->file_name = NULL;
@@ -110,13 +107,12 @@ int heredoc_redirect(t_redirect *here_doc, int file_index, int *fd)
 	// here_doc->file_name = get_real_fn(file_index);
 	// if(here_doc->file_name == NULL)
 	// 	return (EXIT_FAILURE);
-	(void)(file_index);
 	if(create_append_file(fd, here_doc->file_name) != 0)
 		return(EXIT_FAILURE);
 	here_doc->to_delete = 1;
 	if(write_in_temp_file(fd, here_doc->eof) != 0)
 		return(EXIT_FAILURE);
-	if (input_redirect(here_doc, fd) !=0)
-		return(EXIT_FAILURE);
+	// if (input_redirect(here_doc, fd) !=0)
+	// 	return(EXIT_FAILURE);
 	return(EXIT_SUCCESS);
 }
