@@ -19,7 +19,6 @@ void	delete_cmd_element(t_cmd **element_to_delete)
 
 	i = 1;
 	delete = *element_to_delete;
-
 	if (delete->path)
 		free(delete->path);
 	if (delete->cmd)
@@ -31,11 +30,7 @@ void	delete_cmd_element(t_cmd **element_to_delete)
 		i++;
 	}
 	free(delete->args);
-
 	clear_redirects(&(*element_to_delete)->redirect_lst);
-	//clear_redirect_lst(&delete->redirect_lst);
-	
-	
 	free(delete);
 }
 
@@ -114,6 +109,4 @@ void	parsing_free(t_tokens *tok, char ***lines, char **line2)
 		free(*line2);
 	if (tok && tok->tokens)
 		free_tokens(tok);
-	// if (tok && tok->fin)
-	// 	free_fin(tok);
 }

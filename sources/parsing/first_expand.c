@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:53:01 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/19 11:08:22 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/19 12:15:37 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int	set_start_end(t_tokens *tok, char *line, int i)
 {
 	tok->start = i;
-	//printf("1st:%c-\n", line[i]);
 	if (line[i] == '?')
 	{
 		tok->end = i;
@@ -31,7 +30,6 @@ int	set_start_end(t_tokens *tok, char *line, int i)
 	{
 		tok->end++;
 	}
-	//printf("last:%c-\n", line[tok->end]);
 	return (1);
 }
 
@@ -48,7 +46,6 @@ int	append_value(char **res, char *value)
 		if (!*res)
 			return (0);
 		i++;
-		//puts("ets");
 	}
 	return (1);
 }
@@ -90,12 +87,9 @@ int get_value_var(t_vars *head_ex, char *key, char **value)
 	t_vars *element;
 
 	element = get_element(key, head_ex);
-	// if (errno != 0)
-	// 	return (0);
 	if (!element)
 	{
 		*value = NULL;
-		//errno = 0;
 		return (1);
 	}
 	*value = element->value;
@@ -151,19 +145,29 @@ int	case_invalid_char(char **res, t_tokens *tok, int *i)
 	int	a;
 
 	a = 0;
-	//while (tok->line[*i] && (a < 2) || valid_char(tok->line[*i]))
 	while (tok->line[*i] && tok->line[*i] != ' ' && (tok->line[*i] != '$' || a == 0))
 	{
 		*res = ft_join(res, tok->line[*i]);
 		if (!*res)
-		{
-			//free
 			return (0);
-		}
 		(*i)++;
 		a++;
 	}
 	return (1);
+}
+
+int	append_or_not_1(char **res, char **value, int *i, t_tokens *tok)
+{
+	if (*value)
+	{
+		if (append_value(res, *value) == 0)
+			return (-1);
+		*i = tok->end + 1;
+	}
+	else
+	{
+		*i = tok->end + 1;
+	}
 }
 
 int	expand_var_1(t_tokens *tok, t_vars *head_ex, int *i, char **res)
@@ -187,7 +191,6 @@ int	expand_var_1(t_tokens *tok, t_vars *head_ex, int *i, char **res)
 	key = check_key(tok);
 	if (!key)
 		return ((*i)++, -1);
-	//printf("key:%s-\n", key);
 	if (is_quote(key[0]))
 		value = key;
 	else
@@ -196,19 +199,16 @@ int	expand_var_1(t_tokens *tok, t_vars *head_ex, int *i, char **res)
 			return (free(key), 0);
 		free(key);
 	}
-	//printf("value:%s-\n", value);
-	if (value)
-	{
-		if (append_value(res, value) == 0)
-			return (-1);
-		*i = tok->end + 1;
-	}
-	else
-	{
-		*i = tok->end + 1;
-	}
-	//free(value);
+	if (append_or_not_1(res, &value, i, tok) == -1)
+		return (-1);
 	return (1);
+}
+
+static void	init_first_expand(int *i, int *j, char **res)
+{
+	*i = 0;
+	*j = 0;
+	*res = NULL;
 }
 
 char	*first_expand(t_tokens *tok, t_vars *head_ex, char *line)
@@ -217,9 +217,7 @@ char	*first_expand(t_tokens *tok, t_vars *head_ex, char *line)
 	int		j;
 	char	*res;
 
-	i = 0;
-	j = 0;
-	res = NULL;
+	init_first_expand(&i, &j, &res);
 	tok->line = line;
 	reset_struct(tok);
 	while (line[i])
@@ -237,17 +235,6 @@ char	*first_expand(t_tokens *tok, t_vars *head_ex, char *line)
 			if (!res)
 				return (NULL);
 		}
-
 	}
 	return (res);
 }
-
-/* int main()
-{
-	t_tokens tok;
-
-	init_token_struct(&tok);	
-	char *line = "echo $var > $var$var \"$var\" << $var  $a $a";
-
-	first_expand(&tok, line);
-} */

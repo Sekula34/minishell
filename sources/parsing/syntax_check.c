@@ -1,4 +1,16 @@
-	#include "../../headers/minishel.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   syntax_check.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/19 11:50:20 by wvan-der          #+#    #+#             */
+/*   Updated: 2024/01/19 11:50:24 by wvan-der         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../headers/minishel.h"
 
 int check_unclosed_quote(t_tokens *tok, char *line)
 {
@@ -91,8 +103,6 @@ int	check_redirect(t_tokens *tok, char *line)
 		}
 		i++;
 	}
-	// if (check_quotes(tok) == 0 && flag == 1)
-	// 	return (check_after_redirect(line));
 	return (1);
 }
 

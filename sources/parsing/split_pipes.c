@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 15:07:07 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/17 12:26:08 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/19 11:59:36 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,22 +38,29 @@ int	count_pipes(t_tokens *tok, char *input)
 	return (count);
 }
 
+static void init_split_pipes(int *start, int *end, int *a)
+{
+	*start = 0;
+	*end = 0;
+	*a = 0;
+}
+
 char **split_pipes(t_tokens *tok, char *line)
 {
-	int start = 0;
-	int end = 0;
-	int count = count_pipes(tok, line) + 1;
-	int a = 0;
+	int start;
+	int end;
+	int count;
+	int a;
 	char **res;
 
 	reset_struct(tok);
+	count = count_pipes(tok, line) + 1;
+	init_split_pipes(&start, &end, &a);
 	res = (char **)malloc(sizeof(char *) * (count + 1));
 	if (!res)
 		return (NULL);
 	while (a < count)
 	{
-		// if (!line)
-		// 	break;
 		set_quotation(tok, line[end]);
 		while (line[end] && (line[end] != '|' || check_quotes(tok) == 1))
 			set_quotation(tok,line[end++]);
@@ -61,8 +68,7 @@ char **split_pipes(t_tokens *tok, char *line)
 		if (!res[a])
 			return (ft_free(&res, a), NULL);
 		a++;
-		end++;
-		start = end;
+		start = ++end;
 	}
 	res[a] = NULL;
 	return (res);
