@@ -93,6 +93,7 @@ void clear_pipe_array(int ***pipe_arr)
 		i++;
 	}
 	free(*pipe_arr);
+	*pipe_arr = NULL;
 }
 
 //function that takes int*** to set to be pipe_arr, an number of pipes

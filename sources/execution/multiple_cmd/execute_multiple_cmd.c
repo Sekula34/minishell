@@ -22,7 +22,6 @@ static void child_waiter(int number_of_kids, int **pipe_arr, t_shell *shell)
 		//wait(NULL);
 		i++;
 	}
-
 	export_exit_status(exit_status, shell);
 }
 
@@ -68,6 +67,8 @@ int execute_multiple_cmd(int noc, t_shell *shell)
 		i++;
 	}
 	child_waiter(noc, shell->pipe_arr, shell);
+	clear_pipe_array(&shell->pipe_arr);
+	//ft_printf("Pipe array is %p\n", shell->pipe_arr);
 	return(EXIT_SUCCESS);
 }
 

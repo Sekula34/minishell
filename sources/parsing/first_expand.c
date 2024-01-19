@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:53:01 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/18 17:59:19 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/19 11:08:22 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,51 +74,6 @@ int	go_back_to_check_redirect(t_tokens *tok, char *line, int i)
 		return (0);
 }
 
-/* char *get_var_value(t_tokens *tok, t_vars *head_ex, char *line)
-{
-	t_vars	*element;
-	char	*key;
-	char	*temp;
-
-	key = ft_substr(line, tok->start, tok->end - tok->start + 1);
-	if (!key)
-		return (NULL);
-	if (!key[0]) //|| key[0] == '\'' || key[0] == '"')
-		return (puts("key null"), NULL);
-	if (key[0] == '\'' || key[0] == '"')
-	{
-		puts("äääää");
-		temp = ft_substr(key, 1, ft_strlen(key) - 2);
-		printf("temp:%s-\n", temp);
-		free(key);
-		return (temp);
-	}
-	printf("key:-%s-\n", key);
-	puts("?");
- 	if (key[0] == '\'' || key[0] == '"')
-		return ("'");
-	element = get_element(key, head_ex);
-	free(key);
-	if (!element)
-		return (puts("element null"), NULL);
-	return (element->value);
-} */
-
-/* int put_value(t_tokens *tok, t_vars *head_ex, char *line, char **res)
-{
-	char *value;
-
-	value = get_var_value(tok, head_ex, line);
-	if (!value)
-		return (0);
-	if (!value[0])
-		return (puts("no value"), 1);
-	if (value[0] == '\'')
-		
-	check_value(&value);
-	append_value(res, value);
-	return (1);
-} */
 
 char	*check_key(t_tokens *tok)
 {

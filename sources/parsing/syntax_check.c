@@ -56,20 +56,20 @@ int	check_after_redirect(char *line, int i)
 	int	flag;
 
 	flag = 0;
-	while (line && line[i])
+	while (line && line[i] && line[i] != '|')
 	{
-		if (is_redirect(line[i]))
+		while (is_redirect(line[i]))
+			i++;
+		while (line[i] && line[i] != '|')
 		{
-			while (is_redirect(line[i]))
-				i++;
-			while (line[i] && line[i] != '|')
-			{
-				if (line[i] != ' ')
-					return (1);
-				i++;
-			}
+			if (line[i] != ' ')
+				return (1);
+			i++;
 		}
-		i++;
+		if (line && line[i] && line[i] == '|')
+			return (put_error("syntax error near end of cmd\n"), 0);
+		if (line && line[i])
+			i++;
 	}
 	return (put_error("syntax error near end of cmd\n"), 0);
 }
