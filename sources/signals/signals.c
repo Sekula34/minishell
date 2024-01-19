@@ -32,6 +32,12 @@ static void interactive_mode()
 	signal(SIGINT, interactive_sigint);
 	signal(SIGQUIT, SIG_IGN);
 }
+
+static void heredoc_mod()
+{
+	signal(SIGINT, heredoc_sigint);
+	signal(SIGQUIT, SIG_DFL);
+}
 //mode 1 interactive signals where ctrl + c gives new readline and ctrl + \ is ignored
 //mode 2 parent execution where ctrl + c and ctrl + \ are both ignored;
 //mode 3 child_exec where both signal have default action
@@ -43,6 +49,7 @@ void minishel_signals(int mode)
 		parent_exec();
 	else if(mode == 3)
 		child_exec();
-	else
-		return ;
+	else if(mode ==4)
+		heredoc_mod();
+	return ;
 }

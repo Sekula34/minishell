@@ -36,16 +36,23 @@ static int write_in_temp_file(int *fd, char *eof, t_shell *shell)
 	int size;
 	char *final_line;
 
-	
+	minishel_signals(4);
 
 	line = readline("heredoc> ");
 	if(line == NULL)
-		return (close(*fd), 2);
+	{
+		perror("heredoc:");
+		return (close(*fd), EXIT_SUCCESS);
+	}
 	compare = ft_strncmp(line, eof, ft_strlen(eof) + 1);
 	while(compare != 0)
 	{
 		if(line == NULL)
+		{
+			//perror("heeredoc 2:");
 			size = 0;
+			return(EXIT_SUCCESS);
+		}
 		else 
 			size = ft_strlen(line);
 		if (heredoc_expand(shell, line, &final_line) != 1)
@@ -60,7 +67,12 @@ static int write_in_temp_file(int *fd, char *eof, t_shell *shell)
 		line = NULL;
 		line = readline("heredoc> ");
 		if(line == NULL)
-			return (close(*fd), 2);
+		{
+			//perror("heeredoc 2:");
+			size = 0;
+			return(EXIT_SUCCESS);
+		}
+			//return (close(*fd), 2);
 		compare = ft_strncmp(line, eof, ft_strlen(eof) + 1);
 	}
 	return(free(line),close(*fd),0);

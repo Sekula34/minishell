@@ -14,8 +14,15 @@
 
 void interactive_sigint()
 {
+	global_signal = 130;
 	ft_printf("\n");
 	rl_replace_line("", 0);
 	rl_on_new_line();
 	rl_redisplay();
+}
+
+void heredoc_sigint()
+{
+	ft_printf("heredoc ctrl + c\n");
+	global_signal = 130;
 }

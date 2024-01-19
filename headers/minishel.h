@@ -33,4 +33,6 @@
 # include "execution.h"
 # include "signals.h"
 
+extern int global_signal;
+
 #endif

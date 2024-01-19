@@ -14,6 +14,7 @@
 # define SIGNALS_H
 
 void interactive_sigint();
+void heredoc_sigint();
 void minishel_signals(int mode);
 
 #endif

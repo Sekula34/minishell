@@ -69,7 +69,7 @@ int	heredoc_expand(t_shell *shell, char *line, char **res)
 				return (0);
 		}
 	}
-	ft_printf("res %s\n", *res);
+	//ft_printf("res %s\n", *res);
 	return (1);
 }
 

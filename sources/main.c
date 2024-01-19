@@ -16,12 +16,16 @@
 // 	signal(SIGQUIT, SIG_IGN);
 // }
 
+int global_signal;
+
 int main(int argc, char **argv, char **envp)
 {
 	t_shell shell;
 	char *line;
 	int	parsing_return;
 
+
+	ft_printf("global signal is %d\n", global_signal);
 	parsing_return = 0;
 	if(shell_init(&shell, envp) != 0)
 	{
@@ -34,6 +38,7 @@ int main(int argc, char **argv, char **envp)
 	int i = 0;
 	while(1)
 	{
+		ft_printf("global signal is %d\n", global_signal);
 		minishel_signals(1);
 		if (isatty(fileno(stdin)))
             line = readline("minishell: ");
