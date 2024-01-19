@@ -6,115 +6,59 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 15:39:08 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/19 14:53:09 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/19 17:46:07 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishel.h"
 
+static void	init_parsing_struct(t_parsing *parsing, t_shell *shell, t_cmd *cmd_lst)
+{
+	parsing->lines = NULL;
+	parsing->line2 = NULL;
+	parsing->tokens = NULL;
+	parsing->fin = NULL;
+	parsing->a = 0;
+	cmd_lst = NULL;
+	shell->cmd_lst = cmd_lst;
+}
+
 int	parsing(t_shell *shell, char *line)
 {
-	//puts("begin parsing");
-	t_tokens tok;
-	t_cmd	*cmd_lst;
-	char **lines;
-	char *line2;
-	char **tokens;
-	char **fin;
-	int a;
-	
-	a = 0;
-
-	cmd_lst = NULL;
-	lines = NULL;
-	line2 = NULL;
-	tokens = NULL;
-	fin = NULL;
-	
-	shell->cmd_lst = cmd_lst;
+	t_parsing	parsing;
+	t_tokens	tok;
+	t_cmd		*cmd_lst;
 
 	if (!line)
 		return (put_error("line=NULL"), 0);
-	if (line[0] == 0)
-		return (put_error("\"\""), 1);
-
+	init_parsing_struct(&parsing, shell, cmd_lst);
 	init_tok_struct(&tok);
-
-
 	if (syntax_check(&tok, line) == 0)
 		return (2);
-
-
-	lines = split_pipes(&tok, line);
-	if (!lines)
-		return (parsing_free(NULL, &lines, &line2), 0);
-
-	while (lines[a])
+	parsing.lines = split_pipes(&tok, line);
+	if (!parsing.lines)
+		return (parsing_free(NULL, &parsing, 0), 0);
+	while (parsing.lines[parsing.a])
 	{
-		line2 = first_expand(&tok, shell->head_ex, lines[a]);
-		if (!line2)
-			return (put_error("first expand err"), parsing_free(NULL, &lines, &line2), 0);
-
-		//ft_printf("\nline\n%s\n", line2);
-
-		// if (shell->cmd_lst->args[0])
-		// 	puts("yes");
-		if (make_token(&tok, line2) == 0)
-			return (put_error("make token err"), parsing_free(&tok, &lines, &line2), 0);
-
-		int i = 0;
-
-
-		// puts("tokens");
-		// while (tok.tokens[i])
-		// {
-		// 	printf("%d: %s\n", i, tok.tokens[i]);
-		// 	i++;
-		// }
-
+		parsing.line2 = first_expand(&tok, shell->head_ex, parsing.lines[parsing.a]);
+		if (!parsing.line2)
+			return (put_error("first expand err"), parsing_free(NULL, &parsing, 0), 0);
+		if (make_token(&tok, parsing.line2) == 0)
+			return (put_error("make token err"), parsing_free(&tok, &parsing, 0), 0);
 		convert_fake_redirect(&tok);
-		
-		
-		
-		
 		if (last_expand(&tok, shell->head_ex) == 0)
-			return (put_error("last expand err"), free_fin(&tok), parsing_free(&tok, &lines, &line2), 0);
-
-
-		i = 0;
-
-
+			return (put_error("last expand err"), free_fin(&tok), parsing_free(&tok, &parsing, 0), 0);
 		if (rm_quotes_from_tokens(&tok) == 0)
-			return (put_error("rm quotes err"), parsing_free(&tok, &lines, &line2), 0);
-		
-
-
-		
-		
-		// puts("fin");
-		// while (tok.tokens[i])
-		// {
-		// 	printf("%d: %s\n", i, tok.tokens[i]);
-		// 	i++;
-		// }
-
-
-
-
-
-		
-
+			return (put_error("rm quotes err"), parsing_free(&tok, &parsing, 0), 0);
 		if (classifiying_tokens(&tok, &shell->cmd_lst) == 0)
-			return (put_error("classifying err"), parsing_free(&tok, &lines, &line2), clear_cmd_lst(&shell->cmd_lst), 0);
-
-
-		a++;
- 
-		parsing_free(&tok, NULL, &line2);
+			return (put_error("classifying err"), parsing_free(&tok, &parsing, 0), clear_cmd_lst(&shell->cmd_lst), 0);
+		parsing.a++;
+		parsing_free(&tok, &parsing, 1);
 	}
+	parsing_free(NULL, &parsing, 2);
+	return (1);
+}
 
-	parsing_free(NULL, &lines, NULL);
-	
 
 
 
@@ -154,5 +98,3 @@ int	parsing(t_shell *shell, char *line)
 
 
 	//puts("after parsing\n");
-	return (1);
-}

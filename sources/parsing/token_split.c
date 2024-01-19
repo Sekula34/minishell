@@ -6,19 +6,11 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:58:30 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/19 13:47:35 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/19 15:56:21 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/minishel.h"
-
-void	move_counter(t_tokens *tok)
-{
-	tok->flag = 0;
-	tok->tok_i++;
-	tok->token_amount++;
-	tok->redirect_count = 0;
-}
 
 int	count_token(t_tokens *tok, char *line)
 {
@@ -55,7 +47,8 @@ int	tokenize_redirect(t_tokens *tok, char *line, int *i, int *a)
 	tok->tokens[*a] = ft_join(&(tok->tokens[*a]), line[*i]);
 	if (!tok->tokens[*a])
 		return (0);
-	if (tok->redirect_count == 2 && is_redirect(line[*i + 1]) && check_quotes(tok) == 0)
+	if (tok->redirect_count == 2 && is_redirect(line[*i + 1])
+		&& check_quotes(tok) == 0)
 	{
 		(*a)++;
 		tok->redirect_count = 0;
@@ -80,7 +73,8 @@ int	make_token_logic(t_tokens *tok, char *line, int *i, int *a)
 {
 	while (line[*i] && is_white_space(line[*i]) == 1 && check_quotes(tok) == 0)
 		(*i)++;
-	while (line[*i] && (is_white_space(line[*i]) == 0 || check_quotes(tok)) && is_redirect(line[*i]) == 0)
+	while (line[*i] && (is_white_space(line[*i]) == 0
+			|| check_quotes(tok)) && is_redirect(line[*i]) == 0)
 	{
 		if (copy_text(tok, line, i, *a) == 0)
 			return (0);
@@ -97,7 +91,7 @@ int	make_token_logic(t_tokens *tok, char *line, int *i, int *a)
 	return (1);
 }
 
-int make_token(t_tokens *tok, char *line)
+int	make_token(t_tokens *tok, char *line)
 {
 	int		i;
 	int		a;
@@ -117,4 +111,3 @@ int make_token(t_tokens *tok, char *line)
 	tok->tokens[a] = 0;
 	return (1);
 }
-

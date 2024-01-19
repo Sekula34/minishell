@@ -1,12 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rm_quotes_from_tokens.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/19 15:10:00 by wvan-der          #+#    #+#             */
+/*   Updated: 2024/01/19 16:12:10 by wvan-der         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../headers/minishel.h"
 
-char *realloc_token(char **token)
+char	*realloc_token(char **token)
 {
-	char *temp;
-	int	len;
-	int	i;
-	int j;
-
+	char	*temp;
+	int		len;
+	int		i;
+	int		j;
 
 	len = ft_strlen(*token);
 	i = 0;
@@ -22,13 +33,13 @@ char *realloc_token(char **token)
 	}
 	temp[i] = 0;
 	free(*token);
-	return(temp);
+	return (temp);
 }
 
-int decide_to_keep(t_tokens *tok, int j)
+int	decide_to_keep(t_tokens *tok, int j)
 {
-	int i;
-	char *res;
+	int		i;
+	char	*res;
 
 	i = 0;
 	res = ft_strdup(0);
@@ -53,9 +64,9 @@ int decide_to_keep(t_tokens *tok, int j)
 	return (1);
 }
 
-int rm_quotes_from_tokens(t_tokens *tok)
+int	rm_quotes_from_tokens(t_tokens *tok)
 {
-	int j;
+	int	j;
 
 	j = 0;
 	while (tok->tokens[j])
