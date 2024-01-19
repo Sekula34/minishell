@@ -100,7 +100,7 @@ void	free_fin(t_tokens *tok);
 
 void	convert_fake_redirect(t_tokens *tok);
 void	convert_fake_redirect_back(char **str);
-int	heredoc_expand(t_shell *shell, char **line);
+int	heredoc_expand(t_shell *shell, char *line, char **res);
 void put_error(char *str);
 
 

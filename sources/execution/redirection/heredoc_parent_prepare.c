@@ -40,7 +40,7 @@ static int heredoc_swap(t_redirect *here_doc, int *file_index)
 
 //function that goes through every redirect and check if redirect is heredoc
 //calls function heredoc_swap on every heredoc_redirect
-static int find_all_heredoc(t_redirect *redirect, int *file_index)
+static int find_all_heredoc(t_redirect *redirect, int *file_index, t_shell *shell)
 {
 	int file_des;
 	if(redirect == NULL)
@@ -51,7 +51,7 @@ static int find_all_heredoc(t_redirect *redirect, int *file_index)
 		{
 			if(heredoc_swap(redirect, file_index) != 0)
 				return(EXIT_FAILURE);
-			if(heredoc_redirect(redirect, &file_des) != 0)
+			if(heredoc_redirect(redirect, &file_des, shell) != 0)
 				return(EXIT_FAILURE);
 		}
 		redirect = redirect->next;
@@ -64,7 +64,7 @@ static int find_all_heredoc(t_redirect *redirect, int *file_index)
 //and finds heredoc
 //1 fail 
 //ok
-int heredoc_parent_prepare(t_cmd *cmd)
+int heredoc_parent_prepare(t_cmd *cmd, t_shell *shell)
 {
 	static int file_index = 0;
 	if(cmd == NULL)
@@ -73,7 +73,7 @@ int heredoc_parent_prepare(t_cmd *cmd)
 	{
 		if(cmd->redirect_lst != NULL)
 		{
-			if(find_all_heredoc(cmd->redirect_lst, &file_index) != 0)
+			if(find_all_heredoc(cmd->redirect_lst, &file_index, shell) != 0)
 				return(EXIT_FAILURE);
 		}
 		cmd = cmd->next;

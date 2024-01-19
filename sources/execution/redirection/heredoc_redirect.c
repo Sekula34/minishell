@@ -29,11 +29,12 @@ void here_doc_file_delete(t_redirect *heredoc)
 // write in file till eof is encounter
 //return 0 if success return 1 if write fails 
 //return 2 if line is null (ctrld + d)
-static int write_in_temp_file(int *fd, char *eof)
+static int write_in_temp_file(int *fd, char *eof, t_shell *shell)
 {
 	char *line;
 	int compare;
 	int size;
+	char *final_line;
 
 	
 
@@ -47,8 +48,13 @@ static int write_in_temp_file(int *fd, char *eof)
 			size = 0;
 		else 
 			size = ft_strlen(line);
-		if(write(*fd, line, size) == -1 || write(*fd, "\n", 1) == -1)
+		if (heredoc_expand(shell, line, &final_line) != 1)
+		{
 			return(free(line), close(*fd), 1);
+		}
+		size = ft_strlen(final_line);
+		if(write(*fd, final_line, size) == -1 || write(*fd, "\n", 1) == -1)
+			return(free(line), free(final_line), close(*fd), 1);
 		free(line);
 		line = NULL;
 		line = readline("heredoc> ");
@@ -99,7 +105,7 @@ static int create_append_file(int *fd, char *file_name)
 //function that creates and write in temp_heredoc_file
 //0 ok
 //1 fail
-int heredoc_redirect(t_redirect *here_doc, int *fd)
+int heredoc_redirect(t_redirect *here_doc, int *fd, t_shell *shell)
 {
 	// here_doc->eof = here_doc->file_name;
 	// here_doc->file_name = NULL;
@@ -110,7 +116,7 @@ int heredoc_redirect(t_redirect *here_doc, int *fd)
 	if(create_append_file(fd, here_doc->file_name) != 0)
 		return(EXIT_FAILURE);
 	here_doc->to_delete = 1;
-	if(write_in_temp_file(fd, here_doc->eof) != 0)
+	if(write_in_temp_file(fd, here_doc->eof, shell) != 0)
 		return(EXIT_FAILURE);
 	// if (input_redirect(here_doc, fd) !=0)
 	// 	return(EXIT_FAILURE);

@@ -68,7 +68,7 @@ int main(int argc, char **argv, char **envp)
 		shell.first_cmd_copy = shell.cmd_lst;
 		if (parsing_return == 0)
 			shexit(&shell, 1);
- 		if(heredoc_parent_prepare(shell.cmd_lst) != 0)
+ 		if(heredoc_parent_prepare(shell.cmd_lst, &shell) != 0)
 		 	shexit(&shell, 1);
 		if(execute_all_cmds(&shell) != 0)
 			shexit(&shell, 1);
