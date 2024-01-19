@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:53:01 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/19 12:15:37 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/19 14:29:02 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,21 +168,31 @@ int	append_or_not_1(char **res, char **value, int *i, t_tokens *tok)
 	{
 		*i = tok->end + 1;
 	}
+	return (1);
+}
+
+int	handle_next_zero_or_dollar_1(t_tokens *tok, int *i, char **res)
+{
+	if (tok->line[(*i) + 1] == 0 || tok->line[(*i) + 1] == '$')
+	{
+		*res = ft_join(res, tok->line[(*i)++]);
+		if (!res)
+			return (-1);
+		return (0);
+	}
+	return (1);
 }
 
 int	expand_var_1(t_tokens *tok, t_vars *head_ex, int *i, char **res)
 {
 	char *key;
 	char *value;
+	int		ret;
 
 	value = NULL;
-	if (tok->line[(*i) + 1] == 0 || tok->line[(*i) + 1] == '$')
-	{
-		*res = ft_join(res, tok->line[(*i)++]);
-		if (!res)
-			return (-1);
-		return (1);
-	}
+	ret = handle_next_zero_or_dollar_1(tok, i, res);
+	if (ret != 1)
+		return (ret);
 	if (is_quote(tok->line[*i + 1]))
 		return (case_start_with_quote(res, tok, i), 0);
 	if (valid_char(tok->line[*i + 1]) == 0)
@@ -191,14 +201,9 @@ int	expand_var_1(t_tokens *tok, t_vars *head_ex, int *i, char **res)
 	key = check_key(tok);
 	if (!key)
 		return ((*i)++, -1);
-	if (is_quote(key[0]))
-		value = key;
-	else
-	{
-		if (get_value_var(head_ex, key, &value) == 0)
-			return (free(key), 0);
-		free(key);
-	}
+	if (get_value_var(head_ex, key, &value) == 0)
+		return (free(key), 0);
+	free(key);
 	if (append_or_not_1(res, &value, i, tok) == -1)
 		return (-1);
 	return (1);

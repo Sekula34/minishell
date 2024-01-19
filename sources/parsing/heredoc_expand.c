@@ -46,31 +46,31 @@ int	expand_var_heredoc(t_shell *shell, int *i, char **res, t_tokens *tok_h)
 	return (1);
 }
 
-int	heredoc_expand(t_shell *shell, char **line)
-{
-	t_tokens tok_h;
-	int i;
-	char *res;
+// int	heredoc_expand(t_shell *shell, char *line, char **res)
+// {
+// 	t_tokens tok_h;
+// 	int i;
+// 	char *res;
 
-	i = 0;
-	init_tok_struct(&tok_h);
-	tok_h.line = *line;
-	res = NULL;
-	while ((*line)[i])
-	{
-		if ((*line)[i] == '$')
-		{
-			if (expand_var_heredoc(shell, &i, &res, &tok_h) == -1)
-				return (free(res), 0);
-		}
-		else
-		{
-			res = ft_join(&res, tok_h.line[i++]);
-			if (!res)
-				return (0);
-		}
-	}
-	ft_printf("res %s\n", res);
-	return (1);
-}
+// 	i = 0;
+// 	init_tok_struct(&tok_h);
+// 	tok_h.line = line;
+// 	*res = NULL;
+// 	while ((*line)[i])
+// 	{
+// 		if ((*line)[i] == '$')
+// 		{
+// 			if (expand_var_heredoc(shell, &i, res, &tok_h) == -1)
+// 				return (free(*res), 0);
+// 		}
+// 		else
+// 		{
+// 			*res = ft_join(res, tok_h.line[i++]);
+// 			if (!*res)
+// 				return (0);
+// 		}
+// 	}
+// 	ft_printf("res %s\n", res);
+// 	return (1);
+// }
 

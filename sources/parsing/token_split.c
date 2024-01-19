@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:58:30 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/18 16:06:02 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/19 13:47:35 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,27 @@ int	copy_text(t_tokens *tok, char *line, int *i, int a)
 	return (1);
 }
 
+int	make_token_logic(t_tokens *tok, char *line, int *i, int *a)
+{
+	while (line[*i] && is_white_space(line[*i]) == 1 && check_quotes(tok) == 0)
+		(*i)++;
+	while (line[*i] && (is_white_space(line[*i]) == 0 || check_quotes(tok)) && is_redirect(line[*i]) == 0)
+	{
+		if (copy_text(tok, line, i, *a) == 0)
+			return (0);
+	}
+	if (tok->tokens[*a] && tok->isq == 0 && tok->idq == 0)
+		(*a)++;
+	while (line[*i] && is_redirect(line[*i]))
+	{
+		if (tokenize_redirect(tok, line, i, a) == 0)
+			return (0);
+	}
+	if (tok->tokens[*a] && tok->isq == 0 && tok->idq == 0)
+		(*a)++;
+	return (1);
+}
+
 int make_token(t_tokens *tok, char *line)
 {
 	int		i;
@@ -90,56 +111,10 @@ int make_token(t_tokens *tok, char *line)
 	reset_struct(tok);
 	while (line[i])
 	{
-		while (line[i] && is_white_space(line[i]) == 1 && check_quotes(tok) == 0)
-			i++;
-		while (line[i] && (is_white_space(line[i]) == 0 || check_quotes(tok)) && is_redirect(line[i]) == 0)
-		{
-			if (copy_text(tok, line, &i, a) == 0)
-				return (0);
-		}
-		if (tok->tokens[a] && tok->isq == 0 && tok->idq == 0)
-			a++;
-		while (line[i] && is_redirect(line[i]))
-		{
-			if (tokenize_redirect(tok, line, &i, &a) == 0)
-				return (0);
-		}
-		if (tok->tokens[a] && tok->isq == 0 && tok->idq == 0)
-			a++;
+		if (make_token_logic(tok, line, &i, &a) == 0)
+			return (0);
 	}
 	tok->tokens[a] = 0;
 	return (1);
 }
 
-/* int main()
-{
-	t_tokens tok;
-
-	init_token_struct(&tok);
-	char **res;
-	char *line = "echo << $a \"hello $a world\">file.txt";
-
-	res = make_token(&tok, line);
-	char **fin;
-	int a = 0;
-
-	while (res && res[a])
-	{
-		printf("%d: %s\n", a, res[a]);
-		free(res[a]);
-		a++;
-	}
-	free(res);
-
-	fin = last_expand(res);
-	a = 0;
-	while (fin && fin[a])
-	{
-		printf("%d: %s\n", a, fin[a]);
-		free(fin[a]);
-		a++;
-	}
-	if (fin)
-		free(fin);
- 
-} */

@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 15:39:08 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/18 18:43:55 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/19 14:53:09 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,6 @@ int	parsing(t_shell *shell, char *line)
 			return (put_error("first expand err"), parsing_free(NULL, &lines, &line2), 0);
 
 		//ft_printf("\nline\n%s\n", line2);
-
-		if (!line2)
-			return (put_error("first expand err"), parsing_free(NULL, &lines, &line2), 0);
-
 
 		// if (shell->cmd_lst->args[0])
 		// 	puts("yes");
@@ -115,7 +111,6 @@ int	parsing(t_shell *shell, char *line)
 		a++;
  
 		parsing_free(&tok, NULL, &line2);
-		
 	}
 
 	parsing_free(NULL, &lines, NULL);
