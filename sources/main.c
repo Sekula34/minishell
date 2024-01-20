@@ -16,7 +16,7 @@
 // 	signal(SIGQUIT, SIG_IGN);
 // }
 
-int global_signal;
+int g_signal;
 
 int main(int argc, char **argv, char **envp)
 {
@@ -25,7 +25,7 @@ int main(int argc, char **argv, char **envp)
 	int	parsing_return;
 
 
-	//ft_printf("global signal is %d\n", global_signal);
+	//ft_printf("global signal is %d\n", g_signal);
 	parsing_return = 0;
 	if(shell_init(&shell, envp) != 0)
 	{
@@ -38,7 +38,7 @@ int main(int argc, char **argv, char **envp)
 	int i = 0;
 	while(1)
 	{
-		//ft_printf("global signal is %d\n", global_signal);
+		//ft_printf("global signal is %d\n", g_signal);
 		minishel_signals(1);
 		if (isatty(fileno(stdin)))
             line = readline("minishell: ");
@@ -75,8 +75,8 @@ int main(int argc, char **argv, char **envp)
 			shexit(&shell, 1);
  		if(heredoc_parent_prepare(shell.cmd_lst, &shell) != 0)
 		{
-			if(global_signal != 0)
-				shexit(&shell, global_signal);
+			if(g_signal != 0)
+				shexit(&shell, g_signal);
 		 	shexit(&shell, 1);
 		}
 		if(execute_all_cmds(&shell) != 0)

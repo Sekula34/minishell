@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_functions.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fseles <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 09:57:22 by fseles            #+#    #+#             */
-/*   Updated: 2024/01/16 09:57:24 by fseles           ###   ########.fr       */
+/*   Updated: 2024/01/20 15:06:28 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void interactive_sigint()
 {
-	global_signal = 130;
+	g_signal = 130;
 	ft_printf("\n");
 	rl_replace_line("", 0);
 	rl_on_new_line();
@@ -25,7 +25,7 @@ void heredoc_sigint()
 {
 	//ft_printf("heredoc ctrl + c\n");
 	ioctl(STDIN_FILENO, TIOCSTI, "\n");
-	global_signal = 130;
+	g_signal = 130;
 	rl_replace_line("", 0);
 	rl_on_new_line();
 	//ft_printf("on new line");

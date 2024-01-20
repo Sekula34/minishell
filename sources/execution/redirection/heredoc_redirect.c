@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 14:07:03 by fseles            #+#    #+#             */
-/*   Updated: 2024/01/17 16:39:49 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/20 15:06:27 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ static int write_in_temp_file(int *fd, char *eof, t_shell *shell)
 	minishel_signals(4);
 
 	line = readline("heredoc> ");
-	if(line == NULL || global_signal != 0)
+	if(line == NULL || g_signal != 0)
 	{
 		perror("heredoc:");
-		return (close(*fd), global_signal);
+		return (close(*fd), g_signal);
 	}
 	compare = ft_strncmp(line, eof, ft_strlen(eof) + 1);
 	while(compare != 0)
@@ -74,10 +74,10 @@ static int write_in_temp_file(int *fd, char *eof, t_shell *shell)
 		}
 			//return (close(*fd), 2);
 		compare = ft_strncmp(line, eof, ft_strlen(eof) + 1);
-		if(global_signal != 0)
+		if(g_signal != 0)
 			break ;
 	}
-	return(free(line),close(*fd), global_signal);
+	return(free(line),close(*fd), g_signal);
 }
 
 //create file in append mode, reading and writing

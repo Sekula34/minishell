@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/27 16:43:41 by fseles            #+#    #+#             */
-/*   Updated: 2023/12/12 18:00:48 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/20 15:04:52 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include <sys/wait.h>
 # include <fcntl.h>
 # include <unistd.h>
-#include <sys/ioctl.h>
+# include <sys/ioctl.h>
 # include "data_types.h"
 # include "shell_init.h"
 # include "../libft/libft.h"
@@ -34,6 +34,6 @@
 # include "execution.h"
 # include "signals.h"
 
-extern int global_signal;
+extern int	g_signal;
 
 #endif
