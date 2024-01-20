@@ -17,16 +17,16 @@ static void	export_print(t_vars *ex_vars)
 {
 	while (ex_vars != NULL)
 	{
-		if(ex_vars->key[0] == '?')
+		if (ex_vars->key[0] == '?')
 		{
 			ex_vars = ex_vars->next;
-			continue;
+			continue ;
 		}
-		printf("declare -x ");
-		printf("%s", ex_vars->key);
+		ft_printf("declare -x ");
+		ft_printf("%s", ex_vars->key);
 		if (ex_vars->value != NULL)
-			printf("=%c%s%c", '"', ex_vars->value, '"');
-		printf("\n");
+			ft_printf("=%c%s%c", '"', ex_vars->value, '"');
+		ft_printf("\n");
 		ex_vars = ex_vars->next;
 	}
 }
@@ -106,7 +106,8 @@ static int	export_no_eq(char *string, t_vars **ex_vars, t_vars **env_vars)
 //
 //creates 2 identical elements, one for ex_vars, one for env_vars
 //first try to remove variables if exist
-//if safe option is 0 key will not be check (USE ONLY FOR LAST EXIT STATUS aka ?=)
+//if safe option is 0 key will not be check
+// (USE ONLY FOR LAST EXIT STATUS aka ?=)
 int	export(char *string, t_vars **ex_vars, t_vars **env_vars, int safe_option)
 {
 	if (string == NULL)
