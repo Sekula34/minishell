@@ -19,21 +19,21 @@
 // exit 5
 // unset 6
 // export 7
-int execute_builtin(int builtin_num, t_shell *shell, t_cmd *cmd)
+int	execute_builtin(int builtin_num, t_shell *shell, t_cmd *cmd)
 {
-	if(builtin_num == 1)
-		return(cd_exec(shell, cmd));
-	if(builtin_num == 2)
-		return(pwd_exec(shell, cmd));
-	if(builtin_num == 3)
-		return(env_exec(shell, cmd));
-	if(builtin_num == 4)
-		return(echo_exec(cmd, shell));
-	if(builtin_num == 5)
-		return(shexit_exec(shell, cmd));
-	if(builtin_num == 6)
-		return(unset_exec(shell, cmd));
-	if(builtin_num == 7)
-		return(export_exec(shell, cmd));
+	if (builtin_num == 1)
+		return (cd_exec(shell, cmd));
+	if (builtin_num == 2)
+		return (pwd_exec(shell, cmd));
+	if (builtin_num == 3)
+		return (env_exec(shell, cmd));
+	if (builtin_num == 4)
+		return (echo_exec(cmd, shell));
+	if (builtin_num == 5)
+		return (shexit_exec(shell, cmd));
+	if (builtin_num == 6)
+		return (unset_exec(shell, cmd));
+	if (builtin_num == 7)
+		return (export_exec(shell, cmd));
 	return (0);
 }
