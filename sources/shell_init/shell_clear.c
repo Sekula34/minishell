@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   shell_clear.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fseles <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/20 14:35:15 by fseles            #+#    #+#             */
+/*   Updated: 2024/01/20 14:35:17 by fseles           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../headers/minishel.h"
 
-void clear_one_redirect(t_redirect **redirect)
+void	clear_one_redirect(t_redirect **redirect)
 {
-	if(redirect == NULL || *redirect == NULL)
-		return;
-	if((*redirect)->type == 'h')
+	if (redirect == NULL || *redirect == NULL)
+		return ;
+	if ((*redirect)->type == 'h')
 	{
 		free((*redirect)->eof);
 		here_doc_file_delete(*redirect);
@@ -13,12 +25,13 @@ void clear_one_redirect(t_redirect **redirect)
 	free(*redirect);
 }
 
-void clear_redirects(t_redirect **list)
+void	clear_redirects(t_redirect **list)
 {
-	t_redirect *to_delete;
-	if(list == NULL || *list == NULL)
-		return;
-	while(*list != NULL)
+	t_redirect	*to_delete;
+
+	if (list == NULL || *list == NULL)
+		return ;
+	while (*list != NULL)
 	{
 		to_delete = (*list)->next;
 		clear_one_redirect(list);
@@ -27,24 +40,23 @@ void clear_redirects(t_redirect **list)
 	}
 }
 
-void clear_one_command(t_cmd **cmd)
+void	clear_one_command(t_cmd **cmd)
 {
-	if(cmd == NULL || *cmd == NULL)
+	if (cmd == NULL || *cmd == NULL)
 		return ;
 	clear_redirects(&(*cmd)->redirect_lst);
 	free((*cmd)->path);
 	free((*cmd)->cmd);
-	//clear_mini_env(&(*cmd)->args);
 	free(*cmd);
-	
 }
 
-void clear_all_commands(t_cmd **cmd_list)
+void	clear_all_commands(t_cmd **cmd_list)
 {
-	if(cmd_list == NULL || *cmd_list == NULL)
+	t_cmd	*to_delete;
+
+	if (cmd_list == NULL || *cmd_list == NULL)
 		return ;
-	t_cmd *to_delete;
-	while(*cmd_list != NULL)
+	while (*cmd_list != NULL)
 	{
 		to_delete = (*cmd_list)->next;
 		delete_cmd_element(cmd_list);
@@ -53,7 +65,7 @@ void clear_all_commands(t_cmd **cmd_list)
 	}
 }
 
-void shell_clear(t_shell *shell)
+void	shell_clear(t_shell *shell)
 {
 	clear_list_env(&shell->head_env);
 	clear_list_env(&shell->head_ex);

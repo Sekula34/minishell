@@ -120,13 +120,8 @@ int	set_value(char **value, char *string)
 	}
 	else
 	{
-		if(set_value_without_quotes(value, string+pos_eq+1) != 0)
-			return(-1);
-		// alloc_size = ft_strlen(string) - pos_eq ;
-		// *value = ft_calloc(alloc_size, sizeof(char));
-		// if (*value == NULL)
-		// 	return (-1);
-		// ft_strlcpy(*value, string + pos_eq + 1, alloc_size);
+		if (set_value_without_quotes(value, string + pos_eq + 1) != 0)
+			return (-1);
 	}
 	return (0);
 }

@@ -15,9 +15,9 @@
 //delete temporary heredoc_file;
 void here_doc_file_delete(t_redirect *heredoc)
 {
-	if(heredoc->file_name != NULL)
+	if (heredoc->file_name != NULL)
 	{
-		if(unlink(heredoc->file_name) != 0)
+		if (unlink(heredoc->file_name) != 0)
 			perror("unlink in here_doc_clear failed\n");
 		free(heredoc->file_name);
 		heredoc->file_name = NULL;
@@ -29,15 +29,14 @@ void here_doc_file_delete(t_redirect *heredoc)
 // write in file till eof is encounter
 //return 0 if success return 1 if write fails 
 //return 2 if line is null (ctrld + d)
-static int write_in_temp_file(int *fd, char *eof, t_shell *shell)
+static int	write_in_temp_file(int *fd, char *eof, t_shell *shell)
 {
-	char *line;
-	int compare;
-	int size;
-	char *final_line;
+	char	*line;
+	int		compare;
+	int		size;
+	char	*final_line;
 
 	minishel_signals(4);
-
 	line = readline("heredoc> ");
 	if(line == NULL || g_signal != 0)
 	{

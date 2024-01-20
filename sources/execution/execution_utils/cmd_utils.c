@@ -10,19 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../../../headers/minishel.h"
+
 //count arguments in in char **
 //if it is NULL reutunr 0;
 //if it do not count NULL argument
-int get_argc(char **argv)
+int	get_argc(char **argv)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	if(argv == NULL)
+	if (argv == NULL)
 		return (0);
-	while(argv[i] != NULL)
+	while (argv[i] != NULL)
 	{
 		i++;
 	}
