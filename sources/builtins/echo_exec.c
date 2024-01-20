@@ -12,50 +12,50 @@
 
 #include "../../headers/minishel.h"
 
-static int n_option(char *str)
+static int	n_option(char *str)
 {
-	int i;
-	int str_len;
+	int	i;
+	int	str_len;
 
 	i = 1;
-	if(str == NULL)
+	if (str == NULL)
 		return (0);
 	str_len = ft_strlen(str);
-	if(str[0] != '-' || str_len == 1)
-		return(0);
-	while(str[i] != '\0')
+	if (str[0] != '-' || str_len == 1)
+		return (0);
+	while (str[i] != '\0')
 	{
-		if(str[i] != 'n')
-			return(0);
+		if (str[i] != 'n')
+			return (0);
 		i++;
 	}
 	return (1);
 }
 
-int echo_exec(t_cmd *echo_cmd, t_shell *shell)
+int	echo_exec(t_cmd *echo_cmd, t_shell *shell)
 {
-	int argc;
-	int is_option;
-	int i;
+	int	argc;
+	int	is_option;
+	int	i;
 
 	i = 1;
 	argc = get_argc(echo_cmd->args);
-	if(argc == 1)
+	if (argc == 1)
 	{
 		echo(NULL);
 		printf("\n");
 	}
 	is_option = n_option(echo_cmd->args[1]);
-	if(is_option == 1)
+	if (is_option == 1)
 		i++;
-	while(echo_cmd->args[i] != NULL)
+	while (echo_cmd->args[i] != NULL)
 	{
 		echo(echo_cmd->args[i]);
-		if(echo_cmd->args[i + 1] != NULL)
+		if (echo_cmd->args[i + 1] != NULL)
 			ft_putchar_fd(' ', 1);
 		i++;
 	}
-	if(is_option == 0)
+	if (is_option == 0)
 		printf("\n");
 	return (export_exit_status(0, shell));
 }
