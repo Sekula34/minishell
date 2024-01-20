@@ -39,6 +39,7 @@ int main(int argc, char **argv, char **envp)
 	while(1)
 	{
 		//ft_printf("global signal is %d\n", g_signal);
+
 		minishel_signals(1);
 		if (isatty(fileno(stdin)))
             line = readline("minishell: ");
@@ -63,6 +64,8 @@ int main(int argc, char **argv, char **envp)
 			break;
 		}
 		add_history(line);
+
+		// line = "echo $$$$$USER $LKSJDLKF hello'test'   \"$$$$$USER\" > file | wc - l";
 		parsing_return = parsing(&shell, line);
 		if (parsing_return == 2)
 		{

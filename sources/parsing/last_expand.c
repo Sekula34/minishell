@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 17:14:03 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/20 13:16:31 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/20 15:28:48 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	expand_var_2(t_tokens *tok, t_vars *head_ex, int *i, int *j)
 	if (get_value_var(head_ex, key, &value) == 0)
 		return (free(key), 0);
 	if (append_or_not_2(&value, tok, i, j) == 0)
-		return (0);
+		return (free(key), 0);
 	free(key);
 	return (1);
 }
