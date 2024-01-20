@@ -45,6 +45,7 @@ static int	parent_function_set_status(pid_t child_id, int *exit_code)
 		ft_printf("\n");
 		return (EXIT_SUCCESS);
 	}
+	return (1);
 }
 
 //execute original command

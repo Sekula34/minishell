@@ -77,7 +77,6 @@ int	last_expand_logic(t_tokens *tok, t_vars *head_ex, int *j)
 
 int	last_expand(t_tokens *tok, t_vars *head_ex)
 {
-	int	i;
 	int	j;
 
 	j = 0;

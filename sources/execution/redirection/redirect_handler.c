@@ -14,7 +14,7 @@
 
 //call function dependingon which redirect is encounterd
 //in_fd, and out_fd are now standard input and output;
-static int	redirect_menu(t_redirect *red_list, int *in_fd, int *out_fd, int i)
+static int	redirect_menu(t_redirect *red_list, int *in_fd, int *out_fd)
 {
 	if (red_list->type == 'a')
 		return (append_redirect(red_list, out_fd));
@@ -32,19 +32,15 @@ static int	redirect_menu(t_redirect *red_list, int *in_fd, int *out_fd, int i)
 //1 erorr;
 int	redirect_handler(t_redirect *red_list, int *in_fd, int *out_fd)
 {
-	int	i;
-
-	i = 0;
 	if (red_list == NULL)
 	{
 		return (0);
 	}
 	while (red_list != NULL)
 	{
-		if (redirect_menu(red_list, in_fd, out_fd, i) != 0)
+		if (redirect_menu(red_list, in_fd, out_fd) != 0)
 			return (1);
 		red_list = red_list->next;
-		i++;
 	}
 	return (0);
 }

@@ -13,8 +13,8 @@
 #ifndef SIGNALS_H
 # define SIGNALS_H
 
-void	interactive_sigint(void);
-void	heredoc_sigint(void);
+void	interactive_sigint(int sig);
+void	heredoc_sigint(int sig);
 void	minishel_signals(int mode);
 
 #endif

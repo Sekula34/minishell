@@ -15,6 +15,8 @@
 char	*get_key_heredoc(t_shell *shell, int i, char **res, t_tokens *tok_h)
 {
 	char	*key;
+	(void)shell;
+	(void)res;
 
 	tok_h->start = i;
 	while (tok_h->line[i] && valid_char((tok_h->line)[i]))

@@ -25,6 +25,8 @@ int main(int argc, char **argv, char **envp)
 	int	parsing_return;
 
 
+	(void) argc;
+	(void) argv;
 	//ft_printf("global signal is %d\n", g_signal);
 	parsing_return = 0;
 	if(shell_init(&shell, envp) != 0)
@@ -79,7 +81,13 @@ int main(int argc, char **argv, char **envp)
  		if(heredoc_parent_prepare(shell.cmd_lst, &shell) != 0)
 		{
 			if(g_signal != 0)
-				shexit(&shell, g_signal);
+			{
+				free(line);
+				clear_all_commands(&shell.first_cmd_copy);
+				export_exit_status(g_signal, &shell);
+				g_signal = 0;
+				continue;
+			}
 		 	shexit(&shell, 1);
 		}
 		if(execute_all_cmds(&shell) != 0)
