@@ -1,12 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rm_quotes_from_tokens.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/19 15:10:00 by wvan-der          #+#    #+#             */
+/*   Updated: 2024/01/19 16:12:10 by wvan-der         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../headers/minishel.h"
 
-char *realloc_token(char **token)
+char	*realloc_token(char **token)
 {
-	char *temp;
-	int	len;
-	int	i;
-	int j;
-
+	char	*temp;
+	int		len;
+	int		i;
+	int		j;
 
 	len = ft_strlen(*token);
 	i = 0;
@@ -22,14 +33,13 @@ char *realloc_token(char **token)
 	}
 	temp[i] = 0;
 	free(*token);
-	//ft_printf("%s\n", temp);
-	return(temp);
+	return (temp);
 }
 
-int decide_to_keep(t_tokens *tok, int j)
+int	decide_to_keep(t_tokens *tok, int j)
 {
-	int i;
-	char *res;
+	int		i;
+	char	*res;
 
 	i = 0;
 	res = ft_strdup(0);
@@ -40,34 +50,23 @@ int decide_to_keep(t_tokens *tok, int j)
 	{
 		set_quotation(tok, tok->tokens[j][i]);
 		if (check_quotes(tok) == 0 && is_quote(tok->tokens[j][i]) == 0)
-		{
 			res = ft_join(&res, tok->tokens[j][i]);
-			if (!res)
-				return (0);
-		}
 		else if (tok->isq == 1 && tok->tokens[j][i] != '\'')
-		{
 			res = ft_join(&res, tok->tokens[j][i]);
-			if (!res)
-				return (0);
-		}
 		else if (tok->idq == 1 && tok->tokens[j][i] != '"')
-		{
 			res = ft_join(&res, tok->tokens[j][i]);
-			if (!res)
-				return (0);
-		}
+		if (!res)
+			return (0);
 		i++;
 	}
-	//ft_printf("res:%s\n", res);
 	free(tok->tokens[j]);
 	tok->tokens[j] = res;
 	return (1);
 }
 
-int rm_quotes_from_tokens(t_tokens *tok)
+int	rm_quotes_from_tokens(t_tokens *tok)
 {
-	int j;
+	int	j;
 
 	j = 0;
 	while (tok->tokens[j])
@@ -77,30 +76,3 @@ int rm_quotes_from_tokens(t_tokens *tok)
 	}
 	return (1);
 }
-
-// char	*rm_quotes_from_line(char **line)
-// {
-// 	char *temp;
-// 	int	i;
-// 	int j;
-
-// 	i = 0;
-// 	j = 0;
-
-// 	temp = (char *)malloc(ft_strlen(*line) + 1);
-// 	if (!temp)
-// 		return (NULL);
-	
-// 	while ((*line)[i])
-// 	{
-// 		if (is_quote((*line)[i]) == 0)
-// 		{	
-// 			temp[j] = (*line)[i];
-// 			j++;
-// 		}
-// 		i++;
-// 	}
-// 	temp[j] = 0;
-// 	free(*line);
-// 	return (temp);
-// }

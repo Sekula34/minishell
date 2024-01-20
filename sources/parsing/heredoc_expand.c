@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   heredoc_expand.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/19 15:09:34 by wvan-der          #+#    #+#             */
+/*   Updated: 2024/01/20 13:59:36 by wvan-der         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../headers/minishel.h"
 
-char *get_key_heredoc(t_shell *shell, int i, char **res, t_tokens *tok_h)
+char	*get_key_heredoc(t_shell *shell, int i, char **res, t_tokens *tok_h)
 {
-	char *key;
+	char	*key;
 
 	tok_h->start = i;
 	while (tok_h->line[i] && valid_char((tok_h->line)[i]))

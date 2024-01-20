@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 14:01:46 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/17 12:39:33 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/19 15:30:39 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,6 @@ int	valid_char(char c)
 		return (1);
 	if (c == '?')
 		return (1);
-/* 	if (c == '"')
-		return (1);
-	if (c == '\'')
-		return (1); */
 	return (0);
 }
 

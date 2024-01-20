@@ -46,8 +46,14 @@ sources/execution/execute_minishell.c \
 sources/execution/execute_one_command.c\
 sources/execution/execute_original_cmd.c \
 sources/parsing/token_split.c \
+sources/parsing/token_split2.c \
+sources/parsing/classifying_tokens2.c \
+sources/parsing/classifying_tokens3.c \
 sources/parsing/first_expand.c \
+sources/parsing/first_expand2.c \
+sources/parsing/first_expand3.c \
 sources/parsing/last_expand.c \
+sources/parsing/last_expand2.c \
 sources/parsing/parsing_utils.c \
 sources/parsing/parsing_utils2.c \
 sources/parsing/parsing_utils3.c \
@@ -57,7 +63,9 @@ sources/parsing/split_pipes.c \
 sources/parsing/redirect_utils.c \
 sources/parsing/cmd_utils.c \
 sources/parsing/free_utils.c \
+sources/parsing/free_utils2.c \
 sources/parsing/syntax_check.c \
+sources/parsing/syntax_check2.c \
 sources/parsing/rm_quotes_from_tokens.c \
 sources/parsing/convert_fake_redirect.c \
 sources/parsing/heredoc_expand.c \
