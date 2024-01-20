@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 17:14:03 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/19 15:30:03 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/20 13:16:31 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int	last_expand(t_tokens *tok, t_vars *head_ex)
 	while (tok->tokens[j])
 	{
 		if (last_expand_logic(tok, head_ex, &j) == 0)
-			return (0);
+			return (put_error("2nd exo err"), 0);
 	}
 	tok->fin[j] = 0;
 	free_tokens_set_fin(tok);

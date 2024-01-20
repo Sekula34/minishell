@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 13:59:09 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/19 15:21:28 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/20 13:17:45 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,11 +111,11 @@ int	classifiying_tokens(t_tokens *tok, t_cmd **cmd_lst)
 	while (tok->fin[j])
 	{
 		if (classify(tok, cmd_lst, &j, &redirect_lst) == 0)
-			return (puts("1"), 0);
+			return (put_error("classifying err"), 0);
 		j++;
 	}
 	if (check_0_cmd_arg(tok, cmd_lst, &redirect_lst) == 0)
-		return (0);
+		return (put_error("classifying err"), 0);
 	if (cmd_lst && *cmd_lst)
 	{
 		last = *cmd_lst;
