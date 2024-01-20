@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 15:09:34 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/20 13:59:36 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/20 15:10:43 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,12 @@ char	*get_key_heredoc(t_shell *shell, int i, char **res, t_tokens *tok_h)
 
 int	expand_var_heredoc(t_shell *shell, int *i, char **res, t_tokens *tok_h)
 {
-	char *key;
-	char *value;
+	char	*key;
+	char	*value;
 
 	value = NULL;
-	// if (tok_h->line[*i + 1] == '$')
-	// 	return ((*i)++, 0);
-	if (tok_h->line[*i + 1] == 0 || is_quote(tok_h->line[*i + 1]) || tok_h->line[*i + 1] == '$')
+	if (tok_h->line[*i + 1] == 0 || is_quote(tok_h->line[*i + 1])
+		|| tok_h->line[*i + 1] == '$')
 	{
 		*res = ft_join(res, tok_h->line[(*i)++]);
 		if (!*res)
@@ -48,7 +47,6 @@ int	expand_var_heredoc(t_shell *shell, int *i, char **res, t_tokens *tok_h)
 	key = get_key_heredoc(shell, (*i) + 1, res, tok_h);
 	if (!key)
 		return ((*i)++, -1);
-	//ft_printf("key %s\n", key);
 	if (get_value_var(shell->head_ex, key, &value) == 0)
 		return (free(key), 0);
 	free(key);
@@ -60,8 +58,8 @@ int	expand_var_heredoc(t_shell *shell, int *i, char **res, t_tokens *tok_h)
 
 int	heredoc_expand(t_shell *shell, char *line, char **res)
 {
-	t_tokens tok_h;
-	int i;
+	t_tokens	tok_h;
+	int			i;
 
 	i = 0;
 	init_tok_struct(&tok_h);
@@ -81,7 +79,5 @@ int	heredoc_expand(t_shell *shell, char *line, char **res)
 				return (0);
 		}
 	}
-	//ft_printf("res %s\n", *res);
 	return (1);
 }
-
