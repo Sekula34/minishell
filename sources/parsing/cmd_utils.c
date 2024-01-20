@@ -15,6 +15,7 @@
 t_cmd	*make_cmd_node(char *cmd, t_redirect *redirect_lst, t_cmd *cmd_lst)
 {
 	t_cmd	*new_node;
+	(void)cmd_lst;
 
 	new_node = malloc(sizeof(t_cmd));
 	if (!new_node)

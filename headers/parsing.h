@@ -59,7 +59,7 @@ char		*make_filename(t_tokens *tok, int *j);
 int			fill_redirect_node(t_tokens *tok, int *j, t_redirect **r_lst);
 int			put_cmd(t_tokens *tok, int *j, t_cmd **cmd_lst, t_redirect *r_lst);
 int			get_array_size(t_cmd *cmd_lst);
-int			realloc_array(t_tokens *tok, t_cmd **cmd_lst, char *arg);
+int			realloc_array(t_cmd **cmd_lst, char *arg);
 t_cmd		*make_cmd_node(char *cmd, t_redirect *r_lst, t_cmd *cmd_lst);
 void		add_cmd_node(t_cmd **lst, t_cmd *new_lst);
 void		doing_conversion(t_tokens *tok, int j);

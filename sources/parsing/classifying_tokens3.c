@@ -24,7 +24,7 @@ int	get_array_size(t_cmd *cmd_lst)
 	return (size);
 }
 
-int	realloc_array(t_tokens *tok, t_cmd **cmd_lst, char *arg)
+int	realloc_array(t_cmd **cmd_lst, char *arg)
 {
 	int		size;
 	char	**temp;

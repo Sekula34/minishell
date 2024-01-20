@@ -69,7 +69,6 @@ int	shexit_exec(t_shell *shell, t_cmd *exit_cmd)
 {
 	int		argc;
 	int		status;
-	char	*digit;
 
 	status = 0;
 	//ft_printf("exit\n");

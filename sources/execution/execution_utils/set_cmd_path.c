@@ -123,8 +123,6 @@ int	set_path_to_current_dir(t_shell *shell, char **path, char *file)
 //cmd path is different than NULL only if everything is ok
 int	set_cmd_path(t_cmd *cmd, t_shell *shell)
 {
-	t_vars	*current_dir;
-
 	cmd->path = NULL;
 	if (cmd->cmd[0] == '/')
 	{

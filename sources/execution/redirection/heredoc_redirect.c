@@ -26,9 +26,8 @@ static void	freeing_lines(char **line, char **final_line)
 	}
 }
 
-int	first_read(char *final_line, char **line, int *fd)
+int	first_read(char **line, int *fd)
 {
-	final_line = NULL;
 	minishel_signals(4);
 	*line = readline("heredoc> ");
 	if (*line == NULL || g_signal != 0)
@@ -55,7 +54,8 @@ static int	write_in_temp_file(int *fd, char *eof, t_shell *shell)
 	char	*final_line;
 	int		first_read_val;
 
-	first_read_val = first_read(final_line, &line, fd);
+	final_line = NULL;
+	first_read_val = first_read(&line, fd);
 	if (first_read_val != 0)
 		return (EXIT_FAILURE);
 	compare = ft_strncmp(line, eof, ft_strlen(eof) + 1);

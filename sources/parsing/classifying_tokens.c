@@ -32,7 +32,7 @@ int	put_arg(t_tokens *tok, int *j, t_cmd **cmd_lst)
 		temp->args[0] = "minishell";
 		temp->args[1] = NULL;
 	}
-	if (realloc_array(tok, &temp, arg) == 0)
+	if (realloc_array(&temp, arg) == 0)
 		return (free(arg), 0);
 	return (1);
 }
@@ -40,6 +40,7 @@ int	put_arg(t_tokens *tok, int *j, t_cmd **cmd_lst)
 int	make_arg_arr(t_tokens *tok, t_cmd **cmd_lst)
 {
 	t_cmd	*temp;
+	(void)tok;
 
 	temp = *cmd_lst;
 	if (!temp)

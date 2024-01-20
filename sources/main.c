@@ -25,6 +25,8 @@ int main(int argc, char **argv, char **envp)
 	int	parsing_return;
 
 
+	(void) argc;
+	(void) argv;
 	//ft_printf("global signal is %d\n", g_signal);
 	parsing_return = 0;
 	if(shell_init(&shell, envp) != 0)
