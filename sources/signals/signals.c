@@ -12,44 +12,43 @@
 
 #include "../../headers/minishel.h"
 
-static void parent_exec()
+static void	parent_exec(void)
 {
-	//ft_printf("parent signals activated\n");
 	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
 }
 
-static void child_exec()
+static void	child_exec(void)
 {
-	//ft_printf("child signals activated \n");
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 }
 
-static void interactive_mode()
+static void	interactive_mode(void)
 {
-	//ft_printf("interactive signals acitaved\n");
 	signal(SIGINT, interactive_sigint);
 	signal(SIGQUIT, SIG_IGN);
 }
 
-static void heredoc_mod()
+static void	heredoc_mod(void)
 {
 	signal(SIGINT, heredoc_sigint);
 	signal(SIGQUIT, SIG_DFL);
 }
-//mode 1 interactive signals where ctrl + c gives new readline and ctrl + \ is ignored
+
+//mode 1 interactive signals where ctrl + c 
+//gives new readline and ctrl + \ is ignored
 //mode 2 parent execution where ctrl + c and ctrl + \ are both ignored;
 //mode 3 child_exec where both signal have default action
-void minishel_signals(int mode)
+void	minishel_signals(int mode)
 {
-	if(mode == 1)
+	if (mode == 1)
 		interactive_mode();
-	else if(mode == 2)
+	else if (mode == 2)
 		parent_exec();
-	else if(mode == 3)
+	else if (mode == 3)
 		child_exec();
-	else if(mode ==4)
+	else if (mode == 4)
 		heredoc_mod();
 	return ;
 }
