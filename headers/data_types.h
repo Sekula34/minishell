@@ -25,7 +25,6 @@ typedef struct s_redirect
 	char				type;
 	char				*file_name;
 	int					del_flag;
-	//i = < o = > h = << a = >>
 	char				*eof;
 	int					to_delete;
 	struct s_redirect	*next;
