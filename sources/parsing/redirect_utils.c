@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   redirect_utils.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/19 15:09:54 by wvan-der          #+#    #+#             */
+/*   Updated: 2024/01/19 15:30:59 by wvan-der         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../headers/minishel.h"
 
 t_redirect	*make_redirect_node(char type, char *file_name)
@@ -33,14 +45,3 @@ void	add_redirect_node(t_redirect **lst, t_redirect *new_lst)
 		}
 	}
 }
-
-/* t_redirect	*end_of_redirect(t_redirect *lst)
-{
-	if (lst)
-	{
-		while (lst->next != NULL)
-			lst = lst->next;
-		return (lst);
-	}
-	return (NULL);
-} */

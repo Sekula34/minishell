@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 11:22:24 by fseles            #+#    #+#             */
-/*   Updated: 2024/01/04 16:42:42 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/19 16:01:24 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ typedef struct s_vars
 
 typedef struct s_redirect
 {
-	char			type;
-	char 			*file_name;
-	int				del_flag;
+	char				type;
+	char				*file_name;
+	int					del_flag;
 	//i = < o = > h = << a = >>
-	char			*eof;
-	int				to_delete;
+	char				*eof;
+	int					to_delete;
 	struct s_redirect	*next;
 }	t_redirect;
 
@@ -49,9 +49,9 @@ typedef struct s_shell
 	t_vars	*head_env;
 	char	*minishell_exec;
 	char	**mini_env;
-	int **pipe_arr;
-	int stdin_cpy;
-	int stdout_cpy;
+	int		**pipe_arr;
+	int		stdin_cpy;
+	int		stdout_cpy;
 
 }	t_shell;
 
