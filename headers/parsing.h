@@ -131,5 +131,6 @@ int			copy_text(t_tokens *tok, char *line, int *i, int a);
 int			make_token_logic(t_tokens *tok, char *line, int *i, int *a);
 int			make_token(t_tokens *tok, char *line);
 void		parsing_free(t_tokens *tok, t_parsing *parsing, int flag);
+int			heredoc_expand(t_shell *shell, char *line, char **final_line);
 
 #endif
