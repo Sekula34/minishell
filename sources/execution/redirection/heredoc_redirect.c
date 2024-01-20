@@ -12,16 +12,33 @@
 
 #include "../../../headers/minishel.h"
 
-//delete temporary heredoc_file;
-void here_doc_file_delete(t_redirect *heredoc)
+static void	freeing_lines(char **line, char **final_line)
 {
-	if (heredoc->file_name != NULL)
+	if (*line)
 	{
-		if (unlink(heredoc->file_name) != 0)
-			perror("unlink in here_doc_clear failed\n");
-		free(heredoc->file_name);
-		heredoc->file_name = NULL;
+		free(*line);
+		*line = NULL;
 	}
+	if (*final_line)
+	{
+		free(*final_line);
+		*final_line = NULL;
+	}
+}
+
+int	first_read(char **line, int *fd)
+{
+	minishel_signals(4);
+	*line = readline("heredoc> ");
+	if (*line == NULL || g_signal != 0)
+	{
+		close(*fd);
+		free(*line);
+		if (g_signal == 0)
+			return (0);
+		return (g_signal);
+	}
+	return (0);
 }
 
 // write in open fd fd which will be close in the end
@@ -35,59 +52,38 @@ static int	write_in_temp_file(int *fd, char *eof, t_shell *shell)
 	int		compare;
 	int		size;
 	char	*final_line;
+	int		first_read_val;
 
-	minishel_signals(4);
-	line = readline("heredoc> ");
-	if(line == NULL || g_signal != 0)
-	{
-		perror("heredoc:");
-		return (close(*fd), g_signal);
-	}
+	final_line = NULL;
+	first_read_val = first_read(&line, fd);
+	if (first_read_val != 0)
+		return (EXIT_FAILURE);
 	compare = ft_strncmp(line, eof, ft_strlen(eof) + 1);
-	while(compare != 0)
+	while (compare != 0 && g_signal == 0)
 	{
-		if(line == NULL)
-		{
-			//perror("heeredoc 2:");
-			size = 0;
-			return(EXIT_SUCCESS);
-		}
-		else 
-			size = ft_strlen(line);
 		if (heredoc_expand(shell, line, &final_line) != 1)
-		{
-			return(free(line), close(*fd), 1);
-		}
+			return (free(line), close(*fd), 1);
 		size = ft_strlen(final_line);
-		if(write(*fd, final_line, size) == -1 || write(*fd, "\n", 1) == -1)
-			return(free(line), free(final_line), close(*fd), 1);
-		free(line);
-		free(final_line);
-		line = NULL;
+		if (write(*fd, final_line, size) == -1 || write(*fd, "\n", 1) == -1)
+			return (free(line), free(final_line), close(*fd), 1);
+		freeing_lines(&line, &final_line);
 		line = readline("heredoc> ");
-		if(line == NULL)
-		{
-			//perror("heeredoc 2:");
-			size = 0;
-			return(EXIT_SUCCESS);
-		}
-			//return (close(*fd), 2);
-		compare = ft_strncmp(line, eof, ft_strlen(eof) + 1);
-		if(g_signal != 0)
+		if (line == NULL)
 			break ;
+		compare = ft_strncmp(line, eof, ft_strlen(eof) + 1);
 	}
-	return(free(line),close(*fd), g_signal);
+	return (freeing_lines(&line, &final_line), close(*fd), g_signal);
 }
 
 //create file in append mode, reading and writing
 //will be stored in fd;
 //1 if failed, 0 if good
-static int create_append_file(int *fd, char *file_name)
+static int	create_append_file(int *fd, char *file_name)
 {
 	*fd = open(file_name, O_APPEND | O_RDWR | O_CREAT, 0777);
-	if(*fd == -1)
-		return(1);
-	return(0);
+	if (*fd == -1)
+		return (1);
+	return (0);
 }
 
 //allocates file_name thatis combination of
@@ -99,7 +95,6 @@ static int create_append_file(int *fd, char *file_name)
 // {
 // 	char *number;
 // 	char *file_name;
-
 // 	number = ft_itoa(file_index);
 // 	if(number == NULL)
 // 	{
@@ -115,24 +110,15 @@ static int create_append_file(int *fd, char *file_name)
 // 	free(number);
 // 	return(file_name);
 // }
-
 //function that creates and write in temp_heredoc_file
 //0 ok
 //1 fail
-int heredoc_redirect(t_redirect *here_doc, int *fd, t_shell *shell)
+int	heredoc_redirect(t_redirect *here_doc, int *fd, t_shell *shell)
 {
-	// here_doc->eof = here_doc->file_name;
-	// here_doc->file_name = NULL;
-
-	// here_doc->file_name = get_real_fn(file_index);
-	// if(here_doc->file_name == NULL)
-	// 	return (EXIT_FAILURE);
-	if(create_append_file(fd, here_doc->file_name) != 0)
-		return(EXIT_FAILURE);
+	if (create_append_file(fd, here_doc->file_name) != 0)
+		return (EXIT_FAILURE);
 	here_doc->to_delete = 1;
-	if(write_in_temp_file(fd, here_doc->eof, shell) != 0)
-		return(EXIT_FAILURE);
-	// if (input_redirect(here_doc, fd) !=0)
-	// 	return(EXIT_FAILURE);
-	return(EXIT_SUCCESS);
+	if (write_in_temp_file(fd, here_doc->eof, shell) != 0)
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }

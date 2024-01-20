@@ -49,11 +49,10 @@ int	parsing(t_shell *shell, char *line)
 {
 	t_parsing	p;
 	t_tokens	tok;
-	t_cmd		*cmd_lst;
 
 	if (!line)
 		return (put_error("line=NULL"), 0);
-	init_parsing_struct(&p, shell, cmd_lst);
+	init_parsing_struct(&p, shell, NULL);
 	init_tok_struct(&tok);
 	if (syntax_check(&tok, line) == 0)
 		return (2);

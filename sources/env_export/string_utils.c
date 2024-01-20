@@ -105,7 +105,6 @@ int	set_key(char **key, char *string)
 int	set_value(char **value, char *string)
 {
 	int	pos_eq;
-	int	alloc_size;
 
 	if (string == NULL)
 	{

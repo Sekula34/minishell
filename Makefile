@@ -84,9 +84,9 @@ headers/envexport.h \
 headers/minishel.h \
 headers/shell_init.h \
 
-CC = cc -g
+CC = cc 
 
-#COMPILER_FLAGS = -Wall -Wextra -Werror -g
+COMPILER_FLAGS = -Wall -Wextra -Werror -g
 
 EXTRA_FLAGS = -lreadline
 

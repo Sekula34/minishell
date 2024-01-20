@@ -11,8 +11,9 @@
 /* ************************************************************************** */
 
 #include  "../../headers/get_next_line.h"
+#include "../../headers/minishel.h"
 
-static char	*ft_free(int bytes_read, char **line)
+static char	*ft_gnl_free(int bytes_read, char **line)
 {
 	if (bytes_read <= 0)
 	{
@@ -47,7 +48,7 @@ char	*ft_realloc(char **line, int i, int *did_malloc_fail)
 		(*line)[i] = temp[i];
 	(*line)[i] = 0;
 	if (i == 0)
-		return (free(temp), ft_free(-1, line), NULL);
+		return (free(temp), ft_gnl_free(-1, line), NULL);
 	return (free(temp), *line);
 }
 
@@ -61,7 +62,7 @@ char	*make_res(char **line)
 	did_malloc_fail = 0;
 	res = malloc(check_newline_res(*line) + 1);
 	if (!res)
-		return (ft_free(-1, line), NULL);
+		return (ft_gnl_free(-1, line), NULL);
 	while ((*line)[i] && (*line)[i] != '\n')
 	{
 		res[i] = (*line)[i];
@@ -72,7 +73,7 @@ char	*make_res(char **line)
 		res[++i] = '\0';
 	ft_realloc(line, i, &did_malloc_fail);
 	if (did_malloc_fail)
-		return (free(res), ft_free(-1, line), NULL);
+		return (free(res), ft_gnl_free(-1, line), NULL);
 	return (res);
 }
 
@@ -115,10 +116,10 @@ char	*get_next_line(int fd)
 		return (NULL);
 	line = ft_read(&line, fd, &bytes_read);
 	if (bytes_read == -1 || !line)
-		return (ft_free(bytes_read, &line), NULL);
+		return (ft_gnl_free(bytes_read, &line), NULL);
 	res = make_res(&line);
 	if (!res)
-		return (ft_free(bytes_read, &line), NULL);
+		return (ft_gnl_free(bytes_read, &line), NULL);
 	if (bytes_read == 0)
 	{
 		if (line)

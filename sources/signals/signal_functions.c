@@ -12,8 +12,9 @@
 
 #include "../../headers/minishel.h"
 
-void	interactive_sigint(void)
+void	interactive_sigint(int sig)
 {
+	(void)sig;
 	g_signal = 130;
 	ft_printf("\n");
 	rl_replace_line("", 0);
@@ -21,8 +22,9 @@ void	interactive_sigint(void)
 	rl_redisplay();
 }
 
-void	heredoc_sigint(void)
+void	heredoc_sigint(int sig)
 {
+	(void)sig;
 	ioctl(STDIN_FILENO, TIOCSTI, "\n");
 	g_signal = 130;
 	rl_replace_line("", 0);
