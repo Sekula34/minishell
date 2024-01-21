@@ -1,7 +1,6 @@
 #include "../headers/minishel.h"
 #include "../headers/get_next_line.h"
 
-
 // void my_signal_handle()
 // {
 // 	ft_printf("\n");
@@ -18,98 +17,109 @@
 
 int g_signal;
 
+void	check_g_signal(t_shell *shell)
+{
+	if (g_signal != 0)
+	{
+		if (export_exit_status(g_signal + 128, shell) != 0)
+			shexit(shell, 1);
+		g_signal = 0;
+	}
+}
+//0 ok 
+//-1 continue
+static int middle_part_of_code(t_shell *shell, char **line, int *parsing_return)
+{
+	check_g_signal(shell);
+	add_history(*line);
+	if (*line && (*line)[0] == 0)
+	{
+		free(*line);
+		return (-1);
+	}
+	*parsing_return = parsing(shell, *line);
+	if (*parsing_return == 2)
+	{
+		if(export_exit_status(2, shell) != 0)
+			shexit(shell, 1);
+		free(*line);
+		return (-1);
+	}
+	return (0);
+}
+
+void first_part_of_code(t_shell *shell, int argc, char **argv, char **envp)
+{
+	(void)argc;
+	(void)argv;
+	if (shell_init(shell, envp) != 0)
+		shexit(shell, 1);
+}
+
+
+// 0 ok
+// 1 fail
+//-1 continue
+static int heredoc_in_main(t_shell *shell, char **line)
+{
+	if (heredoc_parent_prepare(shell->cmd_lst, shell) != 0)
+	{
+		if (g_signal != 0)
+		{
+			free(*line);
+			clear_all_commands(&shell->first_cmd_copy);
+			if (export_exit_status(g_signal + 128, shell) != 0)
+				shexit(shell, 1);
+			g_signal = 0;
+			return (-1);
+		}
+		shexit(shell, 1);
+	}
+	return (0);
+}
+
+static void last_part_of_code(t_shell *shell, char **line)
+{
+	clear_all_commands(&shell->first_cmd_copy);
+	shell->first_cmd_copy = NULL;
+	free(*line);
+	*line = NULL;
+	rl_on_new_line();
+}
+
 int main(int argc, char **argv, char **envp)
 {
 	t_shell shell;
 	char *line;
-	int	parsing_return;
+	int parsing_return;
 
-
-	(void) argc;
-	(void) argv;
-	//ft_printf("global signal is %d\n", g_signal);
-	parsing_return = 0;
-	if(shell_init(&shell, envp) != 0)
+	first_part_of_code(&shell, argc, argv, envp);
+	while (1)
 	{
-		shexit(&shell, 1);
-	}
-	// line = "echo $USER";
-	// heredoc_expand(&shell, &line);
-	// return (0);
-
-	int i = 0;
-	while(1)
-	{
-		//ft_printf("global signal is %d\n", g_signal);
-
 		minishel_signals(1);
 		if (isatty(fileno(stdin)))
-            line = readline("minishell: ");
-        else
-        {
-            char *line2;
-            line2 = get_next_line(fileno(stdin));
-            line = ft_strtrim(line2, "\n");
-            free(line2);
-        }
-
-		if(g_signal != 0)
+			line = readline("minishell: ");
+		else
 		{
-			export_exit_status(g_signal + 128, &shell);
-			g_signal = 0;
+			char *line2;
+			line2 = get_next_line(fileno(stdin));
+			line = ft_strtrim(line2, "\n");
+			free(line2);
 		}
-		//line = readline("minishell: ");
-		// if (!line)
-		//  	shexit(&shell, 0);
-
-		// line = "echo \"$USER\"";
-		//line = "echo $$$$ hello'test' $USER \"$USER\" | wc -l";
-
+		// line = readline("finishell: ");
 		if (line == NULL)
-		{
-			free(line);
 			break;
-		}
-		add_history(line);
-
-
-		if (line && line[0] == 0)
-		{
-			free(line);
+		if(middle_part_of_code(&shell, &line, &parsing_return) == -1)
 			continue;
-		}
-		// line = "echo $$$$$USER $LKSJDLKF hello'test'   \"$$$$$USER\" > file | wc - l";
-		parsing_return = parsing(&shell, line);
-		if (parsing_return == 2)
-		{
-			export_exit_status(2, &shell);
-			free(line);
-			continue;
-		}
 		shell.first_cmd_copy = shell.cmd_lst;
 		if (parsing_return == 0)
 			shexit(&shell, 1);
- 		if(heredoc_parent_prepare(shell.cmd_lst, &shell) != 0)
-		{
-			if(g_signal != 0)
-			{
-				free(line);
-				clear_all_commands(&shell.first_cmd_copy);
-				export_exit_status(g_signal + 128, &shell);
-				g_signal = 0;
-				continue;
-			}
-		 	shexit(&shell, 1);
-		}
-		if(execute_all_cmds(&shell) != 0)
+		if (heredoc_in_main(&shell, &line) == -1)
+			continue;
+		if (execute_all_cmds(&shell) != 0)
 			shexit(&shell, 1);
-		clear_all_commands(&shell.first_cmd_copy);
-		shell.first_cmd_copy = NULL;
-		i++;
-		free(line);
-		line = NULL;
-		rl_on_new_line();
+		last_part_of_code(&shell, &line);
 	}
 	shexit(&shell, shell.last_exit_code);
-	return(EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 }
