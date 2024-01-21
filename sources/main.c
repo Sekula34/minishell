@@ -53,6 +53,11 @@ int main(int argc, char **argv, char **envp)
             free(line2);
         }
 
+		if(g_signal != 0)
+		{
+			export_exit_status(g_signal + 128, &shell);
+			g_signal = 0;
+		}
 		//line = readline("minishell: ");
 		// if (!line)
 		//  	shexit(&shell, 0);
@@ -67,6 +72,12 @@ int main(int argc, char **argv, char **envp)
 		}
 		add_history(line);
 
+
+		if (line && line[0] == 0)
+		{
+			free(line);
+			continue;
+		}
 		// line = "echo $$$$$USER $LKSJDLKF hello'test'   \"$$$$$USER\" > file | wc - l";
 		parsing_return = parsing(&shell, line);
 		if (parsing_return == 2)
@@ -84,7 +95,7 @@ int main(int argc, char **argv, char **envp)
 			{
 				free(line);
 				clear_all_commands(&shell.first_cmd_copy);
-				export_exit_status(g_signal, &shell);
+				export_exit_status(g_signal + 128, &shell);
 				g_signal = 0;
 				continue;
 			}

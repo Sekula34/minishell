@@ -15,7 +15,7 @@
 void	interactive_sigint(int sig)
 {
 	(void)sig;
-	g_signal = 130;
+	g_signal = sig;
 	ft_printf("\n");
 	rl_replace_line("", 0);
 	rl_on_new_line();
@@ -26,7 +26,7 @@ void	heredoc_sigint(int sig)
 {
 	(void)sig;
 	ioctl(STDIN_FILENO, TIOCSTI, "\n");
-	g_signal = 130;
+	g_signal = sig;
 	rl_replace_line("", 0);
 	rl_on_new_line();
 }
