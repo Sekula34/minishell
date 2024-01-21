@@ -16,8 +16,10 @@ void	interactive_sigint(int sig)
 {
 	(void)sig;
 	g_signal = sig;
-	ft_printf("\n");
+	//ft_printf("\n");
 	rl_replace_line("", 0);
+	ioctl(STDIN_FILENO, TIOCSTI, "\n");
+	//ft_putchar_fd('\n', STDOUT_FILENO);
 	rl_on_new_line();
 	rl_redisplay();
 }
