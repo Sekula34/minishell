@@ -33,7 +33,7 @@ static void	child_waiter(int number_of_kids, int **pipe_arr, t_shell *shell)
 		if (WIFSIGNALED(status))
 		{
 			exit_status = WTERMSIG(status) + 128;
-			if (received == 0)
+			if (received == 0 && status == 2)
 			{
 				ft_printf("\n");
 				received ++;
