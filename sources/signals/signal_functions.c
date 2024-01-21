@@ -14,14 +14,39 @@
 
 void	interactive_sigint(int sig)
 {
-	(void)sig;
+	// (void)sig;
+	// g_signal = SIGINT;
+	// write(2, "\n", 1);
+	// rl_on_new_line();
+	// rl_replace_line("", 0);
+	// rl_redisplay();
+
+
 	g_signal = sig;
-	//ft_printf("\n");
+	//write(1, "\n\n", 2);
+	//ioctl(STDIN_FILENO, TIOCSTI, "\n");
+
+	ft_printf("\n");
 	rl_replace_line("", 0);
-	ioctl(STDIN_FILENO, TIOCSTI, "\n");
-	//ft_putchar_fd('\n', STDOUT_FILENO);
 	rl_on_new_line();
 	rl_redisplay();
+
+
+	// g_signal = sig;
+	// //ft_printf("\n");
+	// //puts("beforeioctl");
+	// ft_printf("\n");
+	// rl_replace_line("", 0);
+	// rl_on_new_line();
+	// rl_redisplay();
+	//puts("wtf");
+	//write(STDOUT_FILENO, "\n", 1);
+	//ft_putchar_fd('\n', STDOUT_FILENO);
+	//rl_on_new_line();
+	// puts("here i am");
+	// rl_redisplay();
+	// puts("newline");
+	//puts("hello\n");
 }
 
 void	heredoc_sigint(int sig)

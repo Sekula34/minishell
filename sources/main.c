@@ -27,57 +27,53 @@ int main(int argc, char **argv, char **envp)
 
 	(void) argc;
 	(void) argv;
-	//ft_printf("global signal is %d\n", g_signal);
 	parsing_return = 0;
 	if(shell_init(&shell, envp) != 0)
 	{
 		shexit(&shell, 1);
 	}
-	// line = "echo $USER";
-	// heredoc_expand(&shell, &line);
-	// return (0);
-
 	int i = 0;
 	while(1)
 	{
-		//ft_printf("global signal is %d\n", g_signal);
-
 		minishel_signals(1);
 		if (isatty(fileno(stdin)))
-            line = readline("minishell: ");
-        else
-        {
-            char *line2;
-            line2 = get_next_line(fileno(stdin));
-            line = ft_strtrim(line2, "\n");
-            free(line2);
-        }
-
-		//line = readline("minishell: ");
-		// if (!line)
-		//  	shexit(&shell, 0);
-
-		// line = "echo \"$USER\"";
-		//line = "echo $$$$ hello'test' $USER \"$USER\" | wc -l";
-
+            line = readline("minishell first: ");
+		//ft_printf("global signal is %d\n", g_signal);
+		if(g_signal != 0)
+		{
+			export_exit_status(128 + g_signal, &shell);
+		}
 		if (line == NULL)
 		{
 			free(line);
 			break;
 		}
 		add_history(line);
-
-		// line = "echo $$$$$USER $LKSJDLKF hello'test'   \"$$$$$USER\" > file | wc - l";
+		if(line[0] == '\0')
+		{
+			if(g_signal != 0)
+				export_exit_status(128 + g_signal, &shell);
+			free(line);
+			continue;
+		}
 		parsing_return = parsing(&shell, line);
 		if (parsing_return == 2)
 		{
 			export_exit_status(2, &shell);
+			if(g_signal != 0)
+				export_exit_status(128 + g_signal, &shell);
 			free(line);
 			continue;
 		}
 		shell.first_cmd_copy = shell.cmd_lst;
 		if (parsing_return == 0)
 			shexit(&shell, 1);
+		if(g_signal != 0)
+		{
+			//puts("i am here");
+			export_exit_status(128 + g_signal, &shell);
+			g_signal = 0;
+		}
  		if(heredoc_parent_prepare(shell.cmd_lst, &shell) != 0)
 		{
 			if(g_signal != 0)
