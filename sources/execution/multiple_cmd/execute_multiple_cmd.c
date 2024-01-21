@@ -38,6 +38,7 @@ static void	child_waiter(int number_of_kids, int **pipe_arr, t_shell *shell)
 static void	child_handler(t_shell *shell, int index,
 	int **pipe_arr, int number_of_kids)
 {
+	minishel_signals(3);
 	if (index == 0)
 	{
 		child_multi_exec(shell->cmd_lst, shell, 0, pipe_arr[0][1]);
