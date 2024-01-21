@@ -76,7 +76,8 @@ sources/shell_init/shell_clear.c \
 sources/signals/signal_functions.c \
 sources/signals/signals.c \
 sources/get_next_line/get_next_line.c \
-sources/get_next_line/get_next_line_utils.c
+sources/get_next_line/get_next_line_utils.c \
+sources/main_utils.c
 
 HEADERS = headers/builtin.h \
 headers/data_types.h \

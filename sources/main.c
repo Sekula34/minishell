@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/21 18:36:32 by wvan-der          #+#    #+#             */
+/*   Updated: 2024/01/21 19:27:57 by wvan-der         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../headers/minishel.h"
 #include "../headers/get_next_line.h"
 
@@ -15,32 +27,27 @@
 // 	signal(SIGQUIT, SIG_IGN);
 // }
 
-int g_signal;
+int	g_signal;
 
-void	check_g_signal(t_shell *shell)
-{
-	if (g_signal != 0)
-	{
-		if (export_exit_status(g_signal + 128, shell) != 0)
-			shexit(shell, 1);
-		g_signal = 0;
-	}
-}
 //0 ok 
 //-1 continue
-static int middle_part_of_code(t_shell *shell, char **line, int *parsing_return)
+static int	middle_part_of_code(t_shell *shell, char **line, int *pars_return)
 {
 	check_g_signal(shell);
+	if (!*line)
+	{
+		shexit(shell, shell->last_exit_code);
+	}
 	add_history(*line);
 	if (*line && (*line)[0] == 0)
 	{
 		free(*line);
 		return (-1);
 	}
-	*parsing_return = parsing(shell, *line);
-	if (*parsing_return == 2)
+	*pars_return = parsing(shell, *line);
+	if (*pars_return == 2)
 	{
-		if(export_exit_status(2, shell) != 0)
+		if (export_exit_status(2, shell) != 0)
 			shexit(shell, 1);
 		free(*line);
 		return (-1);
@@ -48,7 +55,7 @@ static int middle_part_of_code(t_shell *shell, char **line, int *parsing_return)
 	return (0);
 }
 
-void first_part_of_code(t_shell *shell, int argc, char **argv, char **envp)
+void	first_part_of_code(t_shell *shell, int argc, char **argv, char **envp)
 {
 	(void)argc;
 	(void)argv;
@@ -56,11 +63,10 @@ void first_part_of_code(t_shell *shell, int argc, char **argv, char **envp)
 		shexit(shell, 1);
 }
 
-
 // 0 ok
 // 1 fail
 //-1 continue
-static int heredoc_in_main(t_shell *shell, char **line)
+static int	heredoc_in_main(t_shell *shell, char **line)
 {
 	if (heredoc_parent_prepare(shell->cmd_lst, shell) != 0)
 	{
@@ -78,7 +84,7 @@ static int heredoc_in_main(t_shell *shell, char **line)
 	return (0);
 }
 
-static void last_part_of_code(t_shell *shell, char **line)
+static void	last_part_of_code(t_shell *shell, char **line)
 {
 	clear_all_commands(&shell->first_cmd_copy);
 	shell->first_cmd_copy = NULL;
@@ -87,11 +93,11 @@ static void last_part_of_code(t_shell *shell, char **line)
 	rl_on_new_line();
 }
 
-int main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
-	t_shell shell;
-	char *line;
-	int parsing_return;
+	t_shell	shell;
+	char	*line;
+	int		parsing_return;
 
 	first_part_of_code(&shell, argc, argv, envp);
 	while (1)
@@ -107,15 +113,15 @@ int main(int argc, char **argv, char **envp)
 			free(line2);
 		}
 		// line = readline("finishell: ");
-		if (line == NULL)
-			break;
-		if(middle_part_of_code(&shell, &line, &parsing_return) == -1)
-			continue;
+		// if (line == NULL)
+		// 	break ;
+		if (middle_part_of_code(&shell, &line, &parsing_return) == -1)
+			continue ;
 		shell.first_cmd_copy = shell.cmd_lst;
 		if (parsing_return == 0)
 			shexit(&shell, 1);
 		if (heredoc_in_main(&shell, &line) == -1)
-			continue;
+			continue ;
 		if (execute_all_cmds(&shell) != 0)
 			shexit(&shell, 1);
 		last_part_of_code(&shell, &line);

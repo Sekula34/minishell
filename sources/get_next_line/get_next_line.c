@@ -6,11 +6,11 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 13:57:17 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/15 14:02:07 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/21 18:36:11 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include  "../../headers/get_next_line.h"
+#include "../../headers/get_next_line.h"
 #include "../../headers/minishel.h"
 
 static char	*ft_gnl_free(int bytes_read, char **line)

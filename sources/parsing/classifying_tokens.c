@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 13:59:09 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/20 13:17:45 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/21 18:29:42 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ int	put_arg(t_tokens *tok, int *j, t_cmd **cmd_lst)
 int	make_arg_arr(t_tokens *tok, t_cmd **cmd_lst)
 {
 	t_cmd	*temp;
-	(void)tok;
 
+	(void)tok;
 	temp = *cmd_lst;
 	if (!temp)
 		return (1);

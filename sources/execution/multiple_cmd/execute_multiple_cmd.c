@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_multiple_cmd.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fseles <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 13:53:40 by fseles            #+#    #+#             */
-/*   Updated: 2024/01/20 13:53:42 by fseles           ###   ########.fr       */
+/*   Updated: 2024/01/21 18:29:04 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	child_waiter(int number_of_kids, int **pipe_arr, t_shell *shell)
 	int	i;
 	int	status;
 	int	exit_status;
-	int received;
+	int	received;
 
 	received = 0;
 	i = 0;

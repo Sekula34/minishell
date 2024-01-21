@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:56:52 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/20 14:00:43 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/21 19:43:26 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,5 +132,7 @@ int			make_token_logic(t_tokens *tok, char *line, int *i, int *a);
 int			make_token(t_tokens *tok, char *line);
 void		parsing_free(t_tokens *tok, t_parsing *parsing, int flag);
 int			heredoc_expand(t_shell *shell, char *line, char **final_line);
+void		check_g_signal(t_shell *shell);
+void		setting_compare_var(char *line, char *eof, int *compare);
 
 #endif

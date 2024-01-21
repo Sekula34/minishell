@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 09:51:21 by fseles            #+#    #+#             */
-/*   Updated: 2024/01/19 16:34:31 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/21 19:09:02 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	interactive_mode(void)
 static void	heredoc_mod(void)
 {
 	signal(SIGINT, heredoc_sigint);
-	signal(SIGQUIT, SIG_DFL);
+	signal(SIGQUIT, SIG_IGN);
 }
 
 //mode 1 interactive signals where ctrl + c 

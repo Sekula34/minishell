@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_parent_prepare.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fseles <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 14:03:34 by fseles            #+#    #+#             */
-/*   Updated: 2024/01/20 14:03:37 by fseles           ###   ########.fr       */
+/*   Updated: 2024/01/21 18:28:54 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	here_doc_file_delete(t_redirect *heredoc)
 	free(heredoc->eof);
 	if (heredoc->file_name != NULL)
 	{
-		if(heredoc->to_delete == 1)
+		if (heredoc->to_delete == 1)
 		{
 			if (unlink(heredoc->file_name) != 0)
 				perror("unlink in here_doc_clear failed\n");

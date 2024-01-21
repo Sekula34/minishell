@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_clear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fseles <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 14:35:15 by fseles            #+#    #+#             */
-/*   Updated: 2024/01/20 14:35:17 by fseles           ###   ########.fr       */
+/*   Updated: 2024/01/21 19:45:31 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ void	clear_one_redirect(t_redirect **redirect)
 		return ;
 	if ((*redirect)->type == 'h')
 	{
-		//free((*redirect)->eof);
-		//(*redirect)->eof = NULL;
 		here_doc_file_delete(*redirect);
 	}
 	free((*redirect)->file_name);

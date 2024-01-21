@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 14:07:03 by fseles            #+#    #+#             */
-/*   Updated: 2024/01/20 15:06:27 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/21 19:44:43 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static int	write_in_temp_file(int *fd, char *eof, t_shell *shell)
 	first_read_val = first_read(&line, fd);
 	if (first_read_val != 0)
 		return (EXIT_FAILURE);
-	compare = ft_strncmp(line, eof, ft_strlen(eof) + 1);
+	setting_compare_var(line, eof, &compare);
 	while (compare != 0 && g_signal == 0)
 	{
 		if (heredoc_expand(shell, line, &final_line) != 1)
@@ -68,7 +68,7 @@ static int	write_in_temp_file(int *fd, char *eof, t_shell *shell)
 			return (free(line), free(final_line), close(*fd), 1);
 		freeing_lines(&line, &final_line);
 		line = readline("heredoc> ");
-		if (line == NULL)
+		if (line == NULL || !line[0])
 			break ;
 		compare = ft_strncmp(line, eof, ft_strlen(eof) + 1);
 	}
