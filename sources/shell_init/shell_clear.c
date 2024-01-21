@@ -18,11 +18,14 @@ void	clear_one_redirect(t_redirect **redirect)
 		return ;
 	if ((*redirect)->type == 'h')
 	{
-		free((*redirect)->eof);
+		//free((*redirect)->eof);
+		//(*redirect)->eof = NULL;
 		here_doc_file_delete(*redirect);
 	}
 	free((*redirect)->file_name);
+	(*redirect)->file_name = NULL;
 	free(*redirect);
+	(*redirect) = NULL;
 }
 
 void	clear_redirects(t_redirect **list)

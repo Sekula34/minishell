@@ -15,10 +15,14 @@
 //delete temporary heredoc_file;
 void	here_doc_file_delete(t_redirect *heredoc)
 {
+	free(heredoc->eof);
 	if (heredoc->file_name != NULL)
 	{
-		if (unlink(heredoc->file_name) != 0)
-			perror("unlink in here_doc_clear failed\n");
+		if(heredoc->to_delete == 1)
+		{
+			if (unlink(heredoc->file_name) != 0)
+				perror("unlink in here_doc_clear failed\n");
+		}
 		free(heredoc->file_name);
 		heredoc->file_name = NULL;
 	}
@@ -52,6 +56,7 @@ static char	*get_real_fn(int file_index)
 
 static int	heredoc_swap(t_redirect *here_doc, int *file_index)
 {
+	here_doc->to_delete = 0;
 	here_doc->eof = here_doc->file_name;
 	here_doc->file_name = NULL;
 	here_doc->file_name = get_real_fn(*file_index);

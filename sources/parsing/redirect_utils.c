@@ -23,6 +23,8 @@ t_redirect	*make_redirect_node(char type, char *file_name)
 	new_node->file_name = file_name;
 	new_node->del_flag = 0;
 	new_node->next = NULL;
+	new_node->eof = NULL;
+	new_node->to_delete = 0;
 	return (new_node);
 }
 
