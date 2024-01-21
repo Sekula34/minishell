@@ -84,7 +84,7 @@ int main(int argc, char **argv, char **envp)
 			{
 				free(line);
 				clear_all_commands(&shell.first_cmd_copy);
-				export_exit_status(g_signal, &shell);
+				export_exit_status(g_signal + 128, &shell);
 				g_signal = 0;
 				continue;
 			}
