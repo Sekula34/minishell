@@ -20,15 +20,24 @@ static void	child_waiter(int number_of_kids, int **pipe_arr, t_shell *shell)
 	int	i;
 	int	status;
 	int	exit_status;
+	int received;
 
+	received = 0;
 	i = 0;
 	close_all_pipes(pipe_arr);
 	while (i < number_of_kids)
 	{
 		waitpid(-1, &status, 0);
 		if (WIFEXITED(status))
-		{
 			exit_status = WEXITSTATUS(status);
+		if (WIFSIGNALED(status))
+		{
+			exit_status = WTERMSIG(status) + 128;
+			if (received == 0)
+			{
+				ft_printf("\n");
+				received ++;
+			}
 		}
 		i++;
 	}
