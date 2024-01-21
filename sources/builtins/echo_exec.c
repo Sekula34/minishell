@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 15:41:38 by fseles            #+#    #+#             */
-/*   Updated: 2024/01/17 12:11:57 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/21 14:02:32 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ int	echo_exec(t_cmd *echo_cmd, t_shell *shell)
 	if (argc == 1)
 	{
 		echo(NULL);
-		printf("\n");
 	}
 	is_option = n_option(echo_cmd->args[1]);
 	if (is_option == 1)
