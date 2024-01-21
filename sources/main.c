@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 18:36:32 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/21 19:27:57 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/21 20:12:30 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,16 +103,16 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		minishel_signals(1);
-		if (isatty(fileno(stdin)))
-			line = readline("minishell: ");
-		else
-		{
-			char *line2;
-			line2 = get_next_line(fileno(stdin));
-			line = ft_strtrim(line2, "\n");
-			free(line2);
-		}
-		// line = readline("finishell: ");
+		// if (isatty(fileno(stdin)))
+		// 	line = readline("minishell: ");
+		// else
+		// {
+		// 	char *line2;
+		// 	line2 = get_next_line(fileno(stdin));
+		// 	line = ft_strtrim(line2, "\n");
+		// 	free(line2);
+		// }
+		line = readline("finishell: ");
 		// if (line == NULL)
 		// 	break ;
 		if (middle_part_of_code(&shell, &line, &parsing_return) == -1)
