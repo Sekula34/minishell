@@ -106,20 +106,20 @@ int	main(int argc, char **argv, char **envp)
 	first_part_of_code(&shell, argc, argv, envp);
 	while (i < 1)
 	{
-		// minishel_signals(1);
-		// if (isatty(fileno(stdin)))
-		// 	line = readline("minishell: ");
-		// else
-		// {
-		// 	char *line2;
-		// 	line2 = get_next_line(fileno(stdin));
-		// 	line = ft_strtrim(line2, "\n");
-		// 	free(line2);
-		// }
+		minishel_signals(1);
+		if (isatty(fileno(stdin)))
+			line = readline("minishell: ");
+		else
+		{
+			char *line2;
+			line2 = get_next_line(fileno(stdin));
+			line = ft_strtrim(line2, "\n");
+			free(line2);
+		}
 
 		
 		i++;
-		line = ft_strdup("echo $$$$$ $LKJLLJ $* $USER $\"USER\" > file | cat <file");
+		// line = ft_strdup("echo $$$$$ $LKJLLJ $* $USER $\"USER\" > file | cat <file");
 		if (!line)
 			return (shexit(&shell, 1));
 		// line = readline("finishell: ");
@@ -129,10 +129,10 @@ int	main(int argc, char **argv, char **envp)
 		shell.first_cmd_copy = shell.cmd_lst;
 		if (parsing_return == 0)
 			shexit(&shell, 1);
-		// if (heredoc_in_main(&shell, &line) == -1)
-		// 	continue ;
-		// if (execute_all_cmds(&shell) != 0)
-		// 	shexit(&shell, 1);
+		if (heredoc_in_main(&shell, &line) == -1)
+			continue ;
+		if (execute_all_cmds(&shell) != 0)
+			shexit(&shell, 1);
 		last_part_of_code(&shell, &line);
 	}
 	shexit(&shell, shell.last_exit_code);
