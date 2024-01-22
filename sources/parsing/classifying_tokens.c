@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 13:59:09 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/21 18:29:42 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/22 12:07:39 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ int	classifiying_tokens(t_tokens *tok, t_cmd **cmd_lst)
 		j++;
 	}
 	if (check_0_cmd_arg(tok, cmd_lst, &redirect_lst) == 0)
-		return (put_error("classifying err"), 0);
+		return (put_error("classifying err"), clear_redirect_lst(&redirect_lst), 0);
 	if (cmd_lst && *cmd_lst)
 	{
 		last = *cmd_lst;
