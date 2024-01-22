@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:56:52 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/21 19:43:26 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/22 10:48:22 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void		convert_fake_redirect(t_tokens *tok);
 void		convert_fake_redirect_back(char **str);
 int			handle_next_zero_or_dollar_1(t_tokens *tok, int *i, char **res);
 int			expand_var_1(t_tokens *tok, t_vars *head_ex, int *i, char **res);
-char		*first_expand(t_tokens *tok, t_vars *head_ex, char *line);
+int			first_expand(t_tokens *tok, t_vars *head_ex, char *line, t_parsing *p);
 int			set_start_end(t_tokens *tok, char *line, int i);
 int			append_value(char **res, char *value);
 int			go_back_to_check_redirect(t_tokens *tok, char *line, int i);

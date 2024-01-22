@@ -87,7 +87,7 @@ headers/shell_init.h \
 
 CC = cc 
 
-COMPILER_FLAGS = -Wall -Wextra -Werror -g
+#COMPILER_FLAGS = -Wall -Wextra -Werror -g
 
 EXTRA_FLAGS = -lreadline
 
@@ -96,7 +96,7 @@ NAME = minishell
 OBJS := $(SOURCES:%.c=%.o)
 
 %.o: %.c
-	$(CC) $(COMPILER_FLAGS) -c $< -o $@
+	$(CC)-g $(COMPILER_FLAGS) -c $< -o $@
 
 
 $(NAME): $(OBJS) $(HEADERS)

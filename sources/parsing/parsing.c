@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 15:39:08 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/20 13:27:13 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/22 11:01:03 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,18 @@ static void	init_parsing_struct(t_parsing *p, t_shell *shell, t_cmd *cmd_lst)
 
 int	parsing_1st_expand_make_tokens(t_tokens *tok, t_shell *shell, t_parsing *p)
 {
-	p->line2 = first_expand(tok, shell->head_ex, p->lines[p->a]);
-	if (!p->line2)
+	char *temp;
+
+	if (first_expand(tok, shell->head_ex, p->lines[p->a], p) == 0)
 		return (put_error("1st expand err"), parsing_free(NULL, p, 0), 0);
+	if (p->line2 == NULL)
+	{
+		temp = malloc(1);
+		if (!temp)
+			return (put_error("1st expand err2"), parsing_free(NULL, p, 0), 0);
+		temp[0] = 0;
+		p->line2 = temp;
+	}
 	if (make_token(tok, p->line2) == 0)
 		return (put_error("make token err"), parsing_free(tok, p, 0), 0);
 	convert_fake_redirect(tok);

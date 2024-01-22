@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 16:53:01 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/19 15:26:33 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/22 10:47:53 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void	init_first_expand(int *i, int *j, char **res)
 	*res = NULL;
 }
 
-char	*first_expand(t_tokens *tok, t_vars *head_ex, char *line)
+int first_expand(t_tokens *tok, t_vars *head_ex, char *line, t_parsing *p)
 {
 	int		i;
 	int		j;
@@ -73,14 +73,15 @@ char	*first_expand(t_tokens *tok, t_vars *head_ex, char *line)
 			&& go_back_to_check_redirect(tok, line, i) == 0)
 		{
 			if (expand_var_1(tok, head_ex, &i, &res) == -1)
-				return (free(res), NULL);
+				return (free(res), 0);
 		}
 		else
 		{
 			res = ft_join(&res, line[i++]);
 			if (!res)
-				return (NULL);
+				return (0);
 		}
 	}
-	return (res);
+	p->line2 = res;
+	return (1);
 }
