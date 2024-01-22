@@ -36,20 +36,20 @@ int main(int argc, char **argv, char **envp)
 	// return (0);
 
 	int i = 0;
-	while(1)
+	while(i < 1)
 	{
 		//ft_printf("global signal is %d\n", g_signal);
 
-		minishel_signals(1);
-		if (isatty(fileno(stdin)))
-            line = readline("minishell: ");
-        else
-        {
-            char *line2;
-            line2 = get_next_line(fileno(stdin));
-            line = ft_strtrim(line2, "\n");
-            free(line2);
-        }
+		// minishel_signals(1);
+		// if (isatty(fileno(stdin)))
+        //     line = readline("minishell: ");
+        // else
+        // {
+        //     char *line2;
+        //     line2 = get_next_line(fileno(stdin));
+        //     line = ft_strtrim(line2, "\n");
+        //     free(line2);
+        // }
 
 		//line = readline("minishell: ");
 		// if (!line)
@@ -58,12 +58,14 @@ int main(int argc, char **argv, char **envp)
 		// line = "echo \"$USER\"";
 		//line = "echo $$$$ hello'test' $USER \"$USER\" | wc -l";
 
+		line = ("echo $$$$$ $LKJLLJ $* $USER $\"USER\" > file | cat <file");
+
 		if (line == NULL)
 		{
 			free(line);
 			break;
 		}
-		add_history(line);
+		//add_history(line);
 
 		// line = "echo $$$$$USER $LKSJDLKF hello'test'   \"$$$$$USER\" > file | wc - l";
 		parsing_return = parsing(&shell, line);
@@ -76,20 +78,20 @@ int main(int argc, char **argv, char **envp)
 		shell.first_cmd_copy = shell.cmd_lst;
 		if (parsing_return == 0)
 			shexit(&shell, 1);
- 		if(heredoc_parent_prepare(shell.cmd_lst, &shell) != 0)
-		{
-			if(g_signal != 0)
-				shexit(&shell, g_signal);
-		 	shexit(&shell, 1);
-		}
-		if(execute_all_cmds(&shell) != 0)
-			shexit(&shell, 1);
+ 		// if(heredoc_parent_prepare(shell.cmd_lst, &shell) != 0)
+		// {
+		// 	if(g_signal != 0)
+		// 		shexit(&shell, g_signal);
+		//  	shexit(&shell, 1);
+		// }
+		// if(execute_all_cmds(&shell) != 0)
+		// 	shexit(&shell, 1);
 		clear_all_commands(&shell.first_cmd_copy);
 		shell.first_cmd_copy = NULL;
 		i++;
-		free(line);
+		//free(line);
 		line = NULL;
-		rl_on_new_line();
+		//rl_on_new_line();
 	}
 	shexit(&shell, shell.last_exit_code);
 	return(EXIT_SUCCESS);
