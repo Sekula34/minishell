@@ -48,6 +48,7 @@ static void	child_handler(t_shell *shell, int index,
 	int **pipe_arr, int number_of_kids)
 {
 	minishel_signals(3);
+	heredoc_to_zero(shell);
 	if (index == 0)
 	{
 		child_multi_exec(shell->cmd_lst, shell, 0, pipe_arr[0][1]);
@@ -57,8 +58,10 @@ static void	child_handler(t_shell *shell, int index,
 		child_multi_exec(shell->cmd_lst, shell, pipe_arr[index - 1][0], 1);
 	}
 	else
+	{
 		child_multi_exec(shell->cmd_lst, shell,
 			pipe_arr[index - 1][0], pipe_arr[index][1]);
+	}
 	shexit(shell, 0);
 }
 
