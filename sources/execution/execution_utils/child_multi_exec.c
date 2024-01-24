@@ -50,16 +50,17 @@ static int	exec_one_b(t_cmd *cmd, t_shell *shell)
 		shexit(shell, builtin_exit);
 	}
 	if (set_mini_env(&shell->mini_env, shell->head_env) == 1)
-		exit (EXIT_FAILURE);
+		shexit(shell, 1);
 	mini = is_minishell(cmd);
 	if (mini == 1)
 	{
-		execute_minishell_no_fork(shell);
-		exit(EXIT_FAILURE);
+		shexit(shell, 0);
+		// execute_minishell_no_fork(shell);
+		// exit(EXIT_FAILURE);
 	}
 	if (execute_original_cmd_no_fork(shell, cmd) != 0)
-		exit (EXIT_FAILURE);
-	exit(EXIT_FAILURE);
+		shexit(shell, 1);
+	shexit(shell, 1);
 }
 
 //input file is pipe od reading end
