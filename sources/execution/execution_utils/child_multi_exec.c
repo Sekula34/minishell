@@ -80,5 +80,6 @@ int	child_multi_exec(t_cmd *cmd, t_shell *shell,
 		shexit(shell, 0);
 	}
 	exec_one_b(cmd, shell);
-	return (EXIT_FAILURE);
+	shexit(&shell, 0);
+	//return (EXIT_FAILURE);
 }
