@@ -52,4 +52,5 @@ int	child_executor(t_cmd *cmd, t_shell *shell)
 	execve(cmd->path, cmd->args, shell->mini_env);
 	perror("child executor\n");
 	shexit(shell, shell->last_exit_code);
+	return (0);
 }

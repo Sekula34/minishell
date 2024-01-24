@@ -35,7 +35,8 @@ static void	child_waiter(int number_of_kids, int **pipe_arr, t_shell *shell)
 			exit_status = WTERMSIG(status) + 128;
 			if (received == 0 && status == 2)
 			{
-				ft_printf("\n");
+				ft_putchar_fd('\n', 2);
+				//ft_printf("\n");
 				received ++;
 			}
 		}
@@ -82,6 +83,7 @@ int	execute_multiple_cmd(int noc, t_shell *shell)
 			perror("fork in execute multiple cmd failed\n");
 			return (child_waiter(i, shell->pipe_arr, shell), EXIT_FAILURE);
 		}
+		
 		if (id == 0)
 			child_handler(shell, i, shell->pipe_arr, noc);
 		shell->cmd_lst = shell->cmd_lst->next;
