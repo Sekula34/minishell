@@ -100,11 +100,11 @@ int	main(int argc, char **argv, char **envp)
 	int		parsing_return;
 
 
-	int i = 0;
+	//int i = 0;
 
 
 	first_part_of_code(&shell, argc, argv, envp);
-	while (i < 1)
+	while (1)
 	{
 		minishel_signals(1);
 		if (isatty(fileno(stdin)))
@@ -118,10 +118,10 @@ int	main(int argc, char **argv, char **envp)
 		}
 
 		
-		i++;
+		//i++;
 		// line = ft_strdup("echo $$$$$ $LKJLLJ $* $USER $\"USER\" > file | cat <file");
 		if (!line)
-			return (shexit(&shell, 1));
+			return (shexit(&shell, shell.last_exit_code));
 		// line = readline("finishell: ");
 
 		if (middle_part_of_code(&shell, &line, &parsing_return) == -1)
