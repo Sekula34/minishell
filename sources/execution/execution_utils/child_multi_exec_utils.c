@@ -64,14 +64,16 @@ int	prepare_fds(t_cmd *cmd, t_shell *shell, int input_file, int output_file)
 {
 	int	red_in;
 	int	red_out;
+	int handler_input;
+	int handler_output;
 
 	red_in = STDIN_FILENO;
 	red_out = STDOUT_FILENO;
-	// if (redirect_handler(cmd->redirect_lst, &red_in, &red_out) != 0)
-	// {
-	// 	close_all_pipes(shell->pipe_arr);
-	// 	return (EXIT_FAILURE);
-	// }
+	if (redirect_handler(cmd->redirect_lst, &handler_input, &handler_output) != 0)
+	{
+		close_all_pipes(shell->pipe_arr);
+		return (EXIT_FAILURE);
+	}
 	if (prepare_input(red_in, input_file) != 0)
 	{
 		close_all_pipes(shell->pipe_arr);
