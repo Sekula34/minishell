@@ -34,6 +34,7 @@ int		get_argc(char **argv);
 void	here_doc_file_delete(t_redirect *heredoc);
 int		heredoc_parent_prepare(t_cmd *cmd, t_shell *shell);
 int		heredoc_redirect(t_redirect *here_doc, int *fd, t_shell *shell);
+void	heredoc_to_zero(t_shell *shell);
 int		input_redirect(t_redirect *input, int *fd);
 int		is_cmd_builtin(t_cmd *cmd);
 int		is_minishell(t_cmd *mini);

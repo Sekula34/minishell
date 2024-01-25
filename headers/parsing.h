@@ -67,7 +67,8 @@ void		convert_fake_redirect(t_tokens *tok);
 void		convert_fake_redirect_back(char **str);
 int			handle_next_zero_or_dollar_1(t_tokens *tok, int *i, char **res);
 int			expand_var_1(t_tokens *tok, t_vars *head_ex, int *i, char **res);
-int			first_expand(t_tokens *tok, t_vars *head_ex, char *line, t_parsing *p);
+int			first_expand(t_tokens *tok, t_vars *head_ex,
+				char *line, t_parsing *p);
 int			set_start_end(t_tokens *tok, char *line, int i);
 int			append_value(char **res, char *value);
 int			go_back_to_check_redirect(t_tokens *tok, char *line, int i);

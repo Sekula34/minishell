@@ -25,7 +25,7 @@ static void	init_parsing_struct(t_parsing *p, t_shell *shell, t_cmd *cmd_lst)
 
 int	parsing_1st_expand_make_tokens(t_tokens *tok, t_shell *shell, t_parsing *p)
 {
-	char *temp;
+	char	*temp;
 
 	if (first_expand(tok, shell->head_ex, p->lines[p->a], p) == 0)
 		return (put_error("1st expand err"), parsing_free(NULL, p, 0), 0);

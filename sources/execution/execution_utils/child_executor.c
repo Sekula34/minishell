@@ -19,6 +19,8 @@ int	check_command_acces(char *cmd_path)
 {
 	int	acc_val;
 
+	if (!cmd_path)
+		return (127);
 	acc_val = access(cmd_path, F_OK);
 	if (acc_val != 0)
 	{
@@ -44,12 +46,13 @@ int	child_executor(t_cmd *cmd, t_shell *shell)
 	if (cmd == NULL)
 	{
 		ft_putstr_fd("there is no command to execute\n", 2);
-		exit(127);
+		shexit(shell, shell->last_exit_code);
 	}
 	shell->last_exit_code = check_command_acces(cmd->path);
 	if (shell->last_exit_code != 0)
-		exit(shell->last_exit_code);
+		shexit(shell, shell->last_exit_code);
 	execve(cmd->path, cmd->args, shell->mini_env);
 	perror("child executor\n");
-	exit(126);
+	shexit(shell, shell->last_exit_code);
+	return (0);
 }

@@ -6,26 +6,12 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 18:36:32 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/24 11:29:15 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/25 13:25:31 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/minishel.h"
 #include "../headers/get_next_line.h"
-
-// void my_signal_handle()
-// {
-// 	ft_printf("\n");
-// 	rl_replace_line("", 0);
-// 	rl_on_new_line();
-// 	rl_redisplay();
-// }
-
-// void interacitve_signals()
-// {
-// 	signal(SIGINT, my_signal_handle);
-// 	signal(SIGQUIT, SIG_IGN);
-// }
 
 int	g_signal;
 
@@ -76,7 +62,6 @@ static int	heredoc_in_main(t_shell *shell, char **line)
 			clear_all_commands(&shell->first_cmd_copy);
 			if (export_exit_status(g_signal + 128, shell) != 0)
 				shexit(shell, 1);
-			g_signal = 0;
 			return (-1);
 		}
 		shexit(shell, 1);
@@ -99,13 +84,10 @@ int	main(int argc, char **argv, char **envp)
 	char	*line;
 	int		parsing_return;
 
-
-	int i = 0;
-
-
 	first_part_of_code(&shell, argc, argv, envp);
 	while (1)
 	{
+		g_signal = 0;
 		minishel_signals(1);
 		if (isatty(fileno(stdin)))
 			line = readline("minishell: ");
@@ -116,14 +98,8 @@ int	main(int argc, char **argv, char **envp)
 			line = ft_strtrim(line2, "\n");
 			free(line2);
 		}
-
-		
-		// i++;
-		// line = ft_strdup("echo $$$$$ $LKJLLJ $* $USER $\"USER\" > file | cat <file");
-		// if (!line)
-		// 	return (shexit(&shell, 1));
-		// line = readline("finishell: ");
-
+		if (!line)
+			return (shexit(&shell, shell.last_exit_code));
 		if (middle_part_of_code(&shell, &line, &parsing_return) == -1)
 			continue ;
 		shell.first_cmd_copy = shell.cmd_lst;
