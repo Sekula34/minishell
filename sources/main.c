@@ -38,7 +38,7 @@ static int	middle_part_of_code(t_shell *shell, char **line, int *pars_return)
 	{
 		shexit(shell, shell->last_exit_code);
 	}
-	//add_history(*line);
+	add_history(*line);
 	if (*line && (*line)[0] == 0)
 	{
 		free(*line);
@@ -76,7 +76,7 @@ static int	heredoc_in_main(t_shell *shell, char **line)
 			clear_all_commands(&shell->first_cmd_copy);
 			if (export_exit_status(g_signal + 128, shell) != 0)
 				shexit(shell, 1);
-			g_signal = 0;
+			//g_signal = 0;
 			return (-1);
 		}
 		shexit(shell, 1);
@@ -130,7 +130,10 @@ int	main(int argc, char **argv, char **envp)
 		if (parsing_return == 0)
 			shexit(&shell, 1);
 		if (heredoc_in_main(&shell, &line) == -1)
+		{
+			g_signal = 0;
 			continue ;
+		}
 		if (execute_all_cmds(&shell) != 0)
 			shexit(&shell, 1);
 		last_part_of_code(&shell, &line);
@@ -138,3 +141,4 @@ int	main(int argc, char **argv, char **envp)
 	shexit(&shell, shell.last_exit_code);
 	return (EXIT_SUCCESS);
 }
+
