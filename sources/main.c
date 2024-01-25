@@ -13,20 +13,6 @@
 #include "../headers/minishel.h"
 #include "../headers/get_next_line.h"
 
-// void my_signal_handle()
-// {
-// 	ft_printf("\n");
-// 	rl_replace_line("", 0);
-// 	rl_on_new_line();
-// 	rl_redisplay();
-// }
-
-// void interacitve_signals()
-// {
-// 	signal(SIGINT, my_signal_handle);
-// 	signal(SIGQUIT, SIG_IGN);
-// }
-
 int	g_signal;
 
 //0 ok 
@@ -76,7 +62,6 @@ static int	heredoc_in_main(t_shell *shell, char **line)
 			clear_all_commands(&shell->first_cmd_copy);
 			if (export_exit_status(g_signal + 128, shell) != 0)
 				shexit(shell, 1);
-			//g_signal = 0;
 			return (-1);
 		}
 		shexit(shell, 1);
@@ -90,7 +75,6 @@ static void	last_part_of_code(t_shell *shell, char **line)
 	shell->first_cmd_copy = NULL;
 	free(*line);
 	*line = NULL;
-	//rl_on_new_line();
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -99,13 +83,10 @@ int	main(int argc, char **argv, char **envp)
 	char	*line;
 	int		parsing_return;
 
-
-	//int i = 0;
-
-
 	first_part_of_code(&shell, argc, argv, envp);
 	while (1)
 	{
+		g_signal = 0;
 		minishel_signals(1);
 		if (isatty(fileno(stdin)))
 			line = readline("minishell: ");
@@ -116,24 +97,15 @@ int	main(int argc, char **argv, char **envp)
 			line = ft_strtrim(line2, "\n");
 			free(line2);
 		}
-
-		
-		//i++;
-		// line = ft_strdup("echo $$$$$ $LKJLLJ $* $USER $\"USER\" > file | cat <file");
 		if (!line)
 			return (shexit(&shell, shell.last_exit_code));
-		// line = readline("finishell: ");
-
 		if (middle_part_of_code(&shell, &line, &parsing_return) == -1)
 			continue ;
 		shell.first_cmd_copy = shell.cmd_lst;
 		if (parsing_return == 0)
 			shexit(&shell, 1);
 		if (heredoc_in_main(&shell, &line) == -1)
-		{
-			g_signal = 0;
 			continue ;
-		}
 		if (execute_all_cmds(&shell) != 0)
 			shexit(&shell, 1);
 		last_part_of_code(&shell, &line);
@@ -141,4 +113,3 @@ int	main(int argc, char **argv, char **envp)
 	shexit(&shell, shell.last_exit_code);
 	return (EXIT_SUCCESS);
 }
-
