@@ -70,7 +70,7 @@ static int	write_in_temp_file(int *fd, char *eof, t_shell *shell)
 			return (free(line), free(final_line), close(*fd), 1);
 		freeing_lines(&line, &final_line);
 		line = readline("heredoc> ");
-		if (line == NULL || !line[0])
+		if (line == NULL)
 			break ;
 		compare = ft_strncmp(line, eof, ft_strlen(eof) + 1);
 	}

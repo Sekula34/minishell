@@ -83,6 +83,8 @@ static int	find_all_heredoc(t_redirect *redirect,
 				return (EXIT_FAILURE);
 			if (heredoc_redirect(redirect, &file_des, shell) != 0)
 				return (EXIT_FAILURE);
+			if(g_signal != 0)
+				return(2);
 		}
 		redirect = redirect->next;
 	}
@@ -97,6 +99,7 @@ static int	find_all_heredoc(t_redirect *redirect,
 int	heredoc_parent_prepare(t_cmd *cmd, t_shell *shell)
 {
 	static int	file_index = 0;
+	int fah_val;
 
 	if (cmd == NULL)
 		return (EXIT_SUCCESS);
@@ -104,7 +107,10 @@ int	heredoc_parent_prepare(t_cmd *cmd, t_shell *shell)
 	{
 		if (cmd->redirect_lst != NULL)
 		{
-			if (find_all_heredoc(cmd->redirect_lst, &file_index, shell) != 0)
+			fah_val = find_all_heredoc(cmd->redirect_lst, &file_index, shell);
+			if(fah_val == 2)
+				return (EXIT_FAILURE);
+			if (fah_val != 0)
 				return (EXIT_FAILURE);
 		}
 		cmd = cmd->next;
