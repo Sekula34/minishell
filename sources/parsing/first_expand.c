@@ -29,13 +29,13 @@ int	handle_invalid_or_quote(t_tokens *tok, char **res, int *i)
 	if (is_quote(tok->line[*i + 1]))
 	{
 		if (case_start_with_quote(res, tok, i) == 0)
-			return(-1);
+			return (-1);
 		return (0);
 	}
 	if (valid_char(tok->line[*i + 1]) == 0)
 	{
 		if (case_invalid_char(res, tok, i) == 0)
-			return(-1);
+			return (-1);
 		return (0);
 	}
 	return (1);
@@ -54,18 +54,6 @@ int	expand_var_1(t_tokens *tok, t_vars *head_ex, int *i, char **res)
 	ret = handle_invalid_or_quote(tok, res, i);
 	if (ret != 1)
 		return (ret);
-	// if (is_quote(tok->line[*i + 1]))
-	// {
-	// 	if (case_start_with_quote(res, tok, i) == 0)
-	// 		return(-1);
-	// 	return (0);
-	// }
-	// if (valid_char(tok->line[*i + 1]) == 0)
-	// {
-	// 	if (case_invalid_char(res, tok, i) == 0)
-	// 		return(-1);
-	// 	return (0);
-	// }
 	set_start_end(tok, tok->line, (*i) + 1);
 	key = check_key(tok);
 	if (!key)
@@ -85,7 +73,7 @@ static void	init_first_expand(int *i, int *j, char **res)
 	*res = NULL;
 }
 
-int first_expand(t_tokens *tok, t_vars *head_ex, char *line, t_parsing *p)
+int	first_expand(t_tokens *tok, t_vars *head_ex, char *line, t_parsing *p)
 {
 	int		i;
 	int		j;

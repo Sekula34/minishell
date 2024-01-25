@@ -55,12 +55,11 @@ static int	exec_one_b(t_cmd *cmd, t_shell *shell)
 	if (mini == 1)
 	{
 		shexit(shell, 0);
-		// execute_minishell_no_fork(shell);
-		// exit(EXIT_FAILURE);
 	}
 	if (execute_original_cmd_no_fork(shell, cmd) != 0)
 		shexit(shell, 1);
 	shexit(shell, 1);
+	return (1);
 }
 
 //input file is pipe od reading end
@@ -81,6 +80,6 @@ int	child_multi_exec(t_cmd *cmd, t_shell *shell,
 		shexit(shell, 0);
 	}
 	exec_one_b(cmd, shell);
-	shexit(&shell, 0);
-	//return (EXIT_FAILURE);
+	shexit(shell, 0);
+	return (EXIT_FAILURE);
 }

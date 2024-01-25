@@ -57,9 +57,7 @@ static int	write_in_temp_file(int *fd, char *eof, t_shell *shell)
 	final_line = NULL;
 	first_read_val = first_read(&line, fd);
 	if (first_read_val != 0)
-	{
 		return (EXIT_SUCCESS);
-	}
 	setting_compare_var(line, eof, &compare);
 	while (compare != 0 && g_signal == 0)
 	{

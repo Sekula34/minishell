@@ -116,7 +116,7 @@ int	classifiying_tokens(t_tokens *tok, t_cmd **cmd_lst)
 		j++;
 	}
 	if (check_0_cmd_arg(tok, cmd_lst, &redirect_lst) == 0)
-		return (put_error("classifying err"), clear_redirect_lst(&redirect_lst), 0);
+		return (put_error("clas err"), clear_redirect_lst(&redirect_lst), 0);
 	if (cmd_lst && *cmd_lst)
 	{
 		last = *cmd_lst;

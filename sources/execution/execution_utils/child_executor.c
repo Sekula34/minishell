@@ -19,8 +19,6 @@ int	check_command_acces(char *cmd_path)
 {
 	int	acc_val;
 
-	
-
 	if (!cmd_path)
 		return (127);
 	acc_val = access(cmd_path, F_OK);
