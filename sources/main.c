@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 18:36:32 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/22 11:52:29 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/24 11:29:15 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	middle_part_of_code(t_shell *shell, char **line, int *pars_return)
 	{
 		shexit(shell, shell->last_exit_code);
 	}
-	//add_history(*line);
+	add_history(*line);
 	if (*line && (*line)[0] == 0)
 	{
 		free(*line);
@@ -90,7 +90,7 @@ static void	last_part_of_code(t_shell *shell, char **line)
 	shell->first_cmd_copy = NULL;
 	free(*line);
 	*line = NULL;
-	//rl_on_new_line();
+	rl_on_new_line();
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -104,24 +104,24 @@ int	main(int argc, char **argv, char **envp)
 
 
 	first_part_of_code(&shell, argc, argv, envp);
-	while (i < 1)
+	while (1)
 	{
-		// minishel_signals(1);
-		// if (isatty(fileno(stdin)))
-		// 	line = readline("minishell: ");
-		// else
-		// {
-		// 	char *line2;
-		// 	line2 = get_next_line(fileno(stdin));
-		// 	line = ft_strtrim(line2, "\n");
-		// 	free(line2);
-		// }
+		minishel_signals(1);
+		if (isatty(fileno(stdin)))
+			line = readline("minishell: ");
+		else
+		{
+			char *line2;
+			line2 = get_next_line(fileno(stdin));
+			line = ft_strtrim(line2, "\n");
+			free(line2);
+		}
 
 		
-		i++;
-		line = ft_strdup("echo $$$$$ $LKJLLJ $* $USER $\"USER\" > file | cat <file");
-		if (!line)
-			return (shexit(&shell, 1));
+		// i++;
+		// line = ft_strdup("echo $$$$$ $LKJLLJ $* $USER $\"USER\" > file | cat <file");
+		// if (!line)
+		// 	return (shexit(&shell, 1));
 		// line = readline("finishell: ");
 
 		if (middle_part_of_code(&shell, &line, &parsing_return) == -1)
@@ -129,10 +129,10 @@ int	main(int argc, char **argv, char **envp)
 		shell.first_cmd_copy = shell.cmd_lst;
 		if (parsing_return == 0)
 			shexit(&shell, 1);
-		// if (heredoc_in_main(&shell, &line) == -1)
-		// 	continue ;
-		// if (execute_all_cmds(&shell) != 0)
-		// 	shexit(&shell, 1);
+		if (heredoc_in_main(&shell, &line) == -1)
+			continue ;
+		if (execute_all_cmds(&shell) != 0)
+			shexit(&shell, 1);
 		last_part_of_code(&shell, &line);
 	}
 	shexit(&shell, shell.last_exit_code);

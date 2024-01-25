@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 11:50:20 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/19 17:45:09 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/25 11:53:43 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ int	syntax_check(t_tokens *tok, char *line)
 	if (check_amount_redirect(tok, line) == 0)
 		return (0);
 	if (check_redirect(tok, line) == 0)
+		return (0);
+	if (check_after_pipe(tok, line) == 0)
 		return (0);
 	return (1);
 }

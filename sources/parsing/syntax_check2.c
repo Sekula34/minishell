@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 15:34:31 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/19 15:35:04 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/25 11:58:04 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int	check_pipes(t_tokens *tok, char *line)
 
 	flag = 0;
 	i = 0;
+	reset_struct(tok);
 	while (line && line[i])
 	{
 		set_quotation(tok, line[i]);
@@ -84,4 +85,26 @@ int	check_after_redirect(char *line, int i)
 			i++;
 	}
 	return (put_error("syntax error near end of cmd\n"), 0);
+}
+
+int	check_after_pipe(t_tokens *tok, char *line)
+{
+	int i;
+	
+	i = 0;
+	reset_struct(tok);
+	while (line && line[i])
+	{
+		set_quotation(tok, line[i]);
+		if (line[i] == '|' && check_quotes(tok) == 0)
+		{
+			i++;
+			while (line[i] == ' ')
+				i++;
+			if (line[i] == 0)
+				return (put_error("after pipe error\n"), 0);
+		}
+		i++;
+	}
+	return (1);
 }
