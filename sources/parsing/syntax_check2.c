@@ -6,7 +6,7 @@
 /*   By: wvan-der <wvan-der@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 15:34:31 by wvan-der          #+#    #+#             */
-/*   Updated: 2024/01/25 11:58:04 by wvan-der         ###   ########.fr       */
+/*   Updated: 2024/01/25 14:12:08 by wvan-der         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,8 @@ int	check_after_redirect(char *line, int i)
 
 int	check_after_pipe(t_tokens *tok, char *line)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
 	reset_struct(tok);
 	while (line && line[i])
