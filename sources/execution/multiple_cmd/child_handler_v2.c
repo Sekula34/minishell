@@ -106,7 +106,18 @@ void multi_og(t_cmd *cmd, int input_pipe, int output_pipe, t_shell *shell)
 	if(set_multi_output(output_pipe, cmd) != 0)
 		shexit(shell, 1);
 	close_all_pipes(shell->pipe_arr);
-	//EXECUTE_ORIGINAL
+	if (cmd == NULL)
+		shexit(shell, 127);
+	if (cmd->cmd == NULL)
+		shexit(shell, 127);
+	if (set_cmd_path(cmd, shell) != 0)
+		shexit(shell, 127);
+	if (cmd->path == NULL)
+	{
+		ft_putstr_fd("Command not found \n", 2);
+		shexit(shell, 127);
+	}
+	child_executor(cmd, shell);
 }
 
 void multi_builtin(t_cmd *cmd, int input_pipe, int output_pipe, t_shell *shell)
@@ -139,18 +150,35 @@ void multi_builtin_menu(t_shell *shell, int child_index, int last_index, t_cmd *
 		multi_builtin(cmd, shell->pipe_arr[child_index - 1][0], shell->pipe_arr[child_index][1], shell);
 	}
 }
+void multi_original_menu(t_shell *shell, int child_index, int last_index, t_cmd *cmd)
+{
+	if(child_index == 0)
+	{
+		multi_og(cmd, 0, shell->pipe_arr[0][1], shell);
+	}
+	else if(child_index + 1 == last_index)
+	{
+		multi_og(cmd, shell->pipe_arr[child_index - 1][0], 1, shell);
+	}
+	else
+	{
+		multi_og(cmd, shell->pipe_arr[child_index - 1][0], shell->pipe_arr[child_index][1], shell);
+	}
+}
+
 
 void multi_child_handler(t_shell *shell, int child_index, int last_index, t_cmd *cmd)
 {
 	int is_builtin;
 
 	is_builtin = is_cmd_builtin(cmd);
-	if(is_builtin >=1 || is_builtin<= 7)
+	if(is_builtin >=1 && is_builtin<= 7)
 		multi_builtin_menu(shell, child_index, last_index, cmd);
 	else 
 	{
-		
+		multi_original_menu(shell, child_index, last_index, cmd);
 	}
+	shexit(shell, 1);
 	
 		//KRAJ
 	//MULTI_original
