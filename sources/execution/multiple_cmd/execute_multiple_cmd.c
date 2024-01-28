@@ -69,9 +69,11 @@ int	execute_multiple_cmd(int noc, t_shell *shell)
 {
 	int		i;
 	pid_t	id;
+	t_cmd *current_cmd;
 
 	i = 0;
 	shell->pipe_arr = NULL;
+	current_cmd = shell->cmd_lst;
 	if (make_pipes(&shell->pipe_arr, noc - 1) != 0)
 		return (EXIT_FAILURE);
 	while (i < noc)
@@ -82,9 +84,10 @@ int	execute_multiple_cmd(int noc, t_shell *shell)
 			perror("fork in execute multiple cmd failed\n");
 			return (child_waiter(i, shell->pipe_arr, shell), EXIT_FAILURE);
 		}
+		//id = 0;
 		if (id == 0)
-			child_handler(shell, i, shell->pipe_arr, noc);
-		shell->cmd_lst = shell->cmd_lst->next;
+			multi_child_handler(shell, i, noc, current_cmd);
+		current_cmd = current_cmd->next;
 		i++;
 	}
 	child_waiter(noc, shell->pipe_arr, shell);

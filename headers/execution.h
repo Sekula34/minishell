@@ -39,6 +39,7 @@ int		input_redirect(t_redirect *input, int *fd);
 int		is_cmd_builtin(t_cmd *cmd);
 int		is_minishell(t_cmd *mini);
 int		make_pipes(int ***pipe_arr, int number_of_pipes);
+void multi_child_handler(t_shell *shell, int child_index, int last_index, t_cmd *cmd);
 int		one_command_exec(t_cmd *cmd, t_shell *shell);
 int		output_redirect(t_redirect *output, int *fd);
 int		prepare_fds(t_cmd *cmd, t_shell *shell,

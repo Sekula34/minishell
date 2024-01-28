@@ -37,6 +37,8 @@ typedef struct s_cmd
 	char			**args;
 	t_redirect		*redirect_lst;
 	struct s_cmd	*next;
+	int				in_fd;
+	int				out_fd;
 }	t_cmd;
 
 typedef struct s_shell
