@@ -29,7 +29,7 @@ int set_multi_output(int output_pipe, t_cmd *cmd)
 	last_output = get_last_output(cmd);
 	if(last_output != NULL)
 	{
-		cmd->out_fd = open(last_output->file_name,  O_WRONLY | O_CREAT | O_TRUNC);
+		cmd->out_fd = open(last_output->file_name,  O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		if(cmd->out_fd == -1)
 			return(perror("Set multi input fail"), 1);
 		if(dup2(cmd->out_fd, STDOUT_FILENO) == -1)
@@ -124,7 +124,7 @@ void multi_builtin(t_cmd *cmd, int input_pipe, int output_pipe, t_shell *shell)
 }
 
 
-void multi_child_handler(t_shell *shell, int child_index, int last_index, t_cmd *cmd)
+void multi_builtin_menu(t_shell *shell, int child_index, int last_index, t_cmd *cmd)
 {
 	if(child_index == 0)
 	{
@@ -138,6 +138,20 @@ void multi_child_handler(t_shell *shell, int child_index, int last_index, t_cmd 
 	{
 		multi_builtin(cmd, shell->pipe_arr[child_index - 1][0], shell->pipe_arr[child_index][1], shell);
 	}
+}
+
+void multi_child_handler(t_shell *shell, int child_index, int last_index, t_cmd *cmd)
+{
+	int is_builtin;
+
+	is_builtin = is_cmd_builtin(cmd);
+	if(is_builtin >=1 || is_builtin<= 7)
+		multi_builtin_menu(shell, child_index, last_index, cmd);
+	else 
+	{
+		
+	}
+	
 		//KRAJ
 	//MULTI_original
 		//KRAJ
