@@ -8,7 +8,7 @@ cd minishell
 make
 
 ## Usage
-Run with ./minishell.
+Run with ./minishell.  
 Use just like bash.
 
 Supports:
