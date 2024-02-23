@@ -31,7 +31,7 @@ These programms are built in by us:
 
 ## Tests
 We mainly used this tester from github: https://github.com/zstenger93/42_minishell_tester.
-Other than that we tested by hand;
+Other than that we tested by hand.
 
 
 Made by Filip Seles and Willem van der Vorst
